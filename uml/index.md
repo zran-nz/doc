@@ -20,30 +20,12 @@ class group_members{ 组员 }
 class class2{ 课堂 }
 class class_members{ 班级成员 }
 class ppt{ PPT }
-
-class slide_page_thumbnails{
-  PPT缩略图
-}
-
-class his_items~~{
-  自定义元素
-}
-
-class his_elements{
-  PPT元素
-}
-
-class presentation_comments{
-  comment答案表
-}
-
-class response{
-  答案表
-}
-
-class comments{
-  Feedback表
-}
+class slide_page_thumbnails{ PPT缩略图 }
+class his_items~~{ 自定义元素 }
+class his_elements{ PPT元素 }
+class presentation_comments{ comment答案表 }
+class response{ 答案表 }
+class comments{ Feedback表 }
 
 
 ```
