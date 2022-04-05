@@ -1,4 +1,4 @@
-### 学校 UML
+### Session UML
 
 ```mermaid
 erDiagram
