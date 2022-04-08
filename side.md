@@ -6,6 +6,7 @@
   * [PPT/答题](uml/answer)
   * [学校](uml/school)
   * [表单start session](uml/startSession.md)
+  * [自定义标签](uml/tag.md)
 
 * 表单UML
   * [总览](formUml/index)
