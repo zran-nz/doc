@@ -1,9 +1,10 @@
 ## 大纲
 
-> mermaid文档:
-https://github.com/mermaid-js/mermaid/blob/develop/README.zh-CN.md
+> mermaid文档:  
+https://github.com/mermaid-js/mermaid/blob/develop/README.zh-CN.md  
+https://mermaid-js.github.io/mermaid/
 
-> 在线编辑器
+> 在线编辑器  
 https://mermaidjs.github.io/mermaid-live-editor/
 
 

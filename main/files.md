@@ -1,4 +1,30 @@
 ### 文件服务
+> 媒体文件URL格式  
+{CDNurl}/{sha1}.{ext}
+
+> 媒体文件上传接口  
+POST {API}/files?sha1={sha1}&ext={ext}  
+form-data  file
+
+> 媒体文件接口  
+新增关联数据上报 {API}/files/{sha1}?add[]={db}{table}{id}&add[]=...  
+删除关联数据上报 {API}/files/{sha1}?del[]={db}{table}{id}&del[]=...  
+用户空间信息 {API}/files_user?uid={user_id}&sid={school_id}  
+
+```mermaid
+flowchart TB
+
+B[浏览器选择文件] --FileReader+CryptoJS--> C(本地计算出sha1)
+C --> I{查询是否存在}
+  subgraph API
+    I --不存在--> A[上传到S3]
+  end
+I --存在--> S[上传成功]
+A --> S
+S --> R[关联更新API]
+R --> Rp[上报关联数据]
+
+```
 
 ```mermaid
 erDiagram
@@ -16,7 +42,8 @@ files {
   string id PK "文件sha1，用于秒传，文件去重"
   string ext "文件格式，文件后缀"
   string size "文件大小"
-  int public "公开访问"
+  int public "是否公开访问"
+  array refs "关联数据"
   method url "前端用的url地址, 代码生成，不存数据库"
   remark files "公共使用，"
 }
@@ -25,9 +52,8 @@ files_rel {
   int id PK
   string uid FK "用户ID"
   int sid "学校ID"
-  string hash "文件id"
+  string hash "文件id+ext"
   string size "文件大小，用于统计用户空间占用"
-  method url "前端用的url地址, 代码生成，不存数据库"
 }
 files_user {
   int id PK ""
