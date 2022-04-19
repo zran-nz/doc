@@ -9,6 +9,7 @@ School {
   String curriculumId "所属大纲"
 }
 School ||--||SchoolQuotation : "Request a Quote"
+SchoolQuotation ||--|{SchoolUserRelation : "关联提交人作为学校用户"
 SchoolQuotation{
   String id PK
   String firstname "用戶名"
@@ -18,6 +19,18 @@ SchoolQuotation{
   String schoolName "学校名称"
   String countryId "国家ID"
   String planFor "用途"
+}
+School ||--||SchoolPrinciple : "提交Principle信息"
+SchoolPrinciple ||--|{SchoolUserRelation : "关联Principle作为学校管理员"
+SchoolPrinciple{
+  String id PK
+  String firstname "用戶名"
+  String lastname "用户姓"
+  String email "邮箱"
+  String schoolId FK "School.id"
+  String schoolName "学校名称"
+  String countryId "国家ID"
+  String personalizedMessage "推荐理由"
 }
 SchoolInvite{
  int id PK
