@@ -32,6 +32,16 @@ SchoolPrinciple{
   String countryId "国家ID"
   String personalizedMessage "推荐理由"
 }
+School ||--||SchoolAcademic : "Add Academic/Term"
+SchoolAcademic{
+  String id PK
+  String schoolId FK "School.id"
+  String academicType "1:学年;2:学期"
+  String academicYear "学期关联的学年"
+  String name "学年或者学期名称"
+  Date startTime "开始时间"
+  Date EndTime "结束时间"
+}
 SchoolInvite{
  int id PK
  String schoolId FK "School.id"
