@@ -9,6 +9,7 @@
   * [学校](uml/school)
   * [表单start session](uml/startSession.md)
   * [自定义标签](uml/tag.md)
+  * [content](uml/content.md)
 
 
 * Main
@@ -16,3 +17,4 @@
   * [unit](main/unit)
   * [session](main/session)
   * [files](main/files)
+  * [学校管理](main/schoolManage.md)
