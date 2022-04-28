@@ -3,13 +3,14 @@
 {CDNurl}/{sha1}.{ext}
 
 > 媒体文件上传接口  
-POST {API}/files?sha1={sha1}&ext={ext}  
+查询hash对象 GET {API}/files/{sha1}  
+上传对象 POST {API}/files?sha1={sha1}&ext={ext}  
 form-data  file
 
 > 媒体文件接口  
-新增关联数据上报 {API}/files/{sha1}?add[]={db}{table}{id}&add[]=...  
-删除关联数据上报 {API}/files/{sha1}?del[]={db}{table}{id}&del[]=...  
-用户空间信息 {API}/files_user?uid={user_id}&sid={school_id}  
+新增关联数据上报 GET {API}/files_user/{sha1}?add[]={db}:{table}:{id}&add[]=...  
+删除关联数据上报 GET {API}/files_user/{sha1}?del[]={db}:{table}:{id}&del[]=...  
+用户空间信息 GET {API}/files_user?uid={user_id}&sid={school_id}  
 
 ```mermaid
 flowchart TB
@@ -30,10 +31,10 @@ R --> Rp[上报关联数据]
 erDiagram
 
 school }o--o{ user : "many to many"
-school ||--o{ files_user : "one to many"
-user ||--|| files_user : "one to one"
-files }o--o{ files_rel : "many to many"
-files_rel }o--|| files_user : "one to many"
+school ||--o{ files_stats : "one to many"
+user ||--|| files_stats : "one to one"
+files }o--o{ files_user : "many to many"
+files_user }o--|| files_stats : "one to many"
 material ||--o{ files : "one to many"
 response ||--o{ files : "one to many"
 remark ||--o{ files : "one to many"
@@ -43,19 +44,21 @@ files {
   string ext "文件格式，文件后缀"
   string size "文件大小"
   int public "是否公开访问"
-  array refs "关联数据"
   method url "前端用的url地址, 代码生成，不存数据库"
   remark files "公共使用，"
 }
 
-files_rel {
+files_user {
   int id PK
-  string uid FK "用户ID"
   int sid "学校ID"
+  string email FK "用户邮箱"
+  string uid FK "用户ID"
+  string title "文件标题"
   string hash "文件id+ext"
+  array refs "关联数据"
   string size "文件大小，用于统计用户空间占用"
 }
-files_user {
+files_stats {
   int id PK ""
   string uid "用户ID"
   int sid "学校ID"
