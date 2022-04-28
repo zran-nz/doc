@@ -1,4 +1,5 @@
 ### 文件服务
+
 > 媒体文件URL格式  
 {CDNurl}/{sha1}.{ext}
 
@@ -11,6 +12,9 @@ form-data  file
 新增关联数据上报 GET {API}/files_user/{sha1}?add[]={db}:{table}:{id}&add[]=...  
 删除关联数据上报 GET {API}/files_user/{sha1}?del[]={db}:{table}:{id}&del[]=...  
 用户空间信息 GET {API}/files_user?uid={user_id}&sid={school_id}  
+
+> Demo  
+[http://35.78.53.181/fio/s3.html](http://35.78.53.181/fio/s3.html)
 
 ```mermaid
 flowchart TB
