@@ -14,6 +14,7 @@
 
 * Main
   * [school](main/school)
+  * [user](main/user)
   * [unit](main/unit)
   * [session](main/session)
   * [files](main/files)
