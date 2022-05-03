@@ -7,6 +7,13 @@ A --> A2(老师注册时填写)
 A --> A3(提交quotation)
 A --> A4(refer principal)
 
+  subgraph adminCreated
+    direction TB
+    A1 --> A1_1[维护学校信息]
+    A1 --> A1_2[维护联系人]
+    A1 --> A1_3[维护管理员/老师]
+  end
+
   subgraph addPreference
     direction TB
     A2 -->|学校不存在| A2_1[创建学校] 

@@ -59,6 +59,7 @@ Class ||--||SlideRevisionId : "关联ppt和版本"
 Class ||--|{SlidePageThumbnails : "关联ppt图片"
 Class ||--|{HisElements : "关联ppt elements"
 Class ||--|{HisItems : "关联ppt items"
+Class ||--|{WorkshopsRegisteredRecord : "报名直播课"
 SlideRevisionId{
 	String slideId "ppt id"
  	String revisionId "ppt 版本"
@@ -87,5 +88,17 @@ HisItems{
   String pageId "ppt page id"
 }
 
+WorkshopsRegisteredRecord{
+  String id PK
+  String contentId "my content的id"
+  String sessionId "课堂id"
+  String userId "报名老师用户id"
+  String userName "报名老师邮箱"
+  String orderNo "订单编号"
+  Integer orderStatus "订单状态（0：未支付；1：支付成功；2：支付失败；3：取消订单）"
+  Double price "原价"
+  Double discount "折扣"
+  Double orderAmount "订单金额"
+}
 
 ```
