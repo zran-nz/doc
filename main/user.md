@@ -17,7 +17,7 @@ L --已注册--> Lc[本地登录]
 L --未注册--> Ls[本地注册]
 Ls --> Reg[Email+Password]
 Reg --> RSuc[注册成功]
-Lc --> Form[Email+Password]
+Lc --> Form[Uid/Email+Password]
 Form --> Suc[登录成功]
 SSO --> Auth[Google/MicroSoft/Apple授权]
 Auth --存在--> Suc
