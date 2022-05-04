@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="flex1 w100 h100">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="description" content="Description">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+</head>
+<body class="flex1 w100 h100">
+<div class="flex_v" style="width: 10rem;">
+  <div class="flex_v pd_l05">
+    <div class="pd_tb05"><b>表单</b></div>
+    <div class="flex_v pd_l05">
+      <div class="pd_tb05" onclick="openDraw('share')">share</div>
+      <div class="pd_tb05" onclick="openDraw('tips')">students tips</div>
+      <div class="pd_tb05" onclick="openDraw('task')">task</div>
+      <div class="pd_tb05" onclick="openDraw('task-pay')">task-pay</div>
+      <div class="pd_tb05" onclick="openDraw('taskAssign')">taskAssign</div>
+    </div>
+  </div>
+  <div>
+    <div class="pd_tb05"><b>老师</b></div>
+    <div class="flex_v pd_l05">
+      <div class="pd_tb05" onclick="openDraw('Classcipe Driver')">Classcipe Driver</div>
+      <div class="pd_tb05" onclick="openDraw('share')">老师分享</div>
+    </div>
+  </div>
+  <div>
+    <div class="pd_tb05"><b>学校</b></div>
+    <div class="flex_v pd_l05">
+      <div class="pd_tb05" onclick="openDraw('school')">school</div>
+    </div>
+  </div>
+  <div>
+    <div class="pd_tb05"><b>运营后台</b></div>
+    <div class="flex_v pd_l05">
+      <div class="pd_tb05" onclick="openDraw('推广')">运营推广</div>
+    </div>
+  </div>
+</div>
+<iframe class="flex1" id="app" src="draw.html?src=draw/tips.excalidraw"></iframe>
+<script>
+const openDraw = (name) => {
+  app.contentWindow.postMessage(`draw/${name}.excalidraw`, '*')
+}
+</script>
+<style>
+[class*="flex"]{display: flex;box-sizing: border-box;}
+.flex1{flex:1;}
+.flex2{-webkit-box-flex:2;}
+.flex3{-webkit-box-flex:3;}
+.flex4{-webkit-box-flex:4;}
+.flex_h{flex-direction: row;}
+.flex_hr{flex-direction: row-reverse;}
+.flex_v{flex-direction: column;}
+.flex_vr{flex-direction: column-reverse;}
+.flex_l{justify-content: flex-start;}
+.flex_r{justify-content: flex-end;}
+.flex_c{justify-content: center;align-items: center;}
+.flex_j{justify-content: space-between;}
+.flex_jc{justify-content: space-around;}
+.flex_al{align-items: flex-start;}
+.flex_ar{align-items: flex-end;}
+.flex_ac{align-items: center;}
+.w100{width:100%;}.h100{height:100%;}
+.h_1{height: 1rem;}.h_2{height: 2rem;}.h_3{height: 3rem;}.h_5{height: 5rem;}
+.pd_t05{padding-top: 0.5rem;}.pd_t1{padding-top: 1rem;}
+.pd_tb05{padding: 0.5rem 0;}.pd_tb1{padding: 1rem 0;}
+.pd_l1{padding-left: 1rem;}
+.pd_l05{padding-left: 0.5rem;}
+.pd_lr05{padding-left: 0.5rem;padding-right: 0.5rem;}
+.pd_r1{padding-right: 1rem;}
+.pd_r05{padding-right: 0.5rem;}
+.ta_r{text-align:right;}
+.ta_l{text-align:left;}
+.br_0{border: 0px;}
+.c_green{color: green;}
+.c_grey{color: grey;}
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body{margin:0;}
+iframe{border:0;border-left:1px solid black;}
+</style>
+</body>
+</html>
