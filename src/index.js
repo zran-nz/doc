@@ -56,7 +56,12 @@ const excalidrawWrapper = document.getElementById("app");
 
 const main = async function() {
   const ubj = new URL(location.href)
-  window.InitialData = await fetch(ubj.searchParams.get('src'), {json:true}).then(r=>r.json())
+  const src = ubj.searchParams.get('src')
+  if (src) {
+    window.InitialData = await fetch(src, {json:true}).then(r=>r.json())
+    console.log(Excalidraw.exportToSvg(InitialData));
+  }
+  else window.InitialData = {}
   ReactDOM.render(React.createElement(App), excalidrawWrapper);
 }
 main()
