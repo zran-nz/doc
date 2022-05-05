@@ -29,19 +29,21 @@
   <div>
     <div class="pd_tb05"><b>学校</b></div>
     <div class="flex_v pd_l05">
-      <div class="pd_tb05" onclick="openDraw('school')">school</div>
     </div>
   </div>
   <div>
     <div class="pd_tb05"><b>运营后台</b></div>
     <div class="flex_v pd_l05">
       <div class="pd_tb05" onclick="openDraw('推广')">运营推广</div>
+      <div class="pd_tb05" onclick="openDraw('school')">school</div>
     </div>
   </div>
+  <div class="pd_tb05" onclick="openDraw('')">create</div>
 </div>
 <iframe class="flex1" id="app" src="draw.html?src=draw/tips.excalidraw"></iframe>
 <script>
 const openDraw = (name) => {
+  if (!name) return app.contentWindow.postMessage('', '*')
   app.contentWindow.postMessage(`draw/${name}.excalidraw`, '*')
 }
 </script>

@@ -46,6 +46,7 @@ const main = async function() {
 main()
 
 window.addEventListener('message', async function(e) {
+  if (!e.data) return drawRef.current.resetScene()
   const rs = await fetch(e.data, {json:true}).then(r=>r.json())
   drawRef.current.updateScene(rs)
 });
