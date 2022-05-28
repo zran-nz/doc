@@ -10,6 +10,8 @@
   * [表单start session](uml/startSession.md)
   * [自定义标签](uml/tag.md)
   * [content](uml/content.md)
+  * [套餐](uml/plan)
+  * [学校运营](uml/schoolFollow)
 
 
 * Main
