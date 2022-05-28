@@ -75,6 +75,15 @@ PlanInfo ||--||PlanUpgradeRecord : "套餐升级"
 PlanUpgradeRecord{
   String id PK
   String planId "套餐id"
+  String upgradeNo "同一次升级的批次号"
+  String upgradeItem "升级的项目"
+  String note "备注"
+  Integer before "升级前的值"
+  Integer after "升级后的值"
+  Date upgradeTime "升级时间"
+  Double amount "金额"
+  String orderNo "支付订单编号"
+
 }
 
 
@@ -84,6 +93,18 @@ PlanUpgradeRecord ||--||OrderPayRecord : "申请试用/套餐升级"
 OrderPayRecord{
   String id PK
   String planId "套餐id"
+  String orderNo "订单编号"
+  Integer orderType "订单类型（1：学校主套餐订单；2：套餐升级订单）"
+  Double orderAmount "订单金额"
+  String purchaseId "商品id（如套餐id）"
+  String purchaseName "商品名称"
+  String userId "个人用户id"
+  String schoolId "学校用户学校id"
+  Integer payStatus "支付状态（1：待支付；2：支付成功；3：支付失败）"
+  Double payAmount "支付金额"
+  String payReceipt "支付凭证"
+  Date payTime "支付时间"
+  String parentOrder "部分支付时主订单信息"
 }
 
 
