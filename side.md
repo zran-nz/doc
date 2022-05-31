@@ -12,6 +12,7 @@
   * [content](uml/content.md)
   * [套餐](uml/plan)
   * [学校运营](uml/schoolFollow)
+  * [assessmentTool](uml/assessmentTool)
 
 
 * Main
