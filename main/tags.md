@@ -48,19 +48,33 @@ await App.service('stats-target').patch('test', {
 ```
 
 ## 标签
+
+1、系统的分类与标签不允许删除
+2、单个身份下分类名称不允许重复
+3、标签全局不重复，各分类下也不重复
+4、新增的标签 分类为在当前分类
+
+- 获取标签
+  - ```await App.service('tags').find()```
+- 新增分类
+  - 对当前身份不重复
+  - ```await App.service('tags').create({set: 'test'})```
+- 新增分类同时设置标签 (当前身份下标签重复也会不成功)
+  - ```await App.service('tags').create({set: 'test', tags: ['test1', 'test2']})```
+- 新增标签 (单个分类下可以批量操作)
+  - 对当前身份不重复
+  - ```await App.service('tags').patch('62937c447fdb088d59cfc366', {$addToSet: { tags: ['test', 'test1'] }})```
+- 删除标签 (单个分类下可以批量操作)
+  - ```await App.service('tags').patch('62937c447fdb088d59cfc366', {$pull: { tags: ['test'] }})```
+
+
 ```json
 
 {
-  tag: { type: String },
-  cg: [{ type: String }]
-},
-
-{
-  uid: { type: String },
-  tag: { type: String },
-  cg: [{ type: String }]
+  uid: '',
+  cg: '',
+  tags: [tag, tag]
 }
-
 
 ```
 
