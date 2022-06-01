@@ -55,7 +55,7 @@ await App.service('stats-target').patch('test', {
 4、新增的标签 分类为在当前分类
 
 - 获取标签
-  - ```await App.service('tags').find()```
+  - ```await App.service('tags').get('list')```
 - 新增分类
   - 对当前身份不重复
   - ```await App.service('tags').create({set: 'test'})```
