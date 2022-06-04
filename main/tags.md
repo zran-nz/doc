@@ -33,11 +33,21 @@ curl -H "Content-Type: application/json" -H "Authorization: <your access token>"
 ```js
 // 大纲内容统计批量查询接口，需要bloom, KnowledgeDimensions统计, 和term,Knowledge tag
 // get one
-await App.service('stats-target').get('test')
+await App.service('stats-target').get('test') // 传入大纲的md5值
 // get multi
 await App.service('stats-target').find({ query: {
   _id: {$in: ['_id1','_id2','_id3']}
 }})
+[
+  {
+    id: '000000000000000000000000', // 大纲的md5值
+    bloom: [0, 5, 0, 10, 0, 0], // 对应6个bloom维度的统计 Evaluate, Analyze, Apply, Understand, Remember, Create
+    knowledge: [0, 4, 10, 0] // 对应4个KnowledgeDimensions维度统计, Factual, Conceptual, Procedural, Megacognitave
+    terms: ['Select', 'Use'], // 保存最后使用的20个，不重复，超过的挤出最早的数据
+    tags: ['Uses of data', ...], // 保存最后使用的20个，不重复，超过的挤出最早的数据
+  },
+  ...
+]
 // bloom, knowledge report
 // bloom维度范围为0-5, knowledge范围为0-3
 // bloom, knowledge维度报告值 新增为 1, 移除为 -1
@@ -53,17 +63,6 @@ await App.service('stats-target').patch('test', {
   $inc: { 'bloom.4': 1, 'knowledge.1': 1 },
   $addToSet: { terms: 'e', tags: 'e' }
 })
-// 返回结果
-[
-  {
-    id: '000000000000000000000000', // 大纲的md5值
-    bloom: [0, 5, 0, 10, 0, 0], // 对应6个bloom维度的统计 Evaluate, Analyze, Apply, Understand, Remember, Create
-    knowledge: [0, 4, 10, 0] // 对应4个KnowledgeDimensions维度统计, Factual, Conceptual, Procedural, Megacognitave
-    terms: ['Select', 'Use'], // 保存最后使用的20个，不重复，超过的挤出最早的数据
-    tags: ['Uses of data', ...], // 保存最后使用的20个，不重复，超过的挤出最早的数据
-  },
-  ...
-]
 ```
 
 ## 标签
