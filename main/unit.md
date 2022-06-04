@@ -56,6 +56,8 @@
 
 | 功能\名称 | 学校老师 | 班主任 | 学科组长 | 学校管理员 | 备注 |
 | :--- | :--: | :--: | :--: | :--: | :--: |
+| 课件删除 | / | / | / | Y | 删除权限可配置 |
+| Session删除 | / | / | / | Y | 删除权限可配置 |
 | 课件下载 | / | / | / | Y | 数据部分json存储，将所有附件都打包为Zip，可以后期导入 |
 | 发布公告 | / | 发布给该班级<br>关联所有老师 | 发布给自己<br>学科下老师 | 可发布给全校<br>任何老师 |
 | Insight权限 | 只对自己教<br>的Unit做点评 | 只对自己教<br>的Unit做点评 | 该学科下所有<br>Unit做reflection<br>环节点评 | 全校所有<br>Unit做点评 | 前后端都要根据学校下的角色进行判断 |
@@ -81,17 +83,42 @@ Auth --Save to Classcipe--> Tl2>保存为图片]
 ```
 ```mermaid
 flowchart
-T[Task] --Edit--> GS(Google slides)
+T[Task] --Edit slides--> GS(Google slides)
 GS --Save to Classcipe--> Tl>保存为图片]
-GS --> Cs{{学校老师创建课堂}}
-GS --> Pub{{发布}}
+Tl --个人发布中 or<br>学校下已建立课堂的--> To
+T --> Cs{{学校老师创建课堂}}
+T --> Pub{{个人身份发布}}
 Cs --google driver to S3--> To{{PPT格式原件}}
 Pub --google driver to S3--> To{{PPT格式原件}}
-T --Copy--> Auth[Google Auth]
+Lib --Copy--> Auth[Google Auth]
 Auth --s3 upload to google driver--> GS2[Google slides]
 Auth --Save to Classcipe--> Tl2>保存为图片]
+Cs --> Lib[Library or School Library]
+Pub --> Lib
 
 ```
+- PPT原件下载到S3的触发条件
+  - 个人身份
+    - 发布课件到library时
+    - 已经发布的课件 点击save to classcipe 按钮
+  - 学校身份
+    - 给班级安排课程的时候
+    - 已经安排过课程的课件 点击save to classcipe 按钮
+  - 以上四个条件触发的时候都要从google driver下载ppt原件到S3
+- 个人身份下的课件 导入复制到 学校身份下的课件后，之后的ppt更新维护都独立保存
+- 特殊学校library 自动发布到 平台Library的处理
+  - 学校身份下发布到 平台library的课件
+    - 作者为 学校的logo + 学校名称
+    - 付费收入归平台所有
+  - 个人身份下已经发布的课件，学校下相同的课件不会自动发布
+
+
+### PPT推荐
+- 推荐规则
+  - bloom难度同级以上
+  - 大纲、标签、知识点相似
+  - 老师编辑中按页推荐（付费）
+  - 学生自学习可以按题目推荐（）
 
 ### session保存
 ```mermaid
@@ -101,8 +128,8 @@ T[Task] --create--> Ss(Session + PPT快照)
 Ss --Edit--> Te
 Te --task进来--> Sv1{保存}
 Te --session进来--> Sv2{保存}
-Sv1 --不更新--> SsS0[更新Task]
-Sv2 --不更新--> SsS0[更新Task]
+Sv1 --> SsS0[更新Task]
+Sv2 --> SsS0[更新Task]
 Sv2 --Session更新--> S2[Session多选列表 当前Session默认选中]
 S2 --选择完毕--> SsS1[更新Task 和 已选Session PPT快照 同时清空互动答案]
 

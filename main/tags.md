@@ -1,13 +1,24 @@
 ## 大纲
 
+### Command term 
 ```js
-// Command term 标签接口返回, 默认最多取500条
-['Select', 'Use']
+// 公共标签接口
+GET /fio/tags-terms/pubList
+// 搜索接口
+GET /fio/tags-terms/search?key=123
+// 自定义创建接口
+POST /fio/tags-terms { tag: 'xxxx' }
+curl 
 ```
 
+### knowledge dimensions
 ```js
-// knowledgeTag 标签接口返回, 默认最多取500条  
-['Uses of data', ]
+// 公共标签接口
+GET /fio/tags-dimensions/pubList
+// 搜索接口
+GET /fio/tags-dimensions/search?key=123
+// 自定义创建接口
+POST /fio/tags-dimensions { tag: 'xxxx' } {  }
 
 ```
 
