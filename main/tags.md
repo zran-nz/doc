@@ -51,9 +51,10 @@ await App.service('stats-target').find({ query: {
 ]
 // bloom, knowledge report
 // bloom维度范围为0-5, knowledge范围为0-3
-// bloom, knowledge维度报告值 新增为 1, 移除为 -1
+// bloom, knowledge 维度报告值 新增为 1, 移除为 -1
+// 比如 bloom 从 1 变为 3, knowledge 从 3 变为 2
 await App.service('stats-target').patch('test', {
-  $inc: { 'bloom.4': 1, 'knowledge.1': 1 }
+  $inc: { 'bloom.1': -1, 'bloom.3': 1, 'knowledge.3': -1, 'knowledge.2': 1 }
 })
 // terms, tags report
 await App.service('stats-target').patch('test', {
