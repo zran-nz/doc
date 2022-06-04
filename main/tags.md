@@ -32,9 +32,10 @@ curl -H "Content-Type: application/json" -H "Authorization: <your access token>"
 ### 标签接口
 ```js
 // 大纲内容统计批量查询接口，需要bloom, KnowledgeDimensions统计, 和term,Knowledge tag
-// get one
+// 获取单个大纲条 统计/推荐内容
+GET /fio/stats-target/md5
 await App.service('stats-target').get('test') // 传入大纲的md5值
-// get multi
+// 获取多个大纲条 统计/推荐内容
 await App.service('stats-target').find({ query: {
   _id: {$in: ['_id1','_id2','_id3']}
 }})
