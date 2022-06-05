@@ -83,7 +83,7 @@ Auth --Save to Classcipe--> Tl2>保存为图片]
 ```
 ```mermaid
 flowchart
-T[Task] --Edit slides--> GS(Google slides)
+T[Task] --Edit slides<br>Set unsave<br>Jump to Google slides--> GS(Google slides)
 GS --Save to Classcipe--> Tl>保存为图片]
 Tl --个人发布中 or<br>学校下已建立课堂的--> To
 T --> Cs{{学校老师创建课堂}}
@@ -130,7 +130,7 @@ Te --task进来--> Sv1{保存}
 Te --session进来--> Sv2{保存}
 Sv1 --> SsS0[更新Task]
 Sv2 --> SsS0[更新Task]
-Sv2 --Session更新--> S2[Session多选列表 当前Session默认选中]
+Sv2 --slides版本有变化<br>Session更新--> S2[Session多选列表 当前Session默认选中]
 S2 --选择完毕--> SsS1[更新Task 和 已选Session PPT快照 同时清空互动答案]
 
 ```
