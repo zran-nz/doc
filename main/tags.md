@@ -14,18 +14,18 @@ await App.service('tags-terms').create({tag: 'xxx'})
 curl -H "Content-Type: application/json" -H "Authorization: <your access token>" -X POST -d '{"tag": "xxxx"}' /fio/tags-terms
 ```
 
-### knowledge dimensions
+### knowledge knowledge
 ```js
 // 公共标签接口
-GET /fio/tags-dimensions/pubList
-await App.service('tags-dimensions').get('pubList')
+GET /fio/tags-knowledge/pubList
+await App.service('tags-knowledge').get('pubList')
 // 搜索接口
-GET /fio/tags-dimensions/search?key=sel
-await App.service('tags-dimensions').get('search', { query: {key: 'sel'}})
+GET /fio/tags-knowledge/search?key=sel
+await App.service('tags-knowledge').get('search', { query: {key: 'sel'}})
 // 自定义创建接口
-POST /fio/tags-dimensions { tag: 'xxxx' }
-await App.service('tags-dimensions').create({tag: 'xxx'})
-curl -H "Content-Type: application/json" -H "Authorization: <your access token>" -X POST -d '{"tag": "xxxx"}' /fio/tags-dimensions
+POST /fio/tags-knowledge { tag: 'xxxx' }
+await App.service('tags-knowledge').create({tag: 'xxx'})
+curl -H "Content-Type: application/json" -H "Authorization: <your access token>" -X POST -d '{"tag": "xxxx"}' /fio/tags-knowledge
 
 ```
 
