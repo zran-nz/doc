@@ -19,7 +19,7 @@ curl -H "Content-Type: application/json" -H "Authorization: <your access token>"
 // 公共标签接口
 GET /fio/tags-knowledge/pubList
 await App.service('tags-knowledge').get('pubList')
-// 搜索接口
+// 搜索接口 (只搜索非平台的标签)
 GET /fio/tags-knowledge/search?key=sel
 await App.service('tags-knowledge').get('search', { query: {key: 'sel'}})
 // 自定义创建接口
