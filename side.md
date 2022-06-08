@@ -13,6 +13,7 @@
   * [套餐](uml/plan)
   * [学校运营](uml/schoolFollow)
   * [assessmentTool](uml/assessmentTool)
+  * [academic](uml/academic)
 
 
 * Main
