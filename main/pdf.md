@@ -1,10 +1,10 @@
 ## PDF
 
 ### PDF Invoice 接口
+- 有折扣的invoice 在json对象里加上 discount 参数
 ```js
 POST /fio/pdf/invoice
 {no: '1110000', schoolName: 'xxxxxx', date: 'xx/xx/2022', amount: '', paid: '', total: '', due: '', list: [{desc: 'xxxx', units: '12', price: '21', type: '11', amount: '23'}]}
-
 ```
 
 ```shell
