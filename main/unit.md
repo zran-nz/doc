@@ -73,12 +73,26 @@
 ### PPT原件
 ```mermaid
 flowchart
-T[Task] --Edit--> GS(Google slides)
-GS --Save to Classcipe--> Tl>保存为图片]
-GS --google driver copy to--> To{{公司谷歌driver}}
-T --Copy--> Auth[Google Auth]
-Auth --google driver copy--> GS2[Google slides]
-Auth --Save to Classcipe--> Tl2>保存为图片]
+  subgraph save
+  direction TB
+GS3(Google slides) --save--> Down(下载图片快照)
+Down --> MTs1(更新为已保存状态)
+MTs1 --go to classcipe--> MTs(我的课件)
+  end
+  subgraph edit
+  direction TB
+MT1(我的课件) --edit slides--> GA{{Google授权}}
+GA --授权成功--> GD{{谷歌driver是否存在}}
+GD --不存在--> SGD{{S3 to 谷歌driver}}
+GD --存在--> US(设为未保存状态)
+SGD --上传成功--> US
+US --> GS(Google slides)
+  end
+  subgraph copy
+  direction TB
+Lib[Library] --view--> TD(Task Datail)
+TD --Buy copy<br>复制图片快照到我的内容里<br>关联原件路径--> MT0(我的课件)
+  end
 
 ```
 ```mermaid
