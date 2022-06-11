@@ -1,5 +1,8 @@
 ## 大纲
 
+- https://dev.classcipe.com/v2/json/au.json
+- https://dev.classcipe.com/v2/json/nz.json
+
 ### Command term 
 ```js
 // 公共标签接口
