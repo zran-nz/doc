@@ -77,6 +77,8 @@ await App.service('stats-target').patch('test', {
 3、标签全局不重复，各分类下也不重复
 4、新增的标签 分类为在当前分类
 
+- 获取平台标签
+  - ```await App.service('tags').get('pubList')```
 - 获取标签
   - ```await App.service('tags').get('list')```
 - 新增分类
@@ -89,17 +91,9 @@ await App.service('stats-target').patch('test', {
   - ```await App.service('tags').patch('62937c447fdb088d59cfc366', {$addToSet: { tags: ['test', 'test1'] }})```
 - 删除标签 (单个分类下可以批量操作)
   - ```await App.service('tags').patch('62937c447fdb088d59cfc366', {$pull: { tags: ['test'] }})```
+- 删除分类及标签
+  - ```await App.service('tags').remove('62937c447fdb088d59cfc366')```
 
-
-```json
-
-{
-  uid: '',
-  cg: '',
-  tags: [tag, tag]
-}
-
-```
 
 ### 表单自定义模板
 - 系统后台配置模板
