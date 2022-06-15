@@ -30,3 +30,6 @@
   * [学校权限](main/schoolRole.md)
   * [直播课](main/liveWorkShops.md)
   * [PPT](main/PPT.md)
+
+* Api
+  * [学校管理](api/学校管理.md) 
