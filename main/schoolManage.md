@@ -1,6 +1,8 @@
 ## 学校管理
 
+
 ### 老师管理逻辑
+<img width="870" alt="a7490ba30657a399f7cf9f172d12fdb" src="https://user-images.githubusercontent.com/1272280/174215231-61eb726a-96a9-4d80-b07f-2a7001678ad6.png">
 - 老师加入学校的方法
   - 1、注册账号的时候关联学校（需要审核，来源: 注册关联）
   - 2、管理员后台添加邮箱账户（）
