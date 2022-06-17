@@ -134,18 +134,19 @@ Pub --> Lib
   - 老师编辑中按页推荐（付费）
   - 学生自学习可以按题目推荐（）
 
-### session保存
+### Session保存  (弃用)
+> Session无法跳转编辑
 ```mermaid
 flowchart
 T[Task] --Edit--> Te(课件编辑)
 T[Task] --create--> Ss(Session + PPT快照)
 Ss --Edit--> Te
 Te --task进来--> Sv1{保存}
-Te --session进来--> Sv2{保存}
 Sv1 --> SsS0[更新Task]
-Sv2 --> SsS0[更新Task]
-Sv2 --slides版本有变化<br>Session更新--> S2[Session多选列表 当前Session默认选中]
-S2 --选择完毕--> SsS1[更新Task 和 已选Session PPT快照 同时清空互动答案]
+
+Te2[Session] --session改为没有编辑按钮--x Sv2{保存}
+Sv2 --slides版本有变化<br>Session更新--x S2[Session多选列表 当前Session默认选中]
+S2 --选择完毕--x SsS1[更新Task 和 已选Session PPT快照 同时清空互动答案]
 
 ```
 

@@ -109,3 +109,12 @@ await App.service('stats-target').patch('test', {
 | :---  | :---  | :--  | :--: |
 | name | true or false |  | 输入描述 |
 
+## PPT题型推荐
+- 根据 knowledge + bloom + dimension 推荐
+- 课前推荐简单的
+  - 包含knowledge
+  - 难度 <= bloom or <= dimension
+
+- 课后推荐更难的
+  - 包含knowledge
+  - 难度 >= bloom or >= dimension
