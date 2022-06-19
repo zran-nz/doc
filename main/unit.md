@@ -134,8 +134,10 @@ Pub --> Lib
   - 老师编辑中按页推荐（付费）
   - 学生自学习可以按题目推荐（）
 
-### Session保存  (弃用)
-> Session无法跳转编辑
+### Session保存
+- Session无法跳转编辑课件内容 (弃用)，
+- 只能编辑session排课相关的内容
+> Session 
 ```mermaid
 flowchart
 T[Task] --Edit--> Te(课件编辑)
