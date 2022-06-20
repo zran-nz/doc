@@ -19,6 +19,7 @@
 * Main
   * [微服务](main/微服务)
   * [支付订单](main/order)
+  * [接口](api/接口)
   * [fio接口](main/fio)
   * [school](main/school)
   * [user](main/user)
@@ -32,7 +33,12 @@
   * [PPT](main/PPT.md)
 
 * Api
-  * [班级管理](api/班级管理.md) 
-  * [老师管理](api/老师管理.md) 
-  * [学生管理](api/学生管理.md) 
-  * [老师角色管理](api/老师角色管理.md) 
+  * [个人账号](api/个人账号.md ':include')
+  * [学校信息](api/学校信息.md ':include')
+  * [Library](api/Library内容详情.md ':include')
+  * [班级管理](api/班级管理.md ':include')
+  * [学生管理](api/学生管理.md ':include')
+  * [老师注册](api/老师注册.md ':include')
+  * [老师管理](api/老师管理.md ':include')
+  * [老师角色管理](api/老师角色管理.md ':include')
+  * [空间管理](空间管理.md ':include')
