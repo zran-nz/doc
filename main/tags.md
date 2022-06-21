@@ -100,6 +100,17 @@ await App.service('stats-target').patch('test', {
 平台管理页面  /v2/sys/tags?uid=1
 
 
+### Unit 关联task分组标签接口
+- 获取task分组标签
+  - ```await App.service('conf-user').get('UnitSet')```
+- task分组标签新增 (单个操作)
+  - _id 在分组标签接口获取
+  - ```await App.service('conf-user').patch(_id, { $addToSet: { val: 'test' }})```
+- task分组标签移除 (单个操作)
+  - _id 在分组标签接口获取
+  - ```await App.service('conf-user').patch(_id, { $pull: { val: 'test' }})```
+
+
 ### 表单自定义模板
 - 系统后台配置模板
   - 预先配置好几套模板，可供用户选择使用
