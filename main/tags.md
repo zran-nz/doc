@@ -100,7 +100,7 @@ await App.service('stats-target').patch('test', {
 平台管理页面  /v2/sys/tags?uid=1
 
 
-### Unit 关联task分组标签接口
+### Unit 关联task分组自定义标签接口
 - 获取task分组标签
   - ```await App.service('conf-user').get('UnitSet')```
 - task分组标签新增 (单个操作)
@@ -109,6 +109,13 @@ await App.service('stats-target').patch('test', {
 - task分组标签移除 (单个操作)
   - _id 在分组标签接口获取
   - ```await App.service('conf-user').patch(_id, { $pull: { val: 'test' }})```
+
+### Unit 关联task分组标签最后选择接口
+- 获取task分组标签最后选择
+  - ```await App.service('conf-user').get('UnitSetLast')```
+- task分组标签最后选择 保存
+  - _id 在分组标签接口获取
+  - ```await App.service('conf-user').patch(_id, { val: []})```
 
 
 ### 表单自定义模板
