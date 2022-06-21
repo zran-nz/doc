@@ -42,3 +42,4 @@
   * [老师管理](api/老师管理.md ':include')
   * [老师角色管理](api/老师角色管理.md ':include')
   * [空间管理](空间管理.md ':include')
+  * [套餐](套餐.md ':include')
