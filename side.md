@@ -34,12 +34,12 @@
 
 * Api
   * [个人账号](api/个人账号.md ':include')
-  * [学校信息](api/学校信息.md ':include')
   * [Library](api/Library内容详情.md ':include')
+  * [老师角色管理](api/老师角色管理.md ':include')
+  * [学校信息](api/学校信息.md ':include')
   * [班级管理](api/班级管理.md ':include')
   * [学生管理](api/学生管理.md ':include')
   * [老师注册](api/老师注册.md ':include')
   * [老师管理](api/老师管理.md ':include')
-  * [老师角色管理](api/老师角色管理.md ':include')
-  * [空间管理](空间管理.md ':include')
-  * [套餐](套餐.md ':include')
+  * [空间管理](api/空间管理.md ':include')
+  * [套餐](api/套餐.md ':include')
