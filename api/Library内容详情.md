@@ -1,6 +1,6 @@
 ![image](https://user-images.githubusercontent.com/1272280/174488191-ac15df12-cb57-4e10-8b70-21fbab975ad1.png)
 
-### 获取内容详情接口
+### 获取内容详情接口-https://dev.classcipe.com/classcipe/doc.html#/default/2.0-api/contentPreviewUsingGET
 - 标题
 - 描述
 - Task Type
