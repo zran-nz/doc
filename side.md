@@ -19,8 +19,6 @@
 * Main
   * [微服务](main/微服务)
   * [支付订单](main/order)
-  * [接口](api/接口)
-  * [fio接口](main/fio)
   * [school](main/school)
   * [user](main/user)
   * [unit](main/unit)
@@ -43,3 +41,6 @@
   * [老师注册](api/老师注册.md ':include')
   * [空间管理](api/空间管理.md ':include')
   * [套餐](api/套餐.md ':include')
+
+
+* [fio接口](main/fio)
