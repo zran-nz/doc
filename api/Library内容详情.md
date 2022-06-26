@@ -59,8 +59,8 @@
 
 
 ### 内容评论列表接口
-> 接口地址: 
-- 请求方式: GET
+> 接口地址: https://dev.classcipe.com/classcipe/doc.html#/default/%E8%80%81%E5%B8%88%E5%AF%B9%E5%95%86%E5%93%81%E8%AF%84%E4%BB%B7%E4%BF%A1%E6%81%AF/queryPageListUsingGET_26
+- 请求方式: POST
 - 开发状态: 文档中
 
 - 评论列表（Reviews）
