@@ -42,5 +42,8 @@
   * [空间管理](api/空间管理.md ':include')
   * [套餐](api/套餐.md ':include')
 
+* fio接口
 
-* [fio接口](main/fio)
+  * [标签](main/tags.md ':include')
+  * [PDF](main/pdf.md ':include')
+  * [课堂端](main/classroom.md ':include')
