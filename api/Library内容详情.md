@@ -70,6 +70,9 @@
   - 评论时间
 
 ### 课件购买接口
+
+接口地址：https://dev.classcipe.com/classcipe/doc.html#/default/2.0-api/byeUsingPOST
+
 > 购买后结算逻辑
 1. 老师产出的自学习课件，前五次免费看，之后4，6分成，
 2. 系统重组PPT，按ppt比例 再 4、6分成
