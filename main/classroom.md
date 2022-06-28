@@ -1,6 +1,19 @@
 ### 学生答案
 
-> 接口: GET /fio/response/list?session_id=&student_uid=
+> 接口: GET /fio/response/list?sid=&student_uid=
+- 请求参数
+- sid: session id
+- student_uid: 学生 uid
+
+### 通知复制PPT
+
+> 接口: GET /fio/slides/copy?id=&rev=&id2=&rev2=
+- 请求参数
+- id: new slide id
+- rev: new revision_id
+- id2: old slide id
+- rev2: old revision_id
+
 
 ### 通知更新PPT快照
 
