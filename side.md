@@ -32,6 +32,7 @@
 
 * Api
   * [个人账号](api/个人账号.md ':include')
+  * [个人认证服务](api/个人认证服务.md ':include')
   * [Library](api/Library内容详情.md ':include')
   * [学校-角色管理](api/老师角色管理.md ':include')
   * [学校-老师管理](api/老师管理.md ':include')
