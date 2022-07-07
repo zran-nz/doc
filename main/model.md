@@ -5,6 +5,7 @@
 | task-信息 | 表单储存 |  | Y | / | / | / |
 | task-PPT图片快照 | 课堂.slide_page_thumbnails | 课堂.slides | / | / | Y |
 | task-materials | 课堂.elements  | 课堂.materials | / | / | Y |
+| task-大纲 | 表单. | 课堂.outlines | / | / | Y |
 | task-互动题 | 课堂.items | 课堂.questions | / | / | Y |
 | task-互动题-大纲 | 课堂.elements | 课堂.questions | / | / | Y |
 | task-tips | 课堂.elements | 课堂.tips | / | / | Y |
