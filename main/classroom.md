@@ -5,6 +5,16 @@
 - sid: session id
 - student_uid: 学生 uid
 
+### 课堂空间占用统计
+
+> 接口: GET /fio/response/space?sid=
+- 请求参数
+- sid: session id
+
+- 接口返回
+- { sid: '', size: 1000 }
+
+
 ### 通知复制PPT
 
 > 接口: GET /fio/slides/copy?id=&rev=&id2=&rev2=

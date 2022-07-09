@@ -45,6 +45,7 @@
 
 * fio接口
 
+  * [配置](main/conf.md ':include')
   * [标签](main/tags.md ':include')
   * [PDF](main/pdf.md ':include')
   * [课堂端](main/classroom.md ':include')
