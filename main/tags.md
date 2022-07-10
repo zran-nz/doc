@@ -98,10 +98,11 @@ await App.service('stats-target').patch('test', {
 - 删除分类及标签
   - ```await App.service('tags').remove('62937c447fdb088d59cfc366')```
 
-标签iframe引用
-个人身份      /v2/com/tags?token={token}
-学校身份      /v2/com/tags/school?uid={schoolId}&token={token}
-平台管理页面  /v2/sys/tags?uid=1
+> 标签iframe引用
+- 个人身份      /v2/com/tags?token={token}
+- 学校老师身份  /v2/com/tags/{schoolId}?token={token}
+- 学校身份      /v2/com/tags/school/{schoolId}?token={token}
+- 平台管理页面  /v2/sys/tags?uid=1
 
 
 ### Unit 关联task分组自定义标签接口
