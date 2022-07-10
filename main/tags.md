@@ -79,9 +79,12 @@ await App.service('stats-target').patch('test', {
 
 - 获取平台标签
   - ```await App.service('tags').get('pubList')```
-  - ```await App.service('tags').get('pubList', { query: { set: ['Task types', 'Inquiry stages'] }})```
+  - 指定分类下的标签
+    - ```await App.service('tags').get('pubList', { query: { set: ['Task types', 'Inquiry stages'] }})```
 - 获取标签
   - ```await App.service('tags').get('list')```
+  - 指定分类下的标签
+    - ```await App.service('tags').get('list', { query: { set: ['Task types', 'Inquiry stages'] }})```
 - 新增分类
   - 对当前身份不重复
   - ```await App.service('tags').create({set: 'test'})```
