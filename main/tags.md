@@ -79,6 +79,7 @@ await App.service('stats-target').patch('test', {
 
 - 获取平台标签
   - ```await App.service('tags').get('pubList')```
+  - ```await App.service('tags').get('pubList', { query: { set: ['Task types', 'Inquiry stages'] }})```
 - 获取标签
   - ```await App.service('tags').get('list')```
 - 新增分类
