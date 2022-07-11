@@ -49,4 +49,12 @@ curl -H "Content-Type: application/json" -H "Authorization: <your access token>"
 
 ### 获取PPT大纲与标签
 
-> 接口: GET /fio/
+> 接口: GET /fio/slides/list
+
+### 课堂takeway数据
+
+> 接口: GET /fio/slides/takeway?sid={session_id}
+
+### 课堂takeway答案
+
+> 接口: GET /fio/answers/list?sid={session_id}
