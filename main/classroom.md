@@ -1,13 +1,13 @@
 ### 学生答案
 
-> 接口: GET /fio/response/list?sid=&student_uid=
+> 接口: GET /fio/answers/list?sid=&student_uid=
 - 请求参数
 - sid: session id
 - student_uid: 学生 uid
 
 ### 课堂空间占用统计
 
-> 接口: GET /fio/response/space?sid=
+> 接口: GET /fio/answers/space?sid=
 - 请求参数
 - sid: session id
 
