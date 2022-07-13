@@ -15,31 +15,30 @@
 ### 学校-记录
 > 学校销售跟进记录
 
-| 类型 | 状态 | 操作人 | 时间 | 内容 | 操作逻辑 | 逻辑备注 |
-| :-- | :-- | :-- | :-- | :-- | --: | --: |
-| ~~Create school~~ | 创建 | -- | -- | -- | 仅通过后台管理员创建 |
-| Refer principal | 创建 | -- | -- | -- | 由用户推荐 |
-| 注册关联学校 User registered | 创建 | -- | -- | --  | 用户注册 |
-| Quotation | 申请中  | -- | -- | --  | 官网提交 |
-| 领取学校 Claimed | 申请中 | -- | -- | -- | 仅通过后台操作 |
-| 释放学校 Released | 申请中 | -- | -- | -- | 过期未跟进自动释放/后台人工释放 |
-| 沟通记录 Communicate | 申请中 | -- | -- | -- | 仅通过后台操作 |
-| 开通试用 Open trial | 试用中 | -- | -- | -- | 仅通过后台操作 |
-| 开通正式 Fully paid | 开通中 | -- | -- | -- | 仅通过后台操作 |
-| 自助付费开通 Self paid | 开通中 | -- | -- | -- | 由用户自行操作 |
+| 类型 | 状态 | 操作人 | 内容 | 操作逻辑 |
+| :-- | :-- | :-- | :-- | --: |
+| ~~Create school~~ | 创建 | -- | {nickname} create "{schoolName}" | 仅通过后台管理员创建 |
+| ~~注册关联学校 <br>User registered~~ | 创建 | -- |  | 用户注册的时候关联学校，<br>记录太多，无需记录 |
+| 推荐校长<br>Refer principal | 创建 | -- | Refer principal {} | 由用户推荐 |
+| 获取报价<br>Quote | 申请中  | -- | Contact: {code}+{phone}, {email};<br>Form {country},{city},{address};<br>For: {School or Group}; Mark: {备注} | 官网提交 |
+| 领取学校<br>Claimed | 申请中 | -- | Claimed | 仅通过后台操作 |
+| 释放学校<br>Released | 申请中 | -- | Expired release | 过期未跟进自动释放 |
+| 释放学校<br>Released | 申请中 | -- | Manually release from {nickname} | 后台人工主动释放 |
+| 沟通记录<br>Communicate | 申请中 | -- | {沟通内容} | 仅通过后台操作 |
+| 开通试用<br>Open trial | 试用中 | -- | Open trial | 仅通过后台操作 |
+| 开通正式<br>Fully paid | 开通中 | -- | Successfully paid | 仅通过后台操作 |
+| 自助付费开通<br>Self paid | 开通中 | -- | Self-service payment activation | 由用户自行操作 |
 
 #### 接口逻辑
-- Create school
+- ~~Create school~~
   - 创建操作日志
     - 类型：Create school
     - 操作人：操作人昵称
-    - 内容格式：{nickname} create "{schoolName}"
   - 后台创建学校，名称不重复
-- Quotation
+- Quote
   - 创建操作日志
     - 类型：Create school
     - 操作人：{nickname}
-    - 内容格式：{nickname} create "{schoolName}"
     - 扩展数据：提交的学校JSON对象
   - 学校存在，则不更新
   - 学校不存在，更新学校的数据
