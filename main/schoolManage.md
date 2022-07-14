@@ -35,21 +35,27 @@
     - 类型：Create school
     - 操作人：操作人昵称
   - 后台创建学校，名称不重复
-- Quote
-  - 创建操作日志
-    - 类型：Create school
-    - 操作人：{nickname}
-    - 扩展数据：提交的学校JSON对象
-  - 学校存在，则不更新
-  - 学校不存在，更新学校的数据
 - Refer principal
   - 创建操作日志
     - 类型：Refer principal
-    - 操作人：{nickname}
-    - 内容格式：{nickname} Refer principal "{schoolName}"
     - 扩展数据：提交的学校JSON对象
   - 学校存在，则不更新
   - 学校不存在，更新学校的数据
+- Quote
+  - 创建操作日志
+    - 类型：Create school
+    - 扩展数据：提交的学校JSON对象
+  - 学校存在，只更新操作时间
+  - 学校不存在，更新学校的数据
+- 领取学校 / 沟通记录
+  - 创建操作日志
+    - 类型：Claimed / Communicate
+  - 更新操作时间，释放倒计时重新计算
+- 释放学校
+  - 创建操作日志
+    - 类型：Released
+  - 更新操作时间
+  - 
 
 
 
