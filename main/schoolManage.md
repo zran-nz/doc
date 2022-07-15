@@ -15,11 +15,18 @@
 ### 学校-记录
 > 学校销售跟进记录
 
+- 状态翻译：
+Applied 申请中
+Created 创建
+Trial 试用中
+School Plan 开通中
+Expired 套餐过期
+
 | 类型 | 状态 | 操作人 | 内容 | 操作逻辑 |
 | :-- | :-- | :-- | :-- | --: |
 | ~~Create school~~ | 创建 | -- | {nickname} create "{schoolName}" | 仅通过后台管理员创建 |
 | ~~注册关联学校 <br>User registered~~ | 创建 | -- |  | 用户注册的时候关联学校，<br>记录太多，无需记录 |
-| 推荐校长<br>Refer principal | 创建 | -- | Refer principal {} | 由用户推荐 |
+| 推荐校长<br>Refer principal | 创建 | -- | Refer principal {firstname lastname}<br> Contact: {code}+{phone}, {email}; | 由用户推荐 |
 | 获取报价<br>Quote | 申请中  | -- | Contact: {code}+{phone}, {email};<br>Form {country},{city},{address};<br>For: {School or Group}; Mark: {备注} | 官网提交 |
 | 领取学校<br>Claimed | 申请中 | -- | Claimed | 仅通过后台操作 |
 | 释放学校<br>Released | 申请中 | -- | Expired release | 过期未跟进自动释放 |
