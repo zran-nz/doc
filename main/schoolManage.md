@@ -28,13 +28,14 @@ Expired 套餐过期
 | ~~注册关联学校 <br>User registered~~ | 创建 | -- |  | 用户注册的时候关联学校，<br>记录太多，无需记录 |
 | 推荐校长<br>Refer principal | 创建 | -- | Refer principal {firstname lastname}<br> Contact: {code}+{phone}, {email}; | 由用户推荐 |
 | 获取报价<br>Quote | 申请中  | -- | Contact: {code}+{phone}, {email};<br>Form {country},{city},{address};<br>For: {School or Group}; Mark: {备注} | 官网提交 |
-| 领取学校<br>Claimed | 申请中 | -- | Claimed | 仅通过后台操作 |
-| 释放学校<br>Released | 申请中 | -- | Expired release | 过期未跟进自动释放 |
-| 释放学校<br>Released | 申请中 | -- | Manually release from {nickname} | 后台人工主动释放 |
+| 领取学校<br>Claimed | 不更新状态 | -- | Claimed | 仅通过后台操作 |
+| 释放学校<br>Released | 不更新状态 | -- | Expired release | 过期未跟进自动释放 |
+| 释放学校<br>Released | 不更新状态 | -- | Manually release from {nickname} | 后台人工主动释放 |
 | 沟通记录<br>Communicate | 申请中 | -- | {沟通内容} | 仅通过后台操作 |
 | 开通试用<br>Open trial | 试用中 | -- | Open trial | 仅通过后台操作 |
 | 开通正式<br>Fully paid | 开通中 | -- | Successfully paid | 仅通过后台操作 |
 | 自助付费开通<br>Self paid | 开通中 | -- | Self-service payment activation | 由用户自行操作 |
+| 套餐过期<br>Expired | Expired | -- | Plan Expired  | 计划任务判断是否过期 |
 
 #### 接口逻辑
 - ~~Create school~~
