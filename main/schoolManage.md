@@ -31,7 +31,7 @@ Expired 套餐过期
 | 领取学校<br>Claimed | 不更新状态 | -- | Claimed | 仅通过后台操作 |
 | 释放学校<br>Released | 不更新状态 | -- | Expired release | 过期未跟进自动释放 |
 | 释放学校<br>Released | 不更新状态 | -- | Manually release from {nickname} | 后台人工主动释放 |
-| 沟通记录<br>Communicate | 申请中 | -- | {沟通内容} | 仅通过后台操作 |
+| 沟通记录<br>Communicate | 不更新状态 | -- | {沟通内容} | 仅通过后台操作 |
 | 开通试用<br>Open trial | 试用中 | -- | Open trial | 仅通过后台操作 |
 | 开通正式<br>Fully paid | 开通中 | -- | Successfully paid | 仅通过后台操作 |
 | 自助付费开通<br>Self paid | 开通中 | -- | Self-service payment activation | 由用户自行操作 |
