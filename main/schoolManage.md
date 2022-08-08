@@ -27,7 +27,7 @@ Expired 套餐过期
 | ~~Create school~~ |  | -- | 没有了 | 仅通过后台管理员创建 |
 | ~~注册关联学校 <br>User registered~~ | 创建 | -- | 新增学校条目，不创建操作记录 | 用户注册的时候关联学校，<br>记录太多，无需记录 |
 | 推荐校长<br>Refer principal | 创建 | -- | Refer principal {firstname lastname}<br> Contact: {code}+{phone}, {email};<br>Address: {country},{city},{address};<br>Mark: {Message for the principal} | 由用户或后台推荐 |
-| 获取报价<br>Quote | 申请中  | -- | Contact: {code}+{phone}, {email};<br>Form {country},{city},{address};<br>Position: ${Position} For: {School or Group};<br> Mark: {备注} | 官网提交 |
+| 获取报价<br>Quote | 申请中  | -- | Contact: {code}+{phone}, {email}, {firstname} {lastname};<br>Form {country},{city},{address};<br>Position: ${Position} For: {School or Group};<br> Mark: {备注} | 官网提交 |
 | 领取学校<br>Claimed | 不更新状态 | -- | Claimed | 仅通过后台操作 |
 | 释放学校<br>Released | 不更新状态 | -- | Expired release | 过期未跟进自动释放 |
 | 释放学校<br>Released | 不更新状态 | -- | Manually release from {nickname} | 后台人工主动释放<br>(admin/销售主管/本人 <br>这三种用户可以主动释放) |
