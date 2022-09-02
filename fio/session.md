@@ -7,3 +7,12 @@
 > Reopen session  
 `App.service('class2').patch(id, {status: 'live'})`
 
+> Archive session  
+`App.service('class2').patch(id, {del_flag: 1})`
+
+> Restore session  
+`App.service('class2').patch(id, {del_flag: 0})`
+
+> Delete session  
+`App.service('class2').remove(id)`
+
