@@ -47,6 +47,7 @@
 
 * fio接口
 
+  * [Notice](fio/notice.md ':include')
   * [Session](fio/session.md ':include')
   * [配置](main/conf.md ':include')
   * [标签](main/tags.md ':include')

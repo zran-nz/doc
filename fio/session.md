@@ -15,4 +15,3 @@
 
 > Delete session  
 `App.service('class2').remove(id)`
-
