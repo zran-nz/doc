@@ -3049,12 +3049,12 @@
       "link": null,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "https://www.classcipe.com/tg/${tid}/${qid}",
+      "text": "https://classcipe.com/tg/${tid}/${qid}",
       "baseline": 18,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "https://www.classcipe.com/tg/${tid}/${qid}"
+      "originalText": "https://classcipe.com/tg/${tid}/${qid}"
     },
     {
       "id": "lm46SfODTX8SvUwVTZSyd",
