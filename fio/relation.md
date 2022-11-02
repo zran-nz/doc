@@ -45,3 +45,5 @@ google.refreshToken
 zoom.refreshToken
 √  zoom.id, google.refreshToken
 
+Task/PD -> slides : always the latest version
+Session -> slides : specified version
