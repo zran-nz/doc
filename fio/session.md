@@ -9,6 +9,10 @@
 `App.service('content').get(id)`
 
 ## 老接口临时实现
+### 模板接口
+#### quick session 模板列表
+`await App.service('templates').get('quickList')`
+
 ### 课件相关接口
 #### oldCheckCollaboration 根据id 查询课件协同状态， 返回 boolean
 `await App.service('content').get('oldCheckCollaboration', { query: { id: 'content.id' }})`
