@@ -10,6 +10,9 @@
 
 ## 老接口临时实现
 ### 模板接口
+#### start quick session
+`await App.service('session').create({ id: 'presentation_id', pageIds: ['p1', 'xx', ...], image: 'cover url', guest: true })'`
+
 #### quick session 模板列表
 `await App.service('templates').get('quickList')`
 
