@@ -13,6 +13,12 @@
 #### 认证接口 = 当前用户信息获取
 `AppLogin()`
 
+#### 个人身份用户信息修改 [new]
+`App.service('users').patch(pub.user._id, { name: [firstname, lastname], avatar: '' })`
+
+#### 学校身份用户信息修改 [new]
+`App.service('users').patch(pub.user._id, { name: [firstname, lastname], avatar: '' }, { query: { school: 'school.id' }})`
+
 #### 获取用户身份列表 [old-Db]
 `App.service('users').get('schoolUserList')`
 
