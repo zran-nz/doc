@@ -31,6 +31,8 @@
   * [直播课](main/liveWorkShops.md)
   * [PPT](main/PPT.md)
 
+* [APIS](fio/apis.md ':include')
+
 * Api
   * [我的内容](api/我的内容.md ':include')
   * [个人账号](api/个人账号.md ':include')
@@ -46,10 +48,8 @@
   * [套餐](api/套餐.md ':include')
 
 * fio接口
-
   * [设置接口](fio/设置接口.md ':include')
   * [Notice](fio/notice.md ':include')
-  * [Session](fio/session.md ':include')
   * [配置](main/conf.md ':include')
   * [标签](main/tags.md ':include')
   * [PDF](main/pdf.md ':include')

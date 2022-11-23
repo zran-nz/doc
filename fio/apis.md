@@ -1,4 +1,5 @@
-## 详情获取接口
+
+### 详情获取接口
 > 获取unit 详情
 `App.service('unit').get(id)`
 
@@ -8,12 +9,26 @@
 > 获取content 详情 (PD, video)
 `App.service('content').get(id)`
 
-## 老接口临时实现
+### 用户接口
+#### 认证接口 = 当前用户信息获取
+`AppLogin()`
+
+#### 获取用户身份列表 [old-Db]
+`App.service('users').get('schoolUserList')`
+
+#### 切换身份 [old-api]
+`POST https://dev.classcipe.com/classcipe/sys/switchSchool  {isPersonal:false,schoolId:"0/school.id"}`
+#### 获取个人身份下的班级列表 [old-Db]
+`App.service('users').get('oldClassList')`
+#### 获取指定学校下的班级列表 [old-Db]
+`App.service('users').get('oldClassList', { query: { school: 'school.id' }})`
+
+
 ### 模板接口
-#### start quick session
+#### start quick session [new]
 `await App.service('session').create({ id: 'presentation_id', pageIds: ['p1', 'xx', ...], image: 'cover url', guest: true })'`
 
-#### quick session 模板列表
+#### quick session 模板列表 [old-Db]
 `await App.service('templates').get('quickList')`
 
 ### 课件相关接口
