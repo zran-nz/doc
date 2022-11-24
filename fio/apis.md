@@ -30,10 +30,24 @@
 `App.service('users').get('oldClassList', { query: { school: 'school.id' }})`
 
 
-### 模板接口
+### Session接口
 #### start quick session [new]
-`await App.service('session').create({ id: 'presentation_id', pageIds: ['p1', 'xx', ...], image: 'cover url', guest: true })'`
+`await App.service('session').create({ id: 'presentation_id', image: 'cover url', guest: true })'`
 
+#### start workshop [new]
+```js
+await App.service('session').create({
+  type: 'workshop', name: '', school: '',
+  id: 'presentation_id', cid: 'content.id', image: 'cover url',
+  price: 0 / 100 (单位:分, $1 = 100), discount: 0~99,
+  regMax: 100, regDate: new Date('register dealine'),
+  start: new Date('start time'), end: new Date('end time'),
+  zoom: { passcode: true/false, waiting_room: true/false }
+})
+```
+
+
+### 模板接口
 #### quick session 模板列表 [old-Db]
 `await App.service('templates').get('quickList')`
 
