@@ -46,6 +46,15 @@ await App.service('session').create({
 })
 ```
 
+#### session list for calender [new]
+```js
+await App.service('session').get('dateList', {
+  query: {
+    start: new Date('start time'), end: new Date('end time'), zone: new Date().getTimezoneOffset()
+  }
+})
+```
+
 
 ### 模板接口
 #### quick session 模板列表 [old-Db]
