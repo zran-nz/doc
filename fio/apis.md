@@ -55,6 +55,22 @@ await App.service('session').get('dateList', {
 })
 ```
 
+### 会议接口
+#### zoom授权例子
+```js
+const authWin = window.open(`/fio/zoom/auth?uid=${pub.user._id}`, 'zoomAuth', 'width=900,height=600,menubar=yes,resizable=yes,scrollbars=true,status=true,top=100,left=200')
+const authId = setInterval(async() => {
+  if (!authWin.closed) return
+  clearInterval(authId)
+  const zoomStatus = await App.service('zoom-meet').get('check')
+  console.log('zoom auth:', zoomStatus)
+}, 100)
+```
+#### zoom过期检查
+`await App.service('zoom-meet').get('check')`
+
+#### zoom授权解除
+`await App.service('zoom-meet').get('unbind')`
 
 ### 模板接口
 #### quick session 模板列表 [old-Db]
