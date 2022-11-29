@@ -29,6 +29,16 @@
 #### 获取指定学校下的班级列表 [old-Db]
 `App.service('users').get('oldClassList', { query: { school: 'school.id' }})`
 
+#### 获取个人用户详情
+`await App.service('users').get('oldAccountInfo')`
+> plan.used: 当前空间使用 单位: Kb
+> plan.space: 总空间大小 单位: Kb
+
+#### 获取学校账户详情
+`await App.service('users').get('oldAccountInfo', {query: {school: "1468390544921169921"}})`
+> plan.status: 0 未开通,1 申请中,2 试用中,3 已开通,-1 已过期
+> plan.used: 当前空间使用 单位: Kb
+> plan.space: 总空间大小 单位: Kb
 
 ### Session接口
 #### start quick session [new]
