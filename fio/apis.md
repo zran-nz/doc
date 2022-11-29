@@ -73,6 +73,23 @@ await App.service('session').get('dateList', {
 })
 ```
 
+### 通知接口
+#### 通知列表
+```js
+// 接口
+await App.service('notice').get('oldList', { query: {  status?: 0/1, $search?, $skip?: 0, $limit?: 10 }})
+// 全部
+await App.service('notice').get('oldList')
+// 未读
+await App.service('notice').get('oldList', { query: { status: 0 }})
+```
+
+#### 通知更新为已读
+```js
+await App.service('notice').get('oldRead', { query: { id: '' }})
+```
+
+
 ### 会议接口
 #### zoom授权例子
 ```js
