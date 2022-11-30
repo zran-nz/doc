@@ -88,6 +88,10 @@ await App.service('notice').get('oldList', { query: { status: 0 }})
 ```js
 await App.service('notice').get('oldRead', { query: { id: '' }})
 ```
+#### 未读通知数量
+```js
+await App.service('notice').get('oldUnReadCount')
+```
 
 
 ### 会议接口
