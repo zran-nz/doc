@@ -63,6 +63,17 @@ await App.service('session').create({
   zoom: { passcode: true/false, waiting_room: true/false }
 })
 ```
+#### start session [new]
+```js
+await App.service('session').create({
+  type: 'session', name: '', school: '', classId: '', className: '',
+  id: 'presentation_id', cid: 'content.id', image: 'cover url',
+  price: 0 / 100 (单位:分, $1 = 100), discount: 0~99,
+  regMax: 100, regDate: new Date('register dealine'),
+  start: new Date('start time'), end: new Date('end time'),
+  zoom: { passcode: true/false, waiting_room: true/false }
+})
+```
 
 #### session list for calender [new]
 ```js
