@@ -49,6 +49,8 @@
 > stat.curriculum:  0: 未设置，1：已经设置
 
 ### Session接口
+#### session 详情接口 [new]
+`await App.service('session').get(_id)`
 #### start quick session [new]
 `await App.service('session').create({ id: 'presentation_id', image: 'cover url', guest: true })'`
 
@@ -72,6 +74,14 @@ await App.service('session').create({
   regMax: 100, regDate: new Date('register dealine'),
   start: new Date('start time'), end: new Date('end time'),
   zoom: { passcode: true/false, waiting_room: true/false }
+})
+```
+#### patch session [new]
+```js
+await App.service('session').patch(_id, {
+  name: '', image: 'cover url',
+  regMax: 100, regDate: new Date('register dealine'),
+  start: new Date('start time'), end: new Date('end time')
 })
 ```
 
