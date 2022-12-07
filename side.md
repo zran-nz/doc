@@ -33,6 +33,15 @@
 
 * [APIS](fio/apis.md ':include')
 
+* fio接口
+  * [设置接口](fio/设置接口.md ':include')
+  * [Notice](fio/notice.md ':include')
+  * [配置](main/conf.md ':include')
+  * [标签](main/tags.md ':include')
+  * [PDF](main/pdf.md ':include')
+  * [课堂端](main/classroom.md ':include')
+  * [推广](fio/推广.md ':include')
+
 * Api
   * [我的内容](api/我的内容.md ':include')
   * [个人账号](api/个人账号.md ':include')
@@ -46,12 +55,3 @@
   * [老师注册](api/老师注册.md ':include')
   * [空间管理](api/空间管理.md ':include')
   * [套餐](api/套餐.md ':include')
-
-* fio接口
-  * [设置接口](fio/设置接口.md ':include')
-  * [Notice](fio/notice.md ':include')
-  * [配置](main/conf.md ':include')
-  * [标签](main/tags.md ':include')
-  * [PDF](main/pdf.md ':include')
-  * [课堂端](main/classroom.md ':include')
-  * [推广](fio/推广.md ':include')
