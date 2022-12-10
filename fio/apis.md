@@ -68,12 +68,14 @@ await App.service('session').create({
 #### start session [new]
 ```js
 await App.service('session').create({
-  type: 'session', name: '', school: '', classId: '', className: '',
+  type: 'session', name: '',
+  school?: '', classId?: '', className?: '',
+  taskType?: '', // import by task
   id: 'presentation_id', cid: 'content.id', image: 'cover url',
   price: 0 / 100 (单位:分, $1 = 100), discount: 0~99,
-  regMax: 100, regDate: new Date('register dealine'),
+  regMax: 100, regDate?: new Date('register dealine'),
   start: new Date('start time'), end: new Date('end time'),
-  zoom: { passcode: true/false, waiting_room: true/false }
+  zoom?: { passcode: true/false, waiting_room: true/false }
 })
 ```
 #### patch session [new]
@@ -90,6 +92,29 @@ await App.service('session').patch(_id, {
 await App.service('session').get('dateList', {
   query: {
     start: new Date('start time'), end: new Date('end time'), zone: new Date().getTimezoneOffset()
+  }
+})
+
+// filter workshop
+await App.service('session').get('dateList', {
+  query: {
+    start: new Date('start time'), end: new Date('end time'),
+    type?: 'workshop', // workshop / session
+    school?: [...'school_id'], // 
+    uid?: pub.user._id, // only launch by me
+    'reg._id'?: pub.user._id, // only workshop to attend
+  }
+})
+
+// filter session
+await App.service('session').get('dateList', {
+  query: {
+    start: new Date('start time'), end: new Date('end time'),
+    type?: 'session', // workshop / session
+    school?: [...'school_id'], // 
+    classId?: 'classID', // 
+    taskType?: [...'task_type'], // task session filter
+    uid?: pub.user._id / { $ne: pub.user._id }, // only launch by me
   }
 })
 ```
