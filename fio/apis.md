@@ -208,3 +208,9 @@ const authId = setInterval(async() => {
 
 > Delete session  
 `App.service('class2').remove(id)`
+
+
+## 学校接口 [old-Db]
+### 学校老师列表
+`await App.service('school').get('oldTeacherList', { query: { school: 'school_id' }})`
+
