@@ -70,6 +70,14 @@
 
 `await App.service('session').get(_id)`
 
+#### patch session questions options [new]
+
+```js
+await App.service("session").patch(_id, {
+  'quetions.$.options': [...options]
+}, { query: { 'questions._id': '' }});
+```
+
 #### start quick session [new]
 
 `await App.service('session').create({ id: 'presentation_id', image: 'cover url', guest: true })'`
