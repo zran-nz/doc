@@ -64,6 +64,10 @@
 > plan.space: 总空间大小 单位: Kb  
 > stat.curriculum: 0: 未设置，1：已经设置
 
+#### 获取学校学科统计
+
+`await App.service('school-user').get('subjectStat', {query: {school: "1468390544921169921"}})`
+
 ### Session 接口
 
 #### session 详情接口 [new]
