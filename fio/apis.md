@@ -215,6 +215,31 @@ const authId = setInterval(async () => {
 
 ### 课件相关接口
 
+#### 获取课件协同列表数据
+`await App.service('collab').get(task.id/pd.id/unit.id, {query: {type: 'task/pd/unit'}})`
+
+#### 批量添加协同成员
+```js
+await App.service('collab').patch(collab._id, {
+  email: [...],
+  role: 'read/write',
+  message: ''
+})
+```
+#### 移除协同成员
+```js
+// remove one member
+await App.service('collab').patch(collab._id, {$pull: {members: {_id: email}}})
+
+```
+#### 更新协同成员权限
+```js
+// get collab data
+const { _id, members } = await App.service('collab').get(task.id, {query: {type: 'task'}})
+// update role
+await App.service('collab').patch(_id, { 'members.$.role': false }}, { query: {'members._id': members[0]._id}})
+```
+
 #### oldCheckCollaboration 根据 id 查询课件协同状态， 返回 boolean
 
 `await App.service('content').get('oldCheckCollaboration', { query: { id: 'content.id' }})`
