@@ -230,10 +230,14 @@ await App.service('collab').patch(collab._id, {
   message: ''
 })
 ```
+#### 确认加入协同
+```js
+await App.service('collab').get('join', {query: {_id: 'members._id'}})
+```
 #### 移除协同成员
 ```js
 // remove one member
-await App.service('collab').patch(collab._id, {$pull: {members: {_id: email}}})
+await App.service('collab').patch(collab._id, {$pull: {members: {_id: 'members._id'}}})
 
 ```
 #### 更新协同成员权限
@@ -243,6 +247,21 @@ const { _id, members } = await App.service('collab').get(task.id, {query: {type:
 // update role
 await App.service('collab').patch(_id, { 'members.$.role': false }}, { query: {'members._id': members[0]._id}})
 ```
+```js
+// get task collab
+var doc = await App.service('collab').get('1559776340527345665', {query: {type: 'task'}})
+// members invite email
+var email = 'acansplay@gmail.com'
+var member = doc.members.find(v => v.email === email)
+if (member) await App.service('collab').patch(doc._id, {$pull: {members: {_id: member._id}}})
+members = await App.service('collab').patch(doc._id, {email: ['acansplay@gmail.com'], role: 'write', message: ''})
+member = members.find(v => v.email === email)
+// join collab
+await App.service('collab').get('join', {query: {_id: member._id}})
+// remove members
+await App.service('collab').patch(collab._id, {$pull: {members: {_id: member._id}}})
+```
+
 
 #### oldCheckCollaboration 根据 id 查询课件协同状态， 返回 boolean
 
