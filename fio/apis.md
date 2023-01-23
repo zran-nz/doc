@@ -224,7 +224,8 @@ const authId = setInterval(async () => {
 
 #### 批量添加协同成员
 ```js
-await App.service('collab').patch(collab._id, {
+// 返回新加入成员列表
+const members = await App.service('collab').patch(collab._id, {
   email: [...],
   role: 'read/write',
   message: ''
