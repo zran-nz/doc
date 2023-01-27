@@ -231,6 +231,10 @@ const members = await App.service('collab').patch(collab._id, {
   message: ''
 })
 ```
+#### 获取成员信息
+```js
+const member = await App.service('collab').get('memberInfo', {query: {_id: 'members._id'}})
+```
 #### 确认加入协同
 ```js
 await App.service('collab').get('join', {query: {_id: 'members._id'}})
