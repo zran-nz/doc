@@ -324,6 +324,29 @@ await App.service('collab').patch(collab._id, {$pull: {members: {_id: member._id
 #### 学校权限 - 移除学科管理员
 `App.service('school-user').patch(_id, { $pull: {subject: 'curriculumCode:subjectCode'}})`
 
+### 认证接口
+
+```js
+code: 'teacher', 'ib'
+
+// 获取个人的
+const rs = await App.service('user-cert').get('code', {query: {code: ''}})
+// 获取学校的
+const rs = await App.service('user-cert').get('code', {query: {code: '', school: 'school._id' }})
+
+// 教师认证扩展参数
+await App.service('user-cert').patch(rs._id, {ext: {year: '', inService: false/true, schoolName: ''}})
+
+// 上传图片
+await App.service('user-cert').patch(rs._id, {$addToSet: {pics: {_id: key, ext, code}}})
+// 删除指定图片
+await App.service('user-cert').patch(rs._id, {$pull: {pics: {_id: key}}})
+// 申请变更, 1: 提交 0: 撤销
+await App.service('user-cert').patch(rs._id, {status: 0 / 1})
+
+```
+
+
 ## 课堂接口
 
 ### session 操作接口
@@ -374,3 +397,10 @@ App.service('response').create({
 ### 学校老师列表
 
 `await App.service('school').get('oldTeacherList', { query: { school: 'school_id' }})`
+
+
+## 其他借口
+### feedback
+```js
+await App.service('feedback').create({ uid: 'user._id', nickname: '', type: '', ua: navigator.userAgent, text: '', url: location.href, pic: '' })
+```
