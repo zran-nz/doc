@@ -1,5 +1,9 @@
 * [首页](README)
 
+* [Fio](fio/fio.md ':include')
+* [APIS](fio/apis.md ':include')
+
+
 * 课堂UML
   * [课堂](uml/index)
   * [班级](uml/class)
@@ -31,7 +35,6 @@
   * [直播课](main/liveWorkShops.md)
   * [PPT](main/PPT.md)
 
-* [APIS](fio/apis.md ':include')
 
 * fio接口
   * [设置接口](fio/设置接口.md ':include')

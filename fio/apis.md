@@ -217,8 +217,9 @@ const authId = setInterval(async () => {
 
 `await App.service('templates').get('quickList')`
 
-### 课件相关接口
+## 课件相关接口
 
+### 协同功能
 #### 获取课件协同列表数据
 `await App.service('collab').get(task.id/pd.id/unit.id, {query: {type: 'task/pd/unit'}})`
 
@@ -267,6 +268,73 @@ await App.service('collab').get('join', {query: {_id: member._id}})
 await App.service('collab').patch(collab._id, {$pull: {members: {_id: member._id}}})
 ```
 
+
+### Unit plan
+
+#### Unit plan model
+```js
+{
+  uid: String,
+  name: String,
+  overview?: String,
+  cover: String,
+  unit?: String, // radio: single, integrated
+  type?: String, // radio: single, integrated
+  idea: String,
+  words: [String],
+  inquiry: [String],
+  goals?: [String],
+  connection?: String,
+  ext?: {
+    _id: any,
+    ...
+  },
+  link: {
+    _id: String, // task.id pd.id
+    type: String, // task/pd
+    group?: String,
+  },
+}
+```
+
+### Unit plan template
+
+#### unit-tpl model
+```js
+{
+  _id: String,
+  name: String, // template name
+  school: String, // school-plan._id
+  data: [{
+    code?: String, // private variable
+    required?: Boolean, // private variable
+    origin?: String, // private variable
+    enable: Boolean,
+    type: String, // form type: [text, text-multiple, radio, choice, choice-mark]
+    group: String, // ['basic', 'inquiry', 'applying', '', 'link']
+    name: String, //
+    prompt?: String,
+    placeholder?: String,
+    tags?: String, // relate tags code
+  }], // 
+}
+```
+#### unit-tpl create
+```js
+// default unit form
+[
+  {code: 'name', required: true, origin: 'Unit Name', enable: true, type: 'text', group: 'basic', name: 'Unit Name', prompt: ''},
+  {code: 'cover', required: true, origin: 'Cover', enable: true, type: 'image', group: 'basic', name: 'Cover', prompt: ''},
+  {code: 'unit', required: false, origin: 'Project-based Unit', enable: true, type: 'radio', group: 'basic', name: 'Project-based Unit', prompt: ''},
+  {code: 'type', required: false, origin: 'Unit Type', enable: true, type: 'radio', group: 'basic', name: 'Unit Type', prompt: ''},
+  {code: 'overview', required: false, origin: 'Overview', enable: true, type: 'text', group: 'basic', name: 'Overview', prompt: ''},
+  {code: 'idea', required: true, origin: 'Big Idea/ Statement of Inquiry/ Central Idea', enable: true, type: 'text', group: 'inquiry', name: 'Big Idea/ Statement of Inquiry/ Central Idea', prompt: ''},
+  {code: 'words', required: true, origin: 'Key words', enable: true, type: 'text-multiple', group: 'inquiry', name: 'Key words', prompt: 'Set key words by selecting the words'},
+  {code: 'goals', required: false, origin: 'UN Sustainable Development Goal(s)', enable: true, type: 'choice', group: 'inquiry', name: 'UN Sustainable Development Goal(s)', prompt: ''},
+  {code: 'inquiry', required: true, origin: 'Key question(s) / Line(s) of inquiry', enable: true, type: 'text-multiple', group: 'inquiry', name: 'Key question(s) / Line(s) of inquiry', prompt: ''},
+  {code: 'connection', required: false, origin: 'Real World Connection(s)', enable: true, type: 'radio', group: 'inquiry', name: 'Real World Connection(s)', prompt: ''},
+]
+```
 
 #### oldCheckCollaboration 根据 id 查询课件协同状态， 返回 boolean
 
