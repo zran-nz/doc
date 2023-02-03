@@ -236,9 +236,9 @@ const members = await App.service('collab').patch(collab._id, {
 ```js
 const member = await App.service('collab').get('memberInfo', {query: {_id: 'members._id'}})
 ```
-#### 确认加入协同
+#### 审核协同申请
 ```js
-await App.service('collab').get('join', {query: {_id: 'members._id'}})
+await App.service('collab').get('review', {query: {_id: 'members._id', status: true/false}})
 ```
 #### 移除协同成员
 ```js
@@ -246,6 +246,21 @@ await App.service('collab').get('join', {query: {_id: 'members._id'}})
 await App.service('collab').patch(collab._id, {$pull: {members: {_id: 'members._id'}}})
 
 ```
+
+#### 链接邀请
+```js
+// 获取key
+const key = await App.service('collab').get('linkKey', {query: {_id: collab._id}})
+// 邀请前端地址
+`/v2/account/collabApply/${key}`
+// 通过key获取
+const info = await App.service('collab').get('linkInfo', {query: {key}})
+
+// 重置key
+const key = await App.service('collab').get('resetLink', {query: {_id: collab._id}})
+
+```
+
 #### 更新协同成员权限
 ```js
 // get collab data
