@@ -249,12 +249,15 @@ await App.service('collab').patch(collab._id, {$pull: {members: {_id: 'members._
 
 #### 链接邀请
 ```js
+// 设置允许匿名 直接进入的权限
+await App.service('collab').patch(collab._id, {guest: null}) // [null, 'read', 'write']
+
 // 邀请前端地址
 `/v2/account/collabApply/${collab._id}`
 // 获取协同信息
 const collab = await App.service('collab').get(collab._id)
-// 如果 guest === true, 会自动加入协同成员，前端直接跳转到 课件编辑页面
-if (collab.guest===true) {
+// 如果 guest 存在, 会自动加入协同成员，前端直接跳转到 课件编辑页面
+if (collab.guest) {
   router.replace({path: `/com/${collab.type}/edit/${collab.rid}`, query: {back: '/my/content'}})
 }
 // 协同加入申请提交
