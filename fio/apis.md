@@ -234,7 +234,7 @@ const members = await App.service('collab').patch(collab._id, {
 ```
 #### 获取成员信息
 ```js
-const member = await App.service('collab').get('memberInfo', {query: {_id: 'members._id'}})
+const doc = await App.service('collab').get('memberInfo', {query: {_id: 'members._id'}})
 ```
 #### 审核协同申请
 ```js
@@ -257,7 +257,11 @@ const collab = await App.service('collab').get(collab._id)
 if (collab.guest===true) {
   router.replace({path: `/com/${collab.type}/edit/${collab.rid}`, query: {back: '/my/content'}})
 }
-// 申请加入协同
+// 协同加入申请提交
+await App.service('collab').get('apply', {query: {_id: 'collab._id', role: 'read/write'}})
+
+// 协同申请 审核
+await App.service('collab').get('review', {query: {_id: 'members._id', status: true/false}})
 
 
 ```
