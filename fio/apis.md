@@ -249,15 +249,16 @@ await App.service('collab').patch(collab._id, {$pull: {members: {_id: 'members._
 
 #### 链接邀请
 ```js
-// 获取key
-const key = await App.service('collab').get('linkKey', {query: {_id: collab._id}})
 // 邀请前端地址
-`/v2/account/collabApply/${key}`
-// 通过key获取
-const info = await App.service('collab').get('linkInfo', {query: {key}})
+`/v2/account/collabApply/${collab._id}`
+// 获取协同信息
+const collab = await App.service('collab').get(collab._id)
+// 如果 guest === true, 会自动加入协同成员，前端直接跳转到 课件编辑页面
+if (collab.guest===true) {
+  router.replace({path: `/com/${collab.type}/edit/${collab.rid}`, query: {back: '/my/content'}})
+}
+// 申请加入协同
 
-// 重置key
-const key = await App.service('collab').get('resetLink', {query: {_id: collab._id}})
 
 ```
 
@@ -266,7 +267,7 @@ const key = await App.service('collab').get('resetLink', {query: {_id: collab._i
 // get collab data
 const { _id, members } = await App.service('collab').get(task.id, {query: {type: 'task'}})
 // update role
-await App.service('collab').patch(_id, { 'members.$.role': false }}, { query: {'members._id': members[0]._id}})
+await App.service('collab').patch(_id, { 'members.$.role': 'read/write' }}, { query: {'members._id': members[0]._id}})
 ```
 ```js
 // get task collab
