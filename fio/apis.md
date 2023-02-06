@@ -261,10 +261,10 @@ if (collab.guest) {
   router.replace({path: `/com/${collab.type}/edit/${collab.rid}`, query: {back: '/my/content'}})
 }
 // 协同加入申请提交
-await App.service('collab').get('apply', {query: {_id: 'collab._id', role: 'read/write'}})
+await App.service('collab').get('apply', {query: {_id: 'collab._id'}})
 
 // 协同申请 审核
-await App.service('collab').get('review', {query: {_id: 'members._id', status: true/false}})
+await App.service('collab').get('review', {query: {_id: 'members._id', role: 'read/write', status: true/false}})
 
 
 ```
