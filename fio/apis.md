@@ -129,34 +129,44 @@ const authId = setInterval(async () => {
 ## 课件相关接口
 
 ### 协同功能
-#### 获取课件协同列表数据
-`await App.service('collab').get(task.id/pd.id/unit.id, {query: {type: 'task/pd/unit'}})`
 
-#### 批量添加协同成员
+#### 邮箱分享协同
 ```js
-// 返回新加入成员列表
+// shared members
+const members = await App.service('collab').get('sharedMembers')
+
+// get collab data
+await App.service('collab').get(task.id/pd.id/unit.id, {query: {type: 'task/pd/unit'}})
+
+// Batch sharing via email
 const members = await App.service('collab').patch(collab._id, {
   email: [...],
   role: 'read/write',
   message: ''
 })
-```
-#### 获取成员信息
-```js
-const doc = await App.service('collab').get('memberInfo', {query: {_id: 'members._id'}})
-```
-#### 审核协同申请
-```js
-await App.service('collab').get('review', {query: {_id: 'members._id', status: true/false}})
-```
-#### 移除协同成员
-```js
+
+// update members role
+await App.service('collab').patch(_id, { 'members.$.role': 'read/write' }}, { query: {'members._id': members[0]._id}})
+
 // remove one member
 await App.service('collab').patch(collab._id, {$pull: {members: {_id: 'members._id'}}})
 
+
+// Example:
+// get task collab
+var doc = await App.service('collab').get('1559776340527345665', {query: {type: 'task'}})
+// members invite email
+var email = 'acansplay@gmail.com'
+var member = doc.members.find(v => v.email === email)
+if (member) await App.service('collab').patch(doc._id, {$pull: {members: {_id: member._id}}})
+members = await App.service('collab').patch(doc._id, {email: ['acansplay@gmail.com'], role: 'write', message: ''})
+member = members.find(v => v.email === email)
+// remove members
+await App.service('collab').patch(collab._id, {$pull: {members: {_id: member._id}}})
+
 ```
 
-#### 链接邀请
+#### 链接分享协同
 ```js
 // 设置允许匿名 直接进入的权限
 await App.service('collab').patch(collab._id, {guest: null}) // [null, 'read', 'write']
@@ -175,29 +185,6 @@ await App.service('collab').get('apply', {query: {_id: 'collab._id'}})
 // 协同申请 审核
 await App.service('collab').get('review', {query: {_id: 'members._id', role: 'read/write', status: true/false}})
 
-
-```
-
-#### 更新协同成员权限
-```js
-// get collab data
-const { _id, members } = await App.service('collab').get(task.id, {query: {type: 'task'}})
-// update role
-await App.service('collab').patch(_id, { 'members.$.role': 'read/write' }}, { query: {'members._id': members[0]._id}})
-```
-```js
-// get task collab
-var doc = await App.service('collab').get('1559776340527345665', {query: {type: 'task'}})
-// members invite email
-var email = 'acansplay@gmail.com'
-var member = doc.members.find(v => v.email === email)
-if (member) await App.service('collab').patch(doc._id, {$pull: {members: {_id: member._id}}})
-members = await App.service('collab').patch(doc._id, {email: ['acansplay@gmail.com'], role: 'write', message: ''})
-member = members.find(v => v.email === email)
-// join collab
-await App.service('collab').get('join', {query: {_id: member._id}})
-// remove members
-await App.service('collab').patch(collab._id, {$pull: {members: {_id: member._id}}})
 ```
 
 
@@ -239,33 +226,62 @@ await App.service('collab').patch(collab._id, {$pull: {members: {_id: member._id
   school: String, // school-plan._id
   data: [{
     code?: String, // private variable
-    required?: Boolean, // private variable
-    origin?: String, // private variable
     enable: Boolean,
     type: String, // form type: [text, text-multiple, radio, choice, choice-mark]
     group: String, // ['basic', 'inquiry', 'applying', '', 'link']
     name: String, //
     prompt?: String,
-    placeholder?: String,
+    sort?: String,
     tags?: String, // relate tags code
   }], // 
 }
 ```
-#### unit-tpl create
+#### unit-tpl api
 ```js
 // default unit form
 [
-  {code: 'name', required: true, origin: 'Unit Name', enable: true, type: 'text', group: 'basic', name: 'Unit Name', prompt: ''},
-  {code: 'cover', required: true, origin: 'Cover', enable: true, type: 'image', group: 'basic', name: 'Cover', prompt: ''},
-  {code: 'unit', required: false, origin: 'Project-based Unit', enable: true, type: 'radio', group: 'basic', name: 'Project-based Unit', prompt: ''},
-  {code: 'type', required: false, origin: 'Unit Type', enable: true, type: 'radio', group: 'basic', name: 'Unit Type', prompt: ''},
-  {code: 'overview', required: false, origin: 'Overview', enable: true, type: 'text', group: 'basic', name: 'Overview', prompt: ''},
-  {code: 'idea', required: true, origin: 'Big Idea/ Statement of Inquiry/ Central Idea', enable: true, type: 'text', group: 'inquiry', name: 'Big Idea/ Statement of Inquiry/ Central Idea', prompt: ''},
-  {code: 'words', required: true, origin: 'Key words', enable: true, type: 'text-multiple', group: 'inquiry', name: 'Key words', prompt: 'Set key words by selecting the words'},
-  {code: 'goals', required: false, origin: 'UN Sustainable Development Goal(s)', enable: true, type: 'choice', group: 'inquiry', name: 'UN Sustainable Development Goal(s)', prompt: ''},
-  {code: 'inquiry', required: true, origin: 'Key question(s) / Line(s) of inquiry', enable: true, type: 'text-multiple', group: 'inquiry', name: 'Key question(s) / Line(s) of inquiry', prompt: ''},
-  {code: 'connection', required: false, origin: 'Real World Connection(s)', enable: true, type: 'radio', group: 'inquiry', name: 'Real World Connection(s)', prompt: ''},
+  {group: 'basic', required: true, enable: true, code: 'name', origin: 'Unit Name', type: 'text', tips: ''},
+  {group: 'basic', required: true, enable: true, code: 'cover', origin: 'Cover', type: 'image', tips: ''},
+  {group: 'basic', required: false, code: 'unit', origin: 'Project-based Unit', type: 'radio', tips: ''},
+  {group: 'basic', required: false, code: 'type', origin: 'Unit Type', type: 'radio', tips: ''},
+  {group: 'basic', required: false, code: 'overview', origin: 'Overview', type: 'text', tips: ''},
+  {group: 'inquiry', required: true, enable: true, code: 'idea', origin: 'Big Idea/ Statement of Inquiry/ Central Idea', type: 'text', tips: ''},
+  {group: 'inquiry', required: true, enable: true, code: 'words', origin: 'Key words', type: 'text-multiple', tips: ''},
+  {group: 'inquiry', required: false, code: 'goals', origin: 'UN Sustainable Development Goal(s)', type: 'choice', tips: ''},
+  {group: 'inquiry', required: true, enable: true, code: 'inquiry', origin: 'Key question(s) / Line(s) of inquiry', type: 'text-multiple', tips: ''},
+  {group: 'inquiry', required: false, code: 'connection', origin: 'Real World Connection(s)', type: 'radio', tips: ''},
 ]
+
+
+const pubData = await App.service('conf').get('UnitTpl')
+
+// first create
+const doc = await App.service('unit-tpl').create({ name: '', school: 'school._id', data: [] })
+
+// get unit-tpl data
+const doc = await App.service('unit-tpl').get(_id)
+
+// auto merge pubData to doc
+const dataList = {}
+doc.data.map(v => {
+  if (v.code) dataList[v.code] = v
+})
+let needUpdate = false
+pubList.map(v => {
+  if (dataList(v.code)) Object.assign(dataList[v.code], v)
+  else doc.data.push(v), needUpdate = true
+})
+if (needUpdate) await App.service('unit-tpl').patch(_id, doc)
+
+// add sub data
+const doc = await App.service('unit-tpl').patch(_id, {$addToSet: {data: subdata}})
+
+// patch sub data
+const doc = await App.service('unit-tpl').patch(_id, {'data.$': {...subdata}}, {query: {'data.$._id': data._id}})
+
+// remove sub data
+const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdata._id}}})
+
 ```
 
 #### oldCheckCollaboration 根据 id 查询课件协同状态， 返回 boolean
