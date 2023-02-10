@@ -231,12 +231,12 @@ await App.service('collab').get('review', {query: {_id: 'members._id', role: 're
     group: String, // ['basic', 'inquiry', 'applying', '', 'link']
     name: String, //
     prompt?: String,
-    sort?: String,
+    sort?: Number,
     tags?: String, // relate tags code
   }], // 
 }
 ```
-#### unit-tpl api
+#### unit-tpl public data
 ```js
 // default unit form
 [
@@ -251,8 +251,11 @@ await App.service('collab').get('review', {query: {_id: 'members._id', role: 're
   {group: 'inquiry', required: true, enable: true, code: 'inquiry', origin: 'Key question(s) / Line(s) of inquiry', type: 'text-multiple', tips: ''},
   {group: 'inquiry', required: false, code: 'connection', origin: 'Real World Connection(s)', type: 'radio', tips: ''},
 ]
+```
 
-
+#### unit-tpl api
+```js
+// get public data
 const pubData = await App.service('conf').get('UnitTpl')
 
 // first create
