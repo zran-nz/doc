@@ -215,6 +215,14 @@ await App.service('collab').get('review', {query: {_id: 'members._id', role: 're
   },
 }
 ```
+```js
+// get unit data
+const doc = await App.service('unit').get('unit._id')
+
+// get unit outline
+await App.service('task-outline').get('byRid', {query: {_id: doc._id}})
+
+```
 
 ### Unit plan template
 
@@ -280,7 +288,7 @@ if (needUpdate) await App.service('unit-tpl').patch(_id, doc)
 const doc = await App.service('unit-tpl').patch(_id, {$addToSet: {data: subdata}})
 
 // patch sub data
-const doc = await App.service('unit-tpl').patch(_id, {'data.$': {...subdata}}, {query: {'data.$._id': data._id}})
+const doc = await App.service('unit-tpl').patch(_id, {'data.$': {...subdata}}, {query: {'data._id': data._id}})
 
 // remove sub data
 const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdata._id}}})
