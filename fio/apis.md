@@ -195,6 +195,7 @@ await App.service('collab').get('review', {query: {_id: 'members._id', role: 're
 {
   uid: String,
   name: String,
+  curriculumn: String, // readonly, curriculumn code 
   overview?: String,
   cover: String,
   unit?: String, // radio: single, integrated
@@ -231,6 +232,7 @@ await App.service('task-outline').get('byRid', {query: {_id: doc._id}})
 {
   _id: String,
   name: String, // template name
+  curriculumn: String, // curriculumn code
   school: String, // school-plan._id
   data: [{
     code?: String, // private variable
@@ -239,7 +241,7 @@ await App.service('task-outline').get('byRid', {query: {_id: doc._id}})
     group: String, // ['basic', 'inquiry', 'applying', '', 'link']
     name: String, //
     prompt?: String,
-    sort?: Number,
+    // sort?: Number,
     tags?: String, // relate tags code
   }], // 
 }
@@ -263,6 +265,15 @@ await App.service('task-outline').get('byRid', {query: {_id: doc._id}})
 
 #### unit-tpl api
 ```js
+// get unit-tpl list
+const doc = await App.service('unit-tpl').find({query: {school: 'school._id'}})
+// get default school unit-tpl
+let rs = await App.service('conf-school').get('get', { query: {key: 'UnitTplDefault', rid: schoolId}})
+// auto create default set
+if (!rs) rs = await App.service('conf-school').create({key: 'UnitTplDefault', rid: schoolId, val: []})
+// update default school unit-tpl
+App.service('conf-school').patch(_id, {val: { 'curriculumnCode': 'unit-tpl._id', ... }})
+
 // get public data
 const pubData = await App.service('conf').get('UnitTpl')
 

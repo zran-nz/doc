@@ -72,6 +72,20 @@ await App.service('stats-target').patch('test', {
 
 ## 标签
 
+#### tags model
+```js
+{
+  _id: String,
+  uid: String, // user._id or 表单schoolId
+  sort: Number, // 排序用
+  curriculumn: [String], // 关联大纲代码
+  ib: Boolean, // ib专用, 弃用
+  set: String, // 分类
+  set1？: String, // 子分类
+  tags?: [String]
+}
+```
+
 1、系统的分类与标签不允许删除
 2、单个身份下分类名称不允许重复
 3、标签全局不重复，各分类下也不重复
