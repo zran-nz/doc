@@ -2,6 +2,10 @@
 
 * [Fio](fio/fio.md ':include')
 * [APIS](fio/apis.md ':include')
+* [Collab](fio/collab.md ':include')
+* [Unit](fio/unit.md ':include')
+* [Session & Classroom](fio/session.md ':include')
+* [Setting & Tags](fio/setting.md ':include')
 
 
 * 课堂UML
@@ -37,9 +41,7 @@
 
 
 * fio接口
-  * [设置接口](fio/设置接口.md ':include')
   * [Notice](fio/notice.md ':include')
-  * [配置](main/conf.md ':include')
   * [标签](main/tags.md ':include')
   * [PDF](main/pdf.md ':include')
   * [课堂端](main/classroom.md ':include')

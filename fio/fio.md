@@ -11,6 +11,16 @@ console.log('Create ok', rs)
 const rs = await App.service(model).patch(_id, {...})
 console.log('Patch ok', rs)
 ```
+## Patch SubArrayDoc
+```js
+const rs = await App.service(model).patch(_id, {'xxx.$': subArrayDoc}, {query: {'xxx._id':subArrayDoc._id}})
+console.log('Patch ok', rs)
+```
+## Patch SubArrayDoc Attributes
+```js
+const rs = await App.service(model).patch(_id, {'xxx.$.key': subArrayDoc[key]}, {query: {'xxx._id':subArrayDoc._id}})
+console.log('Patch ok', rs)
+```
 
 ## Remove data
 ```js
