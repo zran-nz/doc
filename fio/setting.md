@@ -74,20 +74,23 @@
 - 平台管理页面  /v2/sys/tags?uid=1
 
 
-### Unit 关联task分组自定义标签接口
-- 获取task分组标签
-  - ```await App.service('conf-user').get('UnitSet')```
-- task分组标签新增 (单个操作)
-  - _id 在分组标签接口获取
-  - ```await App.service('conf-user').patch(_id, { $addToSet: { val: 'test' }})```
-- task分组标签移除 (单个操作)
-  - _id 在分组标签接口获取
-  - ```await App.service('conf-user').patch(_id, { $pull: { val: 'test' }})```
+### Unit relate link group tags
+```js
+// Get link group tags
+// get public tags: 'Inquiry stages'
+const [inquiryStages] = await App.service('tags').get('pubList', { query: { set: ['Inquiry stages'] }})
+// get personal Group tag
+const doc = await App.service('conf-user').get('UnitSet')
 
-### Unit 关联task分组标签最后选择接口
-- 获取task分组标签最后选择
-  - ```await App.service('conf-user').get('UnitSetLast')```
-- task分组标签最后选择 保存
-  - _id 在分组标签接口获取
-  - ```await App.service('conf-user').patch(_id, { val: []})```
+// add personal Group tag
+await App.service('conf-user').patch(doc._id, { $addToSet: { val: 'test' }})
+// remove personal Group tag
+await App.service('conf-user').patch(doc._id, { $pull: { val: 'test' }})
+
+// Get the group tags last selected
+const lastDoc = await App.service('conf-user').get('UnitSetLast')
+
+// Save the group tags last selected
+await App.service('conf-user').patch(lastDoc._id, { val: selected})
+```
 

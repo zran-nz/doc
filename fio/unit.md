@@ -38,11 +38,8 @@ await App.service('unit').patch(doc._id, {`ext.${key}`: ext[key]})
 // get unit outline
 await App.service('task-outline').get('byRid', {query: {_id: doc._id}})
 
-
-// get unit link category
-// await App.service('conf-user').get('byRid', {query: {_id: doc._id}})
-
 ```
+[Link relate link Inquiry stages](/fio/setting?id=unit-relate-link-group-tags)
 
 ## Unit plan template
 
