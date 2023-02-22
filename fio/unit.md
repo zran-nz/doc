@@ -19,11 +19,12 @@
     _id: any,
     ...
   },
-  link: {
+  link: [{
     _id: String, // task.id pd.id
     type: String, // task/pd
     group?: String,
-  },
+  }],
+  linkGroups: [String], // ['Week 1', 'Week 2', ...]
 }
 ```
 ### unit api
@@ -37,6 +38,15 @@ await App.service('unit').patch(doc._id, {`ext.${key}`: ext[key]})
 
 // get unit outline
 await App.service('task-outline').get('byRid', {query: {_id: doc._id}})
+
+// get recommend idea
+const list = await App.service('unit').get('recommendIdea', {query: {key: 'keyword'}})
+// list = [{idea: '', words: ['', ...]}, ...]
+
+// get recommend Inquiry
+await App.service('unit').get('recommendInquiry', {query: {_id: doc._id}})
+// list = ['', '', ...]
+
 
 ```
 [Link relate link Inquiry stages](/fio/setting?id=unit-relate-link-group-tags)
