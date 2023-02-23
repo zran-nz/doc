@@ -36,8 +36,11 @@
   curriculum: [String], // 关联大纲代码
   ib: Boolean, // ib专用, 弃用
   set: String, // 分类
-  set1？: String, // 子分类
-  tags?: [String]
+  tags?: [String],
+  child?: {
+    'tag': ['childs', ...], // 子标签
+    ...
+  }
 }
 ```
 

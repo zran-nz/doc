@@ -47,6 +47,8 @@ const list = await App.service('unit').get('recommendIdea', {query: {key: 'keywo
 await App.service('unit').get('recommendInquiry', {query: {_id: doc._id}})
 // list = ['', '', ...]
 
+// get relate link list
+const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit._id'}})
 
 ```
 [Link relate link Inquiry stages](/fio/setting?id=unit-relate-link-group-tags)
