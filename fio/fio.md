@@ -13,11 +13,17 @@ console.log('Patch ok', rs)
 ```
 ## Patch SubArrayDoc
 ```js
+// get a single subArraydoc
 const rs = await App.service(model).patch(_id, {'xxx.$': subArrayDoc}, {query: {'xxx._id':subArrayDoc._id}})
 console.log('Patch ok', rs)
-```
-## Patch SubArrayDoc Attributes
-```js
+
+// batch add to subArray
+const rs = await App.service(model).patch(_id, {$addToSet: {xxx: [subArrayDoc, ...]}})
+
+// remove an object from subArrayDoc
+const rs = await App.service(model).patch(_id, {$pull: {xxx: {_id: subArrayDoc._id}}})
+
+// patch subArrayDoc Attributes
 const rs = await App.service(model).patch(_id, {'xxx.$.key': subArrayDoc[key]}, {query: {'xxx._id':subArrayDoc._id}})
 console.log('Patch ok', rs)
 ```

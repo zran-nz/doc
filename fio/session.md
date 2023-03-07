@@ -121,11 +121,20 @@ await App.service("session").patch(_id, {
 ```
 
 ### Session list for calender [new]
-
 ```js
+// find by start ~ end
 await App.service('session').get('dateList', {
   query: {
     start: new Date('start time'), end: new Date('end time'), zone: new Date().getTimezoneOffset()
+  }
+})
+
+// find list by classId
+await App.service('session').get('dateList', {
+  query: {
+    start: new Date('start time'), end: new Date('end time'),
+    classId: 'classId',
+    zone?: new Date().getTimezoneOffset()
   }
 })
 

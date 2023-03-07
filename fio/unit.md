@@ -3,28 +3,43 @@
 ### Unit plan model
 ```js
 {
+  // --- public ---
+  mode: String, // ['unit', 'task', 'pd', 'video', 'tool']
   uid: String,
   name: String,
   curriculumn: String, // readonly, curriculumn code 
   overview?: String,
   cover: String,
-  unit?: String, // radio: single, integrated
-  type?: String, // radio: single, integrated
+  type?: String, // ['FA', 'SA', 'Activity', 'IA', 'single', 'integrated']
+  // --- task start ---
+  sid: String, // google.slides.id
+  pageNum: Number,
+  question: [String],
+  // --- task end ---
+  // --- unit start ---
   idea: String,
   words: [String],
   inquiry: [String],
   goals?: [String],
   connection?: String,
+  linkGroups: [String], // ['Week 1', 'Week 2', ...]
+  // --- unit end ---
   ext?: {
     _id: any,
+    `${tag._id}`: [{value: '', mark: ''}, ...],
+    `${tag._id}:${subject1}`: [{value: '', mark: ''}, ...],
+    `${tag._id}:${subject2}`: [{value: '', mark: ''}, ...],
+    `${tag._id}:${subject3}`: [{value: '', mark: ''}, ...],
+    `${group}:${opt1}`: [{value: '', mark: ''}, ...],
+    `${group}:${opt2}`: [{value: '', mark: ''}, ...],
+    `${group}:${opt3}`: [{value: '', mark: ''}, ...],
     ...
   },
   link: [{
-    _id: String, // task.id pd.id
+    id: String, // relate id: task.id pd.id
     type: String, // task/pd
     group?: String,
   }],
-  linkGroups: [String], // ['Week 1', 'Week 2', ...]
 }
 ```
 ### unit api
