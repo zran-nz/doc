@@ -4,13 +4,21 @@
 ```js
 {
   // --- public ---
+  createdAt: Date, // create time
+  updatedAt: Date, // update time
   mode: String, // ['unit', 'task', 'pd', 'video', 'tool']
   uid: String,
   name: String,
+  del: Boolean, // archive status
+  status: Boolean, // publish status
   curriculumn: String, // readonly, curriculumn code 
+  tpl: String, // unit-tpl._id
   overview?: String,
   cover: String,
   type?: String, // ['FA', 'SA', 'Activity', 'IA', 'single', 'integrated']
+  source: String, // library auther user._id
+  price: Number, // publish price
+
   // --- task start ---
   sid: String, // google.slides.id
   pageNum: Number,
@@ -22,7 +30,10 @@
   inquiry: [String],
   goals?: [String],
   connection?: String,
-  linkGroups: [String], // ['Week 1', 'Week 2', ...]
+  linkGroup: [{
+    name: String, // 'Week 1', 'Week 2', ...
+    alias: String,
+  }],
   // --- unit end ---
   ext?: {
     _id: any,
@@ -40,6 +51,7 @@
     type: String, // task/pd
     group?: String,
   }],
+  snapshot: Mixed // library publish clone
 }
 ```
 ### unit api
@@ -76,7 +88,7 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
   _id: String,
   name: String, // template name
   curriculum: String, // curriculum code
-  school: String, // school-plan._id
+  school: String, // school-plan._id or user._id
   data: [{
     code?: String, // private variable
     enable: Boolean,
@@ -84,7 +96,6 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
     group: String, // ['basic', 'inquiry', 'applying', '', 'link']
     name: String, //
     prompt?: String,
-    // sort?: Number,
     tags?: String, // relate tags code
   }], // 
 }
@@ -108,14 +119,27 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
 
 ### unit-tpl api
 ```js
+// get unit-tpl one
+const doc = await App.service('unit-tpl').get('unit-tpl._id')
 // get unit-tpl list
 const doc = await App.service('unit-tpl').find({query: {school: 'school._id'}})
+// get default school user unit-tpl
+let doc = await App.service('conf-user').get('UnitTplDefault')
+let doc = await App.service('conf-user').create({key: 'UnitTplDefault', val: {}})
+// set default school user unit-tpl
+let rs = await App.service('conf-user').patch(doc._id, {val: {
+  personal: unit-tpl._id, // for personal
+  [schooId]: unit-tpl._id, // for school
+  [schooId]: unit-tpl._id, // for school
+  ...
+}})
+
 // get default school unit-tpl
-let rs = await App.service('conf-school').get('get', { query: {key: 'UnitTplDefault', rid: schoolId}})
+// let rs = await App.service('conf-school').get('get', { query: {key: 'UnitTplDefault', rid: schoolId}})
 // auto create default set
-if (!rs) rs = await App.service('conf-school').create({key: 'UnitTplDefault', rid: schoolId, val: []})
+// if (!rs) rs = await App.service('conf-school').create({key: 'UnitTplDefault', rid: schoolId, val: []})
 // update default school unit-tpl
-App.service('conf-school').patch(_id, {val: { 'curriculumnCode': 'unit-tpl._id', ... }})
+// App.service('conf-school').patch(_id, {val: { 'curriculumnCode': 'unit-tpl._id', ... }})
 
 // get public data
 const pubData = await App.service('conf').get('UnitTpl')
