@@ -25,6 +25,9 @@
   question: [String],
   // --- task end ---
   // --- unit start ---
+  grade: [String],
+  unit: String,
+  duration: Number,
   idea: String,
   words: [String],
   inquiry: [String],
