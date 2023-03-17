@@ -18,6 +18,7 @@
   type?: String, // ['FA', 'SA', 'Activity', 'IA', 'single', 'integrated']
   source: String, // library auther user._id
   price: Number, // publish price
+  filled: Boolean, // All forms have been filled
 
   // --- task start ---
   sid: String, // google.slides.id

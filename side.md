@@ -4,6 +4,7 @@
 * [APIS](fio/apis.md ':include')
 * [Collab](fio/collab.md ':include')
 * [Unit](fio/unit.md ':include')
+* [Assessment Tool](fio/tool.md ':include')
 * [Session & Classroom](fio/session.md ':include')
 * [Setting & Tags](fio/setting.md ':include')
 
