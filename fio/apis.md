@@ -163,28 +163,6 @@ const authId = setInterval(async () => {
 
 `App.service('school').patch(id, { name: '', country: '', city: '', logo: '', phone_country_code: '', phone_num: '' })`
 
-#### 学校老师列表获取
-`await App.service('school-user').find({query: {school: 'school_id', del: false}})`
-
-#### 学校权限 - 添加管理员
-`App.service('school-user').patch(_id, { $addToSet: {role: ['admin']}})`
-#### 学校权限 - 移除管理员
-`App.service('school-user').patch(_id, { $pull: {role: 'admin'}})`
-
-#### 学校班级 - 添加老师
-`App.service('school-user').patch(_id, { $addToSet: {class: ['class_id']}})`
-#### 学校班级 - 移除老师
-`App.service('school-user').patch(_id, { $pull: {class: 'class_id'}})`
-#### 学校权限 - 添加班主任
-`App.service('school-user').patch(_id, { $addToSet: {head: ['class_id']}})`
-#### 学校权限 - 移除班主任
-`App.service('school-user').patch(_id, { $pull: {head: 'class_id'}})`
-
-#### 学校权限 - 添加学科管理员
-`App.service('school-user').patch(_id, { $addToSet: {subject: ['curriculumCode:subjectCode']}})`
-#### 学校权限 - 移除学科管理员
-`App.service('school-user').patch(_id, { $pull: {subject: 'curriculumCode:subjectCode'}})`
-
 ## 认证接口
 
 ```js

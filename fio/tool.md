@@ -49,6 +49,8 @@ App.service('history-tool').find() // save options to history
 // delete history list
 App.service('history-tool').remove(doc._id)
 
+// get relate data
+App.service('unit').get('relateList', '')
 
 
 // example test
