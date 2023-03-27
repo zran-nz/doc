@@ -16,29 +16,54 @@
   type?: String, // ['FA', 'SA', 'Activity', 'IA', 'single', 'integrated']
   source: String, // library auther user._id
   price: Number, // publish price
-  tool: {
+  toolGroup: [{
+    _id: String, // tagGroup._id or auto create
+    name: String, // tagGroup.name, read-only if tag exists
+    tag: String, // tag._id
+    index: [String], // [toolData._id, ...]
     teacher: Boolean,
     self: Boolean,
     peer: Boolean,
     anonymous: Boolean,
     visible: String, // ['all', 'teacher']
-  },
+  }],
   toolData: [{
-    name: String,
+    group: String, // toolGroup._id
+    name: String, // tag.name, read-only if tag exists
     mark: String, // mark
     type: String, // ['radio', 'text', 'number', 'date']
     options: [...String], // options
   }],
-  snapshot: Mixed // library publish clone
+  ext: { // linked data, from link unit ext
+    _id: any,
+    `${tag._id}`: [{value: '', mark: ''}, ...],
+    `${tag._id}:${subject1}`: [{value: '', mark: ''}, ...],
+  }
 }
 ```
 ### 
 ```js
 // get tool list
-App.service('unit').find({query: {mode: 'tool'}})
+const list = await App.service('unit').find({query: {mode: 'tool'}})
 
 // get doc
-App.service('unit').get(doc._id)
+const doc = await App.service('unit').get(list.data[0]._id)
+// use toolData by sort
+doc.toolData.setKey('_id')
+for(const group of doc.toolGroup){
+  for(const _id of group.index) {
+    console.warn(doc.toolData.get(_id))
+  }
+}
+
+const tool = doc.toolData[0]
+// patch toolData
+App.service('unit').patch(doc._id, {'toolData.$': {group, name, mark, type, options}}, {query: {'toolData._id': tool._id}})
+// patch toolData single Attributes
+App.service('unit').patch(doc._id, {'toolData.$.options': ['111','222','333']}, {query: {'toolData._id': tool._id}})
+// patch toolData sort
+App.service('unit').patch(doc._id, {'toolGroup.$.index': [tool._id,tool._id,...]}, {query: {'toolGroup._id': toolGroup._id}})
+
 
 // save to history
 App.service('history-tool').create({data: [...String]}) // save options to history
@@ -49,8 +74,9 @@ App.service('history-tool').find() // save options to history
 // delete history list
 App.service('history-tool').remove(doc._id)
 
-// get relate data
-App.service('unit').get('relateList', '')
+// add tag to linked data
+App.service('unit').patch(doc._id, {[`ext.${tag._id}`]: {}})
+
 
 
 // example test

@@ -176,3 +176,31 @@ const doc = await App.service('unit-tpl').patch(_id, {'data.$': {...subdata}}, {
 const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdata._id}}})
 
 ```
+
+## Reflection
+### Reflection model
+```js
+{
+  createdAt: Date, // create time
+  updatedAt: Date, // update time
+  school: String, // pub.user.schoolInfo._id
+  uid: String, // pub.user._id
+  pid?: String, // parent reflection._ids
+  unit: String, // unit._id
+  rkey: String, // unit.key or ext.tag._id
+  content: String, // attachment
+  attach: [String], // file._id
+}
+```
+
+```js
+// batch get reflection by unit._id
+const list = await App.service('reflection').find({query: {unit: 'unit._id'}})
+// create reflection
+const doc = await App.service('reflection').create({school, pid, unit, rkey, content, attach})
+// remove reflection
+await App.service('reflection').remove(doc._id)
+
+// batch get fileinfo by files._id
+await App.service('files').get('fileInfo', {query: ['a7f530021db91e3c36a9ea7f2a32162af4bd00aa', ...]})
+```
