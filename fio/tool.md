@@ -20,12 +20,15 @@
     _id: String, // tagGroup._id or auto create
     name: String, // tagGroup.name, read-only if tag exists
     tag: String, // tag._id
-    index: [String], // [toolData._id, ...]
+    index: [...String], // [toolData._id, ...]
     teacher: Boolean,
     self: Boolean,
     peer: Boolean,
     anonymous: Boolean,
     visible: String, // ['all', 'teacher']
+    mark: String,
+    type: String, //  ['radio', 'text', 'number', 'date']
+    options: [...String],
   }],
   toolData: [{
     group: String, // toolGroup._id
@@ -77,6 +80,10 @@ App.service('history-tool').remove(doc._id)
 // add tag to linked data
 App.service('unit').patch(doc._id, {[`ext.${tag._id}`]: {}})
 
+// create assessment tool form unit
+doc = await App.service('unit').get('copyTool', {query: {unit: 'unit._id'}})
+// copy assessment tool form unit
+doc = await App.service('unit').get('copyTool', {query: {unit: 'unit._id', _id: 'unit._id'}})
 
 
 // example test
