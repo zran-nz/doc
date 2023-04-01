@@ -87,6 +87,19 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
 ```
 [Link relate link Inquiry stages](/fio/setting?id=unit-relate-link-group-tags)
 
+### unit library api
+```js
+// publish or unpublish api
+
+
+// buy api
+
+
+// copy api
+
+
+```
+
 ## Unit plan template
 
 ### unit-tpl model
@@ -180,6 +193,7 @@ const doc = await App.service('unit-tpl').patch(_id, {'data.$': {...subdata}}, {
 const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdata._id}}})
 
 ```
+
 
 ## Reflection
 ### Reflection model
