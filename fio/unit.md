@@ -24,6 +24,7 @@
   sid: String, // google.slides.id
   pageNum: Number,
   question: [String],
+  isEdit: Boolean,
   // --- task end ---
   // --- unit start ---
   grade: [String],
@@ -109,6 +110,7 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
   name: String, // template name
   curriculum: String, // curriculum code
   school: String, // school-plan._id or user._id
+  mode: String, // ['unit', 'task', 'pd', 'video', 'tool']
   data: [{
     code?: String, // private variable
     enable: Boolean,
