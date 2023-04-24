@@ -16,10 +16,11 @@
   type?: String, // ['FA', 'SA', 'Activity', 'IA', 'single', 'integrated']
   source: String, // library auther user._id
   price: Number, // publish price
+  toolType: String, // ['title', 'diy', 'report']
   toolGroup: [{
-    _id: String, // tagGroup._id or auto create
+    _id: String, // tagGroup._id or outline.child.$._id or auto create
     name: String, // tagGroup.name, read-only if tag exists
-    tag: String, // tag._id
+    tag: String, // tag._id or outline.child.parent._id or 'ib-myp:Design:custom'
     index: [...String], // [toolData._id, ...]
     teacher: Boolean,
     self: Boolean,
@@ -31,6 +32,7 @@
     options: [...String],
   }],
   toolData: [{
+    _id: String, // outline.child.$._id or auto create
     group: String, // toolGroup._id
     name: String, // tag.name, read-only if tag exists
     mark: String, // mark
@@ -44,7 +46,7 @@
   }
 }
 ```
-### 
+### tool api
 ```js
 // get tool list
 const list = await App.service('unit').find({query: {mode: 'tool'}})
@@ -102,5 +104,11 @@ console.warn(doc)
 var list = await App.service('history-tool').find()
 console.warn(list)
 if (doc) await App.service('history-tool').remove(doc._id)
+
+```
+
+### tool outline to section
+```js
+
 
 ```

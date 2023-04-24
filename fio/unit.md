@@ -6,7 +6,7 @@
   // --- public ---
   createdAt: Date, // create time
   updatedAt: Date, // update time
-  mode: String, // ['unit', 'task', 'pd', 'video', 'tool']
+  mode: String, // ['unit', 'task', 'pdUnit', 'pdTask', 'video', 'tool']
   uid: String,
   name: String,
   del: Boolean, // archive status
@@ -18,16 +18,21 @@
   type?: String, // ['FA', 'SA', 'Activity', 'IA', 'single', 'integrated']
   source: String, // library auther user._id
   price: Number, // publish price
+  discount: {
+    price: Number, // group price
+    size: Number // group size
+  },
   filled: Boolean, // All forms have been filled
 
   // --- task start ---
   sid: String, // google.slides.id
+  sessionType: String, // ['live', 'student']
   pageNum: Number,
   question: [String],
   isEdit: Boolean,
   // --- task end ---
   // --- unit start ---
-  grade: [String],
+  grade: [Number], // [6, 12]
   unit: String,
   duration: Number,
   idea: String,
@@ -82,24 +87,21 @@ const list = await App.service('unit').get('recommendWords', {query: {key: 'keyw
 await App.service('unit').get('recommendInquiry', {query: {_id: doc._id}})
 // list = ['', '', ...]
 
+// get child list
+const list = await App.service('unit').get('child', {query: {pid: 'unit._id'}})
+
+
+```
+### unit link api
+```js
 // get relate link list
 const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit._id'}})
 
+// copyTool
+const list = await App.service('unit').get('copyTool', {query: {_id: 'tool._id', unit: 'unit._id'}})
+
 ```
 [Link relate link Inquiry stages](/fio/setting?id=unit-relate-link-group-tags)
-
-### unit library api
-```js
-// publish or unpublish api
-
-
-// buy api
-
-
-// copy api
-
-
-```
 
 ## Unit plan template
 
@@ -110,7 +112,7 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
   name: String, // template name
   curriculum: String, // curriculum code
   school: String, // school-plan._id or user._id
-  mode: String, // ['unit', 'task', 'pd', 'video', 'tool']
+  mode: String, // ['unit', 'task', 'pdUnit', 'pdTask', 'video', 'tool']
   data: [{
     code?: String, // private variable
     enable: Boolean,
@@ -138,6 +140,17 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
   {group: 'inquiry', required: true, enable: true, code: 'inquiry', origin: 'Key question(s) / Line(s) of inquiry', type: 'text-multiple', tips: ''},
   {group: 'inquiry', required: false, code: 'connection', origin: 'Real World Connection(s)', type: 'radio', tips: ''},
 ]
+```
+
+### Default unit-tpl api
+```js
+// get pd default unit-tpl
+await App.service('unit-tpl').get('pdUnit')
+await App.service('unit-tpl').get('pdTask')
+// get task sys default unit-tpl
+await App.service('unit-tpl').get('task', {query: {curriculum: 'au'}})
+// get unit sys default unit-tpl
+await App.service('unit-tpl').get('unit', {query: {curriculum: 'au'}})
 ```
 
 ### unit-tpl api
