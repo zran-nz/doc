@@ -5,7 +5,7 @@
 // read only
 {
   collectCount: Number,
-  collected: Boolean,
+  collected: String, // unit._id
   order: {
     _id: String, // order._id
     link: {
@@ -27,8 +27,7 @@ const rs = await App.service('unit').patch('publish', {_id: doc._id, price: 2.0,
 const rs = await App.service('unit').patch(doc._id, {status: false})
 
 // buy api
-await App.service('order').create({link: {id: doc._id, mode: doc.mode}})
-// const rs = await App.service('unit').patch('buy', {_id: doc._id})
+await App.service('order').create({link: {id: unit._id, mode: unit.mode}})
 
 // copy api
 const rs = await App.service('unit').patch('copy', {_id: doc._id, orderId: order._id})
@@ -74,6 +73,8 @@ const doc = await App.service('reviews').patch(doc._id, {note: 'Commit content'}
 // get task/unit reviews
 const rs = await App.service('reviews').find({query: {rid: 'unit._id'}})
 
+// get reviews stat
+const doc = await App.service('reviews').get('stat', {query: {rid: 'unit._id'}})
 ```
 
 ## Collect
@@ -92,7 +93,7 @@ const rs = await App.service('reviews').find({query: {rid: 'unit._id'}})
 // create
 const doc = await App.service('collect').create({rid: 'unit._id', type: 'task/unit/pd'})
 // remove
-const doc = await App.service('collect').patch(doc._id)
+const doc = await App.service('collect').remove(doc._id)
 ```
 
 ### Order model

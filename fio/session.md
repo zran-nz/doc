@@ -10,7 +10,7 @@ name: String,
 start: Date
 end: Date
 status: String, // ['live', 'close', 'student']
-type: String, // content type: [task, pd]
+type: String, // content type: ['session', 'workshop']
 uid: String, // user._id
 zoom: Mixed, // session zoom
 cid: String, // related task.id or content.id
@@ -120,6 +120,94 @@ await App.service("session").patch(_id, {
 });
 ```
 
+### launch workshop list [new]
+```js
+// launch workshop - scheduled
+await App.service('session').find({query: {
+  del: false, school: null, type: 'workshop', status: {$ne: 'close'},
+  start: {$gte: new Date()},
+  $sort: {start: 1, name: 1, _id: 1},
+}})
+// launch workshop - on-going 
+await App.service('session').find({query: {
+  del: false, school: null, type: 'workshop', status: {$ne: 'close'},
+  start: {$lte: new Date()},
+  $sort: {_id: -1},
+}})
+// launch workshop - ended
+await App.service('session').find({query: {
+  del: false, school: null, type: 'workshop', status: 'close',
+  $sort: {_id: -1},
+}})
+// launch workshop - archived
+await App.service('session').find({query: {
+  del: true, school: null, type: 'workshop',
+  $sort: {_id: -1},
+}})
+
+// For school
+- school: school.id
+```
+### live workshop list [new]
+```js
+// live workshop - featured
+await App.service('session').find({query: {
+  del: false, isLib: true, school: null, type: 'workshop', status: {$ne: 'close'},
+  end: {$gte: new Date()},
+  $sort: {start: 1, name: 1, _id: 1},
+}})
+// live workshop - scheduled
+await App.service('session').find({query: {
+  del: false, school: {$in: [...school.id, null]}, type: 'workshop', status: {$ne: 'close'},
+  start: {$gte: new Date()},
+  $sort: {_id: -1},
+  'reg._id': pub.user._id,
+}})
+// live workshop - on-going
+await App.service('session').find({query: {
+  del: false, school: {$in: [...school.id, null]}, type: 'workshop', status: {$ne: 'close'},
+  start: {$lte: new Date()},
+  $sort: {_id: -1},
+  'reg._id': pub.user._id,
+}})
+// live workshop - ended
+await App.service('session').find({query: {
+  del: false, school: {$in: [...school.id, null]}, type: 'workshop', status: 'close',
+  start: {$lte: new Date()},
+  $sort: {_id: -1},
+  'reg._id': pub.user._id,
+}})
+
+```
+### Session list for class [new]
+```js
+// scheduled
+await App.service('session').find({query: {
+  del: false, classId: '', type: 'session', status: {$ne: 'close'},
+  start: {$gte: new Date()},
+  $sort: {start: 1, name: 1, _id: 1}
+}})
+// on-going
+await App.service('session').find({query: {
+  del: false, classId: '', type: 'session', status: {$ne: 'close'},
+  start: {$lte: new Date()},
+  $sort: {_id: -1},
+}})
+// ended
+await App.service('session').find({query: {
+  del: false, classId: '', type: 'session', status: 'close',
+  $sort: {_id: -1},
+}})
+// archived
+await App.service('session').find({query: {
+  del: true, classId: '', type: 'session', status: 'close',
+  $sort: {_id: -1},
+}})
+
+// ext search
+$or: [{name: {$search: "123"}}]
+
+```
 ### Session list for calender [new]
 ```js
 // find by start ~ end
