@@ -6,6 +6,28 @@
 > /fio/maps/city/{CountryCodes}?q={search}
 
 
+### Unit/Task/PD Tpl Public Config
+```js
+await App.service('conf').get('UnitTpl')
+await App.service('conf').get('TaskTpl')
+await App.service('conf').get('PdUnitTpl')
+await App.service('conf').get('PdTaskTpl')
+
+// unit-tpl public data
+[
+  {group: 'basic', required: true, enable: true, code: 'name', origin: 'Unit Name', type: 'text', tips: ''},
+  {group: 'basic', required: true, enable: true, code: 'cover', origin: 'Cover', type: 'image', tips: ''},
+  {group: 'basic', required: false, code: 'unit', origin: 'Project-based Unit', type: 'radio', tips: ''},
+  {group: 'basic', required: false, code: 'type', origin: 'Unit Type', type: 'radio', tips: ''},
+  {group: 'basic', required: false, code: 'overview', origin: 'Overview', type: 'text', tips: ''},
+  {group: 'inquiry', required: true, enable: true, code: 'idea', origin: 'Big Idea/ Statement of Inquiry/ Central Idea', type: 'text', tips: ''},
+  {group: 'inquiry', required: true, enable: true, code: 'words', origin: 'Key words', type: 'text-multiple', tips: ''},
+  {group: 'inquiry', required: false, code: 'goals', origin: 'UN Sustainable Development Goal(s)', type: 'choice', tips: ''},
+  {group: 'inquiry', required: true, enable: true, code: 'inquiry', origin: 'Key question(s) / Line(s) of inquiry', type: 'text-multiple', tips: ''},
+  {group: 'inquiry', required: false, code: 'connection', origin: 'Real World Connection(s)', type: 'radio', tips: ''},
+]
+```
+
 ### School Grades
 > Get personal grade list  
 `App.service('conf-user').get('Grades')`

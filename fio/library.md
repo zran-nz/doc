@@ -72,6 +72,8 @@ const doc = await App.service('reviews').create({
 const doc = await App.service('reviews').patch(doc._id, {note: 'Commit content'})
 // get task/unit reviews
 const rs = await App.service('reviews').find({query: {rid: 'unit._id'}})
+// get my reviews
+const rs = await App.service('reviews').get('my', {query: {rid: 'unit._id'}})
 
 // get reviews stat
 const doc = await App.service('reviews').get('stat', {query: {rid: 'unit._id'}})

@@ -148,6 +148,23 @@ await App.service('session').find({query: {
 // For school
 - school: school.id
 ```
+
+### register workshop
+```js
+// register
+// _date: use send mail, session localtime format
+await App.service('session').patch(session._id, {
+  _date: new Date(session.start).toString(), 
+  $addToSet: {reg: {avatar: pub.user.avatar, nickname: pub.user.nickname, _id: pub.user._id}}
+})
+
+// unregister
+await App.service('session').patch(session._id, {
+  $pull: {reg: {_id: 'reg._id'}}
+})
+
+```
+
 ### live workshop list [new]
 ```js
 // live workshop - featured

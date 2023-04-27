@@ -125,24 +125,11 @@ const list = await App.service('unit').get('copyTool', {query: {_id: 'tool._id',
   }], // 
 }
 ```
-### unit-tpl public data
-```js
-// default unit form
-[
-  {group: 'basic', required: true, enable: true, code: 'name', origin: 'Unit Name', type: 'text', tips: ''},
-  {group: 'basic', required: true, enable: true, code: 'cover', origin: 'Cover', type: 'image', tips: ''},
-  {group: 'basic', required: false, code: 'unit', origin: 'Project-based Unit', type: 'radio', tips: ''},
-  {group: 'basic', required: false, code: 'type', origin: 'Unit Type', type: 'radio', tips: ''},
-  {group: 'basic', required: false, code: 'overview', origin: 'Overview', type: 'text', tips: ''},
-  {group: 'inquiry', required: true, enable: true, code: 'idea', origin: 'Big Idea/ Statement of Inquiry/ Central Idea', type: 'text', tips: ''},
-  {group: 'inquiry', required: true, enable: true, code: 'words', origin: 'Key words', type: 'text-multiple', tips: ''},
-  {group: 'inquiry', required: false, code: 'goals', origin: 'UN Sustainable Development Goal(s)', type: 'choice', tips: ''},
-  {group: 'inquiry', required: true, enable: true, code: 'inquiry', origin: 'Key question(s) / Line(s) of inquiry', type: 'text-multiple', tips: ''},
-  {group: 'inquiry', required: false, code: 'connection', origin: 'Real World Connection(s)', type: 'radio', tips: ''},
-]
-```
 
-### Default unit-tpl api
+### Tpl Public Config
+[Unit/Task/PD Tpl Public Config](/fio/setting?id=unittaskpd-tpl-public-config)
+
+### Platform Default unit-tpl api
 ```js
 // get pd default unit-tpl
 await App.service('unit-tpl').get('pdUnit')
