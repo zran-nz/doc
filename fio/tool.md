@@ -112,3 +112,32 @@ if (doc) await App.service('history-tool').remove(doc._id)
 
 
 ```
+
+
+### Assessment tool data model
+```js
+{
+  tool: String, // relate unit._id for assessment tool
+  task?: String, // relate unit._id for task
+  unit?: String, // relate unit._id for unit
+  assessor: String, // assessor user._id 
+  student: String, // student user._id
+  data: [{
+    _id: { type: String }, // toolData._id or toolGroup._id
+    val: { type: String }, // 
+  }],
+}
+```
+
+### tool data api
+```js
+// create
+const doc = await App.service('tool-data').create({
+  tool: 'unit._id', student: 'user._id', data: [{_id: 'toolData._id', val: ''}, ...]
+})
+
+// find by tool
+const doc = await App.service('tool-data').find({query: {tool: 'unit._id'}})
+```
+
+[Rooms Members](/fio/rooms?id=rooms-api)

@@ -7,6 +7,7 @@
 * [Unit](fio/unit.md ':include')
 * [Assessment Tool](fio/tool.md ':include')
 * [Session & Classroom](fio/session.md ':include')
+* [Rooms](fio/rooms.md ':include')
 * [Setting & Tags](fio/setting.md ':include')
 * [School](fio/school.md ':include')
   * [School-User](fio/school-user.md ':include')
