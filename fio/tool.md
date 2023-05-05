@@ -122,10 +122,14 @@ if (doc) await App.service('history-tool').remove(doc._id)
   unit?: String, // relate unit._id for unit
   assessor: String, // assessor user._id 
   student: String, // student user._id
-  data: [{
-    _id: { type: String }, // toolData._id or toolGroup._id
-    val: { type: String }, // 
-  }],
+  data: {
+    `toolData._id or toolGroup._id`: { // toolData._id or toolGroup._id
+      val: { type: String },
+      val2: { type: String },
+      val3: { type: String },
+    },
+    ...
+  },
 }
 ```
 
@@ -133,11 +137,15 @@ if (doc) await App.service('history-tool').remove(doc._id)
 ```js
 // create
 const doc = await App.service('tool-data').create({
-  tool: 'unit._id', student: 'user._id', data: [{_id: 'toolData._id', val: ''}, ...]
+  tool: 'unit._id', student: 'user._id', data: {'toolData._id': {val: ''}, ...}
 })
 
 // find by tool
 const doc = await App.service('tool-data').find({query: {tool: 'unit._id'}})
+
+// patch all students
+const rs = App.service('tool-data').patch('all', {`data.${toolData._id}`: {val: '123', ...}}, {query: {session: 'session._id'}})
+
 ```
 
 [Rooms Members](/fio/rooms?id=rooms-api)

@@ -26,7 +26,6 @@ block: [String], // 黑名单
 ```js
 // get rooms
 const doc = await App.service('rooms').get('rooms._id or session id')
-
 ```
 
 #### students join room only once

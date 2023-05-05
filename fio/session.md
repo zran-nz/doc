@@ -21,6 +21,8 @@ rev: String, // deprecated: old task.revision_id, slides.rev
 rid: String, // deprecated: old class.id
 size: Number, // pages size + room student comments + response size
 del: Boolean, // true: archive, false: restore
+category: String,
+color: String,
 
 // for classroom control
 guest: Boolean, // Allow anonymous login
@@ -88,7 +90,8 @@ await App.service('session').create({
   price: 0 / 100 (单位:分, $1 = 100), discount: 0~99,
   regMax: 100, regDate: new Date('register dealine'),
   start: new Date('start time'), end: new Date('end time'),
-  zoom: { passcode: true/false, waiting_room: true/false }
+  zoom: { passcode: true/false, waiting_room: true/false },
+  category?: '', color?: ''
 })
 ```
 
@@ -103,7 +106,8 @@ await App.service('session').create({
   price: 0 / 100 (单位:分, $1 = 100), discount: 0~99,
   regMax: 100, regDate?: new Date('register dealine'),
   start: new Date('start time'), end: new Date('end time'),
-  zoom?: { passcode: true/false, waiting_room: true/false }
+  zoom?: { passcode: true/false, waiting_room: true/false },
+  category?: '', color?: ''
 })
 ```
 

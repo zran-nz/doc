@@ -119,3 +119,22 @@ const lastDoc = await App.service('conf-user').get('UnitSetLast')
 await App.service('conf-user').patch(lastDoc._id, { val: selected})
 ```
 
+### schedule session category
+```js
+// get category
+let doc = await App.service('conf-user').get('SessionCategory')
+if (!doc) doc = await App.service('conf-user').create({key: 'SessionCategory', val: []})
+
+// add category
+await App.service('conf-user').patch(doc._id, {$addToSet: {val: {name: '', color: ''}}})
+// patch category
+await App.service('conf-user').patch(doc._id, {'val.$': {_id. name, color, weight}}}, {query: {'val._id': ''}})
+// remove category
+await App.service('conf-user').patch(doc._id, {$pull: {val: {_id: ''}}})
+
+
+// ex:
+doc.val[0].weight = 10
+await App.service('conf-user').patch(doc._id, {'val.$': doc.val[0]}}, {query: {'val._id': doc.val[0]._id}})
+
+```
