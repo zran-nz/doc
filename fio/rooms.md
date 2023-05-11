@@ -32,3 +32,20 @@ const doc = await App.service('rooms').get('rooms._id or session id')
 ```js
 const doc = await App.service('rooms').patch('joinRoom', {_id: 'rooms._id'})
 ```
+
+#### block/attend student
+```js
+// block students
+const doc = await App.service('rooms').patch(doc._id, {$addToSet: {block: 'user._id'}})
+// unblock students
+const doc = await App.service('rooms').patch(doc._id, {$pull: {block: 'user._id'}})
+// attend students
+const doc = await App.service('rooms').patch(doc._id, {$addToSet: {attend: 'user._id'}})
+// un attend students
+const doc = await App.service('rooms').patch(doc._id, {$pull: {attend: 'user._id'}})
+
+
+// batch block students
+const doc = await App.service('rooms').patch(doc._id, {block: [...]})
+```
+

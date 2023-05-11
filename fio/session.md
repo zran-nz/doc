@@ -111,6 +111,53 @@ await App.service('session').create({
 })
 ```
 
+### create courses
+
+```js
+await App.service('session').create({
+  type: 'courses', name: '',
+  school?: '', classId?: '', className?: '',
+  cid: 'unit._id', image: 'cover url',
+  price?: 0 / 100 (单位:分, $1 = 100), discount?: 0~99,
+  regMax?: 100, regDate?: new Date('register dealine'),
+  start: new Date('first session start time'), end: new Date('last session end time'),
+  childs: [{
+    _id: String, // session._id
+    cid: String, // session.cid
+    group?: String, // linkGroup._id
+    groupName?: String, // linkGroup name
+    mode: String, // task/pd/tool
+    sid: String, // session.sid
+  }, ...]
+})
+
+// example
+const unitDoc = await App.service('unit').get('unit._id')
+const groupMap = {}
+const linkMap = {}
+for(const o of unitDoc.linkGroup){
+  groupMap[o._id] = o.name
+}
+for(const link of unitDoc.link){
+  linkMap[link.id] = link.group
+}
+const childs = []
+const unitLinkList = await App.service('unit').get('relateLinkList', {query: {rid: 'unit._id'}})
+for(const o of unitLinkList){
+  const sessionDoc = await App.service('session').create({type: 'session', cid: o._id, ...})
+  const link = linkMap[o._id]
+  childs.push([
+    _id: sessionDoc._id,
+    sid: sessionDoc.sid,
+    cid: sessionDoc.cid,
+    mode: link.mode,
+    group: link.group,
+    groupName: groupMap[link.group]
+  ])
+}
+const courseDoc = await App.service('session').create({type: 'courses', cid: unitDoc._id, ..., childs})
+```
+
 ### patch session [new]
 
 ```js
@@ -290,7 +337,25 @@ await App.service('session').get('dateList', {
 > Delete session  
 > `App.service('session').remove(_id)`
 
-## Student response
+### get members for assessment tool
+```js
+// get members for student
+const doc = await App.service('session').get('toolMembers', {query: {sid: 'session.sid', role: 'student'}})
+// get members for teacher
+const doc = await App.service('session').get('toolMembers', {query: {sid: 'session.sid'}})
+
+// example test
+var doc = await App.service('session').get('63eed1c5338d4d5568c5ab94')
+await App.service('session').patch(doc._id, {
+  _date: new Date(doc.start).toString(), 
+  $addToSet: {reg: {avatar: Auser.avatar, nickname: Auser.nickname, _id: Auser._id}}
+})
+await App.service('session').get('toolMembers', {query: {sid: "C17cmGC9", role: 'student'}})
+await App.service('session').get('toolMembers', {query: {sid: "C17cmGC9"}})
+
+```
+
+### Student response
 
 > Get  
 > `App.service('response').get(_id)`

@@ -97,10 +97,10 @@ const list = await App.service('unit').get('child', {query: {pid: 'unit._id'}})
 // get relate link list
 const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit._id'}})
 
-// copyTool
-const list = await App.service('unit').get('copyTool', {query: {_id: 'tool._id', unit: 'unit._id'}})
-
 ```
+
+[Copy or Create assessment tool](/fio/tool?id=add-assessment-tool)
+
 [Link relate link Inquiry stages](/fio/setting?id=unit-relate-link-group-tags)
 
 ## Unit plan template

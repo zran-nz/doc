@@ -82,11 +82,6 @@ App.service('history-tool').remove(doc._id)
 // add tag to linked data
 App.service('unit').patch(doc._id, {[`ext.${tag._id}`]: {}})
 
-// create assessment tool form unit
-doc = await App.service('unit').get('copyTool', {query: {unit: 'unit._id'}})
-// copy assessment tool form unit
-doc = await App.service('unit').get('copyTool', {query: {unit: 'unit._id', _id: 'unit._id'}})
-
 
 // example test
 var doc = await App.service('unit').create({mode: 'tool', name: 'tool test', curriculum: 'au'})
@@ -107,6 +102,14 @@ if (doc) await App.service('history-tool').remove(doc._id)
 
 ```
 
+### add assessment tool
+```js
+// create assessment tool form unit
+doc = await App.service('unit').get('copyTool', {query: {unit: 'unit._id'}})
+// copy assessment tool form unit
+doc = await App.service('unit').get('copyTool', {query: {unit: 'unit._id', _id: 'unit._id', name?: ''}})
+```
+
 ### tool outline to section
 ```js
 
@@ -117,6 +120,7 @@ if (doc) await App.service('history-tool').remove(doc._id)
 ### Assessment tool data model
 ```js
 {
+  session: String, // relate session.sid
   tool: String, // relate unit._id for assessment tool
   task?: String, // relate unit._id for task
   unit?: String, // relate unit._id for unit
@@ -137,15 +141,21 @@ if (doc) await App.service('history-tool').remove(doc._id)
 ```js
 // create
 const doc = await App.service('tool-data').create({
-  tool: 'unit._id', student: 'user._id', data: {'toolData._id': {val: ''}, ...}
+  session: 'session.sid', tool: 'unit._id', student: 'user._id', data: {'toolData._id': {val: ''}, ...}
 })
 
 // find by tool
-const doc = await App.service('tool-data').find({query: {tool: 'unit._id'}})
+const doc = await App.service('tool-data').find({query: {session: 'session.sid', tool: 'unit._id'}})
 
 // patch all students
 const rs = App.service('tool-data').patch('all', {`data.${toolData._id}`: {val: '123', ...}}, {query: {session: 'session._id'}})
 
+// init for teacher
+const memberList = await App.service('session').get('toolMembers', {query: {sid: 'session.sid'}})
+for(const o of memberList) {
+  await App.service('tool-data').create({session: 'session.sid', tool: 'unit._id', student: v._id, data: {}})
+}
+
 ```
 
-[Rooms Members](/fio/rooms?id=rooms-api)
+[Session Members](/fio/session?id=get-members-for-assessment-tool)
