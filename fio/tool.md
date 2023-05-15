@@ -124,8 +124,9 @@ doc = await App.service('unit').get('copyTool', {query: {unit: 'unit._id', _id: 
   tool: String, // relate unit._id for assessment tool
   task?: String, // relate unit._id for task
   unit?: String, // relate unit._id for unit
-  assessor: String, // assessor user._id 
+  assessor: String, // assessor user._id
   student: String, // student user._id
+  filled: Boolean, // All forms have been filled
   data: {
     `toolData._id or toolGroup._id`: { // toolData._id or toolGroup._id
       val: { type: String },
