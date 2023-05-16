@@ -52,6 +52,7 @@ school: String, // old cc_school.id
 classId: String, // old classId school class id, class2.task_class_id
 className: String, // old className
 unitType: String, // unit.type
+sessionType: String, // unit.sessionType
 unit: String, // related unit.id
 students: { type: [String] }, // class session: student user._id
 
@@ -88,6 +89,7 @@ await App.service('session').create({
   type: 'workshop', name: '', school: '',
   id: 'presentation_id', cid: 'content.id', image: 'cover url',
   unitType: String, // unit.type
+  sessionType: String, // unit.sessionType
   price: 0 / 100 (单位:分, $1 = 100), discount: 0~99,
   regMax: 100, regDate: new Date('register dealine'),
   start: new Date('start time'), end: new Date('end time'),
@@ -103,6 +105,7 @@ await App.service('session').create({
   type: 'session', name: '',
   school?: '', classId?: '', className?: '',
   unitType: String, // unit.type
+  sessionType: String, // unit.sessionType
   id: 'presentation_id', cid: 'content.id', image: 'cover url',
   price: 0 / 100 (单位:分, $1 = 100), discount: 0~99,
   regMax: 100, regDate?: new Date('register dealine'),
@@ -120,6 +123,7 @@ await App.service('session').create({
   school?: '', classId?: '', className?: '',
   cid: 'unit._id', image: 'cover url',
   unitType: String, // unit.type
+  sessionType: String, // unit.sessionType
   price?: 0 / 100 (单位:分, $1 = 100), discount?: 0~99,
   regMax?: 100, regDate?: new Date('register dealine'),
   start: new Date('first session start time'), end: new Date('last session end time'),
@@ -315,6 +319,7 @@ await App.service('session').get('dateList', {
     school?: [...'school_id'], //
     classId?: 'classID', //
     unitType?: [...'unit.type'], // unit.type
+    sessionType?: [...'unit.sessionType'], // unit.type
     uid?: pub.user._id / { $ne: pub.user._id }, // only launch by me
   }
 })

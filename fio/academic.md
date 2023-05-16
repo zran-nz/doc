@@ -42,4 +42,7 @@ const list = await App.service('subjects').find({query: {}})
 // get doc
 const doc = await App.service('subjects').get(list.data[0]._id)
 
+// create subject
+const doc = await App.service('subjects').create({})
+
 ```
