@@ -362,6 +362,40 @@ await App.service('session').get('toolMembers', {query: {sid: "C17cmGC9"}})
 
 ```
 
+### LearningData
+```js
+const {members, sessions} = App.service('session').get('learningData', {query: {pid: 'session._id'}})
+
+members = [{
+  _id: 'user._id',
+  nickname: 'user.nickname',
+  avatar: 'user.avatar',
+  sessions: {
+    'session._id': {
+      // for live
+      attend: Boolean,
+      // for study
+      count: 0, // response.length
+      // for assessment tool
+      self: 0,
+      teacher: 0,
+      others: 0,
+    }
+  }
+}]
+sessions = [{
+  _id: 'session._id',
+  sid: 'session.sid',
+  start: 'session.start',
+  end: 'session.end',
+  status: 'session.status',
+  type: 'type',
+  sessionType: 'sessionType',
+  total: 10, // questions.length
+}]
+
+```
+
 ### Student response
 
 > Get  
