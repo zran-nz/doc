@@ -27,11 +27,12 @@
 }
 
 outline = {
+  _id: String,
   name: String,
-  pid: String,
   grade: [String],
   tags: [String],
   code: String,
+  child: [outline],
 }
 ```
 ### Subjects api

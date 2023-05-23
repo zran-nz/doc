@@ -10,7 +10,7 @@ name: String,
 start: Date
 end: Date
 status: String, // ['live', 'close', 'student']
-type: String, // content type: ['session', 'workshop']
+type: String, // content type: ['session', 'taskWorkshop', 'workshop', 'courses', 'pdCourses', 'tool']
 uid: String, // user._id
 zoom: Mixed, // session zoom
 cid: String, // related task.id or content.id
@@ -51,8 +51,8 @@ reg: [{ // register userinfo
 school: String, // old cc_school.id
 classId: String, // old classId school class id, class2.task_class_id
 className: String, // old className
-unitType: String, // unit.type
-sessionType: String, // unit.sessionType
+unitType: String, // unit.type ['FA', 'SA', 'Activity', 'IA', 'Single', 'integrated', 'UOI', 'IDU']
+sessionType: String, // unit.sessionType, ['live', 'student']
 unit: String, // related unit.id
 students: { type: [String] }, // class session: student user._id
 
@@ -391,6 +391,9 @@ sessions = [{
   status: 'session.status',
   type: 'type',
   sessionType: 'sessionType',
+  countdown: {
+    deadline: Date
+  },
   total: 10, // questions.length
 }]
 
