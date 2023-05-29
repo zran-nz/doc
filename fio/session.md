@@ -10,7 +10,7 @@ name: String,
 start: Date
 end: Date
 status: String, // ['live', 'close', 'student']
-type: String, // content type: ['session', 'taskWorkshop', 'workshop', 'courses', 'pdCourses', 'tool']
+type: String, // content type: ['session', 'taskWorkshop', 'unitCourses', 'workshop', 'courses', 'pdCourses', 'tool']
 uid: String, // user._id
 zoom: Mixed, // session zoom
 cid: String, // related task.id or content.id
@@ -55,6 +55,17 @@ unitType: String, // unit.type ['FA', 'SA', 'Activity', 'IA', 'Single', 'integra
 sessionType: String, // unit.sessionType, ['live', 'student']
 unit: String, // related unit.id
 students: { type: [String] }, // class session: student user._id
+
+// for unit session, courses
+childSize: Number,
+childs: [{
+  _id: String, // session._id
+  cid: String, // task._id or pd._id or tool._id
+  group: String, // linkGroup._id
+  groupName: String, // link.group name
+  mode: String, // unit.mode, task/pd/tool
+  sid: String, // session._id
+}],
 
 // snapshot data
 task: Mixed, // task.[] snapshot
