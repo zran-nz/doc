@@ -97,6 +97,9 @@ const list = await App.service('unit').get('child', {query: {pid: 'unit._id'}})
 // get relate link list
 const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit._id'}})
 
+// get all relate link list
+const list = await App.service('unit').get('allRelateLinkList', {query: {rid: ['unit._id', ...]}})
+
 ```
 
 [Copy or Create assessment tool](/fio/tool?id=add-assessment-tool)
