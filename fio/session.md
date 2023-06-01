@@ -77,6 +77,22 @@ reminder: Number, // mail notice: WorkshopReminderBeforeClass
 drawkey: String, // excalidraw room key
 ```
 
+### type
+> for classroom  
+task => session  
+unit => courses
+
+> for public  
+task => taskWorkshop  
+unit => unitCourses
+
+> for workshop  
+pd => workshop  
+pdunit => pdCourses
+
+
+tool => tool
+
 ### Session detail [new]
 
 `await App.service('session').get(_id)`
@@ -332,6 +348,34 @@ await App.service('session').get('dateList', {
     unitType?: [...'unit.type'], // unit.type
     sessionType?: [...'unit.sessionType'], // unit.type
     uid?: pub.user._id / { $ne: pub.user._id }, // only launch by me
+  }
+})
+```
+
+### Session list for students
+```js
+// session list
+await App.service('session').find({
+  query: {
+    start: new Date('start time'), end: new Date('end time'),
+    type?: 'session',
+    students: pub.user._id, // with me
+    school?: [...'school_id'], //
+    classId?: 'classID', //
+    unitType?: [...'unit.type'], // unit.type
+    sessionType?: [...'unit.sessionType'], // unit.type
+  }
+})
+// workshop list
+await App.service('session').find({
+  query: {
+    start: new Date('start time'), end: new Date('end time'),
+    type?: 'workshop',
+    'reg._id': pub.user._id, // with me
+    school?: [...'school_id'], //
+    classId?: 'classID', //
+    unitType?: [...'unit.type'], // unit.type
+    sessionType?: [...'unit.sessionType'], // unit.type
   }
 })
 ```
