@@ -62,6 +62,7 @@
     group?: String,
   }],
   snapshot: Mixed // library publish clone
+  template: Mixed // unit-tpl.data snapshot
 }
 ```
 ### unit api
