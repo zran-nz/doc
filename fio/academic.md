@@ -37,13 +37,19 @@ outline = {
 ```
 ### Subjects api
 ```js
-// get Subjects list
+// get personal Subjects list
 const list = await App.service('subjects').find({query: {}})
 
-// get doc
-const doc = await App.service('subjects').get(list.data[0]._id)
+// get school Subjects list
+const list = await App.service('subjects').find({query: {uid: 'schoolId'}})
 
-// create subject
-const doc = await App.service('subjects').create({})
+// create personal subject
+const doc = await App.service('subjects').create({name: ''})
+
+// create school subject
+const doc = await App.service('subjects').create({uid: 'schoolId', name: ''})
+
+// get doc
+const doc = await App.service('subjects').get(doc._id)
 
 ```
