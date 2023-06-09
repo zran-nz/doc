@@ -102,6 +102,14 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
 const list = await App.service('unit').get('allRelateLinkList', {query: {rid: ['unit._id', ...]}})
 
 ```
+### unit copy api
+```js
+// for self content
+const doc = await App.service('unit').patch('copy', {_id: 'unit._id', name?: ''})
+// for library
+const doc = await App.service('unit').patch('copy', {_id: 'unit._id', orderId: 'order._id', name?: ''})
+```
+
 
 [Copy or Create assessment tool](/fio/tool?id=add-assessment-tool)
 

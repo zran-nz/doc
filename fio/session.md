@@ -419,6 +419,7 @@ await App.service('session').get('toolMembers', {query: {sid: "C17cmGC9"}})
 
 ### LearningData
 ```js
+// for teacher
 const {members, sessions} = App.service('session').get('learningData', {query: {pid: 'session._id'}})
 
 members = [{
@@ -451,6 +452,13 @@ sessions = [{
   },
   total: 10, // questions.length
 }]
+
+// for student
+const {sessions, count} = App.service('session').get('studentLearningData', {query: {uid: 'user._id', ids: ['session._id', ...]}})
+
+count = {
+  'session._id': 1 // response.length
+}
 
 ```
 
