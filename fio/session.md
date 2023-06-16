@@ -114,7 +114,7 @@ await App.service("session").patch(_id, {
 ```js
 await App.service('session').create({
   type: 'workshop', name: '', school: '',
-  id: 'presentation_id', cid: 'content.id', image: 'cover url',
+  id: 'presentation_id (unit.sid)', cid: 'unit.id', image: 'unit.cover',
   unitType: String, // unit.type
   sessionType: String, // unit.sessionType
   price: 0 / 100 (单位:分, $1 = 100), discount: 0~99,
@@ -133,7 +133,7 @@ await App.service('session').create({
   school?: '', classId?: '', className?: '',
   unitType: String, // unit.type
   sessionType: String, // unit.sessionType
-  id: 'presentation_id', cid: 'content.id', image: 'cover url',
+  id: 'presentation_id (unit.sid)', cid: 'unit.id', image: 'unit.cover',
   price: 0 / 100 (单位:分, $1 = 100), discount: 0~99,
   regMax: 100, regDate?: new Date('register dealine'),
   start: new Date('start time'), end: new Date('end time'),
@@ -148,7 +148,7 @@ await App.service('session').create({
 await App.service('session').create({
   type: 'courses', name: '',
   school?: '', classId?: '', className?: '',
-  cid: 'unit._id', image: 'cover url',
+  cid: 'unit._id', image: 'unit.cover',
   unitType: String, // unit.type
   sessionType: String, // unit.sessionType
   price?: 0 / 100 (单位:分, $1 = 100), discount?: 0~99,
