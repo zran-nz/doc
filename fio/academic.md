@@ -9,7 +9,6 @@
   name: String,
   curriculum: String, // curriculum code
   grade: [String],
-  status: Boolean, // publish status
   del: Boolean,
   count: {
     unit: Number,
@@ -24,6 +23,12 @@
   topic: [outline],
   goal: [outline],
   atl: [outline],
+  code: { // `${curriculmCode}:${subjectCode}`
+    standard: String,
+    topic: String,
+    atl: String,
+  },
+  publish: [String], // has publish
   snapshot: {} // publish to snapshot
 }
 
@@ -43,6 +48,13 @@ outline = {
 import {subjectsStore} from 'stores/subjects'
 const subjects = subjectsStore()
 
+// create subject
+await subjects.create({name, uid, curriculum: [], grade?: []})
+// patch subject
+await subjects.patch(_id, {...})
+// delete subject
+await subjects.delete(_id)
+
 // get subjects list
 await subjects.find(uid)
 
@@ -50,7 +62,20 @@ await subjects.find(uid)
 await subjects.getOptions(uid, 'au')
 
 // get subject doc
-await subjects.getOutline('subject._id')
+await subjects.get('subject._id')
+
+// import from platform
+// need set code.standard = `${curriculmCode}:${subjectCode}`
+await subjects.patch(_id, {
+  standard: [...],
+  'code.standard': 'ib-pyp:math'
+})
+// upload from xlsx
+// need clean code.standard
+await subjects.patch(_id, {
+  standard: [...],
+  'code.standard': ''
+})
 
 ```
 
