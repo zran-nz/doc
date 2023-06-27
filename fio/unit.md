@@ -10,7 +10,12 @@
   uid: String,
   name: String,
   del: Boolean, // archive status
-  status: Boolean, // publish status
+  status: Boolean, // has remove
+  subjects: [String], // publish subjects
+  publish: {
+    lib: Boolean, // to library
+    link: Boolean, // link content publish
+  },
   curriculumn: String, // readonly, curriculumn code 
   tpl: String, // unit-tpl._id
   overview?: String,
@@ -110,6 +115,18 @@ const doc = await App.service('unit').patch('copy', {_id: 'unit._id', name?: ''}
 const doc = await App.service('unit').patch('copy', {_id: 'unit._id', orderId: 'order._id', name?: ''})
 ```
 
+### unit publish api
+```js
+// publish unit self
+await App.service('unit').patch('publish', {_id, price, discount, subjects: [...], 'publish.lib': true})
+
+// publish unit link content
+await App.service('unit').patch('publish', {_id, 'publish.link': true})
+
+// publish to self-study
+// await App.service('session').create('publish', {_id, 'publish.study': true})
+
+```
 
 [Copy or Create assessment tool](/fio/tool?id=add-assessment-tool)
 

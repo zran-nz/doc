@@ -90,8 +90,29 @@ unit => unitCourses
 pd => workshop  
 pdunit => pdCourses
 
-
 tool => tool
+
+### self-study session
+```js
+// task/pd publish to self-study
+await App.service('session').create({
+  type: 'taskWorkshop',
+  status: 'student', sessionType: 'student',
+  id: 'presentation_id (unit.sid)', cid: 'unit.id', image: 'unit.cover',
+  unitType: String, // unit.type
+  regMax: 0
+})
+
+// find list
+await App.service('session').find({query: {
+  type: 'taskWorkshop', sessionType: 'student'
+}})
+
+// classroom handle
+- do not join the room
+- find response query = {sid, uid: pub.user._id, $limit: 2000}
+- disable 'auth' service
+```
 
 ### Session detail [new]
 
