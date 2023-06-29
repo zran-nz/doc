@@ -100,3 +100,43 @@ const doc = await App.service('subjects').get(doc._id)
 const doc = await App.service('subjects').patch(doc._id, {snapshot: true})
 
 ```
+
+### tags model
+```js
+{
+  _id: String, // tag._id
+  uid: String, // 课堂用户id or 表单schoolId
+  set: String, // 名称
+  prompt: String, 
+  curriculum: [String], // 关联大纲 curriculumCode or curriculum._id
+  sort: Number, // 排序用
+  step: String, // 关联Unit步骤 ['basic', 'inquiry', 'applying'] 
+  stepTask: String, // 关联Task步骤 ['basic', 'inquiry', 'applying']
+  layer: Boolean, // 一层: false, 多层: true
+  tool: Boolean, // tool use
+  child: [{...tag, child: [tag]}], // 子标签
+}
+tag = {
+  _id: String, // tag._id
+  name: String,
+  prompt: String,
+}
+```
+### tags store
+```js
+// import store
+import {tagsStore} from 'stores/tags'
+const tags = tagsStore()
+// create tag
+await tags.create({set: 'tag name', uid: school._id or user._id, curriculum: []})
+// patch tag
+await tags.patch(_id, {...})
+// delete tag
+await tags.delete(_id)
+// get tags list
+await tags.find(uid=1)
+// get tags options
+await tags.getOptions(uid=1, 'au')
+// get tag doc
+await tags.get('tag._id')
+```

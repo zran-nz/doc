@@ -100,7 +100,8 @@ await App.service('session').create({
   status: 'student', sessionType: 'student',
   id: 'presentation_id (unit.sid)', cid: 'unit.id', image: 'unit.cover',
   unitType: String, // unit.type
-  regMax: 0
+  regMax: 0,
+  subjects: [...],
 })
 
 // find list
@@ -142,7 +143,8 @@ await App.service('session').create({
   regMax: 100, regDate: new Date('register dealine'),
   start: new Date('start time'), end: new Date('end time'),
   zoom: { passcode: true/false, waiting_room: true/false },
-  category?: '', color?: ''
+  category?: '', color?: '',
+  subjects?: [...],
 })
 ```
 
@@ -159,7 +161,7 @@ await App.service('session').create({
   regMax: 100, regDate?: new Date('register dealine'),
   start: new Date('start time'), end: new Date('end time'),
   zoom?: { passcode: true/false, waiting_room: true/false },
-  category?: '', color?: ''
+  category?: '', color?: '', subjects: [...]
 })
 ```
 
@@ -175,6 +177,7 @@ await App.service('session').create({
   price?: 0 / 100 (单位:分, $1 = 100), discount?: 0~99,
   regMax?: 100, regDate?: new Date('register dealine'),
   start: new Date('first session start time'), end: new Date('last session end time'),
+  subjects?: [...],
   childs: [{
     _id: String, // session._id
     cid: String, // session.cid

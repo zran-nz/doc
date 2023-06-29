@@ -49,3 +49,11 @@ const doc = await App.service('rooms').patch(doc._id, {$pull: {attend: 'user._id
 const doc = await App.service('rooms').patch(doc._id, {block: [...]})
 ```
 
+### self-study countdown mode counter
+```js
+// get counter
+const sec = await App.service('rooms').get('counter', {query: {sid}})
+
+// patch counter, patch every 10 seconds 
+const sec = await App.service('rooms').patch('counter', {sid, sec: 10})
+```
