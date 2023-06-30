@@ -35,8 +35,11 @@ countdown: {
 },
 
 // for workshop
-price: Number, // free: 0, price $1 = 100
-discount: Number, // 0 - 99
+discount: {
+  val: Number, // discount value 0-99
+  price: Number, // original price
+  size: Number // group size
+},
 regDate: Date, // register dealine
 regMax: Number, // max register members
 regNum: Number, // register count
@@ -106,7 +109,7 @@ await App.service('session').create({
 
 // find list
 await App.service('session').find({query: {
-  type: 'taskWorkshop', sessionType: 'student'
+  isLib: true, type: 'taskWorkshop', sessionType: 'student'
 }})
 
 // classroom handle

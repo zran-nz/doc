@@ -22,9 +22,9 @@
   cover: String,
   type?: String, // ['FA', 'SA', 'Activity', 'IA', 'single', 'integrated']
   source: String, // library auther user._id
-  price: Number, // publish price
   discount: {
-    price: Number, // group price
+    val: Number, // discount value 0-99
+    price: Number, // original price
     size: Number // group size
   },
   filled: Boolean, // All forms have been filled
@@ -118,7 +118,7 @@ const doc = await App.service('unit').patch('copy', {_id: 'unit._id', orderId: '
 ### unit publish api
 ```js
 // publish unit self
-await App.service('unit').patch('publish', {_id, price, discount, subjects: [...], 'publish.lib': true})
+await App.service('unit').patch('publish', {_id, discount: {val, price, size}, subjects: [...], 'publish.lib': true})
 
 // publish unit link content
 await App.service('unit').patch('publish', {_id, 'publish.link': true})
