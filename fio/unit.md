@@ -72,6 +72,10 @@
 ```
 ### unit api
 ```js
+// find unit list
+// lib: library, published: my published, me: my contents, share: shared by me, other: shared by other
+const list = await App.service('unit').find({query: {tab: 'lib/published/me/share/other', ...}})
+
 // get unit data
 const doc = await App.service('unit').get('unit._id')
 

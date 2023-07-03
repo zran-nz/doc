@@ -22,10 +22,15 @@
 ### unit library api
 ```js
 // library index and search
-await App.service('unit').get('search', {key: '', limit: 10})
+await App.service('unit').get('search', {query: {key: '', limit: 10}})
+
+// library index for students
+await App.service('session').get('index', {query: {limit: 10}})
 
 // library by mode
 await App.service('unit').find({query: {tab: 'lib', mode: 'unit/task'}})
+// library get doc
+await App.service('unit').get(doc._id, {query: {isLib: true}})
 
 // library by live workshop
 await App.service('session').find({query: {isLib: true}})
@@ -37,7 +42,7 @@ $or: [{name: {$search: "123"}}]
 ### unit library action api
 ```js
 // publish
-const rs = await App.service('unit').patch('publish', {_id: doc._id, price: 2.0, discount?: {price: 1.0, size: 2}})
+const rs = await App.service('unit').patch('publish', {_id: doc._id, discount: {price: 5.0, val: 10, size: 2}})
 // unpublish
 const rs = await App.service('unit').patch(doc._id, {status: false})
 
