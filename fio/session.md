@@ -107,9 +107,14 @@ await App.service('session').create({
   subjects: [...],
 })
 
-// find list
+// find list for student self-study center
 await App.service('session').find({query: {
   isLib: true, type: 'taskWorkshop', sessionType: 'student'
+}})
+
+// find list for publisher self data
+await App.service('session').find({query: {
+  type: 'taskWorkshop', sessionType: 'student', 
 }})
 
 // classroom handle

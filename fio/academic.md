@@ -14,6 +14,10 @@
     unit: Number,
     task: Number,
     classes: Number,
+    standard: [Number],
+    topic: [Number],
+    goal: [Number],
+    atl: [Number],
   },
   standardLevel: [String],
   topicLevel: [String],
@@ -99,6 +103,8 @@ const doc = await App.service('subjects').get(doc._id)
 // publish snapshot subject
 const doc = await App.service('subjects').patch(doc._id, {snapshot: true})
 
+// patch count
+const doc = await App.service('subjects').patch(doc._id, {'count.standard': [3,10,40]})
 ```
 
 ### tags model
