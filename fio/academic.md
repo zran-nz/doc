@@ -18,6 +18,8 @@
     topic: [Number],
     goal: [Number],
     atl: [Number],
+    standardTitle: String,
+    topicTitle: String
   },
   standardLevel: [String],
   topicLevel: [String],
@@ -42,6 +44,7 @@ outline = {
   grade: [String],
   tags: [String],
   code: String,
+  mark: String,
   child: [outline],
 }
 ```

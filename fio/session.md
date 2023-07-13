@@ -7,8 +7,9 @@
 sid: String // session code
 image: String,
 name: String,
-start: Date
-end: Date
+start: Date // schedule start date
+end: Date // schedule end date
+ended: Date, // real ended date
 status: String, // ['live', 'close', 'student']
 type: String, // content type: ['session', 'taskWorkshop', 'unitCourses', 'workshop', 'courses', 'pdCourses', 'tool']
 uid: String, // user._id
@@ -38,6 +39,7 @@ countdown: {
 discount: {
   val: Number, // discount value 0-99
   price: Number, // original price
+  end: Date,
   size: Number // group size
 },
 regDate: Date, // register dealine
@@ -115,6 +117,10 @@ await App.service('session').find({query: {
 // find list for publisher self data
 await App.service('session').find({query: {
   type: 'taskWorkshop', sessionType: 'student', 
+}})
+// find list for student self data
+await App.service('session').find({query: {
+  type: 'taskWorkshop', sessionType: 'student', 'reg._id': pub.user._id,
 }})
 
 // classroom handle

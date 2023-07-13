@@ -25,6 +25,7 @@
   discount: {
     val: Number, // discount value 0-99
     price: Number, // original price
+    end: Date,
     size: Number // group size
   },
   filled: Boolean, // All forms have been filled
