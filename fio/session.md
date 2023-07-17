@@ -108,6 +108,8 @@ await App.service('session').create({
   regMax: 0,
   subjects: [...],
 })
+// unpublish self-study session for publisher
+await App.service('session').patch(doc._id, {del: true})
 
 // find list for student self-study center
 await App.service('session').find({query: {

@@ -10,6 +10,8 @@
 * [Session & Classroom](fio/session.md ':include')
 * [Rooms](fio/rooms.md ':include')
 * [Setting & Tags](fio/setting.md ':include')
+* [Notice](fio/notice.md ':include')
+* [标签](fio/tags.md ':include')
 * [School](fio/school.md ':include')
   * [School-User](fio/school-user.md ':include')
 
@@ -47,8 +49,6 @@
 
 
 * fio接口
-  * [Notice](fio/notice.md ':include')
-  * [标签](main/tags.md ':include')
   * [PDF](main/pdf.md ':include')
   * [课堂端](main/classroom.md ':include')
   * [推广](fio/推广.md ':include')

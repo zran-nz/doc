@@ -11,7 +11,18 @@
   name: String,
   del: Boolean, // archive status
   status: Boolean, // has remove
-  subjects: [String], // publish subjects
+  subjects: [{ // publish subjects
+    label: String,
+    value: String
+  }],
+  grades: [{
+    label: String,
+    value: String
+  }],
+  duration: {
+    value: Number,
+    unit: String, // day or week
+  },
   publish: {
     lib: Boolean, // to library
     link: Boolean, // link content publish
@@ -38,9 +49,7 @@
   isEdit: Boolean,
   // --- task end ---
   // --- unit start ---
-  grade: [Number], // [6, 12]
   unit: String,
-  duration: Number,
   idea: String,
   words: [String],
   inquiry: [String],

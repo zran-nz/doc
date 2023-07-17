@@ -17,7 +17,7 @@ await App.service('tags-terms').create({tag: 'xxx'})
 curl -H "Content-Type: application/json" -H "Authorization: <your access token>" -X POST -d '{"tag": "xxxx"}' /fio/tags-terms
 ```
 
-### knowledge knowledge
+### knowledge for outline tags
 ```js
 // 公共标签接口
 GET /fio/tags-knowledge/pubList
