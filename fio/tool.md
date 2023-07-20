@@ -17,6 +17,11 @@
   source: String, // library auther user._id
   price: Number, // publish price
   toolType: String, // ['title', 'diy', 'report']
+  toolCount: {
+    teacher: Number,
+    self: Number,
+    others: Number,
+  },
   toolGroup: [{
     _id: String, // tagGroup._id or outline.child.$._id or auto create
     name: String, // tagGroup.name, read-only if tag exists

@@ -49,8 +49,11 @@ const rs = await App.service('unit').patch(doc._id, {status: false})
 // buy api
 await App.service('order').create({link: {id: unit._id, mode: unit.mode}})
 
-// copy api
+// copy api for library
 const rs = await App.service('unit').patch('copy', {_id: doc._id, orderId: order._id})
+
+// copy api for my content
+const rs = await App.service('unit').patch('copy', {_id: doc._id, name: 'xxx'})
 
 // example buy
 const doc = await App.service('unit').get(doc._id)
