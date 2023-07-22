@@ -153,8 +153,8 @@ const doc = await App.service('tool-data').create({
 // find by tool
 const doc = await App.service('tool-data').find({query: {session: 'session.sid', tool: 'unit._id'}})
 
-// patch all students
-const rs = App.service('tool-data').patch('all', {`data.${toolData._id}`: {val: '123', ...}}, {query: {session: 'session._id'}})
+// patch all students for teacher
+const rs = App.service('tool-data').patch('all', {`data.${toolData._id}`: {val: '123', ...}}, {query: {session: 'session._id', assessor: 'teacher'}})
 
 // init for teacher
 const memberList = await App.service('session').get('toolMembers', {query: {sid: 'session.sid'}})
