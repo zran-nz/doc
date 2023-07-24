@@ -460,7 +460,7 @@ await App.service('session').get('toolMembers', {query: {sid: "C17cmGC9"}})
 ### LearningData
 ```js
 // for teacher
-const {members, sessions} = App.service('session').get('learningData', {query: {pid: 'session._id'}})
+const {members, sessions} = await App.service('session').get('learningData', {query: {pid: 'session._id'}})
 
 members = [{
   _id: 'user._id',
