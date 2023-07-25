@@ -110,6 +110,76 @@ const doc = await App.service('subjects').patch(doc._id, {snapshot: true})
 const doc = await App.service('subjects').patch(doc._id, {'count.standard': [3,10,40]})
 ```
 
+## skills model
+```js
+{
+  // --- public ---
+  createdAt: Date, // create time
+  updatedAt: Date, // update time
+  name: String,
+  curriculum: String, // curriculum code
+  grade: [String],
+  del: Boolean,
+  count: {
+    standard: [Number],
+  },
+  standardLevel: [String],
+  standard: [outline],
+  code: { // `${curriculmCode}:${subjectCode}`
+    standard: String,
+  },
+  publish: [String], // has publish
+  snapshot: {} // publish to snapshot
+}
+
+outline = {
+  _id: String,
+  name: String,
+  grade: [String],
+  tags: [String],
+  code: String,
+  mark: String,
+  child: [outline],
+}
+```
+
+### skills store
+```js
+// import store
+import {skillsStore} from 'stores/skills'
+const skills = skillsStore()
+
+// create skill
+await skills.create({name, uid, curriculum: [], grade?: []})
+// patch skill
+await skills.patch(_id, {...})
+// delete skill
+await skills.delete(_id)
+
+// get skills list
+await skills.find(uid)
+
+// get skills options
+await skills.getOptions(uid, 'au')
+
+// get skill doc
+await skills.get('subject._id')
+
+// import from platform
+// need set code.standard = `${curriculmCode}:${subjectCode}`
+await skills.patch(_id, {
+  standard: [...],
+  'code.standard': 'ib-pyp:math'
+})
+// upload from xlsx
+// need clean code.standard
+await subjects.patch(_id, {
+  standard: [...],
+  'code.standard': ''
+})
+
+```
+
 ### tags model
 ```js
 {
