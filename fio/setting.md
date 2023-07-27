@@ -46,6 +46,15 @@ await App.service('conf').get('PdTaskTpl')
 `App.service('conf-school').patch(_id, {'val.{subjects}.{curriculumn}': [...subjects]})`
 
 
+### Teacher outline tag
+```js
+// get outline tags
+await App.service('conf-user').get('OutlineTags')
+// up tags for personal
+await App.service('conf-user').patch(doc._id, {'val.personal': ['test', ...]})
+// up tags for school
+await App.service('conf-user').patch(doc._id, {[`val.${schoolID}`]: ['test', ...]})
+```
 
 ## Tags
 

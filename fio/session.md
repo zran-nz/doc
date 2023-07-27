@@ -26,6 +26,7 @@ category: String,
 color: String,
 
 // for classroom control
+block: Boolean, // when join room, block every one
 guest: Boolean, // Allow anonymous login
 welcome: Boolean, // show welcome box
 countdown: {
@@ -164,7 +165,7 @@ await App.service('session').create({
 })
 ```
 
-### start session [new]
+### start session for classroom [new]
 
 ```js
 await App.service('session').create({
@@ -177,7 +178,8 @@ await App.service('session').create({
   regMax: 100, regDate?: new Date('register dealine'),
   start: new Date('start time'), end: new Date('end time'),
   zoom?: { passcode: true/false, waiting_room: true/false },
-  category?: '', color?: '', subjects: [...]
+  category?: '', color?: '', subjects: [...],
+  students: [...], block: true/false
 })
 ```
 

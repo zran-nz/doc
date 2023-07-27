@@ -44,7 +44,7 @@ $or: [{name: {$search: "123"}}]
 // publish
 const rs = await App.service('unit').patch('publish', {_id: doc._id, discount: {price: 5.0, val: 10, size: 2}})
 // unpublish
-const rs = await App.service('unit').patch(doc._id, {status: false})
+const rs = await App.service('unit').patch(doc._id, {'publish.lib': false})
 
 // buy api
 await App.service('order').create({link: {id: unit._id, mode: unit.mode}})
