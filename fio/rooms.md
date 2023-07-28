@@ -51,13 +51,18 @@ const doc = await App.service('rooms').patch(doc._id, {block: [...]})
 
 ### self-study countdown mode counter
 ```js
+// start countdown for student, return start time
+const sec = await App.service('rooms').get('countdownStart', {query: {sid}})
+
+// get countdown list for teacher
+const list = await App.service('rooms').get('countdownList', {query: {sid}})
+// list = {[user._id]: startTime, ....}
+
 // get self counter for student 
-const sec = await App.service('rooms').get('counter', {query: {sid}})
-
+// const sec = await App.service('rooms').get('counter', {query: {sid}})
 // patch counter, patch every 10 seconds for student
-const sec = await App.service('rooms').patch('counter', {sid, sec: 10})
-
+// const sec = await App.service('rooms').patch('counter', {sid, sec: 10})
 // get counter all members sec for teacher
-const list = await App.service('rooms').get('counterAll', {query: {sid}})
+// const list = await App.service('rooms').get('counterAll', {query: {sid}})
 // list = {[user._id]: sec, ....}
 ```
