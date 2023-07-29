@@ -66,3 +66,9 @@ const list = await App.service('rooms').get('countdownList', {query: {sid}})
 // const list = await App.service('rooms').get('counterAll', {query: {sid}})
 // list = {[user._id]: sec, ....}
 ```
+
+
+### find rooms status count
+```js
+await App.service('rooms').get('countStatus', {query: {sid: {$in: [sid, ...]}}})
+```
