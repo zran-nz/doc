@@ -69,6 +69,8 @@ const list = await App.service('rooms').get('countdownList', {query: {sid}})
 
 
 ### find rooms status count
+1、通过列表接口获取报名人数（workshop类取 regNum，班级session取 students数量）  
+2、其他统计通过以下接口获取 锁屏人数: block，实际进入课堂人数：members（通过链接实际人数）
 ```js
 await App.service('rooms').get('countStatus', {query: {sid: {$in: [sid, ...]}}})
 ```
