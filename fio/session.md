@@ -98,6 +98,17 @@ pdunit => pdCourses
 
 tool => tool
 
+### filter for find
+```js
+// filter public subject
+{'subjects.value': 'xxx'}
+// filter custom subject for unit/task/ any session
+{$or: [{'outline.subjects': 'xxx'},{'assess.subjects': 'xxx'}]}
+// filter custom subject for any workshop
+{$or: [{'pd.subjects': 'xxx'},{'assess.subjects': 'xxx'}]}
+
+```
+
 ### self-study session
 ```js
 // task/pd publish to self-study
