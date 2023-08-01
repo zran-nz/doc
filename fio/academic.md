@@ -7,6 +7,7 @@
   createdAt: Date, // create time
   updatedAt: Date, // update time
   name: String,
+  subtitle: String,
   curriculum: String, // curriculum code
   grade: [String],
   del: Boolean,
