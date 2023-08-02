@@ -74,11 +74,15 @@ childs: [{
 }],
 
 // snapshot data
-task: Mixed, // task.[] snapshot
+task: {
+  ..., // task.[] snapshot
+  outline: {
+    assess: Mixed, // task-outline.assess snapshot
+    outline: Mixed, // task-outline.outline snapshot
+  }
+}, 
 pages: Mixed, // slides.pages snapshot
 questions: Mixed, // questions snapshot
-assess: Mixed, // task-outline.assess snapshot
-outline: Mixed, // task-outline.outline snapshot
 reminder: Number, // mail notice: WorkshopReminderBeforeClass
 drawkey: String, // excalidraw room key
 ```
@@ -103,9 +107,9 @@ tool => tool
 // filter public subject
 {'subjects.value': 'xxx'}
 // filter custom subject for unit/task/ any session
-{$or: [{'outline.subjects': 'xxx'},{'assess.subjects': 'xxx'}]}
+{'subjects.session': 'xxx'}
 // filter custom subject for any workshop
-{$or: [{'pd.subjects': 'xxx'},{'assess.subjects': 'xxx'}]}
+{'subjects.pd': 'xxx'}
 
 ```
 

@@ -19,8 +19,8 @@
     topic: [Number],
     goal: [Number],
     atl: [Number],
-    standardTitle: String,
-    topicTitle: String
+    standardTitle: String, // for import from system data
+    topicTitle: String // for import from system data
   },
   standardLevel: [String],
   topicLevel: [String],
