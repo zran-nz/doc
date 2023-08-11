@@ -51,6 +51,9 @@ App.service('school-user').patch(_id, {
   $pull: {subject: 'curriculumCode:subjectCode'},
   $unset: {`subjectGrade.${subjectKey}`: ''}
 })
+```
 
-
+### get school user info
+```js
+await App.service('school-user').get('info', {query: {school: pub.user.schoolInfo._id, email: pub.user.email}})
 ```

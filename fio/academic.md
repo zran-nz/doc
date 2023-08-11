@@ -181,7 +181,7 @@ await subjects.patch(_id, {
 
 ```
 
-### tags model
+## tags model
 ```js
 {
   _id: String, // tag._id
@@ -189,12 +189,17 @@ await subjects.patch(_id, {
   set: String, // 名称
   prompt: String, 
   curriculum: [String], // 关联大纲 curriculumCode or curriculum._id
+  source: { // import sys data
+    curriculum: {type: [String]}, // 关联大纲 curriculum.code (standard)
+    set: {type: [String]}, // 关联大纲 tags.name
+  },
   sort: Number, // 排序用
   step: String, // 关联Unit步骤 ['basic', 'inquiry', 'applying'] 
   stepTask: String, // 关联Task步骤 ['basic', 'inquiry', 'applying']
   layer: Boolean, // 一层: false, 多层: true
   tool: Boolean, // tool use
   child: [{...tag, child: [tag]}], // 子标签
+  snapshot: {} // publish to snapshot
 }
 tag = {
   _id: String, // tag._id
