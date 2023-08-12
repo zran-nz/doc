@@ -216,12 +216,18 @@ const tags = tagsStore()
 await tags.create({set: 'tag name', uid: school._id or user._id, curriculum: []})
 // patch tag
 await tags.patch(_id, {...})
+// publish tag
+await tags.patch(_id, {snapshot: true})
 // delete tag
 await tags.delete(_id)
 // get tags list
 await tags.find(uid=1)
+// get tags snapshot list 
+await tags.find(uid=1, true)
 // get tags options
 await tags.getOptions(uid=1, 'au')
 // get tag doc
 await tags.get('tag._id')
+// get tag snapshot
+await tags.get('tag._id', true)
 ```

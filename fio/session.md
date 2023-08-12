@@ -507,6 +507,9 @@ sessions = [{
   countdown: {
     deadline: Date
   },
+  task: {
+    toolCount: {...}
+  }
   total: 10, // questions.length
 }]
 

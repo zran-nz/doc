@@ -59,6 +59,17 @@ await addon.copy(sid, pages, postData)
 ```
 ### questions model
 ```js
+const outlineDoc = {
+  _id: String, // task-outline.outline.data..._id
+  name: String,
+  score: Number,
+  child: [{
+    _id: String, // task-outline.outline.data..._id
+    name: String,
+    score: Number,
+  }]
+}
+
 {
   createdAt: Date, // create time
   updatedAt: Date, // update time
@@ -76,6 +87,13 @@ await addon.copy(sid, pages, postData)
     val: String,
     on: Boolean, // choice answer
   }],
+  outline: {
+    outline: [outlineDoc],
+    assess: [outlineDoc],
+    pd: [outlineDoc],
+    skills: [outlineDoc],
+    goal: [outlineDoc],
+  }
   list: [{ // multi questions for new text
     bloom: Number,
     dimension: Number,
@@ -83,6 +101,7 @@ await addon.copy(sid, pages, postData)
     tags: [String], // knowledge tags
   }],
 }
+
 ```
 ### materials model
 ```js
