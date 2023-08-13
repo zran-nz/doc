@@ -35,6 +35,10 @@
     topic: String,
     atl: String,
   },
+  source: { // import sys data
+    curriculum: {type: [String]}, // 关联大纲 curriculum.code (standard)
+    set: {type: [String]}, // 关联大纲 tags.name
+  },
   publish: [String], // has publish
   snapshot: {} // publish to snapshot
 }
@@ -60,17 +64,23 @@ const subjects = subjectsStore()
 await subjects.create({name, uid, curriculum: [], grade?: []})
 // patch subject
 await subjects.patch(_id, {...})
+// publish subjects to snapshot
+await subjects.patch(_id, {snapshot: true})
 // delete subject
 await subjects.delete(_id)
 
 // get subjects list
 await subjects.find(uid)
+// get subjects snapshot list
+await subjects.find(uid, true)
 
 // get subjects options
 await subjects.getOptions(uid, 'au')
 
 // get subject doc
 await subjects.get('subject._id')
+// get subject snapshot doc
+await subjects.get('subject._id', true)
 
 // import from platform
 // need set code.standard = `${curriculmCode}:${subjectCode}`
@@ -129,6 +139,10 @@ const doc = await App.service('subjects').patch(doc._id, {'count.standard': [3,1
   code: { // `${curriculmCode}:${subjectCode}`
     standard: String,
   },
+  source: { // import sys data
+    curriculum: {type: [String]}, // 关联大纲 curriculum.code (standard)
+    set: {type: [String]}, // 关联大纲 tags.name
+  },
   publish: [String], // has publish
   snapshot: {} // publish to snapshot
 }
@@ -154,17 +168,24 @@ const skills = skillsStore()
 await skills.create({name, uid, curriculum: [], grade?: []})
 // patch skill
 await skills.patch(_id, {...})
+// publish tag
+await skills.patch(_id, {snapshot: true})
+
 // delete skill
 await skills.delete(_id)
 
 // get skills list
 await skills.find(uid)
+// get skills snapshot list 
+await skills.find(uid=1, true)
 
 // get skills options
 await skills.getOptions(uid, 'au')
 
 // get skill doc
 await skills.get('subject._id')
+// get skills snapshot
+await skills.get('subject._id', true)
 
 // import from platform
 // need set code.standard = `${curriculmCode}:${subjectCode}`

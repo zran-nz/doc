@@ -87,6 +87,7 @@ const outlineDoc = {
     val: String,
     on: Boolean, // choice answer
   }],
+  score: Number,
   outline: {
     outline: [outlineDoc],
     assess: [outlineDoc],
