@@ -220,6 +220,8 @@ await subjects.patch(_id, {
   layer: Boolean, // 一层: false, 多层: true
   tool: Boolean, // tool use
   child: [{...tag, child: [tag]}], // 子标签
+  configured: Boolean, // 是否存在数据
+  publish: Boolean, // 发布状态
   snapshot: {} // publish to snapshot
 }
 tag = {

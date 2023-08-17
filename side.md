@@ -1,5 +1,6 @@
 * [首页](README)
 
+* [Routes](fio/routes.md ':include')
 * [Fio](fio/fio.md ':include')
 * [APIS](fio/apis.md ':include')
 * [Addon](fio/addon.md ':include')
