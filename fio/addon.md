@@ -1,4 +1,4 @@
-## Academic setting
+## Addon test
 
 测试地址：https://dev.classcipe.com/v2/test/testAddon/${slideId}
 
@@ -63,9 +63,11 @@ const outlineDoc = {
   _id: String, // task-outline.outline.data..._id
   name: String,
   score: Number,
+  enable: Boolean,
   child: [{
     _id: String, // task-outline.outline.data..._id
     name: String,
+    enable: Boolean,
     score: Number,
   }]
 }

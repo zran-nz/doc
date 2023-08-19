@@ -36,8 +36,10 @@
     atl: String,
   },
   source: { // import sys data
-    curriculum: {type: [String]}, // 关联大纲 curriculum.code (standard)
-    set: {type: [String]}, // 关联大纲 tags.name
+    standardCurriculum: [String], // 关联大纲 curriculum.code (standard)
+    standardSet: [String], // 关联大纲 curriculum.code (standard)
+    topicCurriculum: [String], // 关联大纲 curriculum.code (standard)
+    topicSet: [String], // 关联大纲 curriculum.code (standard)
   },
   publish: [String], // has publish
   snapshot: {} // publish to snapshot
@@ -214,6 +216,7 @@ await subjects.patch(_id, {
     curriculum: {type: [String]}, // 关联大纲 curriculum.code (standard)
     set: {type: [String]}, // 关联大纲 tags.name
   },
+  count: [Number], // count child every level number
   sort: Number, // 排序用
   step: String, // 关联Unit步骤 ['basic', 'inquiry', 'applying'] 
   stepTask: String, // 关联Task步骤 ['basic', 'inquiry', 'applying']
