@@ -17,6 +17,7 @@
   source: String, // library auther user._id
   price: Number, // publish price
   toolType: String, // ['title', 'diy', 'report']
+  toolSource: String, // source unit._id of unit/task/pd
   toolCount: {
     teacher: Number,
     self: Number,
@@ -165,3 +166,15 @@ for(const o of memberList) {
 ```
 
 [Session Members](/fio/session?id=get-members-for-assessment-tool)
+
+### Outline hint
+> 大纲弱提醒  
+```js
+const toolDoc = await App.service('unit').get('_id')
+// get self outline data
+selfOutline = await App.service('task-outline').get(toolDoc._id)
+// get source unit outline data
+sourceOutline = await App.service('task-outline').get(toolDoc.toolSource)
+// get source unit data
+sourceUnit = await App.service('unit').get(toolDoc.toolSource)
+```

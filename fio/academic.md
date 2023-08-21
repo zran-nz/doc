@@ -19,8 +19,8 @@
     topic: [Number],
     goal: [Number],
     atl: [Number],
-    standardTitle: String, // for import from system data
-    topicTitle: String // for import from system data
+    standardTitle: String, // deprecated
+    topicTitle: String // deprecated
   },
   standardLevel: [String],
   topicLevel: [String],
@@ -36,10 +36,10 @@
     atl: String,
   },
   source: { // import sys data
-    standardCurriculum: [String], // 关联大纲 curriculum.code (standard)
-    standardSet: [String], // 关联大纲 curriculum.code (standard)
-    topicCurriculum: [String], // 关联大纲 curriculum.code (standard)
-    topicSet: [String], // 关联大纲 curriculum.code (standard)
+    standardCurriculum: [String], // import system data of standard curriculum.code
+    standardSet: [String], // curriculum.title + subject.title
+    topicCurriculum: [String], // import system data of topic curriculum.code
+    topicSet: [String], // curriculum.title + subject.title
   },
   publish: [String], // has publish
   snapshot: {} // publish to snapshot
