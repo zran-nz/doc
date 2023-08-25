@@ -90,6 +90,7 @@ const outlineDoc = {
     on: Boolean, // choice answer
   }],
   score: Number,
+  scoreEnable: Boolean,
   outline: {
     outline: [outlineDoc],
     assess: [outlineDoc],

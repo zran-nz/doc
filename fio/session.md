@@ -104,13 +104,41 @@ tool => tool
 
 ### filter for find
 ```js
+
+// filter by type
+{type: 'workshop'}
+{type: {$in: ['workshop', 'taskWorkshop']}}
+// filter by status
+{status: 'close'}
+{status: {$ne: 'close'}}
+{status: {$in: ['student', 'live']}}
+// filter by sessionType
+{sessionType: 'live/student'}
+
+// for school
+// filter by school, personal: null, schools: [...schoolID]
+{school: {$in: [null, ...schoolID]}}
+// filter by class all session
+{classId: 'classId'}
+// filter by class and my session
+{classId: 'classId', uid: pub.user._id}
+// filter by class and my enrolled
+{classId: 'classId', 'reg._id': pub.user._id}
+
+// enrolled
+{'reg._id': pub.user._id}
+// taught by me
+{$or: [{uid: pub.user._id, taught: null}, {taught: pub.user._id}]}
+// taught by others
+{uid: pub.user._id, {taught: {$ne: null}}}
+
+
 // filter public subject
 {'subjects.value': 'xxx'}
 // filter custom subject for unit/task/ any session
 {'subjects.session': 'xxx'}
 // filter custom subject for any workshop
 {'subjects.pd': 'xxx'}
-
 ```
 
 ### self-study session
@@ -368,6 +396,7 @@ $or: [{name: {$search: "123"}}]
 ```
 ### Session list for calender [new]
 ```js
+
 // find by start ~ end
 await App.service('session').get('dateList', {
   query: {

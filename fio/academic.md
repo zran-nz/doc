@@ -210,11 +210,14 @@ await subjects.patch(_id, {
   _id: String, // tag._id
   uid: String, // 课堂用户id or 表单schoolId
   set: String, // 名称
-  prompt: String, 
-  curriculum: [String], // 关联大纲 curriculumCode or curriculum._id
+  prompt: String,  
+  curriculum: [String], // curriculumCode or curriculum._id
+  curriculum: [String], // curriculumCode or curriculum._id
   source: { // import sys data
-    curriculum: {type: [String]}, // 关联大纲 curriculum.code (standard)
-    set: {type: [String]}, // 关联大纲 tags.name
+    _id: String, // related tags._id or 'subjects'
+    readonly: Boolean, // bind first level: true, import sys data: false
+    curriculum: {type: [String]}, // related curriculum.code
+    set: {type: [String]}, // related curriculum.name
   },
   count: [Number], // count child every level number
   sort: Number, // 排序用
@@ -257,3 +260,5 @@ await tags.get('tag._id')
 // get tag snapshot
 await tags.get('tag._id', true)
 ```
+
+..
