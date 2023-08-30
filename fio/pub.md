@@ -12,3 +12,21 @@ const userInfo = pub.userInfo(schoolId)
 
 #### pub.hasSchool(schoolId)
 > return Boolean
+
+## Curriculum store
+### Actions
+#### curriculum.gradeOptions(uid)
+```js
+// get system grade options
+const gradeOpts = await curriculum.gradeOptions(1)
+// get school grade options
+const gradeOpts = await curriculum.gradeOptions(pub.user.school)
+// get personal grade options
+const gradeOpts = await curriculum.gradeOptions(pub.user._id)
+```
+
+#### curriculum.gradeParse(arr, gradeOptions)
+```js
+// grades parse
+curriculum.gradeParse([gradeId, ....], gradeOpts)
+```

@@ -259,10 +259,16 @@ const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdat
 ```
 ### Reflection api
 ```js
-// batch get reflection or comment by unit._id
-const list = await App.service('reflection').find({query: {mode: 'refl', unit: 'unit._id'}})
+// batch get public list by unit._id
+const list = await App.service('reflection').find({query: {mode: 'refl', unit: 'unit._id', to: {$exists: false}}})
+// batch get public + private list by unit._id
+const list = await App.service('reflection').find({query: {mode: 'refl', unit: 'unit._id', to: pub.user._id}})
+
 // create reflection or comment
-const doc = await App.service('reflection').create({mode: 'refl', school, pid, unit, rkey, content, attach})
+const doc = await App.service('reflection').create({mode: 'refl|comment', school, pid, unit, rkey, content, attach})
+// create private comment
+const doc = await App.service('reflection').create({mode: 'refl|comment', school, pid, unit, rkey, content, attach, to: [pub.user._id, comment.uid]})
+
 // patch reflection or comment
 const doc = await App.service('reflection').patch(doc._id, {content, attach})
 // remove reflection or comment
