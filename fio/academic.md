@@ -66,6 +66,12 @@ const subjects = subjectsStore()
 await subjects.create({name, uid, curriculum: [], grade?: []})
 // patch subject
 await subjects.patch(_id, {...})
+// subject subadd
+await subjects.subAdd(_id, 'standard|topic', {
+  child: [], code: "", grade: [], name: "", note:"", tags:[]
+})
+// subject subremove
+await subjects.subRm(_id, 'standard|topic', sub._id)
 // publish subjects to snapshot
 await subjects.patch(_id, {snapshot: true})
 // delete subject

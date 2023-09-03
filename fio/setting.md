@@ -28,14 +28,40 @@ await App.service('conf').get('PdTaskTpl')
 ]
 ```
 
-### School Grades
-> Get personal grade list  
-`App.service('conf-user').get('Grades')`
+### Grade list model
+```js
+{
+  _id: String,
+  key: String,
+  uid: String,
+  val: [{
+    _id: String,
+    name: String,
+    enable: Boolean
+  }, ....]
+}
+```
+### Grades api
+```js
+// get personal data
+const doc = await App.service('conf-user').get('Grades')
+// get school data
+const doc = await App.service('conf-school').get('get', { query: { key: 'Grades', rid: schoolId }})
 
-> Get school grades  
-`App.service('conf-school').get('get', { query: { key: 'Grades', rid: schoolId }})`
+// add
+const doc = await App.service(model).patch(doc._id, {$addToSet: {val: {name: '', enable: true}}})
 
-### Curriculum
+// patch info
+const doc = await App.service(model).patch(doc._id, {'val.$.name': 'xxx', 'val.$.enable': true}, {query: {'val._id': val._id}})
+
+// remove one
+const doc = await App.service(model).patch(doc._id, {$pull: {val:{_id: val._id}}})
+
+// patch sort
+const doc = await App.service(model).patch(doc._id, {val: {...}})
+```
+
+### Curriculum (Deprecated)
 > get personal Curriculum
 `App.service('conf-user').get('Curriculum')`
 
