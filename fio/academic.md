@@ -136,6 +136,7 @@ const doc = await App.service('subjects').patch(doc._id, {'count.standard': [3,1
   createdAt: Date, // create time
   updatedAt: Date, // update time
   name: String,
+  subtitle: String,
   curriculum: String, // curriculum code
   grade: [String],
   del: Boolean,
@@ -148,8 +149,8 @@ const doc = await App.service('subjects').patch(doc._id, {'count.standard': [3,1
     standard: String,
   },
   source: { // import sys data
-    curriculum: {type: [String]}, // 关联大纲 curriculum.code (standard)
-    set: {type: [String]}, // 关联大纲 tags.name
+    standardCurriculum: [String], // import system data of standard curriculum.code
+    standardSet: [String], // curriculum.title + subject.title
   },
   publish: [String], // has publish
   snapshot: {} // publish to snapshot
