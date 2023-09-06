@@ -9,6 +9,7 @@ from: String, // sender user._id
 to: String, // receiver user._id
 email: String, // receiver email
 school: String, // schoolId
+code: String, // notice-tpl.code
 conf: [String], // conf for mail
 rs: { type: Schema.Types.Mixed }, // result for mail
 data: {
@@ -35,6 +36,17 @@ App.service('notice').create({
 })
 ```
 
+
+## Notice Tpl Model
+```js
+code: String,
+name: String,
+enable: Boolean,
+title: String, // for mail,inbox title
+text: String, // for mail body
+note: String, // for inbox body
+keys: [String], // for mail replace var
+```
 
 ## 推送接口 - deprecated
 
