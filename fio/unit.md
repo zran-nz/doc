@@ -80,6 +80,29 @@
   template: Mixed // unit-tpl.data snapshot
 }
 ```
+
+
+### filter for find
+```js
+// filter my contents
+{tab: 'me'}
+// filter share by me
+{tab: 'share'}
+// filter share by others
+{tab: 'other'}
+// filter archived
+{tab: 'arch'}
+
+// filter mode
+{mode: 'task/unit/pd/pdUnit/tool'}
+
+// filter search
+{name: {$search: 'key word'}}
+
+// filter linkNum > 0
+{'linkNum': {$gt: 0}}
+```
+
 ### unit api
 ```js
 // find unit list
