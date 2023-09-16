@@ -76,3 +76,17 @@ const list = await App.service('rooms').get('countdownList', {query: {sid}})
 ```js
 await App.service('rooms').get('countStatus', {query: {sid: {$in: [sid, ...]}}})
 ```
+
+### save teacher draw by pageid
+```js
+// get draw doc by pageId
+const doc = {
+  _id, sid, pageId, ppt: {...}, blank: {...}
+} = await App.service('session-draw').get('byPageId', {query: {sid: session.sid, pageId: session.pages._id}})
+
+// ppt draw save 
+await App.service('session-draw').patch(doc._id, {ppt: {...}})
+
+// blank draw save 
+await App.service('session-draw').patch(doc._id, {blank: {...}})
+```
