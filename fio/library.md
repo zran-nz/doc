@@ -110,6 +110,7 @@ const doc = await App.service('reviews').get('stat', {query: {rid: 'unit._id'}})
 {
   uid: String,
   rid: String, // unit._id
+  type: String, // unit.mode
   createdAt: Date, // create time
   updatedAt: Date, // update time
 }

@@ -72,8 +72,10 @@ await subjects.subAdd(_id, 'standard|topic', {
 })
 // subject subremove
 await subjects.subRm(_id, 'standard|topic', sub._id)
-// publish subjects to snapshot
-await subjects.patch(_id, {snapshot: true})
+// publish standard to snapshot
+await subjects.patch(_id, {snapshot: 'standard'})
+// publish topic to snapshot
+await subjects.patch(_id, {snapshot: 'topic'})
 // delete subject
 await subjects.delete(_id)
 
@@ -123,7 +125,7 @@ const doc = await App.service('subjects').create({uid: 'schoolId', name: ''})
 const doc = await App.service('subjects').get(doc._id)
 
 // publish snapshot subject
-const doc = await App.service('subjects').patch(doc._id, {snapshot: true})
+const doc = await App.service('subjects').patch(doc._id, {snapshot: 'standard|topic'})
 
 // patch count
 const doc = await App.service('subjects').patch(doc._id, {'count.standard': [3,10,40]})

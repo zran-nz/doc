@@ -43,10 +43,10 @@ await App.service('conf').get('PdTaskTpl')
 ```
 ### Grades api
 ```js
-// get personal data
-const doc = await App.service('conf-user').get('Grades')
-// get school data
-const doc = await App.service('conf-school').get('get', { query: { key: 'Grades', rid: schoolId }})
+// get current grades conf
+await curriculum.gradeConf(pub.getSchoolOrUserId)
+// get current grades options
+await curriculum.gradeOptions(pub.getSchoolOrUserId)
 
 // add
 const doc = await App.service(model).patch(doc._id, {$addToSet: {val: {name: '', enable: true}}})
