@@ -2,7 +2,6 @@
 
 ### Curriculum store
 ```js
-
 // create user curriculum
 const doc = await curriculum.create(name, code = null, school = null)
 // patch curriculum
@@ -19,14 +18,20 @@ await curriculum.find(schoolOrUid, del = null)
 await curriculum.getOptions(schoolOrUid)
 
 curriculum.hasPlatformCode(code)
+```
 
+### Curriculum Default template
+```js
 // set current user Default template
 await curriculum.setTplDef(code, val)
 // get current user Unit Default template
 await curriculum.getUnitTplDef()
 // get current user Task Default template
 await curriculum.getTaskTplDef()
+```
 
+### Curriculum Grade
+```js
 // import system curriculum: curriculumGrade -> platformGrade -> userGrade._id
 // upload xlsx: parse to userGrade._id
 // {curriculumGrade: [userGrade._id, ...], ...}
@@ -46,7 +51,6 @@ await curriculum.gradeAdd(schoolOrUid, val=[{
 await curriculum.gradeSet(schoolOrUid, val)
 // get user grades
 await curriculum.gradeConf(schoolOrUid)
-
 
 ```
 
