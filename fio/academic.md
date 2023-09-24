@@ -1,5 +1,52 @@
 ## Academic setting
 
+### Curriculum store
+```js
+
+// create user curriculum
+const doc = await curriculum.create(name, code = null, school = null)
+// patch curriculum
+await curriculum.patch(doc._id, post)
+// archive curriculum
+await curriculum.archive(doc._id)
+// delete curriculum
+await curriculum.delete(doc._id)
+// get curriculum
+await curriculum.get(doc._id)
+// find curriculum list
+await curriculum.find(schoolOrUid, del = null)
+// get user curriculum list
+await curriculum.getOptions(schoolOrUid)
+
+curriculum.hasPlatformCode(code)
+
+// set current user Default template
+await curriculum.setTplDef(code, val)
+// get current user Unit Default template
+await curriculum.getUnitTplDef()
+// get current user Task Default template
+await curriculum.getTaskTplDef()
+
+// import system curriculum: curriculumGrade -> platformGrade -> userGrade._id
+// upload xlsx: parse to userGrade._id
+// {curriculumGrade: [userGrade._id, ...], ...}
+const {
+  'systemCurriculumGrade': ['user grade._id', ...], ...
+} = await curriculum.currGradeToUserGradeMap(schoolOrUid, curriculumCode)
+
+// get user grade options
+await curriculum.gradeOptions(schoolOrUid)
+
+// add grade
+await curriculum.gradeAdd(schoolOrUid, val)
+// set grade
+await curriculum.gradeSet(schoolOrUid, val)
+// get user grades
+await curriculum.gradeConf(schoolOrUid)
+
+
+```
+
 ### Subjects model
 ```js
 {
