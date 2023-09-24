@@ -38,7 +38,10 @@ const {
 await curriculum.gradeOptions(schoolOrUid)
 
 // add grade
-await curriculum.gradeAdd(schoolOrUid, val)
+await curriculum.gradeAdd(schoolOrUid, val=[{
+  name: 'xxx', platform: ['platform grade', ...]},
+  ...
+])
 // set grade
 await curriculum.gradeSet(schoolOrUid, val)
 // get user grades
