@@ -32,6 +32,9 @@ await curriculum.getTaskTplDef()
 
 ### Curriculum Grade
 ```js
+// batch create ObjectId
+await curriculum.newObjectId(num = 1)
+
 // import system curriculum: curriculumGrade -> platformGrade -> userGrade._id
 // upload xlsx: parse to userGrade._id
 // {curriculumGrade: [userGrade._id, ...], ...}
