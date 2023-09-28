@@ -10,6 +10,7 @@
   uid: String,
   name: String,
   del: Boolean, // archive status
+  guest: Boolean, // allow guest view
   status: Boolean, // has remove
   subjects: [{ // publish subjects
     label: String,

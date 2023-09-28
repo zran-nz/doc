@@ -91,6 +91,7 @@ const outlineDoc = {
   }],
   score: Number,
   scoreEnable: Boolean,
+  tips: String,
   outline: {
     outline: [outlineDoc],
     assess: [outlineDoc],
@@ -116,6 +117,7 @@ const outlineDoc = {
   id: String, // slides id
   page: String, // page id
   list: [{
+    question: String, // questions._id
     type: String, // iframe, video, audio, image, pdf
     url: String, // url or youtube id
     key: String, // s3 files key
