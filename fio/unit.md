@@ -83,6 +83,27 @@
 ```
 
 
+### unit stores
+```js
+// create unit
+await unit.create({mode: '', name: '', ...})
+
+// patch unit
+await unit.patch(doc._id, {...})
+// patch unit name
+await unit.patch(doc._id, {name: 'xxxx'})
+// patch unit guest
+await unit.patch(doc._id, {guest: true/false})
+
+// unit link add
+await unit.patch(doc._id, {$addToSet: {link: {...}}})
+// unit link remove
+await unit.patch(doc._id, {$pull: {link: {_id: 'link._id'}}})
+// unit link batch remove
+await unit.patch(doc._id, {$pull: {link: {_id: {$in: ['link._id', ...]}}}})
+
+```
+
 ### filter for find
 ```js
 // filter my contents
