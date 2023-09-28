@@ -48,7 +48,7 @@
   pageNum: Number,
   question: [String],
   isEdit: Boolean,
-  // --- task end ---
+  // --- task end ----
   // --- unit start ---
   unit: String,
   idea: String,
