@@ -1,3 +1,19 @@
+## collab model
+```js
+rid: String, // unit._id
+type: String, // ['task', 'pd', 'unit']
+uid: String, // owner user._id
+members: [{
+  email: String, // user.email
+  nickname: String,
+  avatar: String,
+  role: String, // ['read', 'write', 'comment']
+  permissionId: String, // google drive.permission
+  status: Boolean,
+  message: String,
+}]
+```
+
 
 ### Share via email
 ```js
