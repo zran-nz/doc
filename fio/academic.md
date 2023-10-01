@@ -1,5 +1,21 @@
 ## Academic setting
 
+### Curriculum model
+```js
+school: String, // 1 or school._id or user._id
+code: String,
+name: String,
+subjects: [String], // Deprecated, need remove
+count: {
+  subjects: Number,
+  skills: Number,
+  tags: Number,
+},
+unit: [String],
+task: [String],
+del: Boolean,
+```
+
 ### Curriculum store
 ```js
 // create user curriculum
