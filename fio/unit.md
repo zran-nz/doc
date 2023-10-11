@@ -63,10 +63,26 @@
   // --- unit end ---
   ext?: {
     _id: any,
-    `${tag._id}`: [{value: '', mark: ''}, ...],
-    `${tag._id}:${subject1}`: [{value: '', mark: ''}, ...],
-    `${tag._id}:${subject2}`: [{value: '', mark: ''}, ...],
-    `${tag._id}:${subject3}`: [{value: '', mark: ''}, ...],
+    // old
+    // `${tag._id}`: [{value: '', mark: ''}, ...],
+    // `${tag._id}:${subject1}`: [{value: '', mark: ''}, ...],
+    // `${tag._id}:${subject2}`: [{value: '', mark: ''}, ...],
+    // `${tag._id}:${subject3}`: [{value: '', mark: ''}, ...],
+    // --- for task and unit
+    `${tpl._id}`: [{value: '', mark: ''}, ...],
+    `${tpl._id}`: {
+      `${tpl._id}`: [{value: '', mark: ''}, ...],
+      `${tpl._id}:${subject1}`: [{value: '', mark: ''}, ...],
+      `${tpl._id}:${subject2}`: [{value: '', mark: ''}, ...],
+    },
+    // --- for AT
+    `${tags._id}`: [{value: '', mark: ''}, ...],
+    `${tags._id}`: {
+      `${tags._id}`: [{value: '', mark: ''}, ...],
+      `${tags._id}:${subject1}`: [{value: '', mark: ''}, ...],
+      `${tags._id}:${subject2}`: [{value: '', mark: ''}, ...],
+    },
+    // ---
     `${group}:${opt1}`: [{value: '', mark: ''}, ...],
     `${group}:${opt2}`: [{value: '', mark: ''}, ...],
     `${group}:${opt3}`: [{value: '', mark: ''}, ...],
