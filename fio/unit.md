@@ -311,6 +311,8 @@ const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdat
   school: String, // pub.user.schoolInfo._id
   uid: String, // pub.user._id
   pid?: String, // parent reflection._ids
+  to: [String], // parent user._id + uid
+  public: Boolean, // snapshot to library
   unit: String, // unit._id
   rkey: String, // unit.key or ext.tag._id
   content: String, // attachment
