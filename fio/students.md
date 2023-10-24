@@ -34,4 +34,7 @@ App.service('students').patch(_id, { $pull: {class: 'class_id'}})
 
 // 学校邮箱验证, 返回0没有被使用过
 App.service('students').get('checkEmail', { query: {school: '', email: ''}})
+
+// 学校学生+生日不重复验证, 返回0没有被使用过
+App.service('students').get('checkNameDob', { query: {school: '', name: [], dob: ''}})
 ```
