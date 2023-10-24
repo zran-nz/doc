@@ -17,6 +17,7 @@
 * [标签](fio/tags.md ':include')
 * [School](fio/school.md ':include')
   * [School-User](fio/school-user.md ':include')
+  * [Students](fio/students.md ':include')
 
 
 * 课堂UML
