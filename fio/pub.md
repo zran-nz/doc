@@ -30,3 +30,20 @@ const gradeOpts = await curriculum.gradeOptions(pub.user._id)
 // grades parse
 curriculum.gradeParse([gradeId, ....], gradeOpts)
 ```
+
+```js
+// 学生注册
+App.service('users').create({
+  name: ['', ''],
+  password: '',
+  email: '',
+  roles: ['student'],
+  lang: navigator.language,
+  timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  avatar: '', // option
+})
+
+// 登录
+AppLocalLogin(email, password)
+
+```
