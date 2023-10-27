@@ -14,10 +14,15 @@
   parent: {
     email: String,
     name: [String],
+    phone: String,
   },
   status: Number, // 0: inactive, 1: pending, 2: success
   del: Boolean, // del
 }
+// unique index
+- id
+- school + email
+- school + name + parent.email
 ```
 
 ### students API
