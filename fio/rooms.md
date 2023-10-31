@@ -90,3 +90,42 @@ await App.service('session-draw').patch(doc._id, {ppt: {...}})
 // blank draw save 
 await App.service('session-draw').patch(doc._id, {blank: {...}})
 ```
+
+## response model
+```js
+sid: String, // session.sid
+uid: String, // user._id
+nickname: String,
+page: String, // page_id
+type: String, // question.type
+content: String,
+answer: [String], // for radio, checkbox
+locked: Boolean, // for radio, checkbox
+point: Mixed, // comment point
+json: Mixed, // draw json comment.task = { id, cover, name }
+```
+
+### response api
+
+> Get  
+> `App.service('response').get(_id)`
+
+> create  
+```js
+App.service('response').create({
+  sid: '', // session.sid
+  page: '', // page_id
+  type: '', // question.type
+  content: '', // text or url
+  answer?: [], // for radio, checkbox, choice data
+  locked?: false, // for radio, checkbox, Boolean
+  point?: {}, // for comment, json
+  json?: {} // draw json
+})
+```
+
+> patch  
+> `App.service('response').patch(_id, {content: '',...})`
+
+> remove  
+> `App.service('response').remove(_id)`

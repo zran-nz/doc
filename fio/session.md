@@ -550,27 +550,3 @@ count = {
 }
 
 ```
-
-### Student response
-
-> Get  
-> `App.service('response').get(_id)`
-
-> create  
-```js
-App.service('response').create({
-  page: '', // page_id
-  type: '', // question.type
-  content: '', // text or url
-  answer?: [], // for radio, checkbox, choice data
-  locked?: false, // for radio, checkbox, Boolean
-  point?: {}, // for comment, json
-  json?: {} // draw json
-})
-```
-
-> patch  
-> `App.service('response').patch(_id, {content: '',...})`
-
-> remove  
-> `App.service('response').remove(_id)`
