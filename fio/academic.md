@@ -1,6 +1,6 @@
 ## Academic setting
 
-### Curriculum model
+## Curriculum model
 ```js
 school: String, // 1 or school._id or user._id
 code: String,
@@ -73,7 +73,7 @@ await curriculum.gradeConf(schoolOrUid)
 
 ```
 
-### Subjects model
+## Subjects model
 ```js
 {
   // --- public ---
