@@ -82,6 +82,7 @@ await curriculum.gradeConf(schoolOrUid)
   name: String,
   subtitle: String,
   curriculum: String, // curriculum code
+  participants?: String, // participants, ['educators', 'students']
   grade: [String],
   del: Boolean,
   count: {
