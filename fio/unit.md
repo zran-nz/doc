@@ -7,6 +7,7 @@
   createdAt: Date, // create time
   updatedAt: Date, // update time
   mode: String, // ['unit', 'task', 'pdUnit', 'pdTask', 'video', 'tool']
+  serviceType: [String], // ['']
   uid: String,
   name: String,
   del: Boolean, // archive status

@@ -12,6 +12,7 @@ end: Date // schedule end date
 ended: Date, // real ended date
 status: String, // ['live', 'close', 'student']
 type: String, // content type: ['session', 'taskWorkshop', 'unitCourses', 'workshop', 'courses', 'pdCourses', 'tool']
+serviceType: [String], // ['']
 uid: String, // user._id
 zoom: Mixed, // session zoom
 cid: String, // related task.id or content.id
@@ -549,4 +550,15 @@ count = {
   'session._id': 1 // response.length
 }
 
+```
+
+### home recommend
+```js
+const {
+  live: [], student: [], booking: [], service: []
+} = await App.service('session').get('recommend')
+
+// for more list
+const {total, limit, skip, data} = await App.service('session').get('recommendLive', {query: {$skip: 10}})
+const {total, limit, skip, data} = await App.service('session').get('recommendStudent', {query: {$skip: 10}})
 ```
