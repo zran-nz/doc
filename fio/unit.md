@@ -1,6 +1,6 @@
-## Unit plan
+## Unit
 
-### Unit plan model
+### Unit model
 ```js
 {
   // --- public ---
