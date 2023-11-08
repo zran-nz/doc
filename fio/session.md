@@ -12,7 +12,6 @@ end: Date // schedule end date
 ended: Date, // real ended date
 status: String, // ['live', 'close', 'student']
 type: String, // content type: ['session', 'taskWorkshop', 'unitCourses', 'workshop', 'courses', 'pdCourses', 'tool']
-serviceType: [String], // ['']
 uid: String, // user._id
 zoom: Mixed, // session zoom
 cid: String, // related task.id or content.id
