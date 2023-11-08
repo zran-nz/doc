@@ -7,7 +7,10 @@
   createdAt: Date, // create time
   updatedAt: Date, // update time
   mode: String, // ['unit', 'task', 'pdUnit', 'pdTask', 'video', 'tool']
-  serviceType: [String], // ['']
+  service: {
+    type: [], // service type = subjects._id
+    participants: '', // ['educators', 'students'],
+  }
   uid: String,
   name: String,
   del: Boolean, // archive status
