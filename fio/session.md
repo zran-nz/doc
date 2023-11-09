@@ -25,8 +25,11 @@ del: Boolean, // true: archive, false: restore
 category: String,
 color: String,
 pid: String, // unit._id
-pidGroup: String, // unit.linkGroup._id
-pidGroupName: String, // unit.linkGroup.name
+parent: { // parent info
+  mode: String, // unit.mode
+  group: String, // unit.linkGroup._id
+  groupName: String, // unit.linkGroup.name
+},
 
 // for classroom control
 block: Boolean, // when join room, block every one
