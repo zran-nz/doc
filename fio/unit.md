@@ -213,6 +213,29 @@ await App.service('unit').patch('publish', {_id, 'publish.link': true})
 
 ## Unit plan template
 
+### unit-tpl-user model
+```js
+school: String, // school-plan._id or user._id
+name: String,
+curriculum: String, // user custom curriculum code
+tpl: {
+  // auto create
+  unit: String, // unit-tpl._id
+  task: String, // unit-tpl._id
+}
+```
+### unit-tpl-user api
+```js
+// create
+const doc = await App.service('unit-tpl-user').create({school: schoolIdOrUserId, name: '', curriculum: ''})
+// get
+const doc = await App.service('unit-tpl-user').get(doc._id)
+// list
+const list = await App.service('unit-tpl-user').find({query: {school: schoolIdOrUserId}})
+// remove
+const doc = await App.service('unit-tpl-user').remove(doc._id)
+```
+
 ### unit-tpl model
 ```js
 {
