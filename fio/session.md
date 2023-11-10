@@ -67,6 +67,7 @@ unitType: String, // unit.type ['FA', 'SA', 'Activity', 'IA', 'Single', 'integra
 sessionType: String, // unit.sessionType, ['live', 'student']
 unit: String, // related unit.id
 students: { type: [String] }, // class session: student user._id
+grades: { type: [String] }, // school grades
 
 // for unit session, courses
 childSize: Number,
