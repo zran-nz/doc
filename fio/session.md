@@ -66,8 +66,8 @@ className: String, // old className
 unitType: String, // unit.type ['FA', 'SA', 'Activity', 'IA', 'Single', 'integrated', 'UOI', 'IDU']
 sessionType: String, // unit.sessionType, ['live', 'student']
 unit: String, // related unit.id
-students: { type: [String] }, // class session: student user._id
-grades: { type: [String] }, // school grades
+students: [String], // class session: student user._id
+grades: [String], // school grades
 
 // for unit session, courses
 childSize: Number,
