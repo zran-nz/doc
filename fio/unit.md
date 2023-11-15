@@ -227,7 +227,7 @@ tpl: {
 ### unit-tpl-user api
 ```js
 // create
-const doc = await App.service('unit-tpl-user').create({school: schoolIdOrUserId, name: '', curriculum: ''})
+const doc = await App.service('unit-tpl-user').create({school: schoolIdOrUserId, name: '', curriculum: 'curric._id 自定义大纲的_id'})
 // get
 const doc = await App.service('unit-tpl-user').get(doc._id)
 // list
