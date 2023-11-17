@@ -4,11 +4,13 @@
 ```js
 {
   id: String, // unique id
+  password: String,
   school: String, // school_id
   email: String,
   name: ['first name', 'last name'],
   nickname: String, //
   avatar: String,
+  gender: String, // 'Male', 'Female', 'Others'
   dob: String,
   class: [String], // class list [class.id]
   parent: {
