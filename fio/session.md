@@ -577,10 +577,20 @@ count = {
 ### home recommend
 ```js
 const {
-  live: [], student: [], booking: [], service: []
+  // for teacher
+  live: [], 
+  student: [], 
+  // for students or register
+  myLive: [], 
+  myStudent: [],
+  // service 
+  booking: [], 
+  service: []
 } = await App.service('session').get('recommend')
 
 // for more list
 const {total, limit, skip, data} = await App.service('session').get('recommendLive', {query: {$skip: 10}})
 const {total, limit, skip, data} = await App.service('session').get('recommendStudent', {query: {$skip: 10}})
+const {total, limit, skip, data} = await App.service('session').get('recommendMyLive', {query: {$skip: 10}})
+const {total, limit, skip, data} = await App.service('session').get('recommendMyStudent', {query: {$skip: 10}})
 ```
