@@ -106,10 +106,13 @@ task => taskSchoolWorkshop
 unit => unitSchoolCourses  
 pdTask => pdSchoolStudentWorkshop  
 pdUnit => pdSchoolStudentCourses  
+tool => studentTool (import)
+
 
 > for school educators public, need register (only for internal school teachers)  
 pdTask  => pdSchoolWorkshop  
 pdUnit  => pdSchoolCourses  
+tool => educatorTool (import)
 
 > for students public, need register (only for students)  
 task => taskWorkshop  
