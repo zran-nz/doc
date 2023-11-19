@@ -95,17 +95,23 @@ drawkey: String, // excalidraw room key
 ```
 
 ### type
-> for classroom  
+> for classroom, need select students  
 task => session  
-unit => courses
+unit => courses  
+pdTask => pdClassSession  
+pdUnit => pdClassCourses  
 
-> for public  
+> for school public, need register (only for internal school users)  
+task => taskSchoolWorkshop  
+unit => unitSchoolCourses  
+pdTask => pdSchoolWorkshop  
+pdUnit => pdSchoolCourses  
+
+> for personal public, need register  
 task => taskWorkshop  
-unit => unitCourses
-
-> for workshop  
-pd => workshop  
-pdunit => pdCourses
+unit => unitCourses  
+pdTask => workshop  
+pdunit => pdCourses  
 
 tool => tool
 
