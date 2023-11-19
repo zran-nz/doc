@@ -111,11 +111,9 @@ pdUnit => pdSchoolStudentCourses
 pdTask  => pdSchoolWorkshop  
 pdUnit  => pdSchoolCourses  
 
-> for personal public, need register  
+> for students public, need register (only for students)  
 task => taskWorkshop  
 unit => unitCourses  
-
-> for students public, need register (only for students)  
 pdTask => studentWorkshop  
 pdunit => studentCourses  
 
