@@ -10,7 +10,7 @@
 * [Academic](fio/academic.md ':include')
 * [Unit](fio/unit.md ':include')
 * [Assessment Tool](fio/tool.md ':include')
-* [Session & Classroom](fio/session.md ':include')
+* [Session](fio/session.md ':include')
 * [Rooms](fio/rooms.md ':include')
 * [Setting & Tags](fio/setting.md ':include')
 * [Notice](fio/notice.md ':include')
