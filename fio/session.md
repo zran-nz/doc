@@ -101,15 +101,23 @@ unit => courses
 pdTask => pdClassSession  
 pdUnit => pdClassCourses  
 
-> for school public, need register (only for internal school users)  
+> for school students public, need register (only for internal school students)  
 task => taskSchoolWorkshop  
 unit => unitSchoolCourses  
-pdTask => pdSchoolWorkshop  
-pdUnit => pdSchoolCourses  
+pdTask => pdSchoolStudentWorkshop  
+pdUnit => pdSchoolStudentCourses  
+
+> for school educators public, need register (only for internal school teachers)  
+pdTask  => pdSchoolWorkshop  
+pdUnit  => pdSchoolCourses  
 
 > for personal public, need register  
 task => taskWorkshop  
 unit => unitCourses  
+> for students public, need register (only for students)  
+pdTask => studentWorkshop  
+pdunit => studentCourses  
+> for educators public, need register (only for teachers)  
 pdTask => workshop  
 pdunit => pdCourses  
 
