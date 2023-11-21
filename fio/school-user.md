@@ -57,3 +57,8 @@ App.service('school-user').patch(_id, {
 ```js
 await App.service('school-user').get('info', {query: {school: pub.user.schoolInfo._id, email: pub.user.email}})
 ```
+
+### get school user classList
+```js
+await App.service('school-user').get('classList', {query: {school: pub.user.schoolInfo._id}})
+```
