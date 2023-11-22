@@ -60,9 +60,9 @@ reg: [{ // register userinfo
 }],
 
 // for class session
-school: String, // old cc_school.id
-classId: String, // old classId school class id, class2.task_class_id
-className: String, // old className
+school: String, // school-plan._id
+classId: String, // classes._id
+className: String, // classes.name
 unitType: String, // unit.type ['FA', 'SA', 'Activity', 'IA', 'Single', 'integrated', 'UOI', 'IDU']
 sessionType: String, // unit.sessionType, ['live', 'student']
 unit: String, // related unit.id
@@ -598,4 +598,10 @@ const {total, limit, skip, data} = await App.service('session').get('recommendLi
 const {total, limit, skip, data} = await App.service('session').get('recommendStudent', {query: {$skip: 10}})
 const {total, limit, skip, data} = await App.service('session').get('recommendMyLive', {query: {$skip: 10}})
 const {total, limit, skip, data} = await App.service('session').get('recommendMyStudent', {query: {$skip: 10}})
+```
+
+
+### Roaster
+```js
+const [...] = await App.service('session').get('roaster', {query: {sid: session.sid}})
 ```
