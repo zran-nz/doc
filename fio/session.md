@@ -593,6 +593,10 @@ const {
   service: []
 } = await App.service('session').get('recommend')
 
+// query filter
+query.dateRange = [start, end, zone]
+query.status = 'scheduled', 'ongoing', 'ended'
+
 // for more list
 const {total, limit, skip, data} = await App.service('session').get('recommendLive', {query: {$skip: 10}})
 const {total, limit, skip, data} = await App.service('session').get('recommendStudent', {query: {$skip: 10}})
