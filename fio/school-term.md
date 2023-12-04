@@ -33,7 +33,22 @@
 ### school-term API
 ```js
 
-// 列表获取
+// 获取year列表
+await App.service('school-year').find({query: {school: 'school-plan._id'}})
+// 获取term列表
 await App.service('school-term').find({query: {school: 'school-plan._id'}})
+
+// 创建year
+const yearDoc = await App.service('school-year').create({school, title, start, end})
+// 创建term
+const doc = await App.service('school-term').create({school, year: yearDoc._id, title, start, end})
+
+// 一次性修改所有block的数据
+await App.service('school-term').patch(doc._id, {block: [{week, start, end}, ...]})
+
+// 增加单个block
+await App.service('school-term').patch(doc._id, {$addToSet: {block: {week, start, end}}})
+// 删除单个block
+await App.service('school-term').patch(doc._id, {$pull: {block: {_id: block._id}}})
 
 ```
