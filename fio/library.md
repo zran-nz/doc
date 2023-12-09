@@ -22,7 +22,15 @@
 ### unit library api
 ```js
 // library index and search
-await App.service('unit').get('search', {query: {key: '', limit: 10}})
+await App.service('unit').get('search', {query: {key: '', $limit: 10}})
+
+// library latest more
+await App.service('unit').get('latestList', {query: {key: '', mode: '', $limit: 10, $skip: 0}})
+// library task more
+await App.service('unit').get('taskList', {query: {key: '', $limit: 10, $skip: 0}})
+// library unit more
+await App.service('unit').get('unitList', {query: {key: '', $limit: 10, $skip: 0}})
+
 
 // library index for students
 await App.service('session').get('index', {query: {limit: 10}})
