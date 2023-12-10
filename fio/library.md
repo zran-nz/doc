@@ -24,6 +24,14 @@
 // library index and search
 await App.service('unit').get('search', {query: {key: '', $limit: 10}})
 
+// filter query, 无数据不需要传对应的属性
+{
+  key: '',
+  mode: '', 
+  'grades.value': {$in: [...]},
+  'subjects.value': {$in: [...]}
+}
+
 // library latest more
 await App.service('unit').get('latestList', {query: {key: '', mode: '', $limit: 10, $skip: 0}})
 // library task more
