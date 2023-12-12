@@ -73,6 +73,14 @@ await curriculum.gradeConf(schoolOrUid)
 
 ```
 
+### grade count
+```js
+// 年级下的学科数量统计
+await App.service('subjects').get('gradesCount', {query: {school: 'schoolIdOrUid'}})
+// 年级下的标准班级数量统计
+await App.service('classes').get('gradesCount', {query: {school: 'schoolIdOrUid'}})
+```
+
 ## Subjects model
 ```js
 {
