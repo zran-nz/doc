@@ -38,6 +38,13 @@ App.service('students').patch(_id, { $addToSet: {class: ['class_id']}})
 // Remove students from class
 App.service('students').patch(_id, { $pull: {class: 'class_id'}})
 
+// Resend email
+App.service('students').get('resend', { query: {_id: student._id}})
+
+```
+
+### students check email
+```js
 
 // 批量检查 学生邮箱验证
 const {
@@ -64,6 +71,4 @@ const {
   ]}
 })
 
-// Resend email
-App.service('students').get('resend', { query: {_id: student._id}})
 ```
