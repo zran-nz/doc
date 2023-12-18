@@ -39,11 +39,30 @@ App.service('students').patch(_id, { $addToSet: {class: ['class_id']}})
 App.service('students').patch(_id, { $pull: {class: 'class_id'}})
 
 
-// 学生邮箱验证, 返回0没有被使用过
-App.service('students').get('checkEmail', { query: {school: '', email: ''}})
+// 批量检查 学生邮箱验证
+const {
+  teacher: { // 存在代表已经注册过老师
+    'email': 1,
+    ...
+  },
+  student: { // 存在代表该学校下被使用过
+    'email': 1,
+    ...
+  }
+} = App.service('students').get('checkEmails', { query: {
+  school: '', email: {$in: ['email', ...]}
+}})
 
-// 学校学生姓名+家长邮箱不重复验证, 返回0没有被使用过
-App.service('students').get('checkEmail', { query: {school: '', name: [], 'parent.email': ''}})
+// 批量检查 学校学生姓名+家长邮箱不重复验证
+const {
+  `${email}:${name[0]} ${name[1]}`: 1, // 存在代表已经被使用过
+  ...
+} = await App.service('students').get('checkParents', { query: {
+  school: '', data: [
+    {name: [], 'parent.email': ''},
+    ...
+  ]}
+})
 
 // Resend email
 App.service('students').get('resend', { query: {_id: student._id}})
