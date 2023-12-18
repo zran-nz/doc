@@ -79,3 +79,4 @@ const {
 } = await App.service('school-user').get('checkEmails', { query: {
   school: '', email: {$in: ['email', ...]}
 }})
+```
