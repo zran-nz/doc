@@ -62,3 +62,20 @@ await App.service('school-user').get('info', {query: {school: pub.user.schoolInf
 ```js
 await App.service('school-user').get('classList', {query: {school: pub.user.schoolInfo._id}})
 ```
+
+### check email
+```js
+
+// 批量检查 老师邮箱验证
+const {
+  student: { // 存在代表已经注册过学生账号
+    'email': 1,
+    ...
+  },
+  teacher: { // 存在代表该学校下被添加为老师
+    'email': 1,
+    ...
+  }
+} = await App.service('school-user').get('checkEmails', { query: {
+  school: '', email: {$in: ['email', ...]}
+}})

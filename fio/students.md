@@ -48,21 +48,21 @@ App.service('students').get('resend', { query: {_id: student._id}})
 
 // 批量检查 学生邮箱验证
 const {
-  teacher: { // 存在代表已经注册过老师
+  teacher: { // 存在代表已经注册过老师账号
     'email': 1,
     ...
   },
-  student: { // 存在代表该学校下被使用过
+  student: { // 存在代表该学校下被添加为学生
     'email': 1,
     ...
   }
-} = App.service('students').get('checkEmails', { query: {
+} = await App.service('students').get('checkEmails', { query: {
   school: '', email: {$in: ['email', ...]}
 }})
 
 // 批量检查 学校学生姓名+家长邮箱不重复验证
 const {
-  `${email}:${name[0]} ${name[1]}`: 1, // 存在代表已经被使用过
+  `${email}:${name[0]} ${name[1]}`: 1, // 存在代表已经被添加为学生
   ...
 } = await App.service('students').get('checkParents', { query: {
   school: '', data: [
