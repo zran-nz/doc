@@ -43,7 +43,7 @@ App.service('students').get('resend', { query: {_id: student._id}})
 
 ```
 
-### students check email
+### check email
 ```js
 
 // 批量检查 学生邮箱验证
