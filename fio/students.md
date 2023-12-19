@@ -65,10 +65,7 @@ const {
   `${email}:${name[0]} ${name[1]}`: 1, // 存在代表已经被添加为学生
   ...
 } = await App.service('students').get('checkParents', { query: {
-  school: '', data: [
-    {name: [], 'parent.email': ''},
-    ...
-  ]}
+  school: '', 'parent.email': {$in: ['xxx@xxx.com', ...]}}
 })
 
 ```
