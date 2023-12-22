@@ -31,19 +31,54 @@ const gradeOpts = await curriculum.gradeOptions(pub.user._id)
 curriculum.gradeParse([gradeId, ....], gradeOpts)
 ```
 
+#### 注册账号
 ```js
-// 学生注册
-App.service('users').create({
-  name: ['', ''],
-  password: '',
+// 获取验证码, mobile, email 二选一
+await App.service('users').get('captcha', {email, mobile})
+
+// 创建账号 mobile, email 二选一
+await App.service('users').create({
+  mobile: '+1123123123', // E.164 format, maximum of 15 digits, +11XXX5550100, +440201234567 => +44201234567
+  countryCode: '+1', // 国家代码 
   email: '',
-  roles: ['student'],
+  captcha: '',
+  password: 'new password',
+  roles: ['student'], // ['student', 'teacher']
   lang: navigator.language,
   timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-  avatar: '', // option
 })
 
 // 登录
 AppLocalLogin(email, password)
+```
+
+#### 忘记密码
+```js
+// 获取验证码
+await App.service('users').get('captcha', {email, mobile})
+
+// 设置密码
+await App.service('users').patch('forgetPassword', {
+  mobile: '', // E.164 format
+  email: '', // mobile, email 二选一
+  captcha: '',
+  password: 'new password',
+})
+```
+
+#### 更新用户信息
+```js
+// 获取验证码
+await App.service('users').get('captcha', {email, mobile})
+
+// 验证
+await App.service('users').get('checkCaptcha', {email, mobile, captcha: ''})
+
+// 更新密码
+await App.service('users').patch(user._id, {password})
+// 更新邮箱
+await App.service('users').patch(user._id, {captcha, email})
+// 更新手机
+await App.service('users').patch(user._id, {captcha, mobile, countryCode})
 
 ```
