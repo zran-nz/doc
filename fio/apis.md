@@ -133,6 +133,7 @@ const authId = setInterval(async () => {
 
 `await App.service('content').get('oldCheckCollaboration', { query: { id: 'content.id' }})`
 
+
 #### oldContent 课件列表查询接口
 
 `await App.service('task').get('oldContent', { query: { pid: 'parent id', type, tab: 'all/share/other/arch/addon/', status, create, $sort, $search, $skip = 0, $limit = 10 }})`

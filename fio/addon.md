@@ -1,4 +1,4 @@
-## Addon test
+### Addon test
 
 测试地址：https://dev.classcipe.com/v2/test/testAddon/${slideId}
 
@@ -36,6 +36,14 @@ addon.toPage(pageId)
 await addon.copy(sid, pages, postData)
 
 ```
+
+### addon api
+
+#### addonFind 插件端获取带有ppt的课件列表
+```js
+await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit = 10 }})
+```
+
 
 ### slides model
 ```js
