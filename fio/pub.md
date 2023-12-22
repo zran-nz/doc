@@ -39,7 +39,7 @@ await App.service('users').get('captcha', {email, mobile})
 // 创建账号 mobile, email 二选一
 await App.service('users').create({
   mobile: '+1123123123', // E.164 format, maximum of 15 digits, +11XXX5550100, +440201234567 => +44201234567
-  countryCode: '+1', // 国家代码 
+  countryCode: 'AU', // 国家代码 AU,NZ,US... /fio/conf/CountryCodes
   email: '',
   captcha: '',
   password: 'new password',
