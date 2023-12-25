@@ -422,7 +422,26 @@ await App.service('session').find({query: {
 $or: [{name: {$search: "123"}}]
 
 ```
-### Session list for calender [new]
+### Session list for calender
+```js
+// 根据时间范围过滤
+await App.service('session').get('dateList', {
+  query: {
+    start: new Date('start time'), end: new Date('end time'), zone: new Date().getTimezoneOffset()
+  }
+})
+
+// 所有为该学校老师排的公开课
+query.school = 'school-plan._id'
+query.type = {$in: ['pdSchoolTeacherWorkshop']}
+
+// 所有为该学校学生排的公开课
+query.school = 'school-plan._id'
+query.type = {$in: ['taskSchoolWorkshop', 'pdSchoolStudentWorkshop']}
+
+```
+
+### Session list for date
 ```js
 
 // find by start ~ end
