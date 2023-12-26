@@ -422,10 +422,10 @@ await App.service('session').find({query: {
 $or: [{name: {$search: "123"}}]
 
 ```
-### Session list for calender
+### Session list for calendar
 ```js
 // 根据时间范围过滤
-await App.service('session').get('calenderList', {
+await App.service('session').get('calendarList', {
   query: {
     start: new Date('start time'), end: new Date('end time'), zone: new Date().getTimezoneOffset()
   }
