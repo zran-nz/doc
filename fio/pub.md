@@ -31,7 +31,7 @@ const gradeOpts = await curriculum.gradeOptions(pub.user._id)
 curriculum.gradeParse([gradeId, ....], gradeOpts)
 ```
 
-### Users model
+## Users model
 ```js
 name: [String, String], // [ firstname, lastname ]
 nickname: String,
@@ -62,7 +62,7 @@ studentExt: {
 },
 ```
 
-#### 注册账号
+### 注册账号
 ```js
 // 获取验证码, mobile, email 二选一
 await App.service('users').get('captcha', {email, mobile})
@@ -83,7 +83,7 @@ await App.service('users').create({
 AppLocalLogin(email, password)
 ```
 
-#### 忘记密码
+### 忘记密码
 ```js
 // 获取验证码
 await App.service('users').get('captcha', {email, mobile})
@@ -97,7 +97,7 @@ await App.service('users').patch('forgetPassword', {
 })
 ```
 
-#### 更新用户信息
+### 更新用户信息
 ```js
 // 获取验证码
 await App.service('users').get('captcha', {email, mobile})
