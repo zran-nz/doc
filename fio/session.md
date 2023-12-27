@@ -78,6 +78,7 @@ childs: [{
   groupName: String, // link.group name
   mode: String, // unit.mode, task/pd/tool
   sid: String, // session._id
+  sessionType: String, // unit.sessionType, ['live', 'student']
 }],
 
 // snapshot data
