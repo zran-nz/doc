@@ -31,6 +31,37 @@ const gradeOpts = await curriculum.gradeOptions(pub.user._id)
 curriculum.gradeParse([gradeId, ....], gradeOpts)
 ```
 
+### Users model
+```js
+name: [String, String], // [ firstname, lastname ]
+nickname: String,
+password: String,
+avatar: String,
+email: String,
+mobile: String, // E.164 format, maximum of 15 digits, +1001XXX5550100, +440201234567 => +44201234567
+countryCode: String, // country code, AU, NZ
+roles: [String], // 'admin', 'teacher', 'student'
+gender: String, // gender
+intro: String, // self intro
+google: String, // google id_token.sub
+zoom: String, // zoom uuid
+lang: String, // default: 'en-US'}, // navigator.language
+timeZone: String, // Intl.DateTimeFormat().resolvedOptions().timeZone
+tz: String, // new Date().getTimezoneOffset()
+ip: String, // reg ip
+last: Date, // last login time
+// for student
+studentExt: {
+  dob: String,
+  parent: {
+    mobile: String, // E.164 format
+    email: String,
+  },
+  curriculum: String,
+  subjects: [String],
+},
+```
+
 #### 注册账号
 ```js
 // 获取验证码, mobile, email 二选一
@@ -81,4 +112,6 @@ await App.service('users').patch(user._id, {captcha, email})
 // 更新手机
 await App.service('users').patch(user._id, {captcha, mobile, countryCode})
 
+// 更新扩展信息
+await App.service('users').patch(user._id, {studentExt: {...}})
 ```
