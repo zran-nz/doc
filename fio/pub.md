@@ -46,8 +46,8 @@ intro: String, // self intro
 google: String, // google id_token.sub
 zoom: String, // zoom uuid
 lang: String, // default: 'en-US'}, // navigator.language
-timeZone: String, // Intl.DateTimeFormat().resolvedOptions().timeZone
-tz: String, // new Date().getTimezoneOffset()
+timeZone: String, // 时区文案 Intl.DateTimeFormat().resolvedOptions().timeZone
+tz: Number, // 时区分钟， new Date().getTimezoneOffset()
 ip: String, // reg ip
 last: Date, // last login time
 // for student
