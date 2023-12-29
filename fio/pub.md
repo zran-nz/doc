@@ -83,7 +83,7 @@ await App.service('users').create({
 })
 
 // 登录
-AppLocalLogin(email, password)
+AppLocalLogin(email/mobile, password)
 ```
 
 ### 忘记密码
