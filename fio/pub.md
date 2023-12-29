@@ -64,8 +64,11 @@ studentExt: {
 
 ### 注册账号
 ```js
+// 检测账号是否存在, mobile, email 二选一
+await App.service('users').get('checkAccount', {query: {email, mobile}})
+
 // 获取验证码, mobile, email 二选一
-await App.service('users').get('captcha', {email, mobile})
+await App.service('users').get('captcha', {query: {email, mobile}})
 
 // 创建账号 mobile, email 二选一
 await App.service('users').create({
@@ -86,7 +89,7 @@ AppLocalLogin(email, password)
 ### 忘记密码
 ```js
 // 获取验证码
-await App.service('users').get('captcha', {email, mobile})
+await App.service('users').get('captcha', {query: {email, mobile}})
 
 // 设置密码
 await App.service('users').patch('forgetPassword', {
@@ -100,10 +103,10 @@ await App.service('users').patch('forgetPassword', {
 ### 更新用户信息
 ```js
 // 获取验证码
-await App.service('users').get('captcha', {email, mobile})
+await App.service('users').get('captcha', {query: {email, mobile}})
 
 // 验证
-await App.service('users').get('checkCaptcha', {email, mobile, captcha: ''})
+await App.service('users').get('checkCaptcha', {query: {email, mobile, captcha: ''}})
 
 // 更新密码
 await App.service('users').patch(user._id, {password})
