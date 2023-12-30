@@ -69,3 +69,13 @@ const {
 })
 
 ```
+
+### 获取用户已加入的学校列表
+```js
+await App.service('school-user').get('schoolList')
+```
+
+### 获取用户在学校下的班级列表
+```js
+await App.service('school-user').get('classList', {query: {school: pub.user.schoolInfo._id}})
+```

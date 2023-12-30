@@ -58,6 +58,11 @@ App.service('school-user').patch(_id, {
 await App.service('school-user').get('info', {query: {school: pub.user.schoolInfo._id, email: pub.user.email}})
 ```
 
+### 获取用户已加入的学校列表
+```js
+await App.service('school-user').get('schoolList')
+```
+
 ### get school user classList
 ```js
 await App.service('school-user').get('classList', {query: {school: pub.user.schoolInfo._id}})
