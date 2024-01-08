@@ -1,6 +1,5 @@
-
-
 ## Notice Model
+
 ```js
 type: String, // type: ['mail', 'inbox']
 ip: String,
@@ -20,6 +19,7 @@ data: {
 ```
 
 ### Notice api
+
 ```js
 // notice list for unread
 App.service('notice').find({query: {type: 'inbox', status: false}})
@@ -27,6 +27,14 @@ App.service('notice').find({query: {type: 'inbox', status: false}})
 App.service('notice').find({query: {type: 'inbox'}})
 // mark as read
 App.service('notice').get('read', {query: {_id: doc._id}})
+
+// 全部设为已读
+App.service('notice').get('readAll')
+// 删除已读消息
+App.service('notice').get('removeAll')
+// 未读统计
+App.service('notice').get('unReadCount')
+
 
 // create notice
 App.service('notice').create({
@@ -36,8 +44,8 @@ App.service('notice').create({
 })
 ```
 
-
 ## Notice Tpl Model
+
 ```js
 code: String,
 name: String,
@@ -56,6 +64,7 @@ keys: [String], // for mail replace var
 - 未指定的 则推送给平台所有用户
 
 curl 例子
+
 ```shell
 curl -H "Content-Type: application/json" -X POST -d '{"msgId":"1566953060269883393","cmd":"user","msgTxt":"You are an admin now","busType":"account","userId":"1493113285880418305"}' /fio/notice
 ```
