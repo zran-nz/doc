@@ -1,9 +1,11 @@
 ## students
 
 ### students model
+
 ```js
 {
   id: String, // unique id
+  uid: String, // user._id
   password: String,
   school: String, // school_id
   email: String,
@@ -28,22 +30,24 @@
 ```
 
 ### students API
-```js
 
+```js
 // get list by school
-await App.service('students').find({query: {school: 'school_id', del: false}})
+await App.service("students").find({
+  query: { school: "school_id", del: false },
+});
 
 // Add students from class
-App.service('students').patch(_id, { $addToSet: {class: ['class_id']}})
+App.service("students").patch(_id, { $addToSet: { class: ["class_id"] } });
 // Remove students from class
-App.service('students').patch(_id, { $pull: {class: 'class_id'}})
+App.service("students").patch(_id, { $pull: { class: "class_id" } });
 
 // Resend email
-App.service('students').get('resend', { query: {_id: student._id}})
-
+App.service("students").get("resend", { query: { _id: student._id } });
 ```
 
 ### check email
+
 ```js
 
 // 批量检查 学生邮箱验证
@@ -71,11 +75,15 @@ const {
 ```
 
 ### 获取用户已加入的学校列表
+
 ```js
-await App.service('school-user').get('schoolList')
+await App.service("school-user").get("schoolList");
 ```
 
 ### 获取用户在学校下的班级列表
+
 ```js
-await App.service('school-user').get('classList', {query: {school: pub.user.schoolInfo._id}})
+await App.service("school-user").get("classList", {
+  query: { school: pub.user.schoolInfo._id },
+});
 ```
