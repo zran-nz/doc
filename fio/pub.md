@@ -1,37 +1,47 @@
 ## Pub store
+
 ### Actions
+
 #### pub.userInfo(school = null)
-> return {_id, avatar, name, nickname, role, email?, schoolInfo?, ...}
+
+> return {\_id, avatar, name, nickname, role, email?, schoolInfo?, ...}
+
 ```js
 // get personal user info
-const userInfo = pub.userInfo()
+const userInfo = pub.userInfo();
 
 // get school user info
-const userInfo = pub.userInfo(schoolId)
+const userInfo = pub.userInfo(schoolId);
 ```
 
 #### pub.hasSchool(schoolId)
+
 > return Boolean
 
 ## Curriculum store
+
 ### Actions
+
 #### curriculum.gradeOptions(uid)
+
 ```js
 // get system grade options
-const gradeOpts = await curriculum.gradeOptions(1)
+const gradeOpts = await curriculum.gradeOptions(1);
 // get school grade options
-const gradeOpts = await curriculum.gradeOptions(pub.user.school)
+const gradeOpts = await curriculum.gradeOptions(pub.user.school);
 // get personal grade options
-const gradeOpts = await curriculum.gradeOptions(pub.user._id)
+const gradeOpts = await curriculum.gradeOptions(pub.user._id);
 ```
 
 #### curriculum.gradeParse(arr, gradeOptions)
+
 ```js
 // grades parse
 curriculum.gradeParse([gradeId, ....], gradeOpts)
 ```
 
 ## Users model
+
 ```js
 name: [String, String], // [ firstname, lastname ]
 nickname: String,
@@ -59,48 +69,52 @@ studentExt: {
   },
   curriculum: String,
   subjects: [String],
+  grades: [String],
 },
 ```
 
 ### 注册账号
+
 ```js
 // 检测账号是否存在, mobile, email 二选一
-await App.service('users').get('checkAccount', {query: {email, mobile}})
+await App.service("users").get("checkAccount", { query: { email, mobile } });
 
 // 获取验证码, mobile, email 二选一
-await App.service('users').get('captcha', {query: {email, mobile}})
+await App.service("users").get("captcha", { query: { email, mobile } });
 
 // 创建账号 mobile, email 二选一
-await App.service('users').create({
-  mobile: '+1123123123', // E.164 format, maximum of 15 digits, +11XXX5550100, +440201234567 => +44201234567
-  countryCode: 'AU', // 国家代码 AU,NZ,US... /fio/conf/CountryCodes
-  email: '',
-  captcha: '',
-  password: 'new password',
-  roles: ['student'], // ['student', 'teacher']
+await App.service("users").create({
+  mobile: "+1123123123", // E.164 format, maximum of 15 digits, +11XXX5550100, +440201234567 => +44201234567
+  countryCode: "AU", // 国家代码 AU,NZ,US... /fio/conf/CountryCodes
+  email: "",
+  captcha: "",
+  password: "new password",
+  roles: ["student"], // ['student', 'teacher']
   lang: navigator.language,
   timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-})
+});
 
 // 登录
-AppLocalLogin(email/mobile, password)
+AppLocalLogin(email / mobile, password);
 ```
 
 ### 忘记密码
+
 ```js
 // 获取验证码
-await App.service('users').get('captcha', {query: {email, mobile}})
+await App.service("users").get("captcha", { query: { email, mobile } });
 
 // 设置密码
-await App.service('users').patch('forgetPassword', {
-  mobile: '', // E.164 format
-  email: '', // mobile, email 二选一
-  captcha: '',
-  password: 'new password',
-})
+await App.service("users").patch("forgetPassword", {
+  mobile: "", // E.164 format
+  email: "", // mobile, email 二选一
+  captcha: "",
+  password: "new password",
+});
 ```
 
 ### 更新用户信息
+
 ```js
 // 获取验证码
 await App.service('users').get('captcha', {query: {email, mobile}})
