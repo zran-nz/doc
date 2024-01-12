@@ -1,17 +1,17 @@
 ## Paypal
 
-###1.前端使用步骤
-###1.1安装
+### 1.前端使用步骤
+### 1.1安装
 ```
 npm i @paypal/paypal-js
 ```
 
-###1.2插入HTML
+### 1.2插入HTML
 ```
 <div id="paypal-button-container"></div>
 ```
 
-###1.3支付代码
+### 1.3支付代码
 ```
 loadScript({'client-id': 'AckJ83_lkyM-rlrTUHoSc8AYG6gREbHE94qqogZujg9L1Jz3dlzcTwFtzDiOz5ahuqsvn-wlullYB-tK'})
     .then((paypal) => {
@@ -46,7 +46,7 @@ loadScript({'client-id': 'AckJ83_lkyM-rlrTUHoSc8AYG6gREbHE94qqogZujg9L1Jz3dlzcTw
 ```
 
 
-###2.paypal参数配置
+### 2.paypal参数配置
 Sandbox
 Client ID:
 ```

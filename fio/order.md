@@ -2,7 +2,7 @@
 
 ### Order model
 
-````js
+```js
 {
   buyer: {type: String, required: true}, // buyer user._id
   seller: {type: String}, //seller已废弃,改用sellers
@@ -56,8 +56,8 @@
 
 
 ### order stores
+
 ```js
 // create link传数组
 await App.service('order').create([{link: {id: unit.id, mode: unit.mode}}])
-
-````
+```
