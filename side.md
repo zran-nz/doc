@@ -19,6 +19,8 @@
   * [School-User](fio/school-user.md ':include')
   * [Students](fio/students.md ':include')
   * [Term](fio/school-term.md ':include')
+* [Order](fio/order.md ':include')
+* [Paypal](fio/paypal.md ':include')
 
 
 * 课堂UML
