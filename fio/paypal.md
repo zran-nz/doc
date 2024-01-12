@@ -46,16 +46,21 @@ loadScript({'client-id': 'AckJ83_lkyM-rlrTUHoSc8AYG6gREbHE94qqogZujg9L1Jz3dlzcTw
 ```
 
 
-### 2.paypal参数配置
+### 2.paypal配置参数
 Sandbox
-Client ID:
+Client ID:  
 ```
-AckJ83_lkyM-rlrTUHoSc8AYG6gREbHE94qqogZujg9L1Jz3dlzcTwFtzDiOz5ahuqsvn-wlullYB-tK
+Acg70iZz0flbVOgEA1SjmiqEhKw850HHMnOjOp1F96UOjqgnF372WxO9QcbNPIOkGm9CROrrGYFmQ6Yh
 ```
 
 Live
-Client ID:
+Client ID:  
 ```
 AVj0ejw9ioxhqTWelmz-1h6UMQZaNrNGObZFWc0iQzJ94SvBVE98Vf88tLfZapi7JXJMd_jWLAmLEJ0g
 ```
+
+### 3.paypal sandbox支付信息
+Card number 4032033576774181  
+Expiry date 06/2026  
+CVC code 278
 
