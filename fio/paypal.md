@@ -1,19 +1,23 @@
 ## Paypal
 
 ### 1.前端使用步骤
-### 1.1安装
+
+### 1.1 安装
+
 ```
 npm i @paypal/paypal-js
 ```
 
-### 1.2插入HTML
+### 1.2 插入 HTML
+
 ```
 <div id="paypal-button-container"></div>
 ```
 
-### 1.3支付代码
+### 1.3 支付代码
+
 ```
-loadScript({'client-id': 'AckJ83_lkyM-rlrTUHoSc8AYG6gREbHE94qqogZujg9L1Jz3dlzcTwFtzDiOz5ahuqsvn-wlullYB-tK'})
+loadScript({'client-id': 'Acg70iZz0flbVOgEA1SjmiqEhKw850HHMnOjOp1F96UOjqgnF372WxO9QcbNPIOkGm9CROrrGYFmQ6Yh'})
     .then((paypal) => {
       paypal
         .Buttons({
@@ -45,22 +49,35 @@ loadScript({'client-id': 'AckJ83_lkyM-rlrTUHoSc8AYG6gREbHE94qqogZujg9L1Jz3dlzcTw
     })
 ```
 
+### 2.paypal 配置参数
 
-### 2.paypal配置参数
 Sandbox
-Client ID:  
+Client ID:
+
 ```
 Acg70iZz0flbVOgEA1SjmiqEhKw850HHMnOjOp1F96UOjqgnF372WxO9QcbNPIOkGm9CROrrGYFmQ6Yh
 ```
 
 Live
-Client ID:  
+Client ID:
+
 ```
 AVj0ejw9ioxhqTWelmz-1h6UMQZaNrNGObZFWc0iQzJ94SvBVE98Vf88tLfZapi7JXJMd_jWLAmLEJ0g
 ```
 
-### 3.paypal sandbox支付信息
+### 3.paypal sandbox 支付信息
+
 Card number 4032033576774181  
 Expiry date 06/2026  
 CVC code 278
 
+### 4.Paypal api
+
+```js
+// 请求paypal支付参数
+App.service('paypal').get('payment', {
+    query: {
+        id: '65a111fe7107463f3af0accb',
+    },
+});
+```

@@ -54,10 +54,32 @@
 },
 ```
 
-
-### order stores
+### Order api
 
 ```js
 // create link传数组
-await App.service('order').create([{link: {id: unit.id, mode: unit.mode}}])
+await App.service('order').create([{ link: { id: unit.id, mode: unit.mode } }]);
+
+// 订单列表 all
+await App.service('order').find();
+// 订单列表 paid
+await App.service('order').find({
+    query: {
+        status: 200,
+    },
+});
+// 订单列表 unpaid
+await App.service('order').find({
+    query: {
+        status: 100,
+    },
+});
+
+// 详情
+await App.service('order').get(_id);
+
+// 监听支付完成回调 link传数组
+App.service('order').on('patched', (patchedData) => {
+    // if (patchedData.status === 200) {}
+});
 ```
