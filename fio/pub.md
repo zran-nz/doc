@@ -60,7 +60,14 @@ timeZone: String, // 时区文案 Intl.DateTimeFormat().resolvedOptions().timeZo
 tz: Number, // 时区分钟， new Date().getTimezoneOffset()
 ip: String, // reg ip
 last: Date, // last login time
+// for tearcher
+tearcherExt: {
+  curriculum: [String],
+  subjects: [String],
+  grades: [Any],
+},
 // for student
+studentId: String, // studentId + password login
 studentExt: {
   dob: String,
   parent: {
