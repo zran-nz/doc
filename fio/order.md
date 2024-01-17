@@ -22,12 +22,14 @@
     {
       id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
       name: {type: String},
-      cover: {type: String},
       mode: {type: String}, // unit.mode
       type: {type: String}, // 2:unit plan; 4:task; 6:evaluation, old.content_type
       newId: {type: String},
       hash: {type: String},
+      cover: {type: String},
+      price: {type: Number},
       style: {type: String}, //unit session
+      removed: {type: Boolean}, //支付前 被下架或删除
     },
   ],
   /**
@@ -58,7 +60,8 @@
       createdAt: {type: Date},
     },
   ], // 退款详情
-},
+  paidAt: {type: Date},
+}
 ```
 
 ### Order api
