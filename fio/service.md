@@ -77,6 +77,9 @@ await App.service("service-auth").patch(doc._id, {
 ### service-conf model
 
 ```js
+introduction: {type: String, trim: true}, // 自我介绍
+audio: {type: String, trim: true}, // 音频文件 hash files._id
+audioTime: {type: Number, trim: true}, // 音频时长（秒）
 hours: {type: String, required: true}, // 一周服务可用时间, 格式 HH:ii
 validDate: {type: String, required: true}, // 有效日期, 当前用户的一天的开始时间, 格式: toISOString, ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]
 holiday: {type: String, required: true}, // 假日日期, 格式: toISOString, ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]
