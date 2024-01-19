@@ -33,7 +33,7 @@
     },
   ],
   /**
-   * 订单状态 4xx弃用
+   * 订单状态 除400外的4xx弃用
    * 状态100：待支付；200：支付成功；300：支付失败；
    * 400.支付超时 Payment has timed out
    * 401.未支付 公开课被讲师取消 canceled by the facilitator
@@ -91,14 +91,8 @@ await App.service('order').get(_id);
 
 /**
  * 取消订单
- * status:
- * 401.未支付 课件/自学习被下架 Product removed
- * 402.未支付 公开课被讲师取消 canceled by the facilitator
- * 403.未支付 课件购买者取消
- *
- * 500.已支付 公开课因未成团被系统取消 Minimal registration number not met
- * 501.已支付 公开课被讲师取消 canceled by the facilitator
- * 502.已支付 公开课/服务包被购买者取消 canceled by the purchaser
+ * status:只有500需手动处理
+ * 500.已支付 公开课/服务包被购买者取消 canceled by the purchaser
  */
 await App.service('order').get('cancel', { query: { id: _id, status: status } });
 

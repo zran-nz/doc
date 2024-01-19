@@ -202,6 +202,10 @@ await App.service('unit').patch('publish', {_id, discount: {val, price, size}, s
 // publish unit link content
 await App.service('unit').patch('publish', {_id, 'publish.link': true})
 
+// query multiple unit details by id
+await App.service('unit').get('listByIds', {query: {ids: [unit._id, unit._id]}})
+
+
 // publish to self-study
 // await App.service('session').create('publish', {_id, 'publish.study': true})
 
