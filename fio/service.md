@@ -29,7 +29,7 @@ graph LR
     C4 --> C44(Essay)
 ```
 
-## 服务认证列表
+## 服务认证
 
 ### Enum
 
@@ -58,17 +58,6 @@ attachments: [{ // 附件
 reason: {type: String, trim: true}, // 原因
 ```
 
-### 服务启用状态接口
-
-```js
-// 获取用户的服务配置启用状态
-await App.service("conf-user").get("UserServiceEnable")
-// 启用服务
-await App.service("conf-user").get("UserServiceEnable", {[`${type}${mentoringType}`]: true]})
-// 禁用服务
-await App.service("conf-user").get("UserServiceEnable", {[`${type}${mentoringType}`]: false]})
-```
-
 ### 服务认证接口
 
 ```js
@@ -83,4 +72,32 @@ await App.service("service-auth").patch(doc._id, {
   status: 2 / -1,
   reason: "",
 });
+```
+
+### service-conf model
+
+```js
+hours: {type: String, required: true}, // 一周服务可用时间, 格式 HH:ii
+validDate: {type: String, required: true}, // 有效日期, 当前用户的一天的开始时间, 格式: toISOString, ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]
+holiday: {type: String, required: true}, // 假日日期, 格式: toISOString, ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]
+enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}${mentoringType}`]: true, ...}
+```
+
+### 用户服务配置接口
+
+```js
+// 获取用户的服务配置
+const doc = await App.service("service-conf").get(pub.user._id).catch(async (e) => {
+  if(e.code === 404) return await App.service("service-conf").create({_id: pub.user._id, hours: []})
+})
+// 设置一周服务可用时间, 格式 HH:ii
+await App.service("service-conf").patch(pub.user._id, {hours: [[start, end], ['08:00', '11:00'], ...]})
+// 设置假日日期, 当前用户的一天的开始时间 例如 2024-01-19: (new Date('2024-01-19 00:00:00')).toISOString()
+await App.service("service-conf").patch(pub.user._id, {holiday: ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]})
+// 设置有效日期
+await App.service("service-conf").patch(pub.user._id, {validDate: ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]})
+// 启用服务
+await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: true]})
+// 禁用服务
+await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: false]})
 ```
