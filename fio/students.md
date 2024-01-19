@@ -77,13 +77,25 @@ const {
 ### 获取用户已加入的学校列表
 
 ```js
-await App.service("school-user").get("schoolList");
+await App.service("student").get("schoolList");
 ```
 
 ### 获取用户在学校下的班级列表
 
 ```js
-await App.service("school-user").get("classList", {
+await App.service("student").get("classList", {
   query: { school: pub.user.schoolInfo._id },
+});
+```
+
+### 家长邮件激活查看学生帐号密码
+
+```js
+// 家长查看链接
+`/v2/account/schoolParentJoin/${code}`;
+
+// 家长激活，并且查看学生帐号密码
+await App.service("student").get("parentJoin", {
+  query: { code: "xxx" },
 });
 ```
