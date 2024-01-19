@@ -175,6 +175,9 @@ await App.service('unit').get('recommendInquiry', {query: {_id: doc._id}})
 // get child list
 const list = await App.service('unit').get('child', {query: {pid: 'unit._id'}})
 
+// query multiple unit details by id
+await App.service('unit').get('listByIds', {query: {ids: [unit._id, unit._id]}})
+
 
 ```
 ### unit link api
@@ -202,8 +205,6 @@ await App.service('unit').patch('publish', {_id, discount: {val, price, size}, s
 // publish unit link content
 await App.service('unit').patch('publish', {_id, 'publish.link': true})
 
-// query multiple unit details by id
-await App.service('unit').get('listByIds', {query: {ids: [unit._id, unit._id]}})
 
 
 // publish to self-study
