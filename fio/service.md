@@ -79,7 +79,7 @@ await App.service("service-auth").patch(doc._id, {
 ```js
 introduction: {type: String, trim: true}, // 自我介绍
 audio: {type: String, trim: true}, // 音频文件 hash files._id
-audioTime: {type: Number, trim: true}, // 音频时长（秒）
+audioTime: {type: Number}, // 音频时长（秒）
 hours: {type: [[Date, Date], ...], required: true}, // 一周服务可用时间段, [[start, end], [Date, Date], ...]
 validDate: {type: [[Date, Date], ...], required: true}, // 有效日期, 当前用户的一天的开始时间, 格式: [[start, end], [Date, Date], ...]
 holiday: {type: [[Date, Date], ...], required: true}, // 假日日期, 格式: [[start, end], [Date, Date], ...]
