@@ -80,9 +80,9 @@ await App.service("service-auth").patch(doc._id, {
 introduction: {type: String, trim: true}, // 自我介绍
 audio: {type: String, trim: true}, // 音频文件 hash files._id
 audioTime: {type: Number, trim: true}, // 音频时长（秒）
-hours: {type: String, required: true}, // 一周服务可用时间, 格式 HH:ii
-validDate: {type: String, required: true}, // 有效日期, 当前用户的一天的开始时间, 格式: toISOString, ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]
-holiday: {type: String, required: true}, // 假日日期, 格式: toISOString, ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]
+hours: {type: [[Date, Date], ...], required: true}, // 一周服务可用时间段, [[start, end], [Date, Date], ...]
+validDate: {type: [[Date, Date], ...], required: true}, // 有效日期, 当前用户的一天的开始时间, 格式: [[start, end], [Date, Date], ...]
+holiday: {type: [[Date, Date], ...], required: true}, // 假日日期, 格式: [[start, end], [Date, Date], ...]
 enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}${mentoringType}`]: true, ...}
 ```
 
@@ -93,12 +93,13 @@ enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}${mentoring
 const doc = await App.service("service-conf").get(pub.user._id).catch(async (e) => {
   if(e.code === 404) return await App.service("service-conf").create({_id: pub.user._id, hours: []})
 })
-// 设置一周服务可用时间, 格式 HH:ii
-await App.service("service-conf").patch(pub.user._id, {hours: [[start, end], ['08:00', '11:00'], ...]})
-// 设置假日日期, 当前用户的一天的开始时间 例如 2024-01-19: (new Date('2024-01-19 00:00:00')).toISOString()
-await App.service("service-conf").patch(pub.user._id, {holiday: ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]})
+// 设置一周服务可用时间, 格式
+await App.service("service-conf").patch(pub.user._id, {hours: [[start, end], ['2024-01-18T05:00:00.000Z', '2024-01-18T12:00:00.000Z'], ...]})
+// 设置假日日期, 当前用户的一天的开始时间
+await App.service("service-conf").patch(pub.user._id, {holiday:  [[start, end], ['2024-01-18T05:00:00.000Z', '2024-01-18T12:00:00.000Z'], ...]})
 // 设置有效日期
-await App.service("service-conf").patch(pub.user._id, {validDate: ['2024-01-17T16:00:00.000Z', '2024-01-18T16:00:00.000Z', ....]})
+await App.service("service-conf").patch(pub.user._id, {validDate:  [[start, end], ['2024-01-18T05:00:00.000Z', '2024-01-18T12:00:00.000Z'], ...]})
+
 // 启用服务
 await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: true]})
 // 禁用服务
