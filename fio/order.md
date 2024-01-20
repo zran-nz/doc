@@ -29,6 +29,7 @@
       cover: {type: String},
       price: {type: Number},
       style: {type: String}, //unit session
+      goods: {type: Object}, //下单时商品快照
       removed: {type: Boolean}, //支付前 被下架或删除
     },
   ],
