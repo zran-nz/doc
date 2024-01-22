@@ -21,6 +21,7 @@
   - [Term](fio/school-term.md ":include")
 - [Order](fio/order.md ":include")
 - [Paypal](fio/paypal.md ":include")
+- [Braintree](fio/braintree.md ":include")
 - [Service](fio/service.md ":include")
 
 - 课堂 UML

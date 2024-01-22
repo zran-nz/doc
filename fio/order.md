@@ -34,7 +34,7 @@
     },
   ],
   /**
-   * 订单状态 除400外的4xx弃用
+   * 订单状态 status 除400外的4xx弃用
    * 状态100：待支付；200：支付成功；300：支付失败；
    * 400.支付超时 Payment has timed out
    * 401.未支付 公开课被讲师取消 canceled by the facilitator
@@ -44,6 +44,7 @@
    * 501.已支付 公开课被讲师取消 canceled by the facilitator
    * 502.已支付 公开课因未成团被系统取消 Minimal registration number not met
    * 503.已支付 课件/自学习被下架
+   * 600.支付结算中
    */
   status: {type: Number, default: 100},
   price: {type: Number}, // Unit cent 支付金额
@@ -51,13 +52,23 @@
   // giftCard: { type: Number }, // Unit cent gift card 支付金额 后续增加
   // coupon: { type: Number }, // Unit cent 优惠金额 后续增加
 
-  payMethod: {type: Array}, // 支付方式 paypal, windcave, giftCard
+  payMethod: {type: Array}, // 支付方式 paypal, windcave, giftCard, braintree
   paid: {type: Number, default: 0}, // 支付状态 0未支付 1已支付 2已退款
-  paypalId: {type: String}, // paypal支付号
+  paypalId: {type: String}, // paypal支付号 弃用
+  braintreeId: {type: String}, // Braintree支付号
+  /**
+   * 支付信息 paymentInfo
+   * {
+   *  paymentInstrumentType string 支付方式
+   *  cardType string 卡机构
+   *  last4 string 卡号后四位
+   * }
+   */
+  paymentInfo: {type: Object},
   expiration: {type: Date}, // 支付超时时间
   refund: [
     {
-      method: {type: String}, //paypal, windcave, giftCard
+      method: {type: String}, //paypal, windcave, giftCard braintree
       amount: {type: Number}, // Unit cent 退款金额,
       createdAt: {type: Date},
     },
