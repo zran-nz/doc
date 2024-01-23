@@ -1,5 +1,25 @@
 ## Service
 
+### 服务整体关系
+
+```mermaid
+graph LR
+  T(系统后台) --> SConf(服务设置) --选择可申请数据--> SConf2(可用服务设置)
+  T --可用服务--> SAuth(服务认证管理)
+  T --> SP(服务包管理)
+  SP -- 添加服务包 --> SPack{服务包}
+  SPack -- 发布 --> Pack{商品<br>Featured}
+	Pack2(商品) --学生购买--> StuPack(我的服务包)
+StuPack --BookNow--> StuPackD(服务包使用情况<br>预约列表)
+StuPackD --开始预约--> Teacher(老师列表)
+StuPackD --捆绑精品课--> PTask(精品课列表)
+PTask --> Teacher
+Teacher --确认预约--> Booking(我的预约)
+
+```
+
+### 服务认证申请
+
 ```mermaid
 graph LR
     T(个人服务认证) --> P(个人介绍)
@@ -27,6 +47,8 @@ graph LR
     C4 --> C42(Teacher training)
     C4 --> C43(Academic)
     C4 --> C44(Essay)
+    C42 --> C421(大纲一级数据)
+    C44 --> C441(大纲二级数据)
 ```
 
 ## 服务认证
