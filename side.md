@@ -22,6 +22,7 @@
 - [Order](fio/order.md ":include")
 - [Paypal](fio/paypal.md ":include")
 - [Braintree](fio/braintree.md ":include")
+- [Cart](fio/cart.md ":include")
 - [Service](fio/service.md ":include")
 
 - 课堂 UML

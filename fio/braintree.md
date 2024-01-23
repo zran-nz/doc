@@ -1,7 +1,6 @@
 ## Braintree
 
-### 1.接口
-
+### Braintree api
 
 
 ```js
