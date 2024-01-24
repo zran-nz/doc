@@ -127,3 +127,61 @@ await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentori
 // 禁用服务
 await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: false]})
 ```
+
+### service-pack model
+
+```js
+name: {type: String, trim: true}, // 服务包名称
+cover: {type: String, trim: true}, // files._id
+coverName: {type: String, trim: true}, // 图片名称
+points: {type: [String], trim: true}, // selling points
+type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
+mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
+countryCode: {type: String, trim: true}, // 国家代码
+curriculum: {type: String, trim: true},
+subject: {type: String, trim: true},
+gradeGroup: {type: [String], trim: true}, // 年级组
+price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
+discount: [{
+  count: {type: Number}, // 数量
+  discount: {type: Number}, // 折扣 %
+}],
+freq: {type: Number, enum: [7, 14, 30, 120]}, // 每张的可用多少天
+duration: {type: Number}, // session duration
+break: {type: Number}, // session break
+status: {type: Boolean, default: false}, // 发布状态
+count: { // 统计
+  sold: {type: Number}, // 已售
+  valid: {type: Number}, // 有效数量
+},
+```
+
+### 服务包接口
+
+```js
+// 统计认证老师数量
+await App.service("service-auth").get("stats", { query: { type, mentoringType? } });
+// 发布服务
+await App.service("service-pack").patch(doc._id, { status: true });
+// 下架服务
+await App.service("service-pack").patch(doc._id, { status: false });
+```
+
+### service-pack-user model
+
+```js
+price: {type: Number, default: 0}, // 订单金额
+total: {type: Number, default: 0}, // 总次数
+used: {type: Number, default: 0}, // 已经使用
+expired: [{type: Date, default: 0}], // 过期列表
+order: {type: String, required: true}, // 关联 order._id
+session: {type: String}, // 关联 session._id
+snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照
+status: {type: Boolean, default: true},
+```
+
+### 支付完成创建用户的服务包
+
+```js
+
+```
