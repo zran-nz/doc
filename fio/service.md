@@ -128,6 +128,8 @@ await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentori
 await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: false]})
 ```
 
+## 服务包
+
 ### service-pack model
 
 ```js
@@ -166,6 +168,8 @@ await App.service("service-pack").patch(doc._id, { status: true });
 // 下架服务
 await App.service("service-pack").patch(doc._id, { status: false });
 ```
+
+## 用户购买的服务包
 
 ### service-pack-user model
 
