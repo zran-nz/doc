@@ -51,6 +51,24 @@ graph LR
     C44 --> C441(大纲二级数据)
 ```
 
+## 服务设置
+
+```js
+// 获取
+await App.service("conf").get(`Service:${type}:${mentoringType}`).catch(e => {
+  if (e.code === 404) return await App.service("conf").create(`Service:${type}:${mentoringType}`, {})
+})
+// 更新
+await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
+  countryCode: [], // 国家代码
+  curriculum: [{
+    code: '', // 大纲代码
+    subject: [], // 学科
+  }],
+  ...
+});
+```
+
 ## 服务认证
 
 ### Enum
