@@ -69,6 +69,7 @@
   refund: [
     {
       method: {type: String}, //paypal, windcave, giftCard braintree
+      status: {type: Number}, //状态同order status
       amount: {type: Number}, // Unit cent 退款金额,
       createdAt: {type: Date},
     },
@@ -81,7 +82,9 @@
 
 ```js
 // create link传数组
-await App.service('order').create({ link: [{ id: unit.id, mode: unit.mode, style: 'unit/session' }] });
+// link required
+// cart optional
+await App.service('order').create({ link: [{ id: unit.id, mode: unit.mode, style: 'unit/session' }], cart: [cart._id] });
 
 // 订单列表 all
 await App.service('order').find();
@@ -111,5 +114,15 @@ await App.service('order').get('cancel', { query: { id: _id, status: status } })
 // 监听支付完成回调 link传数组
 App.service('order').on('patched', (patchedData) => {
     // if (patchedData.status === 200) {}
+});
+
+// 检查商品状态
+await App.service('order').get('checkLinks', {
+    query: {
+        links: [
+            { id: unit._id, style: 'unit' },
+            { id: session._id, style: 'session' },
+        ],
+    },
 });
 ```
