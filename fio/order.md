@@ -84,7 +84,7 @@
 // create link传数组
 // link required
 // cart optional
-await App.service('order').create({ link: [{ id: unit.id, mode: unit.mode, style: 'unit/session' }], cart: [cart._id] });
+await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session' }], cart: [cart._id] });
 
 // 订单列表 all
 await App.service('order').find();
@@ -116,7 +116,15 @@ App.service('order').on('patched', (patchedData) => {
     // if (patchedData.status === 200) {}
 });
 
-// 检查商品状态
+/**
+ * 检查商品状态
+  return {
+      links,
+      available,//可下单
+      notExist,//不存在或未发布
+      ordered,//已下单
+  };
+ */
 await App.service('order').get('checkLinks', {
     query: {
         links: [
