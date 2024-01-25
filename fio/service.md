@@ -96,6 +96,8 @@ await App.service("service-auth").patch(doc._id, {
 });
 ```
 
+## 用户服务配置
+
 ### service-conf model
 
 ```js
