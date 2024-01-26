@@ -60,6 +60,7 @@ await App.service("conf").get(`Service:${type}:${mentoringType}`).catch(e => {
 })
 // 更新
 await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
+  desc: '', // 申请描述
   countryCode: [], // 国家代码
   curriculum: [{
     code: '', // 大纲代码
