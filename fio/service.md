@@ -186,8 +186,8 @@ discount: [{
   discount: {type: Number}, // 折扣 %
 }],
 freq: {type: Number, enum: [7, 14, 30, 120]}, // 每张的可用多少天
-duration: {type: Number}, // session duration
-break: {type: Number}, // session break
+duration: {type: Number}, // session duration min
+break: {type: Number}, // session break min
 status: {type: Boolean, default: false}, // 发布状态
 count: { // 统计
   sold: {type: Number}, // 已售
@@ -204,6 +204,9 @@ await App.service("service-auth").get("stats", { query: { type, mentoringType? }
 await App.service("service-pack").patch(doc._id, { status: true });
 // 下架服务
 await App.service("service-pack").patch(doc._id, { status: false });
+
+// 服务包列表（featured）
+await App.service("service-pack").find({query: { status: true }});
 ```
 
 ## 用户购买的服务包
@@ -221,8 +224,81 @@ snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照
 status: {type: Boolean, default: true},
 ```
 
+### 用户已购买的服务包接口
+
+```js
+// 服务包列表（purchased）
+await this.service("service-pack-user").find({ query: {} });
+```
+
 ### 支付完成创建用户的服务包
 
 ```js
+// 后端接口内部调用
+await this.service("service-pack-user").buyByOrder({
+  packId, // service-pack._id
+  order, // order._id
+  session?, // session._id 捆绑购买的session
+  total: 10, // 购买的次数
+});
+```
 
+### Example
+
+```js
+// service-pack create > publish > buy
+var doc = await App.service("service-pack").create({
+  name: Date.now().toString(32),
+  points: ["test points", "test points2"],
+  type: "mentoring",
+  mentoringType: "academic",
+  curriculum: "au",
+  subject: ["64d99bcc0476f7faf45ef0d8"],
+  gradeGroup: ["Intermediate"],
+  price: 1000,
+  discount: [{ count: 10, discount: 90 }],
+  freq: 7,
+  duration: 30,
+  break: 10,
+});
+await App.service("service-pack").patch(doc._id, { status: true });
+// buy in api
+var packUser = await App.service("service-pack-user").get("buyByOrder", {
+  query: {
+    packId: "65b47af5a70318050560dc25",
+    order: "65b45c361e0529e3d990cc19",
+    total: 10,
+  },
+});
+
+// teacher auth, create > apply
+var confDoc = await App.service("service-conf")
+  .get(pub.user._id)
+  .catch(async (e) => {
+    if (e.code === 404)
+      return await App.service("service-conf").create({
+        _id: pub.user._id,
+        hours: [],
+      });
+  });
+confDoc = await App.service("service-conf").patch(confDoc._id, {
+  introduction: "test introduction",
+});
+var doc = await App.service("service-auth").create({
+  type: "mentoring",
+  mentoringType: "academic",
+  curriculum: "au",
+  subject: "64d99bcc0476f7faf45ef0d8",
+  gradeGroup: ["Intermediate"],
+  grades: ["Grade 1", "Grade 2"],
+});
+// 提交申请
+await App.service("service-auth").patch(doc._id, { status: 1 });
+// 通过申请
+await App.service("service-auth").patch(doc._id, { status: 2 });
+
+// 老师列表通过服务包查找
+await App.service("service-conf").get("TeachersByPack", {
+  query: { packUserId: packUser._id, subject: ["64d99bcc0476f7faf45ef0d8"] },
+});
 ```
