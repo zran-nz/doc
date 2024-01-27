@@ -125,6 +125,7 @@ await App.service("service-auth").patch(doc._id, {
 ### service-conf model
 
 ```js
+rating: {type: Number}, // 评分 0-5
 introduction: {type: String, trim: true}, // 自我介绍
 audio: {type: String, trim: true}, // 音频文件 hash files._id
 audioTime: {type: Number}, // 音频时长（秒）
@@ -152,6 +153,16 @@ await App.service("service-conf").patch(pub.user._id, {validDate:  [[start, end]
 await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: true]})
 // 禁用服务
 await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: false]})
+```
+
+### 查找可预约的老师列表
+
+```js
+// 可预约的老师列表 通过服务包查找
+await App.service('service-conf').get('teachersByPack', {query: {
+  packUserId: 'servive-pack-user._id',
+  subject?: []
+}})
 ```
 
 ## 服务包
