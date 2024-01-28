@@ -107,8 +107,11 @@ reason: {type: String, trim: true}, // 原因
 // 系统后台 服务认证类型数量统计
 await App.service("service-auth").get("countType");
 
-// 服务认证列表
-await App.service("service-auth").find({});
+// 服务认证列表（系统后台）
+await App.service("service-auth").find({query: {$sys: 1, ...}});
+
+// 服务认证列表（用户查看自己的）
+await App.service("service-auth").find({query: {}});
 // 已认证列表
 await App.service("service-auth").find({ query: { status: 2 } });
 // 提交申请
@@ -204,6 +207,8 @@ await App.service("service-auth").get("stats", { query: { type, mentoringType? }
 await App.service("service-pack").patch(doc._id, { status: true });
 // 下架服务
 await App.service("service-pack").patch(doc._id, { status: false });
+// 服务包列表（后台）
+await App.service("service-pack").find({query: {}});
 
 // 服务包列表（featured）
 await App.service("service-pack").find({query: { status: true }});
