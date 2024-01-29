@@ -137,6 +137,7 @@ await App.service('order').get('checkLinks', {
         links: [
             { id: unit._id, style: 'unit' },
             { id: session._id, style: 'session' },
+            { id: service._id, style: 'service' },
         ],
     },
 });
