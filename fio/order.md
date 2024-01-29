@@ -44,6 +44,7 @@
    * 501.已支付 公开课被讲师取消 canceled by the facilitator
    * 502.已支付 公开课因未成团被系统取消 Minimal registration number not met
    * 503.已支付 课件/自学习被下架
+   * 504.已支付 支付前被下架/删除,支付后立即退款
    * 600.支付结算中
    */
   status: {type: Number, default: 100},
