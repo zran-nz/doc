@@ -81,10 +81,17 @@
 ### Order api
 
 ```js
-// create link传数组
-// link required
-// cart optional
-await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session' }], cart: [cart._id] });
+/**
+ * create 传数组
+ * link:array required
+ * {
+ *  id,
+ *  style:'unit,session,service',
+ *  count:1,//服务包 购买次数
+ * }
+ * cart:array optional
+ */
+await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id] });
 
 // 订单列表 all
 await App.service('order').find();
