@@ -212,6 +212,13 @@ await App.service("service-pack").find({query: {}});
 
 // 服务包列表（featured）
 await App.service("service-pack").find({query: { status: true }});
+
+
+// 老师发布公开课捆绑服务包
+await App.service("serssion").create({
+  ...,
+  servicePack, // service-pack._id 服务包的id
+});
 ```
 
 ## 用户购买的服务包
@@ -219,6 +226,7 @@ await App.service("service-pack").find({query: { status: true }});
 ### service-pack-user model
 
 ```js
+uid: {type: String}, // users._id
 price: {type: Number, default: 0}, // 订单金额
 total: {type: Number, default: 0}, // 总次数
 used: {type: Number, default: 0}, // 已经使用
@@ -246,6 +254,66 @@ await this.service("service-pack-user").buyByOrder({
   session?, // session._id 捆绑购买的session
   total: 10, // 购买的次数
 });
+```
+
+## 用户预约数据
+
+### service-booking model
+
+```js
+packUser: {type: String, required: true}, // service-pack-user._id 用户购买的服务包
+booker: {type: String, required: true}, // user._id 预订人
+servicer: {type: String, required: true}, // user._id 服务人
+oldSession?: {type: String}, // session._id 历史课程
+session?: {type: String}, // session._id 服务人新排的课程
+start: {type: Date},
+end: {type: Date},
+duration: {type: Date}, // 服务包对应的时长 service-pack-user.snapshot.duration
+times: {type: Number, default: 1}, // 本次预约消耗次数 = (end-start)/duration
+message: {type: String}, // 留言
+attachments: [{ // 留言附件
+  filename: {type: String, trim: true}, // 文件名
+  mime: {type: String, trim: true}, // 文件 MIME
+  hash: {type: String, trim: true}, // 文件SHA1, files._id
+}],
+```
+
+### 预约接口
+
+```js
+// 预约列表（预订人看）
+await App.service("service-booking").find({query: {tab: 'booker', session: null}})
+// 预约列表（服务者看）
+await App.service("service-booking").find({query: {tab: 'servicer', session: null}})
+
+// 创建预约，扣除服务包次数 service-pack-user.used += service-booking.times
+const doc = await App.service("service-booking").create({
+  packUser,
+  servicer,
+  oldSession?,
+  start, end,
+  duration,
+  times,
+  message,
+  attachments: [{
+    filename,
+    mime,
+    hash
+  }]
+});
+
+// 老师对预约进行排课
+await App.service("serssion").create({
+  ...,
+  booking, // service-booking._id 学生预订的id
+});
+
+// 老师对预约进行排课后，更新 service-booking.session
+// await App.service("service-booking").patch(doc._id, {session: 'session._id'})
+// 老师取消课程后，移除 service-booking.session
+// await this.service("service-booking").patch(doc._id, {$unset: {session: ''}})
+
+// 学生取消预约，要删除 session，恢复服务包次数 service-pack-user.used -= service-booking.times
 ```
 
 ### Example
@@ -303,7 +371,18 @@ await App.service("service-auth").patch(doc._id, { status: 1 });
 await App.service("service-auth").patch(doc._id, { status: 2 });
 
 // 老师列表通过服务包查找
-await App.service("service-conf").get("TeachersByPack", {
+await App.service("service-conf").get("teachersByPack", {
   query: { packUserId: packUser._id, subject: ["64d99bcc0476f7faf45ef0d8"] },
+});
+// 创建预约
+var nt = Date.now();
+await App.service("service-booking").create({
+  packUser: "65b9c284b5d0b55bf51037de",
+  servicer: "634b275c15c7439ecd28d610",
+  start: new Date(nt + 3600000).toISOString(),
+  end: new Date(nt + 3600000 * 2).toISOString(),
+  duration: 30,
+  times: 2,
+  message: "test message",
 });
 ```
