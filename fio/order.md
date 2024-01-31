@@ -43,7 +43,7 @@
    * 500.已支付 公开课/服务包被购买者取消 canceled by the purchaser
    * 501.已支付 公开课被讲师取消 canceled by the facilitator
    * 502.已支付 公开课因未成团被系统取消 Minimal registration number not met
-   * 503.已支付 课件/自学习被下架
+   * 503.已支付 支付前被下架/删除,支付后立即退款
    * 600.支付结算中
    */
   status: {type: Number, default: 100},
@@ -106,6 +106,12 @@ await App.service('order').find({
     query: {
         status: 100,
     },
+});
+// 按用户查询
+// fieldType email/mobile/classcipeId
+await App.service('order').find({
+    field: '',
+    fieldType: 'email/mobile/classcipeId',
 });
 
 // 详情
