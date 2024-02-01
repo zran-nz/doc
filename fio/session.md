@@ -92,10 +92,12 @@ pages: Mixed, // slides.pages snapshot
 questions: Mixed, // questions snapshot
 reminder: Number, // mail notice: WorkshopReminderBeforeClass
 drawkey: String, // excalidraw room key
-// for service
-servicePack: {type: String}, // service-pack._id 捆绑的服务包
-booking: {type: String}, // service-booking._id 学生的预约
+// for service 捆绑服务包（只有父课程能捆绑，pid: null）
 premium: {type: Boolean, default: false}, // 是否为精品公开课
+servicePack: {type: String}, // service-pack._id 捆绑的服务包
+servicePackPrice: {type: Number}, // 美分，服务包价格 = service-pack.discount 折扣 * live直播课的数量
+// for service booking
+booking: {type: String}, // service-booking._id 学生的预约
 ```
 
 ### type
