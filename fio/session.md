@@ -92,6 +92,10 @@ pages: Mixed, // slides.pages snapshot
 questions: Mixed, // questions snapshot
 reminder: Number, // mail notice: WorkshopReminderBeforeClass
 drawkey: String, // excalidraw room key
+// for service
+servicePack: {type: String}, // service-pack._id 捆绑的服务包
+booking: {type: String}, // service-booking._id 学生的预约
+premium: {type: Boolean, default: false}, // 是否为精品公开课
 ```
 
 ### type
