@@ -30,6 +30,8 @@
       price: {type: Number},
       style: {type: String}, //unit session
       goods: {type: Object}, //下单时商品快照
+      sessionId: {type: Object}, //捆绑服务包的公开课_id
+      count: {type: Object}, //服务包次数
       removed: {type: Boolean}, //支付前 被下架或删除
     },
   ],
@@ -41,15 +43,25 @@
    * 402.未支付 公开课因未成团被系统取消 Minimal registration number not met
    * 403.未支付 课件/自学习被下架 Product removed
    * 500.已支付 公开课/服务包被购买者取消 canceled by the purchaser
-   * 501.已支付 公开课被讲师取消 canceled by the facilitator
+   * 501.已支付 公开课被讲师取消 canceled by the facilitator (session支付前被取消,支付成功退款都为此状态)
    * 502.已支付 公开课因未成团被系统取消 Minimal registration number not met
    * 503.已支付 支付前被下架/删除,支付后立即退款
-   * 600.支付结算中
    */
   status: {type: Number, default: 100},
-  price: {type: Number}, // Unit cent 支付金额
+  settled: {type: Boolean, default: false}, //braintree settled
+  /**
+   * 订单类型
+   * unit
+   * session_public
+   * session_self_study
+   * session_service_pack 捆绑服务包
+   * service_pack 服务包
+   */
+  type: {type: String, enum: ['unit', 'session_public', 'session_self_study', 'session_service_pack', 'service_pack']},
+  price: {type: Number}, // Unit cent 支付金额(现金+gift card)
   // subtotal: {type: Number}, // Unit cent 商品总金额 后续增加
-  // giftCard: { type: Number }, // Unit cent gift card 支付金额 后续增加
+  // cash: {type: Number}, // Unit cent 现金支付 后续增加
+  // giftCard: { type: Number }, // Unit cent gift card 支付 后续增加
   // coupon: { type: Number }, // Unit cent 优惠金额 后续增加
 
   payMethod: {type: Array}, // 支付方式 paypal, windcave, giftCard, braintree
@@ -71,11 +83,12 @@
       method: {type: String}, //paypal, windcave, giftCard braintree
       status: {type: Number}, //状态同order status
       amount: {type: Number}, // Unit cent 退款金额,
+      executed: {type: Boolean, default: true}, //退款已执行
       createdAt: {type: Date},
     },
   ], // 退款详情
   paidAt: {type: Date},
-}
+},
 ```
 
 ### Order api
