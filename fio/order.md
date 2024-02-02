@@ -85,6 +85,7 @@
       amount: {type: Number}, // Unit cent 退款金额,
       executed: {type: Boolean, default: true}, //退款已执行
       createdAt: {type: Date},
+      executedAt: {type: Date}, //退款执行时间
     },
   ], // 退款详情
   paidAt: {type: Date},
