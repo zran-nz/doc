@@ -231,6 +231,7 @@ price: {type: Number, default: 0}, // 订单金额
 total: {type: Number, default: 0}, // 总次数
 used: {type: Number, default: 0}, // 已经使用
 expired: [{type: Date, default: 0}], // 过期列表
+expireSoon: {type: Date}, // 即将过期的时间
 order: {type: String, required: true}, // 关联 order._id
 session: {type: String}, // 关联 session._id
 sessionName: {type: String}, // 关联session.name
