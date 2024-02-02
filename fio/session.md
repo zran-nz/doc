@@ -94,8 +94,11 @@ reminder: Number, // mail notice: WorkshopReminderBeforeClass
 drawkey: String, // excalidraw room key
 // for service 捆绑服务包（只有父课程能捆绑，pid: null）
 premium: {type: Boolean, default: false}, // 是否为精品公开课
-servicePack: {type: String}, // service-pack._id 捆绑的服务包
-servicePackPrice: {type: Number}, // 美分，服务包价格 = service-pack.discount 折扣 * live直播课的数量
+servicePack: { // 捆绑的服务包
+  _id: {type: String}, // service-pack._id 服务包id
+  times: {type: Number}, // live直播课的数量
+  price: {type: Number}, // 美分，服务包价格 = service-pack.discount 折扣 * live直播课的数量
+},
 // for service booking
 booking: {type: String}, // service-booking._id 学生的预约
 ```
