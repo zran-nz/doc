@@ -302,44 +302,29 @@ const doc = await App.service("service-booking").create({
     hash
   }]
 });
-
-
 ```
 
-> 老师对预约进行排课
+#### 老师对预约进行排课
 
 ```js
-// 走创建课程流程
-await App.service("serssion").create({
+// 走创建课程流程, 带上预订的 service-booking._id
+await App.service("session").create({
   ...,
   booking, // service-booking._id 学生预订的id
 });
-// 更新预约记录中的 session
-await App.service("service-booking").patch(doc._id, {session: 'session._id'})
 ```
 
-> 老师取消课程
+#### 老师取消课程
 
 ```js
 // - 从 session 中点击取消，删除 session 本身
-await this.service("session").remove(sessionId);
-// - 移除预约记录中的 session
-await this.service("service-booking").patch(doc._id, {
-  $unset: { session: "" },
-});
+await App.service("session").remove(sessionId);
 ```
 
-> 学生取消预约逻辑
+#### 学生取消预约逻辑
 
 ```js
-// - 从订单发起退款申请
-await this.service("order"); // refund
-// - 退款成功后，要删除 session
-await this.service("session").remove(sessionId);
-// - 恢复用户的服务包次数
-await this.service("service-pack-user").patch(doc._id, {
-  $inc: { used: service - booking.times },
-});
+await App.service("service-booking").remove(serviceBooking._id);
 ```
 
 ### Example
