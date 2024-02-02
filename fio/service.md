@@ -222,8 +222,11 @@ await App.service("service-pack").find({query: { status: true }});
 await App.service("serssion").create({
   ...,
   premium: true/false, // 是否为精品公开课
-  servicePack, // service-pack._id 服务包的id
-  servicePackPrice: {type: Number}, // 美分，服务包价格 = service-pack.discount 折扣 * live直播课的数量
+  servicePack: {
+    _id: '', // service-pack._id 服务包的id
+    times, // live直播课的数量
+    price, // 美分，服务包价格 = service-pack.discount 折扣 * live直播课的数量
+  },
 });
 ```
 
