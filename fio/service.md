@@ -214,10 +214,16 @@ await App.service("service-pack").find({query: {}});
 await App.service("service-pack").find({query: { status: true }});
 
 
-// 老师发布公开课捆绑服务包
+```
+
+### 老师发布公开课捆绑服务包
+
+```js
 await App.service("serssion").create({
   ...,
+  premium: true/false, // 是否为精品公开课
   servicePack, // service-pack._id 服务包的id
+  servicePackPrice: {type: Number}, // 美分，服务包价格 = service-pack.discount 折扣 * live直播课的数量
 });
 ```
 
