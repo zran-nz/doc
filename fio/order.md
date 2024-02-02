@@ -121,11 +121,14 @@ await App.service('order').find({
         status: 100,
     },
 });
-// 按用户查询
-// fieldType email/mobile/classcipeId
+
+/**
+ * 按用户查询
+ * fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
+ */
 await App.service('order').find({
-    field: '',
-    fieldType: 'email/mobile/classcipeId',
+    userField: '',
+    userFieldType: 'email/mobile/classcipeId',
 });
 
 // 详情

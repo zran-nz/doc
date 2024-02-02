@@ -748,4 +748,13 @@ const {
 } = await App.service("session").get("indexLive", {
   query: { $limit: 10, $skip: 0 },
 });
+
+/**
+ * 按用户查询
+ * fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
+ */
+await App.service('session').find({
+    userField: '',
+    userFieldType: 'email/mobile/classcipeId',
+});
 ```

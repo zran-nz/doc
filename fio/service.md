@@ -253,6 +253,15 @@ status: {type: Boolean, default: true},
 ```js
 // 服务包列表（purchased）
 await this.service("service-pack-user").find({ query: {} });
+
+/**
+ * 按用户查询
+ * fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
+ */
+await App.service('session').find({
+    userField: '',
+    userFieldType: 'email/mobile/classcipeId',
+});
 ```
 
 ### 支付完成创建用户的服务包
