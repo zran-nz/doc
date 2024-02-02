@@ -258,7 +258,7 @@ await this.service("service-pack-user").find({ query: {} });
  * 按用户查询
  * fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
  */
-await App.service('session').find({
+await App.service('service-pack-user').find({
     userField: '',
     userFieldType: 'email/mobile/classcipeId',
 });

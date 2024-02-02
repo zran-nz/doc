@@ -178,6 +178,10 @@ tool => tool
 {'subjects.session': 'xxx'}
 // filter custom subject for any workshop
 {'subjects.pd': 'xxx'}
+
+// filter by user field
+// fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
+{'userField': 'xxx', 'userFieldType': 'email/mobile/classcipeId'}
 ```
 
 ### self-study session
@@ -747,14 +751,5 @@ const {
   skip,
 } = await App.service("session").get("indexLive", {
   query: { $limit: 10, $skip: 0 },
-});
-
-/**
- * 按用户查询
- * fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
- */
-await App.service('session').find({
-    userField: '',
-    userFieldType: 'email/mobile/classcipeId',
 });
 ```
