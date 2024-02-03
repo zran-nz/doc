@@ -322,7 +322,7 @@ const {
   validDate: [[start, end], ...], // 可预约日期范围
   booking: [[start, end], ...], // 已经被预约的时间段
   session: [[start, end], ...], // 已经排课的时间段
-} = await App.service("service-conf").get('user._id', {query: {stats: 1}})
+} = await App.service("service-conf").get('user._id', {query: {booking: 1, session: 1}})
 
 // 创建预约，扣除服务包次数 service-pack-user.used += service-booking.times
 const doc = await App.service("service-booking").create({
