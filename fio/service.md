@@ -245,6 +245,7 @@ await App.service("serssion").create({
 ```js
 uid: {type: String}, // users._id
 price: {type: Number, default: 0}, // 订单金额
+gift: {type: Boolean, default: false}, // 是否赠品
 total: {type: Number, default: 0}, // 总次数
 used: {type: Number, default: 0}, // 已经使用
 expired: [{type: Date, default: 0}], // 过期列表
