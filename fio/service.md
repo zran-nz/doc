@@ -92,6 +92,7 @@ curriculum: {type: String, trim: true},
 subject: {type: String, trim: true},
 gradeGroup: {type: [String], trim: true}, // 年级组
 grades: {type: [String], trim: true}, // 实际年级
+desc: {type: String, trim: true}, // 描述
 status: {type: Number, default: 0}, // 0: 未申请, 1:申请中, 2: 通过, -1: 拒绝
 attachments: [{ // 附件
   filename: {type: String, trim: true}, // 文件名
@@ -228,6 +229,7 @@ await App.service("service-pack").find({query: { status: true }});
 await App.service("serssion").create({
   ...,
   premium: true/false, // 是否为精品公开课
+  promotion: true/false, // 是否为推广课
   servicePack: {
     _id: '', // service-pack._id 服务包的id
     times, // live直播课的数量
