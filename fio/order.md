@@ -164,4 +164,7 @@ await App.service('order').get('checkLinks', {
         ],
     },
 });
+
+// 订单可退款检查
+await App.service('order').get('orderRefundCheck', {query: {id: order._id}})
 ```
