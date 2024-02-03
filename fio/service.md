@@ -202,7 +202,13 @@ count: { // 统计
 
 ```js
 // 统计认证老师数量
-await App.service("service-auth").get("stats", { query: { type, mentoringType? } });
+const {
+  curriculum: { 'au': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
+  gradeGroup: { 'Intermediate': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
+  subject: { '64d99bcc0476f7faf45ef0d8': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
+  countryCode: { 'AU': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
+} = await App.service("service-auth").get("stats", { query: { type, mentoringType? } });
+
 // 发布服务
 await App.service("service-pack").patch(doc._id, { status: true });
 // 下架服务
