@@ -349,6 +349,12 @@ const {
   session: [[start, end], ...], // 已经排课的时间段
 } = await App.service("service-conf").get('user._id', {query: {booking: 1, session: 1}})
 
+// 查看自己的不可用时间
+const {
+  booking: [[start, end], ...], // 已经被预约的时间段
+  session: [[start, end], ...], // 已经排课的时间段
+} = await App.service("service-booking").get('myHours')
+
 // 创建预约，扣除服务包次数 service-pack-user.used += service-booking.times
 const doc = await App.service("service-booking").create({
   packUser,
