@@ -104,8 +104,9 @@
  *  count:1,//服务包 购买次数
  * }
  * cart:array optional
+ *  promotion:boolean optional
  */
-await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id] });
+await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id], promotion: false });
 
 // 订单列表 all
 await App.service('order').find();
@@ -166,5 +167,5 @@ await App.service('order').get('checkLinks', {
 });
 
 // 订单可退款检查
-await App.service('order').get('orderRefundCheck', {query: {id: order._id}})
+await App.service('order').get('orderRefundCheck', { query: { id: order._id } });
 ```
