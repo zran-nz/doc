@@ -394,10 +394,12 @@ await App.service("session").create({
 await App.service("session").remove(sessionId);
 ```
 
-#### 学生取消预约逻辑
+#### 老师/学生 取消预约逻辑
 
 ```js
-await App.service("service-booking").remove(serviceBooking._id);
+await App.service("service-booking").patch("cancel", {
+  _id: serviceBooking._id,
+});
 ```
 
 ### Example
