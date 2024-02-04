@@ -297,6 +297,8 @@ await this.service("service-pack-user").buyByOrder({
   order, // order._id
   session?, // session._id 捆绑购买的session
   total: 10, // 购买的次数
+  price, // 服务包支付的实际价格
+  gift, // 是否赠送的服务包
 });
 ```
 
