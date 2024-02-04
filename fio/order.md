@@ -104,7 +104,7 @@
  *  count:1,//服务包 购买次数
  * }
  * cart:array optional
- *  promotion:boolean optional
+ * promotion:boolean optional
  */
 await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id], promotion: false });
 
