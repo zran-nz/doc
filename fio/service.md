@@ -255,6 +255,10 @@ session: {type: String}, // 关联 session._id
 sessionName: {type: String}, // 关联session.name
 snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照
 status: {type: Boolean, default: true},
+logs: [{ // 使用记录
+  times: {type: Number, required: true}, // 增减次数
+  type: {type: String, enum: Agl.ServicePackUserType}, // 变化类型, 'booking', 'cancel', 'timeout', 'expired'
+}],
 ```
 
 ### 用户已购买的服务包接口
