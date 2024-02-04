@@ -78,7 +78,10 @@ studentExt: {
   subjects: [String],
   grades: [String],
 },
+freeServiceType: {type: [String], enum: Agl.ServiceType}, // 免费使用过的服务类型
 ```
+
+[ServiceType](/fio/service?id=enum)
 
 ### 注册账号
 
