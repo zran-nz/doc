@@ -79,6 +79,7 @@ await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
 ```js
 ServiceType: ['workshop', 'teaching', 'mentoring', 'substitute', 'correcting'],
 MentoringType: ['essay', 'academic', 'overseasStudy', 'teacherTraining'], // professionalDevelopment, subject
+ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund']
 ```
 
 ### service-auth model
@@ -257,7 +258,17 @@ snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照
 status: {type: Boolean, default: true},
 logs: [{ // 使用记录
   times: {type: Number, required: true}, // 增减次数
-  type: {type: String, enum: Agl.ServicePackUserType}, // 变化类型, 'booking', 'cancel', 'timeout', 'expired'
+  type: {type: String, enum: Agl.ServicePackUserType}, // 变化类型
+  remaining: {type: Number}, // 剩余次数
+  expireSoon: {type: Date}, // 新的有效期
+  start: {type: Date}, // booking start
+  name: {type: String}, // session.name
+  servicer: {
+    uid: {type: String}, // users._id
+    avatar: {type: String}, // users.avatar
+    name: {type: [String]}, // users.name
+  },
+  updatedAt: {type: Date}
 }],
 ```
 
@@ -287,6 +298,13 @@ await this.service("service-pack-user").buyByOrder({
   session?, // session._id 捆绑购买的session
   total: 10, // 购买的次数
 });
+```
+
+### 用户申请退款后调用
+
+```js
+// 后端接口内部调用
+await this.service("service-pack-user").refund(servicePackUser._id);
 ```
 
 ## 用户预约数据
