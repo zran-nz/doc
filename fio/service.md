@@ -404,6 +404,30 @@ await App.service("service-booking").patch("cancel", {
 });
 ```
 
+## 用户评价数据
+
+### service-rating model
+
+```js
+session: {type: String}, // session._id
+booking: {type: String}, // service-booking._id
+servicer: {type: String, required: true}, // 老师
+booker: {type: String, required: true}, // 学生
+rating: {type: Number}, // 评分
+feel: {type: String, trim: true}, // 感受
+tags: {type: [String], trim: true}, // 标签
+message: {type: String, required: true}, // 留言
+```
+
+### 评价接口
+
+```js
+// 按标签统计数量
+await App.service("service-rating").get("tagsCount", {
+  query: { servicer: users._id },
+});
+```
+
 ### Example
 
 ```js
