@@ -315,7 +315,11 @@ await this.service("service-pack-user").refund(servicePackUser._id);
 packUser: {type: String, required: true}, // service-pack-user._id 用户购买的服务包
 booker: {type: String, required: true}, // user._id 预订人
 servicer: {type: String, required: true}, // user._id 服务人
-oldSession?: {type: String}, // session._id 历史课程
+oldSession: { // 历史课程
+  _id: {type: String}, // session._id
+  name: {type: String}, // session.name
+  image: {type: String, trim: true},
+},
 session?: {type: String}, // session._id 服务人新排的课程
 start: {type: Date},
 end: {type: Date},
@@ -327,6 +331,7 @@ attachments: [{ // 留言附件
   mime: {type: String, trim: true}, // 文件 MIME
   hash: {type: String, trim: true}, // 文件SHA1, files._id
 }],
+del: {type: Boolean, default: false}, // 是否删除
 ```
 
 ### 预约接口
@@ -359,7 +364,7 @@ const {
 const doc = await App.service("service-booking").create({
   packUser,
   servicer,
-  oldSession?,
+  oldSession?: { _id, name, image },
   start, end,
   duration,
   times,
