@@ -333,7 +333,7 @@ attachments: [{ // 留言附件
   mime: {type: String, trim: true}, // 文件 MIME
   hash: {type: String, trim: true}, // 文件SHA1, files._id
 }],
-del: {type: Boolean, default: false}, // 是否删除
+cancel: {type: String, sparse: true, enum: ['servicer', 'booker', 'timeout']}, // 取消身份
 ```
 
 ### 预约接口
