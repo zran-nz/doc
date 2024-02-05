@@ -139,7 +139,14 @@ booking: {type: String}, // service-booking._id 学生的预约
 > pdTask => workshop  
 > pdunit => pdCourses
 
-tool => tool
+### type for booking
+
+> for educators booking  
+> task => bookingTask  
+> pdTask => bookingPdTask  
+> for Student booking  
+> task => bookingStuTask  
+> pdTask => bookingStuPdTask
 
 ### filter for find
 
