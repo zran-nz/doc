@@ -413,8 +413,7 @@ session: {type: String}, // session._id
 booking: {type: String}, // service-booking._id
 servicer: {type: String, required: true}, // 老师
 booker: {type: String, required: true}, // 学生
-rating: {type: Number}, // 评分
-feel: {type: String, trim: true}, // 感受
+feel: {type: Boolean, required: true}, // 是否满意
 tags: {type: [String], trim: true}, // 标签
 message: {type: String, required: true}, // 留言
 ```
@@ -422,13 +421,41 @@ message: {type: String, required: true}, // 留言
 ### 评价接口
 
 ```js
-// 按标签统计数量
+// 创建评价
+await App.service("service-rating").create({
+  session: "session._id",
+  booking: "service-booking._id",
+  servicer: "servicer._id",
+  feel: true/false,
+  tags: [...],
+  message: '...',
+});
+
+// 更新评价
+await App.service("service-rating").patch({
+  tags: [...],
+  message: '...',
+});
+
+// 老师的标签统计数据
 await App.service("service-rating").get("tagsCount", {
   query: { servicer: users._id },
 });
+// 老师的所有评价数据
+await App.service("service-rating").find({
+  query: { servicer: users._id },
+});
+// 通过预订id获取评价数据
+await App.service("service-rating").find({
+  query: { booking: "service-booking._id" },
+});
+// 通过session获取评价数据
+await App.service("service-rating").find({
+  query: { session: "session._id" },
+});
 ```
 
-### Example
+## Example
 
 ```js
 // service-pack create > publish > buy
