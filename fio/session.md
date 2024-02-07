@@ -519,6 +519,15 @@ query.type = { $in: ["pdSchoolTeacherWorkshop"] };
 // 所有为该学校学生排的公开课
 query.school = "school-plan._id";
 query.type = { $in: ["taskSchoolWorkshop", "pdSchoolStudentWorkshop"] };
+
+// 班级下所有类型的live课
+query.classId = "classes._id";
+
+// 所有我上的课
+query = {};
+
+// 所有我参与的课
+query.$or = [{ "reg._id": "user._id" }, { students: "user._id" }];
 ```
 
 ### Session list for date
