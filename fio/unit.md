@@ -1,6 +1,7 @@
 ## Unit
 
 ### Unit model
+
 ```js
 {
   // --- public ---
@@ -32,7 +33,7 @@
     lib: Boolean, // to library
     link: Boolean, // link content publish
   },
-  curriculumn: String, // readonly, curriculumn code 
+  curriculumn: String, // readonly, curriculumn code
   tpl: String, // unit-tpl._id
   overview?: String,
   cover: String,
@@ -102,8 +103,8 @@
 }
 ```
 
-
 ### unit stores
+
 ```js
 // create unit
 await unit.create({mode: '', name: '', ...})
@@ -125,6 +126,7 @@ await unit.patch(doc._id, {$pull: {link: {_id: {$in: ['link._id', ...]}}}})
 ```
 
 ### filter for find
+
 ```js
 // filter my contents
 {tab: 'me'}
@@ -146,6 +148,7 @@ await unit.patch(doc._id, {$pull: {link: {_id: {$in: ['link._id', ...]}}}})
 ```
 
 ### unit api
+
 ```js
 // find unit list
 // lib: library, published: my published, me: my contents, share: shared by me, other: shared by other
@@ -180,7 +183,9 @@ await App.service('unit').get('listByIds', {query: {ids: [unit._id, unit._id]}})
 
 
 ```
+
 ### unit link api
+
 ```js
 // get relate link list
 const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit._id'}})
@@ -189,7 +194,9 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
 const list = await App.service('unit').get('allRelateLinkList', {query: {rid: ['unit._id', ...]}})
 
 ```
+
 ### unit copy api
+
 ```js
 // for self content
 const doc = await App.service('unit').patch('copy', {_id: 'unit._id', name?: ''})
@@ -198,6 +205,7 @@ const doc = await App.service('unit').patch('copy', {_id: 'unit._id', orderId: '
 ```
 
 ### unit publish api
+
 ```js
 // publish unit self
 await App.service('unit').patch('publish', {_id, discount: {val, price, size}, subjects: [...], 'publish.lib': true})
@@ -205,7 +213,8 @@ await App.service('unit').patch('publish', {_id, discount: {val, price, size}, s
 // publish unit link content
 await App.service('unit').patch('publish', {_id, 'publish.link': true})
 
-
+// unpublish unit
+await App.service('unit').patch('unPublish', {_id: 'unit._id'})
 
 // publish to self-study
 // await App.service('session').create('publish', {_id, 'publish.study': true})
@@ -219,6 +228,7 @@ await App.service('unit').patch('publish', {_id, 'publish.link': true})
 ## Unit plan template
 
 ### unit-tpl-user model
+
 ```js
 school: String, // school-plan._id or user._id
 name: String,
@@ -229,19 +239,28 @@ tpl: {
   task: String, // unit-tpl._id
 }
 ```
+
 ### unit-tpl-user api
+
 ```js
 // create
-const doc = await App.service('unit-tpl-user').create({school: schoolIdOrUserId, name: '', curriculum: 'curric._id 自定义大纲的_id'})
+const doc = await App.service("unit-tpl-user").create({
+  school: schoolIdOrUserId,
+  name: "",
+  curriculum: "curric._id 自定义大纲的_id",
+});
 // get
-const doc = await App.service('unit-tpl-user').get(doc._id)
+const doc = await App.service("unit-tpl-user").get(doc._id);
 // list
-const list = await App.service('unit-tpl-user').find({query: {school: schoolIdOrUserId}})
+const list = await App.service("unit-tpl-user").find({
+  query: { school: schoolIdOrUserId },
+});
 // remove
-const doc = await App.service('unit-tpl-user').remove(doc._id)
+const doc = await App.service("unit-tpl-user").remove(doc._id);
 ```
 
 ### unit-tpl model
+
 ```js
 {
   _id: String,
@@ -258,25 +277,28 @@ const doc = await App.service('unit-tpl-user').remove(doc._id)
     prompt?: String,
     tags?: String, // relate tags code
     diy: Boolean, // tag diy
-  }], // 
+  }], //
 }
 ```
 
 ### Tpl Public Config
+
 [Unit/Task/PD Tpl Public Config](/fio/setting?id=unittaskpd-tpl-public-config)
 
 ### Platform Default unit-tpl api
+
 ```js
 // get pd default unit-tpl
-await App.service('unit-tpl').get('pdUnit')
-await App.service('unit-tpl').get('pdTask')
+await App.service("unit-tpl").get("pdUnit");
+await App.service("unit-tpl").get("pdTask");
 // get task sys default unit-tpl
-await App.service('unit-tpl').get('task', {query: {curriculum: 'au'}})
+await App.service("unit-tpl").get("task", { query: { curriculum: "au" } });
 // get unit sys default unit-tpl
-await App.service('unit-tpl').get('unit', {query: {curriculum: 'au'}})
+await App.service("unit-tpl").get("unit", { query: { curriculum: "au" } });
 ```
 
 ### unit-tpl api
+
 ```js
 // get unit-tpl one
 const doc = await App.service('unit-tpl').get('unit-tpl._id')
@@ -332,9 +354,10 @@ const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdat
 
 ```
 
-
 ## Reflection
+
 ### Reflection model
+
 ```js
 {
   createdAt: Date, // create time
@@ -352,7 +375,9 @@ const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdat
   visible: String, // ['all', 'school', 'private']
 }
 ```
+
 ### Reflection api
+
 ```js
 // batch get public list by unit._id
 const list = await App.service('reflection').find({query: {mode: 'refl', unit: 'unit._id', to: {$exists: false}}})
