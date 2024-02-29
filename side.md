@@ -24,6 +24,7 @@
 - [Braintree](fio/braintree.md ":include")
 - [Cart](fio/cart.md ":include")
 - [Service](fio/service.md ":include")
+- [UserNoticeSetting](fio/user-notice-setting.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
