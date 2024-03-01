@@ -47,13 +47,25 @@ App.service('notice').create({
 ## Notice Tpl Model
 
 ```js
-code: String,
-name: String,
-enable: Boolean,
-title: String, // for mail,inbox title
-text: String, // for mail body
-note: String, // for inbox body
-keys: [String], // for mail replace var
+code: {type: String, trim: true, required: true, unique: true},
+name: {type: String, trim: true},
+enable: {type: Boolean, default: true},
+enableInbox: {type: Boolean, default: false},
+enablePush: {type: Boolean, default: false},
+title: {type: String, trim: true}, // for mail,inbox title
+text: {type: String, trim: true}, // for mail body
+note: {type: String, trim: true}, // for inbox body
+keys: {type: [String], trim: true}, // for mail replace var
+category: {type: String, trim: true}, //类目ID
+```
+
+### Notice api
+
+```js
+// 更新类目
+await App.service('notice-tpl').patch('notice-tpl._id', {category: '类目'})
+// 更新开关
+await App.service('notice-tpl').patch('notice-tpl._id', {enablePush: true})
 ```
 
 ## 推送接口 - deprecated
