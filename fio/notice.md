@@ -59,7 +59,7 @@ keys: {type: [String], trim: true}, // for mail replace var
 category: {type: String, trim: true}, //类目ID
 ```
 
-### Notice api
+### Notice Tpl api
 
 ```js
 // 更新类目

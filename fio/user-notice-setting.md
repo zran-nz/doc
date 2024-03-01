@@ -17,7 +17,7 @@
 }
 ```
 
-### Cart api
+### userNoticeSetting api
 
 ```js
 /**
@@ -43,4 +43,11 @@ await App.service('user-notice-setting').get('save', {
       },
     },
 })
+
+// 获取用户消息设置
+try {
+  var data = await App.service('user-notice-setting').get('user._id')
+} catch (e) {
+  console.log('user-notice-setting not found')
+}
 ```
