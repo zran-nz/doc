@@ -103,7 +103,7 @@ attachments: [{ // 附件
 reason: {type: String, trim: true}, // 原因
 ```
 
-### 服务认证接口
+### 服务认证接口（仅限当前用户）
 
 ```js
 // 系统后台 服务认证类型数量统计
@@ -123,6 +123,13 @@ await App.service("service-auth").patch(doc._id, {
   status: 2 / -1,
   reason: "",
 });
+```
+
+### 服务认证接口（任何人）
+
+```js
+// 查询某个老师的已认证列表
+await App.service("service-auth").get("listByUid");
 ```
 
 ## 用户服务配置
@@ -164,7 +171,23 @@ await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentori
 
 ```js
 // 可预约的老师列表 通过服务包查找
-await App.service('service-conf').get('teachersByPack', {query: {
+const {
+  total, limit, skip,
+  data: [{
+    rating,
+    introduction,
+    audio,
+    audioTime,
+    hours,
+    validDate,
+    holiday,
+    enable,
+    owner: {_id, name, avatar, email},
+    auths: [{ // 已认证的服务项目
+      type, mentoringType, countryCode, curriculum, subject, gradeGroup
+    }, ...]
+  }, ...]
+} = await App.service('service-conf').get('teachersByPack', {query: {
   packUserId: 'servive-pack-user._id',
   subject?: []
 }})
