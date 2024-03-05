@@ -191,7 +191,8 @@ const {
   }, ...]
 } = await App.service('service-conf').get('teachersByPack', {query: {
   packUserId: 'servive-pack-user._id',
-  subject?: []
+  subject?: [],
+  hours?: [start, end], // 按指定时间段查询老师
 }})
 ```
 
