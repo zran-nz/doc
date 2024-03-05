@@ -129,7 +129,9 @@ await App.service("service-auth").patch(doc._id, {
 
 ```js
 // 查询某个老师的已认证列表
-await App.service("service-auth").get("listByUid");
+await App.service("service-auth").get("listByUid", {
+  query: { uid: "user._id" },
+});
 ```
 
 ## 用户服务配置
