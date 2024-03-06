@@ -780,3 +780,24 @@ const {
   query: { $limit: 10, $skip: 0 },
 });
 ```
+
+### new prompt
+
+```js
+await App.service("session").patch("newPrompt", {
+  _id: "session._id",
+  index?: 1, // 插入的位置, 不传则插入在最后
+  page: {
+    pic: "8852b1ae0e5d8c5a8ba4fe9e19f135d288d0c72a", // 图片hash值
+    size: 37907, // 图片的大小
+  },
+  questions: [ // 参考addon下的 questions model
+    {
+      type: "website", // ['text', 'choice', 'comment', 'draw', 'media', 'website']
+      multi: false,
+      scoreEnable: false
+      data?: 'url' // website 传url
+    },
+  ],
+});
+```
