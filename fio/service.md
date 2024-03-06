@@ -189,6 +189,7 @@ const {
   packUserId: 'servive-pack-user._id',
   subject?: [],
   hours?: [start, end], // 按指定时间段查询老师
+  gradeGroup?: [], // 按年级段过滤老师，不传则以服务包限制为准
 }})
 ```
 
