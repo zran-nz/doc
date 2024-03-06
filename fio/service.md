@@ -144,7 +144,6 @@ introduction: {type: String, trim: true}, // 自我介绍
 audio: {type: String, trim: true}, // 音频文件 hash files._id
 audioTime: {type: Number}, // 音频时长（秒）
 hours: {type: [[Date, Date], ...], required: true}, // 一周服务可用时间段, [[start, end], [Date, Date], ...]
-validDate: {type: [[Date, Date], ...], required: true}, // 有效日期, 当前用户的一天的开始时间, 格式: [[start, end], [Date, Date], ...]
 holiday: {type: [[Date, Date], ...], required: true}, // 假日日期, 格式: [[start, end], [Date, Date], ...]
 enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}${mentoringType}`]: true, ...}
 ```
@@ -160,8 +159,6 @@ const doc = await App.service("service-conf").get(pub.user._id).catch(async (e) 
 await App.service("service-conf").patch(pub.user._id, {hours: [[start, end], ['2024-01-18T05:00:00.000Z', '2024-01-18T12:00:00.000Z'], ...]})
 // 设置假日日期, 当前用户的一天的开始时间
 await App.service("service-conf").patch(pub.user._id, {holiday:  [[start, end], ['2024-01-18T05:00:00.000Z', '2024-01-18T12:00:00.000Z'], ...]})
-// 设置有效日期
-await App.service("service-conf").patch(pub.user._id, {validDate:  [[start, end], ['2024-01-18T05:00:00.000Z', '2024-01-18T12:00:00.000Z'], ...]})
 
 // 启用服务
 await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: true]})
@@ -181,7 +178,6 @@ const {
     audio,
     audioTime,
     hours,
-    validDate,
     holiday,
     enable,
     owner: {_id, name, avatar, email},
@@ -377,7 +373,6 @@ const {
   rating: 4.5, // 评分
   hours: [[start, end], ...], // 一周可以预约的时间段
   holiday: [[start, end], ...], // 假日日期范围
-  validDate: [[start, end], ...], // 可预约日期范围
   booking: [[start, end], ...], // 已经被预约的时间段
   session: [[start, end], ...], // 已经排课的时间段
 } = await App.service("service-conf").get('user._id', {query: {booking: 1, session: 1}})
