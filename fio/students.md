@@ -7,7 +7,7 @@
   id: String, // unique id
   uid: String, // user._id
   password: String,
-  school: String, // school_id
+  school: String, // school_id or user._id for personal
   email: String,
   name: ['first name', 'last name'],
   nickname: String, //
