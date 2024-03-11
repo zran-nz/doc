@@ -357,6 +357,7 @@ attachments: [{ // 留言附件
   hash: {type: String, trim: true}, // 文件SHA1, files._id
 }],
 cancel: {type: String, sparse: true, enum: ['servicer', 'booker', 'timeout']}, // 取消身份
+reminder: {type: Number, default: 0}, // 未排课提醒,0: 待提醒，1: 开课12小时内已提醒
 ```
 
 ### 预约接口
