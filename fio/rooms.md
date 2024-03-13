@@ -1,8 +1,7 @@
-
-
 ## Rooms
 
 ### Rooms model
+
 ```js
 sid: String, // class_id
 members: [{
@@ -23,17 +22,20 @@ block: [String], // 黑名单
 ```
 
 ### Rooms API
+
 ```js
 // get rooms
-const doc = await App.service('rooms').get('rooms._id or session id')
+const doc = await App.service("rooms").get("rooms._id or session id");
 ```
 
 #### students join room only once
+
 ```js
-const doc = await App.service('rooms').patch('joinRoom', {_id: 'rooms._id'})
+const doc = await App.service("rooms").patch("joinRoom", { _id: "rooms._id" });
 ```
 
 #### block/attend student
+
 ```js
 // block students
 const doc = await App.service('rooms').patch(doc._id, {$addToSet: {block: 'user._id'}})
@@ -50,17 +52,22 @@ const doc = await App.service('rooms').patch(doc._id, {block: [...]})
 ```
 
 ### self-study countdown mode counter
+
 ```js
 // start countdown for student, return start time
-const sec = await App.service('rooms').patch('countdownStart', {sid})
+const sec = await App.service("rooms").patch("countdownStart", { sid });
 // get countdown for student, return start time
-const sec = await App.service('rooms').get('countdownStart', {query: {sid}})
+const sec = await App.service("rooms").get("countdownStart", {
+  query: { sid },
+});
 
 // get countdown list for teacher
-const list = await App.service('rooms').get('countdownList', {query: {sid}})
+const list = await App.service("rooms").get("countdownList", {
+  query: { sid },
+});
 // list = {[user._id]: startTime, ....}
 
-// get self counter for student 
+// get self counter for student
 // const sec = await App.service('rooms').get('counter', {query: {sid}})
 // patch counter, patch every 10 seconds for student
 // const sec = await App.service('rooms').patch('counter', {sid, sec: 10})
@@ -69,29 +76,32 @@ const list = await App.service('rooms').get('countdownList', {query: {sid}})
 // list = {[user._id]: sec, ....}
 ```
 
-
 ### find rooms status count
-1、通过列表接口获取报名人数（workshop类取 regNum，班级session取 students数量）  
+
+1、通过列表接口获取报名人数（workshop 类取 regNum，班级 session 取 students 数量）  
 2、其他统计通过以下接口获取 锁屏人数: block，实际进入课堂人数：members（通过链接实际人数）
+
 ```js
 await App.service('rooms').get('countStatus', {query: {sid: {$in: [sid, ...]}}})
 ```
 
 ### save teacher draw by pageid
+
 ```js
 // get draw doc by pageId
 const doc = {
   _id, sid, pageId, ppt: {...}, blank: {...}
 } = await App.service('session-draw').get('byPageId', {query: {sid: session.sid, pageId: session.pages._id}})
 
-// ppt draw save 
+// ppt draw save
 await App.service('session-draw').patch(doc._id, {ppt: {...}})
 
-// blank draw save 
+// blank draw save
 await App.service('session-draw').patch(doc._id, {blank: {...}})
 ```
 
 ## response model
+
 ```js
 sid: String, // session.sid
 uid: String, // user._id
@@ -110,7 +120,8 @@ json: Mixed, // draw json comment.task = { id, cover, name }
 > Get  
 > `App.service('response').get(_id)`
 
-> create  
+> create
+
 ```js
 App.service('response').create({
   sid: '', // session.sid
@@ -129,3 +140,48 @@ App.service('response').create({
 
 > remove  
 > `App.service('response').remove(_id)`
+
+### 学生/老师 上线离线接口
+
+```js
+// 通过学生端进入课堂，与用户的role无关，只需要初始化调用一次，除非websocket重连
+App.service("auth").patch(null, {
+  on: "connect",
+  from: "login",
+  role: "student",
+  _sid: session.sid,
+});
+// 通过老师端进入课堂，与用户的role无关，只需要初始化调用一次，除非websocket重连
+App.service("auth").patch(null, {
+  on: "connect",
+  from: "login",
+  role: "teacher",
+  _sid: session.sid,
+});
+
+// 监听课堂用户连接
+App.service("auth").on("patched", (rs) => {
+  const { on, role, user, from, _sid, __sid } = rs;
+  // _sid = session.sid
+  // __sid = websocket连接的唯一id，每次建立连接都会变化
+  if (on === "connect") {
+    // 课堂用户连接事件
+    if (role === "teacher") {
+      // 老师端连接
+      // 是用 user 维护老师数据列表
+    } else {
+      // 学生端连接
+      // 是用 user 维护学生数据列表
+    }
+  } else if (on === "disconnect") {
+    // 课堂用户离线事件，websokcet连接结束的时候会自动触发
+    if (role === "teacher") {
+      // 老师端离线
+      // 是用 user 维护老师数据列表
+    } else {
+      // 学生端离线
+      // 是用 user 维护学生数据列表
+    }
+  }
+});
+```
