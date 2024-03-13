@@ -4,7 +4,7 @@
 
 ```js
 sid: String, // class_id
-members: [{
+members: [{ // 进入过课堂的学生列表
   _id: String, // user._id
   nickname: String,
   avatar: String,
@@ -19,6 +19,13 @@ groups: [{
 groupMax: Number, // 最大组员
 attend: [String], // 出勤
 block: [String], // 黑名单
+teachers: [{ // 进入过课堂的老师列表
+  _id: String, // user._id
+  nickname: String,
+  avatar: String,
+  email: String,
+  last: Date
+}],
 ```
 
 ### Rooms API
@@ -32,6 +39,59 @@ const doc = await App.service("rooms").get("rooms._id or session id");
 
 ```js
 const doc = await App.service("rooms").patch("joinRoom", { _id: "rooms._id" });
+```
+
+#### 老师加入课堂 only once
+
+```js
+const doc = await App.service("rooms").patch("joinRoomTeacher", {
+  _id: "rooms._id",
+});
+```
+
+### 学生/老师 上线离线接口
+
+```js
+// 通过学生端进入课堂，与用户的role无关，只需要初始化调用一次，除非websocket重连
+App.service("auth").patch(null, {
+  on: "connect",
+  from: "login",
+  role: "student",
+  _sid: session.sid,
+});
+// 通过老师端进入课堂，与用户的role无关，只需要初始化调用一次，除非websocket重连
+App.service("auth").patch(null, {
+  on: "connect",
+  from: "login",
+  role: "teacher",
+  _sid: session.sid,
+});
+
+// 监听课堂用户连接
+App.service("auth").on("patched", (rs) => {
+  const { on, role, user, from, _sid, __sid } = rs;
+  // _sid = session.sid
+  // __sid = websocket连接的唯一id，每次建立连接都会变化
+  if (on === "connect") {
+    // 课堂用户连接事件
+    if (role === "teacher") {
+      // 老师端连接
+      // 是用 user 维护老师数据列表
+    } else {
+      // 学生端连接
+      // 是用 user 维护学生数据列表
+    }
+  } else if (on === "disconnect") {
+    // 课堂用户离线事件，websokcet连接结束的时候会自动触发
+    if (role === "teacher") {
+      // 老师端离线
+      // 是用 user 维护老师数据列表
+    } else {
+      // 学生端离线
+      // 是用 user 维护学生数据列表
+    }
+  }
+});
 ```
 
 #### block/attend student
@@ -140,48 +200,3 @@ App.service('response').create({
 
 > remove  
 > `App.service('response').remove(_id)`
-
-### 学生/老师 上线离线接口
-
-```js
-// 通过学生端进入课堂，与用户的role无关，只需要初始化调用一次，除非websocket重连
-App.service("auth").patch(null, {
-  on: "connect",
-  from: "login",
-  role: "student",
-  _sid: session.sid,
-});
-// 通过老师端进入课堂，与用户的role无关，只需要初始化调用一次，除非websocket重连
-App.service("auth").patch(null, {
-  on: "connect",
-  from: "login",
-  role: "teacher",
-  _sid: session.sid,
-});
-
-// 监听课堂用户连接
-App.service("auth").on("patched", (rs) => {
-  const { on, role, user, from, _sid, __sid } = rs;
-  // _sid = session.sid
-  // __sid = websocket连接的唯一id，每次建立连接都会变化
-  if (on === "connect") {
-    // 课堂用户连接事件
-    if (role === "teacher") {
-      // 老师端连接
-      // 是用 user 维护老师数据列表
-    } else {
-      // 学生端连接
-      // 是用 user 维护学生数据列表
-    }
-  } else if (on === "disconnect") {
-    // 课堂用户离线事件，websokcet连接结束的时候会自动触发
-    if (role === "teacher") {
-      // 老师端离线
-      // 是用 user 维护老师数据列表
-    } else {
-      // 学生端离线
-      // 是用 user 维护学生数据列表
-    }
-  }
-});
-```
