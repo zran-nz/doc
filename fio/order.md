@@ -170,4 +170,7 @@ await App.service('order').get('checkLinks', {
 
 // 订单可退款检查
 await App.service('order').get('orderRefundCheck', { query: { id: order._id } });
+
+// 订单数量统计 unpaid,paid
+await App.service('order').get('count');
 ```
