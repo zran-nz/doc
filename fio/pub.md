@@ -130,14 +130,19 @@ await App.service("users").patch("forgetPassword", {
 await App.service("users").patch("changePassword", { oldPassword, password });
 ```
 
+### 验证码检查
+
+```js
+await App.service("users").get("checkCaptcha", {
+  query: { email, mobile, captcha: "" },
+});
+```
+
 ### 更新用户信息
 
 ```js
 // 获取验证码
 await App.service('users').get('captcha', {query: {email, mobile}})
-
-// 验证
-await App.service('users').get('checkCaptcha', {query: {email, mobile, captcha: ''}})
 
 // 更新邮箱
 await App.service('users').patch(user._id, {captcha, email})
