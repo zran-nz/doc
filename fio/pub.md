@@ -123,6 +123,13 @@ await App.service("users").patch("forgetPassword", {
 });
 ```
 
+### 修改密码
+
+```js
+// 更新密码
+await App.service("users").patch("changePassword", { oldPassword, password });
+```
+
 ### 更新用户信息
 
 ```js
@@ -132,8 +139,6 @@ await App.service('users').get('captcha', {query: {email, mobile}})
 // 验证
 await App.service('users').get('checkCaptcha', {query: {email, mobile, captcha: ''}})
 
-// 更新密码
-await App.service('users').patch(user._id, {password})
 // 更新邮箱
 await App.service('users').patch(user._id, {captcha, email})
 // 更新手机
