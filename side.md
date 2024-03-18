@@ -9,6 +9,7 @@
 - [Library](fio/library.md ":include")
 - [Academic](fio/academic.md ":include")
 - [Unit](fio/unit.md ":include")
+- [Reflection](fio/reflection.md ":include")
 - [Assessment Tool](fio/tool.md ":include")
 - [Session](fio/session.md ":include")
 - [Rooms](fio/rooms.md ":include")
