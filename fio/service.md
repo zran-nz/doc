@@ -226,25 +226,26 @@ count: { // 统计
 ### 服务包接口
 
 ```js
-// 统计认证老师数量
+// 发布服务
+await App.service("service-pack").patch(doc._id, { status: true });
+// 下架服务
+await App.service("service-pack").patch(doc._id, { status: false });
+// 服务包列表（后台）
+await App.service("service-pack").find({ query: {} });
+
+// 服务包列表（featured）
+await App.service("service-pack").find({ query: { status: true } });
+```
+
+### 统计认证老师数量
+
+```js
 const {
   curriculum: { 'au': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
   gradeGroup: { 'Intermediate': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
   subject: { '64d99bcc0476f7faf45ef0d8': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
   countryCode: { 'AU': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
 } = await App.service("service-auth").get("stats", { query: { type, mentoringType? } });
-
-// 发布服务
-await App.service("service-pack").patch(doc._id, { status: true });
-// 下架服务
-await App.service("service-pack").patch(doc._id, { status: false });
-// 服务包列表（后台）
-await App.service("service-pack").find({query: {}});
-
-// 服务包列表（featured）
-await App.service("service-pack").find({query: { status: true }});
-
-
 ```
 
 ### 老师发布公开课捆绑服务包
