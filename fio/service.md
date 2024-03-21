@@ -492,7 +492,7 @@ _id: {type: ObjectID}, // 用户 user._id
 servicer: {type: [String], required: true}, // 服务者
 ```
 
-### 评价接口
+### 粉丝接口
 
 ```js
 // 关注老师
