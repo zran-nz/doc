@@ -89,10 +89,14 @@ uid: {type: String, required: true},
 type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
 mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
 countryCode: {type: String, trim: true}, // 国家代码
-curriculum: {type: String, trim: true},
-subject: {type: String, trim: true},
+curriculum: {type: String, trim: true}, // 大纲代码 or 自定义的大纲_id
+subject: {type: String, trim: true}, // 学科_id
 gradeGroup: {type: [String], trim: true}, // 年级组
 grades: {type: [String], trim: true}, // 实际年级
+topic: [{ // 用于 essay, teacherTraining等大纲层级 认证项
+  _id: {type: [String], trim: true}, // subjects.topic..._id
+  label: {type: [String], trim: true}, // subjects.topic...name
+}],
 desc: {type: String, trim: true}, // 描述
 status: {type: Number, default: 0}, // 0: 未申请, 1:申请中, 2: 通过, -1: 拒绝
 attachments: [{ // 附件
