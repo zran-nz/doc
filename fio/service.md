@@ -94,7 +94,7 @@ subject: {type: String, trim: true}, // 学科_id
 gradeGroup: {type: [String], trim: true}, // 年级组
 grades: {type: [String], trim: true}, // 实际年级
 topic: [{ // 用于 essay, teacherTraining等大纲层级 认证项
-  _id: {type: [String], trim: true}, // subjects.topic..._id
+  _id: {type: String, trim: true}, // subjects.topic..._id
   label: {type: [String], trim: true}, // subjects.topic...name
 }],
 desc: {type: String, trim: true}, // 描述
