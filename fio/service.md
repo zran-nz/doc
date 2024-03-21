@@ -483,6 +483,28 @@ await App.service("service-rating").find({
 });
 ```
 
+## 服务者粉丝
+
+### service-fans model
+
+```js
+_id: {type: ObjectID}, // 用户 user._id
+servicer: {type: [String], required: true}, // 服务者
+```
+
+### 评价接口
+
+```js
+// 关注老师
+await App.service("service-fans").patch(pub.user._id, {
+  $addToSet: { servicer: "user._id" },
+});
+// 取消关注
+await App.service("service-fans").patch(pub.user._id, {
+  $pull: { servicer: "user._id" },
+});
+```
+
 ## Example
 
 ```js
