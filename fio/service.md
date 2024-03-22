@@ -496,6 +496,8 @@ servicer: {type: [String], required: true}, // 服务者
 ### 粉丝接口
 
 ```js
+// 我关注的老师数据
+await App.service("service-fans").get(pub.user._id);
 // 关注老师
 await App.service("service-fans").patch(pub.user._id, {
   $addToSet: { servicer: "user._id" },
