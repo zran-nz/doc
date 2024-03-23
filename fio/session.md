@@ -747,9 +747,12 @@ const [...] = await App.service('session').get('roaster', {query: {sid: session.
 
 ```js
 // 自学习中心首页
-const { study, live, premium } = await App.service("session").get("index", {
-  query: { $limit: 10 },
-});
+const { study, live, premium } = await App.service("session").get(
+  "indexStudent",
+  {
+    query: { $limit: 10 },
+  }
+);
 
 // 自学习列表
 const {
