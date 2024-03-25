@@ -99,3 +99,11 @@ await App.service("student").get("parentJoin", {
   query: { code: "xxx" },
 });
 ```
+
+### 通过链接申请加入学校
+
+```js
+await App.service("students").get("apply", {
+  query: { school, name: ["first name", "last name"], avatar },
+});
+```

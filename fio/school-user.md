@@ -1,6 +1,7 @@
 ## school user
 
 ### school-user model
+
 ```js
 {
   uid: String, // new users._id
@@ -21,6 +22,7 @@
 ```
 
 ### school-user API
+
 ```js
 
 // 学校老师列表获取
@@ -53,22 +55,38 @@ App.service('school-user').patch(_id, {
 })
 ```
 
-### get school user info
+### 通过链接申请加入学校
+
 ```js
-await App.service('school-user').get('info', {query: {school: pub.user.schoolInfo._id, email: pub.user.email}})
+await App.service("school-user").get("apply", {
+  query: { school, name: ["first name", "last name"], avatar },
+});
+```
+
+### get school user info
+
+```js
+await App.service("school-user").get("info", {
+  query: { school: pub.user.schoolInfo._id, email: pub.user.email },
+});
 ```
 
 ### 获取用户已加入的学校列表
+
 ```js
-await App.service('school-user').get('schoolList')
+await App.service("school-user").get("schoolList");
 ```
 
 ### get school user classList
+
 ```js
-await App.service('school-user').get('classList', {query: {school: pub.user.schoolInfo._id}})
+await App.service("school-user").get("classList", {
+  query: { school: pub.user.schoolInfo._id },
+});
 ```
 
 ### check email
+
 ```js
 
 // 批量检查 老师邮箱验证
