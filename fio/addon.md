@@ -2,50 +2,50 @@
 
 测试地址：https://dev.classcipe.com/v2/test/testAddon/${slideId}
 
-
 ### Addon store
+
 ```js
 // import store
-import {addonStore} from 'stores/addon'
-const addon = addonStore()
+import { addonStore } from "stores/addon";
+const addon = addonStore();
 
 // get outline
-await addon.getOutline(unit._id)
+await addon.getOutline(unit._id);
 
 // get questions
-await addon.getQuestions()
+await addon.getQuestions();
 // add question
-await addon.addQuestion()
+await addon.addQuestion();
 // remove question
-await addon.rmQuestion(_id)
+await addon.rmQuestion(_id);
 // update question
-await addon.upQuestion(post, query)
+await addon.upQuestion(post, query);
 
 // add material
-await addon.addMaterial(pageId, data)
+await addon.addMaterial(pageId, data);
 // get material
-await addon.getMaterials()
+await addon.getMaterials();
 // remove material
-await addon.rmMaterial(o, pageId)
-// set material 
-addon.setMaterial()
+await addon.rmMaterial(o, pageId);
+// set material
+addon.setMaterial();
 
 // switch to page
-addon.toPage(pageId)
+addon.toPage(pageId);
 // copy slide to task
-await addon.copy(sid, pages, postData)
-
+await addon.copy(sid, pages, postData);
 ```
 
 ### addon api
 
-#### addonFind 插件端获取带有ppt的课件列表
+#### addonFind 插件端获取带有 ppt 的课件列表
+
 ```js
 await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit = 10 }})
 ```
 
-
 ### slides model
+
 ```js
 {
   createdAt: Date, // create time
@@ -65,20 +65,10 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
   hash: String, // pptx file s3 key
 }
 ```
+
 ### questions model
+
 ```js
-const outlineDoc = {
-  _id: String, // task-outline.outline.data..._id
-  name: String,
-  score: Number,
-  enable: Boolean,
-  child: [{
-    _id: String, // task-outline.outline.data..._id
-    name: String,
-    enable: Boolean,
-    score: Number,
-  }]
-}
 
 {
   createdAt: Date, // create time
@@ -100,12 +90,12 @@ const outlineDoc = {
   score: Number,
   scoreEnable: Boolean,
   tips: String,
-  outline: {
-    outline: [outlineDoc],
-    assess: [outlineDoc],
-    pd: [outlineDoc],
-    skills: [outlineDoc],
-    goal: [outlineDoc],
+  outlines: { //
+    outline: [Mixed],
+    assess: [Mixed],
+    pd: [Mixed],
+    skills: [Mixed],
+    goal: [Mixed],
   }
   list: [{ // multi questions for new text
     bloom: Number,
@@ -116,7 +106,9 @@ const outlineDoc = {
 }
 
 ```
+
 ### materials model
+
 ```js
 {
   createdAt: Date, // create time
