@@ -26,6 +26,7 @@
 - [Cart](fio/cart.md ":include")
 - [Service](fio/service.md ":include")
 - [UserNoticeSetting](fio/user-notice-setting.md ":include")
+- [Poster](fio/poster.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
