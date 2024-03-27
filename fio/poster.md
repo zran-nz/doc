@@ -23,7 +23,6 @@ await App.service('poster').create({
     type: 'image',
     style: 'educator',
 });
-
 // 文案创建
 await App.service('poster').create({
     content: '文案内容',
@@ -33,4 +32,9 @@ await App.service('poster').create({
 
 // 海报列表
 await App.service('poster').find({ type: 'image' });
+// 文案列表
+await App.service('poster').find({ type: 'text' });
+
+// 获取合并海报
+await App.service('poster').get('mergeImage', { query: { image: 'url', imageCover: 'url' } });
 ```
