@@ -111,7 +111,9 @@ reason: {type: String, trim: true}, // 原因
 
 ```js
 // 系统后台 服务认证类型数量统计
-await App.service("service-auth").get("countType");
+const [{
+  _id: {type, mentoringType, status}, count: 1
+}, ...] = await App.service("service-auth").get("countType");
 
 // 服务认证列表（系统后台）
 await App.service("service-auth").find({query: {$sys: 1, ...}});
