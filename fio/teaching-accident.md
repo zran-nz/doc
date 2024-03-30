@@ -26,6 +26,15 @@
   status: {type: String, default: 'pending', enum: ['pending', 'approved', 'rejected']}, // 审核状态
   checkReason: {type: String}, // 审核理由
   read: {type: Boolean, default: false}, // 已读
+  /**
+   * 事故类型
+   * 1: teach without mic
+   * 2: show up late
+   * 3: quit the lesson before ending time
+   * 4: internet cut-off more than 5mins
+   * 5: camera off/covered
+   */
+  type: {type: Number},
 }
 ```
 
