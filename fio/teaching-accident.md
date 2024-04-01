@@ -4,43 +4,55 @@
 
 ```js
 {
-  student: {type: String, required: true}, //user_id
-  teacher: {type: String, required: true}, //user_id
-  serviceType: {type: String},
-  session: {type: String}, // 关联session
-  sessionName: {type: String}, // 关联session.name
-  // 学生申诉
-  evidencesStudent: [
-    {
-      content: {type: String}, //申诉文本
-      media: {type: Array}, //图片/视频
-    },
-  ],
-  // 老师申诉
-  evidencesTeacher: [
-    {
-      content: {type: String}, //申诉文本
-      media: {type: Array}, //图片/视频
-    },
-  ],
-  status: {type: String, default: 'pending', enum: ['pending', 'approved', 'rejected']}, // 审核状态
-  checkReason: {type: String}, // 审核理由
-  read: {type: Boolean, default: false}, // 已读
-  /**
-   * 事故类型
-   * 1: teach without mic
-   * 2: show up late
-   * 3: quit the lesson before ending time
-   * 4: internet cut-off more than 5mins
-   * 5: camera off/covered
-   */
-  type: {type: Number},
+    student: {type: String, required: true}, //user_id
+    teacher: {type: String, required: true}, //user_id
+    serviceType: {type: String},
+    session: {type: String}, // 关联session
+    sessionName: {type: String}, // 关联session.name
+    // 学生申诉
+    evidencesStudent: [
+      {
+        content: {type: String}, //申诉文本
+        attachments: [
+          {
+            // 图片/视频证据
+            filename: {type: String, trim: true}, // 文件名
+            mime: {type: String, trim: true}, // 文件 MIME
+            hash: {type: String, trim: true}, // 文件SHA1, files._id
+          },
+        ],
+      },
+    ],
+    // 老师申诉
+    evidencesTeacher: [
+      {
+        content: {type: String}, //申诉文本
+        attachments: [
+          {
+            // 图片/视频证据
+            filename: {type: String, trim: true}, // 文件名
+            mime: {type: String, trim: true}, // 文件 MIME
+            hash: {type: String, trim: true}, // 文件SHA1, files._id
+          },
+        ],
+      },
+    ],
+    status: {type: String, default: 'pending', enum: ['pending', 'approved', 'rejected']}, // 审核状态
+    checkReason: {type: String}, // 审核理由
+    read: {type: Boolean, default: false}, // 已读
+    tag: {type: String}, //标签
 }
 ```
 
 ### teaching-accident api
 
 ```js
+// 查询
+await App.service('teaching-accident').find({
+    teacher: user._id,
+    tag: tag,
+});
+
 // 创建
 await App.service('teaching-accident').create({
     student: user._id,
