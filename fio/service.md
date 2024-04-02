@@ -248,11 +248,18 @@ await App.service("service-pack").find({ query: { status: true } });
 
 ```js
 const {
-  curriculum: { 'au': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
-  gradeGroup: { 'Intermediate': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
-  subject: { '64d99bcc0476f7faf45ef0d8': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
-  countryCode: { 'AU': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
-} = await App.service("service-auth").get("stats", { query: { type, mentoringType? } });
+  curriculum: { 'au': [{...}], ...},
+  gradeGroup: { 'Intermediate': [{...}], ...},
+  subject: { '64d99bcc0476f7faf45ef0d8': [{...}], ...},
+  countryCode: { 'AU': [{...}], ...},
+} = await App.service("service-auth").get("groups", { query: { type, mentoringType? } });
+
+// const {
+//   curriculum: { 'au': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
+//   gradeGroup: { 'Intermediate': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
+//   subject: { '64d99bcc0476f7faf45ef0d8': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
+//   countryCode: { 'AU': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
+// } = await App.service("service-auth").get("stats", { query: { type, mentoringType? } });
 ```
 
 ### 老师发布公开课捆绑服务包
