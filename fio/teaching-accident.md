@@ -57,6 +57,41 @@ await App.service('teaching-accident').find({
 await App.service('teaching-accident').create({
     student: user._id,
     teacher: user._id,
+    serviceType: serviceType,
+    session: session._id,
+    sessionName: session.name,
+    // 学生申诉
+    evidencesStudent: [
+        {
+            content: '学生申诉文本内容', //申诉文本
+            attachments: [
+                {
+                    filename: 'peer-avater.png',
+                    mime: 'image/png',
+                    hash: '1ac8b6c019ceacb23317bcc72fd6d02a46db04a7',
+                },
+                {
+                    filename: 'self-avatar.png',
+                    mime: 'image/png',
+                    hash: '38cdc8b09b689f9e63a66d912004e3758c6143ab',
+                },
+            ],
+        },
+    ],
+    // 老师申诉
+    // evidencesTeacher: [
+    //     {
+    //         content: '老师申诉文本内容',
+    //         attachments: [
+    //             {
+    //                 filename: 'peer-avater.png',
+    //                 mime: 'image/png',
+    //                 hash: '1ac8b6c019ceacb23317bcc72fd6d02a46db04a7',
+    //             },
+    //         ],
+    //     },
+    // ],
+    tag: tag,
 });
 
 //添加一条申诉
@@ -64,7 +99,7 @@ await App.service('teaching-accident').patch(_id, {
     $addToSet: {
         evidencesStudent: {
             content: '文本内容',
-            media: ['url'],
+            attachments: [],
         },
     },
 });
@@ -73,7 +108,7 @@ await App.service('teaching-accident').patch(_id, {
 await App.service('teaching-accident').patch('_id', { 'evidencesStudent.$.content': 'new content' }, { query: { 'evidencesStudent._id': evidencesStudent._id } });
 
 // 更新某条申诉的图片/视频
-await App.service('teaching-accident').patch('_id', { 'evidencesStudent.$.media': ['url1', 'url2'] }, { query: { 'evidencesStudent._id': evidencesStudent._id } });
+await App.service('teaching-accident').patch('_id', { 'evidencesStudent.$.attachments': [] }, { query: { 'evidencesStudent._id': evidencesStudent._id } });
 
 // 审核 enum: ['pending', 'approved', 'rejected']
 await App.service('teaching-accident').patch('_id', { status: 'approved', checkReason: '审核理由' });
