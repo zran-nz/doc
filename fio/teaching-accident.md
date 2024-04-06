@@ -4,43 +4,46 @@
 
 ```js
 {
-    student: {type: String, required: true}, //user_id
-    teacher: {type: String, required: true}, //user_id
-    serviceType: {type: String},
-    session: {type: String}, // 关联session
-    sessionName: {type: String}, // 关联session.name
-    // 学生申诉
-    evidencesStudent: [
-      {
-        content: {type: String}, //申诉文本
-        attachments: [
-          {
-            // 图片/视频证据
-            filename: {type: String, trim: true}, // 文件名
-            mime: {type: String, trim: true}, // 文件 MIME
-            hash: {type: String, trim: true}, // 文件SHA1, files._id
-          },
-        ],
-      },
-    ],
-    // 老师申诉
-    evidencesTeacher: [
-      {
-        content: {type: String}, //申诉文本
-        attachments: [
-          {
-            // 图片/视频证据
-            filename: {type: String, trim: true}, // 文件名
-            mime: {type: String, trim: true}, // 文件 MIME
-            hash: {type: String, trim: true}, // 文件SHA1, files._id
-          },
-        ],
-      },
-    ],
-    status: {type: String, default: 'pending', enum: ['pending', 'approved', 'rejected']}, // 审核状态
-    checkReason: {type: String}, // 审核理由
-    read: {type: Boolean, default: false}, // 已读
-    tag: {type: String}, //标签
+  student: {type: String, required: true}, //user_id
+  teacher: {type: String, required: true}, //user_id
+  session: {type: String}, // 关联session._id
+  sessionName: {type: String}, // 关联session.name
+  serviceType: {type: String},
+  service: {type: String}, // servicepacks._id
+  serviceName: {type: String}, // servicepacks.name
+  // 学生申诉
+  evidencesStudent: [
+    {
+      content: {type: String}, //申诉文本
+      attachments: [
+        {
+          // 图片/视频证据
+          filename: {type: String, trim: true}, // 文件名
+          mime: {type: String, trim: true}, // 文件 MIME
+          hash: {type: String, trim: true}, // 文件SHA1, files._id
+        },
+      ],
+    },
+  ],
+  // 老师申诉
+  evidencesTeacher: [
+    {
+      content: {type: String}, //申诉文本
+      attachments: [
+        {
+          // 图片/视频证据
+          filename: {type: String, trim: true}, // 文件名
+          mime: {type: String, trim: true}, // 文件 MIME
+          hash: {type: String, trim: true}, // 文件SHA1, files._id
+        },
+      ],
+    },
+  ],
+  status: {type: String, default: 'pending', enum: ['pending', 'approved', 'rejected']}, // 审核状态
+  approvedAt: {type: Date}, // 审核通过时间 用于计算停课时间
+  checkReason: {type: String}, // 审核理由
+  read: {type: Boolean, default: false}, // 已读
+  tags: {type: [String], trim: true}, // 标签
 }
 ```
 
@@ -50,16 +53,16 @@
 // 查询
 await App.service('teaching-accident').find({
     teacher: user._id,
-    tag: tag,
+    tags: [],
 });
 
 // 创建
 await App.service('teaching-accident').create({
     student: user._id,
     teacher: user._id,
-    serviceType: serviceType,
     session: session._id,
     sessionName: session.name,
+    service: servicepacks._id,
     // 学生申诉
     evidencesStudent: [
         {
@@ -91,7 +94,7 @@ await App.service('teaching-accident').create({
     //         ],
     //     },
     // ],
-    tag: tag,
+    tags: [],
 });
 
 //添加一条申诉
@@ -113,8 +116,8 @@ await App.service('teaching-accident').patch('_id', { 'evidencesStudent.$.attach
 // 审核 enum: ['pending', 'approved', 'rejected']
 await App.service('teaching-accident').patch('_id', { status: 'approved', checkReason: '审核理由' });
 
-// 已读
-await App.service('teaching-accident').get('unreadCount');
 // 获取未读数量
+await App.service('teaching-accident').get('unreadCount');
+// 设置已读
 await App.service('teaching-accident').patch('_id', { read: true });
 ```
