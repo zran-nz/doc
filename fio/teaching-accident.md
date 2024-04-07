@@ -1,5 +1,7 @@
 ## teaching-accident
 
+## 教学事故
+
 ### teaching-accident model
 
 ```js
@@ -114,11 +116,37 @@ await App.service('teaching-accident').patch('_id', { 'evidencesStudent.$.conten
 // 更新某条申诉的图片/视频
 await App.service('teaching-accident').patch('_id', { 'evidencesStudent.$.attachments': [] }, { query: { 'evidencesStudent._id': evidencesStudent._id } });
 
-// 审核 enum: ['pending', 'approved', 'rejected']
-await App.service('teaching-accident').patch('_id', { status: 'approved', checkReason: '审核理由' });
-
 // 获取未读数量
 await App.service('teaching-accident').get('unreadCount');
 // 设置已读
 await App.service('teaching-accident').patch('_id', { read: true });
+
+/**
+ * 审核通过
+ * days: Number 停课天数
+ */
+await App.service('teaching-accident').get('check', {
+    query: { id: 'teaching-accident._id', status: 'approved', checkReason: '审核理由', days: 5 },
+});
+// 审核拒绝
+await App.service('teaching-accident').get('check', {
+    query: { id: 'teaching-accident._id', status: 'rejected', checkReason: '审核理由' },
+});
+```
+
+---
+
+## suspend-class
+
+## 停课表
+
+### suspend-class model
+
+```js
+{
+  uid: {type: String, required: true}, // user._id
+  accident: {type: String, required: true}, // teaching-accident._id
+  startAt: {type: Date}, // 停课开始时间/
+  endAt: {type: Date}, // 停课结束时间/
+}
 ```
