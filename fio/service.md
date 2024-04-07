@@ -217,9 +217,14 @@ subject: {type: [String], trim: true}, // subjects._id
 gradeGroup: {type: [String], trim: true}, // 年级组
 price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
 discount: [{
+  gifts: {type: Number}, // 免费赠送的次数
   count: {type: Number}, // 数量
   discount: {type: Number}, // 折扣 %
 }],
+discountConfig: { // 折扣配置
+  enable: {type: Boolean, default: false}, // 是否启用折扣
+  end: {type: Date} // 折扣截止时间
+},
 freq: {type: Number, enum: [7, 14, 30, 120]}, // 每张的可用多少天
 duration: {type: Number}, // session duration min
 break: {type: Number}, // session break min
