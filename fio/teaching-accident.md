@@ -146,7 +146,7 @@ await App.service('teaching-accident').get('check', {
 {
   uid: {type: String, required: true}, // user._id
   accident: {type: String, required: true}, // teaching-accident._id
-  startAt: {type: Date}, // 停课开始时间/
-  endAt: {type: Date}, // 停课结束时间/
+  startAt: {type: Date}, // 停课开始时间
+  endAt: {type: Date}, // 停课结束时间
 }
 ```
