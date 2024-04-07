@@ -63,6 +63,7 @@ await App.service('teaching-accident').create({
     session: session._id,
     sessionName: session.name,
     service: servicepacks._id,
+    booking: 'service-booking._id',
     // 学生申诉
     evidencesStudent: [
         {
