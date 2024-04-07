@@ -5,21 +5,24 @@
 ```js
 {
   buyer: {type: String, required: true}, // buyer user._id
-  goodsId: {type: String, required: true}, // unit._id
-  style: {type: String}, //unit
-  goods: {type: Object}, // 详情
-}
+  goodsId: {type: String, required: true}, // buyer user._id
+  style: {type: String, enum: ['unit', 'session']}, //unit,session
+  goods: {type: Object}, // 商品详情
+},
 ```
 
 ### Cart api
 
 ```js
-// 添加
-await App.service('cart').create({goodsId: goodsId})
+/**
+ * 添加
+ * style 不传默认为unit
+ */
+await App.service('cart').create({ goodsId: goodsId, style: 'session' });
 
 // 列表
-await App.service('cart').find()
+await App.service('cart').find();
 
 // 移除
-await App.service('cart').remove(cart._id)
+await App.service('cart').remove(cart._id);
 ```
