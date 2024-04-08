@@ -295,8 +295,12 @@ used: {type: Number, default: 0}, // 已经使用
 expired: [{type: Date, default: 0}], // 过期列表
 expireSoon: {type: Date}, // 即将过期的时间
 order: {type: String, required: true}, // 关联 order._id
-session: {type: String}, // 关联 session._id
-sessionName: {type: String}, // 关联session.name
+session: {
+  _id: {type: String}, // 关联session._id
+  name: {type: String}, // session.name
+  start: {type: String}, // session.start
+  end: {type: String}, // session.end
+},
 snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照
 status: {type: Boolean, default: true},
 logs: [{ // 使用记录
