@@ -90,7 +90,7 @@
   ], // 退款详情
   paidAt: {type: Date},
   reminder: {type: Number, default: 0}, // 未支付提醒,0: 待提醒，1: 超时前15min已提醒
-
+  inviter: {type: String, trim: true}, //邀请人
 },
 ```
 
