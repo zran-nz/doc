@@ -79,7 +79,7 @@ await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
 ```js
 ServiceType: ['workshop', 'teaching', 'mentoring', 'substitute', 'correcting'],
 MentoringType: ['essay', 'academic', 'overseasStudy', 'teacherTraining'], // professionalDevelopment, subject
-ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund']
+ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident']
 ```
 
 ### service-auth model
@@ -289,7 +289,8 @@ await App.service("serssion").create({
 ```js
 uid: {type: String}, // users._id
 price: {type: Number, default: 0}, // 订单金额
-gift: {type: Boolean, default: false}, // 是否赠品
+gift: {type: Boolean, default: false}, // 是否赠品, 只要服务包付了钱的都不是赠品
+giftCount: {type: Number, default: 0}, // 赠送次数
 total: {type: Number, default: 0}, // 总次数
 used: {type: Number, default: 0}, // 已经使用
 expired: [{type: Date, default: 0}], // 过期列表
