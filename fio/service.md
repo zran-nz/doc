@@ -233,6 +233,11 @@ count: { // 统计
   sold: {type: Number}, // 已售
   valid: {type: Number}, // 有效数量
 },
+attachments: [{ // 附件 用于newpromt下的materials
+  filename: {type: String, trim: true}, // 文件名
+  mime: {type: String, trim: true}, // 文件 MIME
+  hash: {type: String, trim: true}, // 文件SHA1, files._id
+}],
 ```
 
 ### 服务包接口

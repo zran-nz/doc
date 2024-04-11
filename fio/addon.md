@@ -122,7 +122,7 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
   updatedAt: Date, // update time
   uid: String, // user id
   id: String, // slides id
-  page: String, // page id
+  page: String, // slides.pages._id
   list: [{
     question: String, // questions._id
     type: String, // iframe, video, audio, image, pdf
@@ -133,6 +133,26 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
     ext: Mixed // video: { start, end }
   }],
 }
+```
+
+### materials api
+
+```js
+// 创建页面和素材
+const doc = await App.service("materials").create({
+  id: "slides.id",
+  page: "slides.pages._id",
+  list: [{
+    question, type, url, key, size, desc, ext
+  }, ...]
+});
+
+// 向已经存在页面中添加素材
+const doc = await App.service("materials").patch(doc._id, {
+  $addToSet: {list: {
+    question, type, url, key, size, desc, ext
+  }}
+});
 ```
 
 ### template model
