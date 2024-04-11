@@ -712,6 +712,8 @@ const {
   // service
   booking: [],
   service: [],
+  toBeBooked: [], // 可预约列表
+  toBeScheduled: [], // 待排课列表
 } = await App.service("session").get("recommend");
 
 // query filter
