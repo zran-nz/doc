@@ -98,6 +98,7 @@
     type: String, // task/pd
     group?: String,
   }],
+  premiumAuth: {type: Boolean, default: false}, // 是否通过精品认证
   snapshot: Mixed // library publish clone
   template: Mixed // unit-tpl.data snapshot
 }

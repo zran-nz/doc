@@ -93,6 +93,10 @@ curriculum: {type: String, trim: true}, // 大纲代码 or 自定义的大纲_id
 subject: {type: String, trim: true}, // 学科_id
 gradeGroup: {type: [String], trim: true}, // 年级组
 grades: {type: [String], trim: true}, // 实际年级
+unit: { // 认证课件
+  _id: {type: String, trim: true}, // unit._id
+  name: {type: String, trim: true}, // 课件名称
+},
 topic: [{ // 用于 essay, teacherTraining等大纲层级 认证项
   _id: {type: String, trim: true}, // subjects.topic..._id
   label: {type: [String], trim: true}, // subjects.topic...name
