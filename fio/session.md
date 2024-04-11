@@ -785,6 +785,15 @@ const {
 });
 ```
 
+### 推广课接口
+
+```js
+const {
+  data: [],
+  total,
+} = await App.service("session").get("indexPromotion");
+```
+
 ### new prompt
 
 ```js
