@@ -38,3 +38,27 @@ await App.service('poster').find({ type: 'text' });
 // 获取合并海报,url不传则不生成二维码
 await App.service('poster').get('mergeImage', { query: { image: 'url', imageCover: 'url', url: url } });
 ```
+
+### Share-info model
+
+```js
+{
+  title: {type: String},
+  keywords: {type: String},
+  image: {type: String},
+  desc: {type: String},
+  url: {type: String},
+}
+```
+
+### Share-info api
+
+```js
+// 创建
+await App.service('share-info').create({
+    title: 'title',
+    desc: 'desc',
+});
+await App.service('share-info').get(_id);
+await App.service('share-info').find();
+```
