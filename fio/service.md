@@ -139,8 +139,8 @@ await App.service("service-auth").patch(doc._id, {
 
 ```js
 // 查询某个老师的已认证列表
-await App.service("service-auth").get("listByUid", {
-  query: { uid: "user._id" },
+await App.service('service-auth').get('listByUid', {
+    query: { uid: 'user._id' },
 });
 ```
 
@@ -248,14 +248,14 @@ attachments: [{ // 附件 用于newpromt下的materials
 
 ```js
 // 发布服务
-await App.service("service-pack").patch(doc._id, { status: true });
+await App.service('service-pack').patch(doc._id, { status: true });
 // 下架服务
-await App.service("service-pack").patch(doc._id, { status: false });
+await App.service('service-pack').patch(doc._id, { status: false });
 // 服务包列表（后台）
-await App.service("service-pack").find({ query: {} });
+await App.service('service-pack').find({ query: {} });
 
 // 服务包列表（featured）
-await App.service("service-pack").find({ query: { status: true } });
+await App.service('service-pack').find({ query: { status: true } });
 ```
 
 ### 统计认证老师数量
@@ -333,15 +333,15 @@ logs: [{ // 使用记录
 
 ```js
 // 服务包列表（purchased）
-await this.service("service-pack-user").find({ query: {} });
+await this.service('service-pack-user').find({ query: {} });
 
 /**
  * 按用户查询
  * fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
  */
-await App.service("service-pack-user").find({
-  userField: "",
-  userFieldType: "email/mobile/classcipeId",
+await App.service('service-pack-user').find({
+    userField: '',
+    userFieldType: 'email/mobile/classcipeId',
 });
 ```
 
@@ -363,7 +363,7 @@ await this.service("service-pack-user").buyByOrder({
 
 ```js
 // 后端接口内部调用
-await this.service("service-pack-user").refund(servicePackUser._id);
+await this.service('service-pack-user').refund(servicePackUser._id);
 ```
 
 ## 用户预约数据
@@ -393,6 +393,11 @@ attachments: [{ // 留言附件
 cancel: {type: String, sparse: true, enum: ['servicer', 'booker', 'timeout']}, // 取消身份
 canceledAt: {type: Date}, // 取消时间
 reminder: {type: Number, default: 0}, // 未排课提醒,0: 待提醒，1: 开课12小时内已提醒
+reminderBooked: {type: Number, default: 0}, // 开课前12小时提醒,0: 待提醒，1: 已提醒
+accident: {
+  id: {type: String}, //teaching-accident._id
+  status: {type: String, enum: ['pending', 'approved', 'rejected']}, // 教学事故状态
+}
 ```
 
 ### 预约接口
@@ -451,14 +456,14 @@ await App.service("session").create({
 
 ```js
 // - 从 session 中点击取消，删除 session 本身
-await App.service("session").remove(sessionId);
+await App.service('session').remove(sessionId);
 ```
 
 #### 老师/学生 取消预约逻辑
 
 ```js
-await App.service("service-booking").patch("cancel", {
-  _id: serviceBooking._id,
+await App.service('service-booking').patch('cancel', {
+    _id: serviceBooking._id,
 });
 ```
 
@@ -526,14 +531,14 @@ servicer: {type: [String], required: true}, // 服务者
 
 ```js
 // 我关注的老师数据
-await App.service("service-fans").get(pub.user._id);
+await App.service('service-fans').get(pub.user._id);
 // 关注老师
-await App.service("service-fans").patch(pub.user._id, {
-  $addToSet: { servicer: "user._id" },
+await App.service('service-fans').patch(pub.user._id, {
+    $addToSet: { servicer: 'user._id' },
 });
 // 取消关注
-await App.service("service-fans").patch(pub.user._id, {
-  $pull: { servicer: "user._id" },
+await App.service('service-fans').patch(pub.user._id, {
+    $pull: { servicer: 'user._id' },
 });
 ```
 
@@ -541,69 +546,69 @@ await App.service("service-fans").patch(pub.user._id, {
 
 ```js
 // service-pack create > publish > buy
-var doc = await App.service("service-pack").create({
-  name: Date.now().toString(32),
-  points: ["test points", "test points2"],
-  type: "mentoring",
-  mentoringType: "academic",
-  curriculum: "au",
-  subject: ["64d99bcc0476f7faf45ef0d8"],
-  gradeGroup: ["Intermediate"],
-  price: 1000,
-  discount: [{ count: 10, discount: 90 }],
-  freq: 7,
-  duration: 30,
-  break: 10,
+var doc = await App.service('service-pack').create({
+    name: Date.now().toString(32),
+    points: ['test points', 'test points2'],
+    type: 'mentoring',
+    mentoringType: 'academic',
+    curriculum: 'au',
+    subject: ['64d99bcc0476f7faf45ef0d8'],
+    gradeGroup: ['Intermediate'],
+    price: 1000,
+    discount: [{ count: 10, discount: 90 }],
+    freq: 7,
+    duration: 30,
+    break: 10,
 });
-await App.service("service-pack").patch(doc._id, { status: true });
+await App.service('service-pack').patch(doc._id, { status: true });
 // buy in api
-var packUser = await App.service("service-pack-user").get("buyByOrder", {
-  query: {
-    packId: "65b47af5a70318050560dc25",
-    order: "65b45c361e0529e3d990cc19",
-    total: 10,
-  },
+var packUser = await App.service('service-pack-user').get('buyByOrder', {
+    query: {
+        packId: '65b47af5a70318050560dc25',
+        order: '65b45c361e0529e3d990cc19',
+        total: 10,
+    },
 });
 
 // teacher auth, create > apply
-var confDoc = await App.service("service-conf")
-  .get(pub.user._id)
-  .catch(async (e) => {
-    if (e.code === 404)
-      return await App.service("service-conf").create({
-        _id: pub.user._id,
-        hours: [],
-      });
-  });
-confDoc = await App.service("service-conf").patch(confDoc._id, {
-  introduction: "test introduction",
+var confDoc = await App.service('service-conf')
+    .get(pub.user._id)
+    .catch(async (e) => {
+        if (e.code === 404)
+            return await App.service('service-conf').create({
+                _id: pub.user._id,
+                hours: [],
+            });
+    });
+confDoc = await App.service('service-conf').patch(confDoc._id, {
+    introduction: 'test introduction',
 });
-var doc = await App.service("service-auth").create({
-  type: "mentoring",
-  mentoringType: "academic",
-  curriculum: "au",
-  subject: "64d99bcc0476f7faf45ef0d8",
-  gradeGroup: ["Intermediate"],
-  grades: ["Grade 1", "Grade 2"],
+var doc = await App.service('service-auth').create({
+    type: 'mentoring',
+    mentoringType: 'academic',
+    curriculum: 'au',
+    subject: '64d99bcc0476f7faf45ef0d8',
+    gradeGroup: ['Intermediate'],
+    grades: ['Grade 1', 'Grade 2'],
 });
 // 提交申请
-await App.service("service-auth").patch(doc._id, { status: 1 });
+await App.service('service-auth').patch(doc._id, { status: 1 });
 // 通过申请
-await App.service("service-auth").patch(doc._id, { status: 2 });
+await App.service('service-auth').patch(doc._id, { status: 2 });
 
 // 老师列表通过服务包查找
-await App.service("service-conf").get("teachersByPack", {
-  query: { packUserId: packUser._id, subject: ["64d99bcc0476f7faf45ef0d8"] },
+await App.service('service-conf').get('teachersByPack', {
+    query: { packUserId: packUser._id, subject: ['64d99bcc0476f7faf45ef0d8'] },
 });
 // 创建预约
 var nt = Date.now();
-await App.service("service-booking").create({
-  packUser: "65b9c284b5d0b55bf51037de",
-  servicer: "634b275c15c7439ecd28d610",
-  start: new Date(nt + 3600000).toISOString(),
-  end: new Date(nt + 3600000 * 2).toISOString(),
-  duration: 30,
-  times: 2,
-  message: "test message",
+await App.service('service-booking').create({
+    packUser: '65b9c284b5d0b55bf51037de',
+    servicer: '634b275c15c7439ecd28d610',
+    start: new Date(nt + 3600000).toISOString(),
+    end: new Date(nt + 3600000 * 2).toISOString(),
+    duration: 30,
+    times: 2,
+    message: 'test message',
 });
 ```
