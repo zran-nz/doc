@@ -385,7 +385,13 @@ oldSession: { // 历史课程
   name: {type: String}, // session.name
   image: {type: String, trim: true},
 },
-session?: {type: String}, // session._id 服务人新排的课程
+session: {
+  // 服务人新排的课程
+  _id: {type: String}, // session._id
+  name: {type: String}, // session.name
+  image: {type: String, trim: true},
+  status: {type: String},
+},
 start: {type: Date},
 end: {type: Date},
 duration: {type: Date}, // 服务包对应的时长 service-pack-user.snapshot.duration
