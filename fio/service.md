@@ -156,7 +156,7 @@ audio: {type: String, trim: true}, // 音频文件 hash files._id
 audioTime: {type: Number}, // 音频时长（秒）
 hours: {type: [[Date, Date], ...], required: true}, // 一周服务可用时间段, [[start, end], [Date, Date], ...]
 holiday: {type: [[Date, Date], ...], required: true}, // 假日日期, 格式: [[start, end], [Date, Date], ...]
-enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}${mentoringType}`]: true, ...}
+enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}:${mentoringType}`]: true, ...}
 fans: {type: Number, default: 0}, // 收藏的数量
 ```
 
