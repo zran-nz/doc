@@ -178,9 +178,9 @@ await App.service("service-conf").patch(pub.user._id, {holiday:  [[start, end], 
 
 ```js
 // 启用服务
-await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: true]})
+await App.service("service-conf").patch(pub.user._id, {[`enable.${type}:${mentoringType}`]: true]})
 // 禁用服务
-await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: false]})
+await App.service("service-conf").patch(pub.user._id, {[`enable.${type}:${mentoringType}`]: false]})
 ```
 
 ### 查找可预约的老师列表
