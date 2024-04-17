@@ -172,6 +172,11 @@ await App.service("service-conf").patch(pub.user._id, {hours: [[start, end], ['2
 // 设置假日日期, 当前用户的一天的开始时间
 await App.service("service-conf").patch(pub.user._id, {holiday:  [[start, end], ['2024-01-18T05:00:00.000Z', '2024-01-18T12:00:00.000Z'], ...]})
 
+```
+
+### 启用/禁用服务
+
+```js
 // 启用服务
 await App.service("service-conf").patch(pub.user._id, {[`enable.${type}${mentoringType}`]: true]})
 // 禁用服务
