@@ -380,6 +380,8 @@ await this.service("service-pack-user").refund(servicePackUser._id);
 packUser: {type: String, required: true}, // service-pack-user._id 用户购买的服务包
 booker: {type: String, required: true}, // user._id 预订人
 servicer: {type: String, required: true}, // user._id 服务人
+type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
+mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
 oldSession: { // 历史课程
   _id: {type: String}, // session._id
   name: {type: String}, // session.name
