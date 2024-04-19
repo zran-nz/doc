@@ -77,7 +77,7 @@ await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
 ### Enum
 
 ```js
-ServiceType: ['workshop', 'teaching', 'mentoring', 'substitute', 'correcting'],
+ServiceType: ['workshop', 'teaching', 'mentoring', 'correcting', 'substituteAcademic', 'substituteService'],
 MentoringType: ['essay', 'academic', 'overseasStudy', 'teacherTraining'], // professionalDevelopment, subject
 ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident']
 ```
