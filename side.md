@@ -12,6 +12,7 @@
 - [Reflection](fio/reflection.md ":include")
 - [Assessment Tool](fio/tool.md ":include")
 - [Session](fio/session.md ":include")
+- [SessionTakeaway](fio/session-takeaway.md ":include")
 - [Rooms](fio/rooms.md ":include")
 - [Setting & Tags](fio/setting.md ":include")
 - [Notice](fio/notice.md ":include")
