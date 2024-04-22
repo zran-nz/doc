@@ -7,7 +7,7 @@
   image: {type: String, trim: true}, //海报
   imageCover: {type: String, trim: true}, //海报前景图
   content: {type: String}, //文案
-  type: {type: String, default: 'image', enum: ['image', 'text']}, //类型
+  type: {type: String, default: 'image', enum: ['image', 'text', 'customize']}, //类型
   style: {type: String, default: 'educator', enum: ['educator', 'non_educator', 'verified_teacher']}, //板块
   customize: {type: Boolean, default: false}, //海报是否自定义
 }
