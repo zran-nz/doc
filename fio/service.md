@@ -243,7 +243,7 @@ count: { // 统计
   sold: {type: Number}, // 已售
   valid: {type: Number}, // 有效数量
 },
-attachments: [{ // 附件 用于newpromt下的materials
+attachments: [{ // 图片/视频，附件，推广素材, 插入到课堂的时候，显示在素材中
   filename: {type: String, trim: true}, // 文件名
   mime: {type: String, trim: true}, // 文件 MIME
   hash: {type: String, trim: true}, // 文件SHA1, files._id
