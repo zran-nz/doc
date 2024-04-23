@@ -62,3 +62,20 @@ await App.service('share-info').create({
 await App.service('share-info').get(_id);
 await App.service('share-info').find();
 ```
+
+### Short-link model
+
+```js
+{
+  url: {type: String, trim: true}, //长链接
+  code: {type: String, trim: true}, //短链接code
+  shortUrl: {type: String, trim: true}, //短链接
+}
+```
+
+### Short-link api
+
+```js
+// 获取短链
+await App.service('short-link').get('shortLink', { query: { url: 'https://www.baidu.com' } });
+```
