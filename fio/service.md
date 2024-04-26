@@ -264,6 +264,13 @@ await App.service('service-pack').find({ query: {} });
 await App.service('service-pack').find({ query: { status: true } });
 ```
 
+### 服务包推荐
+
+```js
+// 老师取 "teacherTraining"的数据, 学生取非"teacherTraining"的数据
+await App.service("service-pack").get("index");
+```
+
 ### 统计认证老师数量
 
 ```js
