@@ -304,6 +304,7 @@ await App.service("serssion").create({
 ```js
 uid: {type: String}, // users._id
 price: {type: Number, default: 0}, // 订单金额
+payCount: {type: Number, default: 0}, // 购买可退次数，不可修改
 gift: {type: Boolean, default: false}, // 是否赠品, 只要服务包付了钱的都不是赠品
 giftCount: {type: Number, default: 0}, // 赠送次数
 total: {type: Number, default: 0}, // 总次数
