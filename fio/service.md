@@ -280,7 +280,7 @@ const {
   gradeGroup: { 'Intermediate': [{...}], ...},
   subject: { '64d99bcc0476f7faf45ef0d8': [{...}], ...},
   countryCode: { 'AU': [{...}], ...},
-} = await App.service("service-auth").get("groups", { query: { type, mentoringType? } });
+} = await App.service("service-auth").get("groups", { query: { type, mentoringType?, curriculum?, countryCode?, subject?, gradeGroup?, 'topic._id'? } });
 
 // const {
 //   curriculum: { 'au': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
