@@ -276,10 +276,11 @@ await App.service("service-pack").get("index");
 
 ```js
 const {
-  curriculum: { 'au': [{...}], ...},
-  gradeGroup: { 'Intermediate': [{...}], ...},
-  subject: { '64d99bcc0476f7faf45ef0d8': [{...}], ...},
   countryCode: { 'AU': [{...}], ...},
+  curriculum: { 'au': [{...}], ...},
+  subject: { '64d99bcc0476f7faf45ef0d8': [{...}], ...},
+  gradeGroup: { 'Intermediate': [{...}], ...},
+  topic: {'topic._id': [{...}], ...}
 } = await App.service("service-auth").get("groups", { query: { type, mentoringType?, curriculum?, countryCode?, subject?, gradeGroup?, 'topic._id'? } });
 
 // const {
