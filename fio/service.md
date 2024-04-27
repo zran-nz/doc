@@ -203,10 +203,11 @@ const {
     }, ...]
   }, ...]
 } = await App.service('service-conf').get('teachersByPack', {query: {
+  search: 'xxx', // users.name 老师名称
   packUserId: 'servive-pack-user._id',
   subject?: [],
   hours?: [start, end], // 按指定时间段查询老师
-  gradeGroup?: [], // 按年级段过滤老师，不传则以服务包限制为准
+  gradeGroup?: ['', ...], // 按年级段过滤老师，不传则以服务包限制为准
 }})
 ```
 
