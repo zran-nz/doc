@@ -4,6 +4,7 @@
 - [Pub](fio/pub.md ":include")
 - [Fio](fio/fio.md ":include")
 - [APIS](fio/apis.md ":include")
+- [VIEW](fio/view.md ":include")
 - [Addon](fio/addon.md ":include")
 - [Collab](fio/collab.md ":include")
 - [Library](fio/library.md ":include")
