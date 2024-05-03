@@ -150,7 +150,12 @@ await App.service("service-auth").get("listByUid", {
 ### service-conf model
 
 ```js
-rating: {type: Number}, // 评分 0-5
+rating: {type: Number}, // 好评
+count: {
+  rate: {type: Number}, // 好评，比率 ＝ 1-(count.accident/count.rating)
+  rating: {type: Number}, // 总的评价次数
+  accident: {type: Number}, // 教学事故次数
+},
 introduction: {type: String, trim: true}, // 自我介绍
 audio: {type: String, trim: true}, // 音频文件 hash files._id
 audioTime: {type: Number}, // 音频时长（秒）
@@ -208,6 +213,10 @@ const {
   subject?: [],
   hours?: [start, end], // 按指定时间段查询老师
   gradeGroup?: ['', ...], // 按年级段过滤老师，不传则以服务包限制为准
+  $sort: { // 排序, 值为 1 或 -1
+    fans?, // 按粉丝
+    'count.rate'? // 按好评比率
+  }
 }})
 ```
 
