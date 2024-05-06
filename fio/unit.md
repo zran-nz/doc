@@ -101,6 +101,7 @@
   premiumAuth: {type: Boolean, default: false}, // 是否通过精品认证
   snapshot: Mixed // library publish clone
   template: Mixed // unit-tpl.data snapshot
+  income: {type: Number, default: 0}, //收入总计,单位分
 }
 ```
 
@@ -245,19 +246,19 @@ tpl: {
 
 ```js
 // create
-const doc = await App.service("unit-tpl-user").create({
-  school: schoolIdOrUserId,
-  name: "",
-  curriculum: "curric._id 自定义大纲的_id",
+const doc = await App.service('unit-tpl-user').create({
+    school: schoolIdOrUserId,
+    name: '',
+    curriculum: 'curric._id 自定义大纲的_id',
 });
 // get
-const doc = await App.service("unit-tpl-user").get(doc._id);
+const doc = await App.service('unit-tpl-user').get(doc._id);
 // list
-const list = await App.service("unit-tpl-user").find({
-  query: { school: schoolIdOrUserId },
+const list = await App.service('unit-tpl-user').find({
+    query: { school: schoolIdOrUserId },
 });
 // remove
-const doc = await App.service("unit-tpl-user").remove(doc._id);
+const doc = await App.service('unit-tpl-user').remove(doc._id);
 ```
 
 ### unit-tpl model
@@ -290,12 +291,12 @@ const doc = await App.service("unit-tpl-user").remove(doc._id);
 
 ```js
 // get pd default unit-tpl
-await App.service("unit-tpl").get("pdUnit");
-await App.service("unit-tpl").get("pdTask");
+await App.service('unit-tpl').get('pdUnit');
+await App.service('unit-tpl').get('pdTask');
 // get task sys default unit-tpl
-await App.service("unit-tpl").get("task", { query: { curriculum: "au" } });
+await App.service('unit-tpl').get('task', { query: { curriculum: 'au' } });
 // get unit sys default unit-tpl
-await App.service("unit-tpl").get("unit", { query: { curriculum: "au" } });
+await App.service('unit-tpl').get('unit', { query: { curriculum: 'au' } });
 ```
 
 ### unit-tpl api
