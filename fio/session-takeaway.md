@@ -22,7 +22,8 @@ const outline = {
   tags: {type: [String], trim: true},
   code: {type: String, trim: true},
   mark: {type: String, trim: true},
-  score: {type: Number},
+  score: {type: Number}, // 设置的分值
+  point: {type: Number}, // 学生实际得分
   child: [outline, ...],
 }
 ```
