@@ -6,6 +6,7 @@ session: {type: String, required: true}, // session._id
 page: {type: String}, // page._id
 question: {type: String}, // questions._id
 score: {type: Number}, // total score
+point: {type: Number}, // 学生实际得总分
 outlines: {
   outline: {type: Schema.Types.Mixed}, // ppt outlines
   assess: {type: Schema.Types.Mixed}, // ppt assess
