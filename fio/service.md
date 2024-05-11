@@ -387,8 +387,8 @@ await this.service("service-pack-user").buyByOrder({
 ### 用户申请退款后调用
 
 ```js
-// 后端接口内部调用
-await this.service("service-pack-user").refund(servicePackUser._id);
+// 后端接口内部调用, 弃用
+// await this.service("service-pack-user").refund(servicePackUser._id);
 ```
 
 ## 用户预约数据
