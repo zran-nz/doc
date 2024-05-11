@@ -168,6 +168,7 @@ uid: String, // user._id
 nickname: String,
 page: String, // page_id
 type: String, // question.type
+teacherSharing: Boolean, // 老师上传的答案
 content: String,
 answer: [String], // for radio, checkbox
 locked: Boolean, // for radio, checkbox
