@@ -79,7 +79,7 @@ await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
 ```js
 ServiceType: ['workshop', 'content', 'teaching', 'mentoring', 'correcting', 'substituteAcademic', 'substituteService'],
 MentoringType: ['essay', 'academic', 'overseasStudy', 'teacherTraining', 'steam'], // professionalDevelopment, subject
-ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident']
+ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident', 'gift']
 ```
 
 ### service-auth model
