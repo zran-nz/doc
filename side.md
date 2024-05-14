@@ -29,7 +29,8 @@
 - [Service](fio/service.md ":include")
 - [UserNoticeSetting](fio/user-notice-setting.md ":include")
 - [Poster](fio/poster.md ":include")
-- [Teaching-Accident](fio/teaching-accident.md.md ":include")
+- [Teaching-Accident](fio/teaching-accident.md ":include")
+- [Commission-Setting](fio/commission-setting.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
