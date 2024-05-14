@@ -104,9 +104,6 @@ servicePack: { // 捆绑的服务包
 // for service booking
 booking: {type: String}, // service-booking._id 学生的预约
 income: {type: Number, default: 0}, //收入总计,单位分
-
-// for takeaway
-comment: {type: String, trim: true}, // total comment
 ```
 
 ### type
