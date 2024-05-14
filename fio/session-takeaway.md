@@ -2,10 +2,10 @@
 
 ```mermaid
 graph TD
-    A[(Session)] -->|课堂结束| S(创建一次性快照)
-    S -->|一次性生成| SA(session-snapshot<br>课堂快照数据)
-    S -.->|每个学生独立生成| SS(session-takeaway-snapshot<br>每个学生的课堂数据)
-    SA -->|打分| T(session-takeaway<br>学生得分数据)
+    A[(Session)] -->|课堂结束| S[创建一次性快照]
+    S -->|一次性生成| SA[(session-snapshot<br>课堂快照数据)]
+    S -.->|每个学生独立生成| SS[(session-takeaway-snapshot<br>每个学生的课堂数据)]
+    SA -->|打分| T[(session-takeaway<br>学生得分数据)]
     SS -->|打分| T
     TU[老师拍照上传] -.->|没有答案的学生数据<br>response| SS
     SS -.->|给学生回答评论<br>comments| SS
