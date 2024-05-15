@@ -30,7 +30,8 @@
 - [UserNoticeSetting](fio/user-notice-setting.md ":include")
 - [Poster](fio/poster.md ":include")
 - [Teaching-Accident](fio/teaching-accident.md ":include")
-- [Reward](fio/reward.md ":include")
+- [Commission](fio/commission.md ":include")
+- [Point](fio/point.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
