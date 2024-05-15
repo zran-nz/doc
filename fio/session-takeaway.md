@@ -48,6 +48,7 @@ page: {type: String}, // page._id
 question: {type: String}, // questions._id
 score: {type: Number}, // total score
 point: {type: Number}, // 学生实际得总分
+points: {type: Schema.Types.Mixed}, // 实际得分哈希表
 outlines: {
   outline: {type: Schema.Types.Mixed}, // ppt outlines
   assess: {type: Schema.Types.Mixed}, // ppt assess
