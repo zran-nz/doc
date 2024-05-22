@@ -430,6 +430,7 @@ reminderBooked: {type: Number, default: 0}, // 开课前12小时提醒,0: 待提
 accident: {
   id: {type: String}, //teaching-accident._id
   status: {type: String, enum: ['pending', 'approved', 'rejected']}, // 教学事故状态
+  tags: {type: [String]}, // 标签
 }
 ```
 
