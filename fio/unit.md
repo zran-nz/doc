@@ -15,6 +15,7 @@
   uid: String,
   name: String,
   del: Boolean, // archive status
+  orderId: {type: String}, // order._id, 购买的订单id, 存在就是购买的课件
   guest: Boolean, // allow guest view
   status: Boolean, // has remove
   subjects: [{ // publish subjects
@@ -246,19 +247,19 @@ tpl: {
 
 ```js
 // create
-const doc = await App.service('unit-tpl-user').create({
-    school: schoolIdOrUserId,
-    name: '',
-    curriculum: 'curric._id 自定义大纲的_id',
+const doc = await App.service("unit-tpl-user").create({
+  school: schoolIdOrUserId,
+  name: "",
+  curriculum: "curric._id 自定义大纲的_id",
 });
 // get
-const doc = await App.service('unit-tpl-user').get(doc._id);
+const doc = await App.service("unit-tpl-user").get(doc._id);
 // list
-const list = await App.service('unit-tpl-user').find({
-    query: { school: schoolIdOrUserId },
+const list = await App.service("unit-tpl-user").find({
+  query: { school: schoolIdOrUserId },
 });
 // remove
-const doc = await App.service('unit-tpl-user').remove(doc._id);
+const doc = await App.service("unit-tpl-user").remove(doc._id);
 ```
 
 ### unit-tpl model
@@ -291,12 +292,12 @@ const doc = await App.service('unit-tpl-user').remove(doc._id);
 
 ```js
 // get pd default unit-tpl
-await App.service('unit-tpl').get('pdUnit');
-await App.service('unit-tpl').get('pdTask');
+await App.service("unit-tpl").get("pdUnit");
+await App.service("unit-tpl").get("pdTask");
 // get task sys default unit-tpl
-await App.service('unit-tpl').get('task', { query: { curriculum: 'au' } });
+await App.service("unit-tpl").get("task", { query: { curriculum: "au" } });
 // get unit sys default unit-tpl
-await App.service('unit-tpl').get('unit', { query: { curriculum: 'au' } });
+await App.service("unit-tpl").get("unit", { query: { curriculum: "au" } });
 ```
 
 ### unit-tpl api
