@@ -22,7 +22,7 @@
 await App.service('manager').create({ name: ['first name', 'last name'], email: email, role: role });
 
 // 第一次进入后台
-await App.service('manager').get('update', { query: { uid: user._id, status: 2 } });
+await App.service('manager').get('join', { query: { uid: user._id, status: 2, avatar: avatar } });
 
 // 删除
 await App.service('manager').remove(manager._id);
