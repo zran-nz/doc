@@ -32,6 +32,7 @@
 - [Teaching-Accident](fio/teaching-accident.md ":include")
 - [Commission](fio/commission.md ":include")
 - [Point](fio/point.md ":include")
+- [Manager](fio/manager.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
