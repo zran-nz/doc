@@ -185,3 +185,22 @@ const questions = await App.service("template").create({
   category: "$templateCategory",
 });
 ```
+
+### 谷歌幻灯片相关接口, 需要谷歌 ppt 权限逻辑
+
+```js
+// 创建ppt
+App.service("slides").get("createSlide", { query: { task, name, sid } });
+// 下载ppt原件
+App.service("slides").get("slideToS3", { query: { id, uid, google } });
+// 同步ppt
+App.service("slides").get("syncSlide", { query: { id, taskId, google } });
+// 复制课件
+App.service("unit").patch("copy", { _id, orderId, name, isLink });
+// 发布课件
+App.service("unit").patch("publish", { _id });
+// 排课
+App.service("session").create({...});
+// 拉新课程
+App.service("session").get('pull', {_id});
+```
