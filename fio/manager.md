@@ -26,4 +26,7 @@ await App.service('manager').get('join', { query: { uid: user._id, status: 2, av
 
 // 删除
 await App.service('manager').remove(manager._id);
+
+// 发送邀请邮件
+await App.service('manager').get('inviteEmail', { query: { email: email } });
 ```
