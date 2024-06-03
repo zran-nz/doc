@@ -53,11 +53,17 @@ App.service('school-user').patch(_id, {
   $pull: {subject: 'curriculumCode:subjectCode'},
   $unset: {`subjectGrade.${subjectKey}`: ''}
 })
+
 ```
 
 ### 通过链接申请加入学校
 
 ```js
+// 检查当前账号是否存在学校列表中
+await App.service("school-user").get("checkExists", {
+  query: { school: "..." },
+});
+// 申请加入学校
 await App.service("school-user").get("apply", {
   query: { school, name: ["first name", "last name"], avatar },
 });
