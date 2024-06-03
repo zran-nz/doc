@@ -37,6 +37,7 @@ session: {type: String, required: true}, // session._id
 uid: {type: String, required: true}, // users._id for student user
 response: {type: [Schema.Types.Mixed]}, // rooms student answer, response snapshot
 comments: {type: [Schema.Types.Mixed]}, // rooms feedback, comments snapshot
+hash: {type: String, required: true}, // hash = Acan.SHA1([...分值,评论等].join(''))
 ```
 
 ### session-takeaway model
