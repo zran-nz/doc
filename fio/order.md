@@ -108,9 +108,10 @@
  * }
  * cart:array optional
  * promotion:boolean optional
+ * inviter:string optional
  * isPoint:boolean optional 积分购买/现金购买可不填
  */
-await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id], promotion: false, isPoint: true });
+await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id], promotion: false, isPoint: true, inviter: inviteCode });
 
 // 订单列表 all
 await App.service('order').find();
