@@ -91,6 +91,7 @@
   paidAt: {type: Date},
   reminder: {type: Number, default: 0}, // 未支付提醒,0: 待提醒，1: 超时前15min已提醒
   inviter: {type: String, trim: true}, //邀请人
+  isPoint: {type: Boolean, default: false}, //积分购买
 },
 ```
 
@@ -107,8 +108,9 @@
  * }
  * cart:array optional
  * promotion:boolean optional
+ * isPoint:boolean optional 积分购买/现金购买可不填
  */
-await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id], promotion: false });
+await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id], promotion: false, isPoint: true });
 
 // 订单列表 all
 await App.service('order').find();

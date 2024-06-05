@@ -9,7 +9,8 @@
   name: {type: [String], trim: true}, // [first name, last name]
   nickname: {type: String, trim: true},
   avatar: {type: String, trim: true},
-  role: {type: String, trim: true, enum: Agl.usersManagerRoles}, // 代理/销售等待定 ['agent']
+  // usersManagerRoles: ['admin', 'academic_consultant', 'sales_manager', 'sales', 'customer_service_manager', 'customer_service', 'accountant', 'agent']
+  role: {type: String, trim: true, enum: Agl.usersManagerRoles},
   status: {type: Number, default: 0}, // 0: inactive, 1: pending, 2: success
   del: {type: Boolean, default: false}, // del
 }
