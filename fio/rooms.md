@@ -30,9 +30,11 @@ teachers: [{ // 进入过课堂的老师列表
 
 ### Rooms API
 
+> 通过课堂短 sid 查询 room
+
 ```js
 // get rooms
-const doc = await App.service("rooms").get("rooms._id or session id");
+const doc = await App.service("rooms").get("rooms._id or session.sid");
 ```
 
 #### students join room only once
@@ -46,14 +48,6 @@ const doc = await App.service("rooms").patch("joinRoom", { _id: "rooms._id" });
 ```js
 const doc = await App.service("rooms").patch("joinRoomTeacher", {
   _id: "rooms._id",
-});
-```
-
-### 通过课堂短 sid 查询 room
-
-```js
-const roomDoc = await App.service("rooms").get("bySid", {
-  query: { sid: "session.sid" },
 });
 ```
 
