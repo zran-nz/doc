@@ -819,5 +819,13 @@ await App.service("session").patch("newPrompt", {
       data?: 'url' // website 传url
     },
   ],
+  materialsList: [{
+    _id: '', // service-pack.attachments._id
+    type: '', // youtube or service-pack.attachments.mime.split('/')[0] (mime只取类型)
+    desc: '', // youtube video name or service-pack.attachments.filename
+    key: '', // for file, service-pack.attachments.hash
+    url: '', // for youtube
+    size: 0,
+  }]
 });
 ```
