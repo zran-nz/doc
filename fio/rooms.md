@@ -49,6 +49,14 @@ const doc = await App.service("rooms").patch("joinRoomTeacher", {
 });
 ```
 
+### 通过课堂短 sid 查询 room
+
+```js
+const roomDoc = await App.service("rooms").get("bySid", {
+  query: { sid: "session.sid" },
+});
+```
+
 ### 学生/老师 上线离线接口
 
 ```js
