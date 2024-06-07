@@ -30,4 +30,7 @@ await App.service('manager').remove(manager._id);
 
 // 发送邀请邮件
 await App.service('manager').get('inviteEmail', { query: { id: manager._id } });
+
+// 修改管理身份
+await App.service('manager').patch(manager._id, { role: role, status: 0 });
 ```
