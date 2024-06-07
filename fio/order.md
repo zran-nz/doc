@@ -28,11 +28,16 @@
       hash: {type: String},
       cover: {type: String},
       price: {type: Number},
-      style: {type: String}, //unit session
+      point: {type: Number},
+      style: {type: String}, //unit session service
       goods: {type: Object}, //下单时商品快照
       sessionId: {type: Object}, //捆绑服务包的公开课_id
-      count: {type: Object}, //服务包次数
+      count: {type: Object}, //服务包次数 不包含赠送次数
+      gift: {type: Boolean}, // 是否赠品/推广
+      giftCount: {type: Number, default: 0}, // 赠送次数
       removed: {type: Boolean}, //支付前 被下架或删除
+      inviter: {type: String, trim: true}, //分享人
+      archived: {type: Boolean, default: false}, //archived and deleted
     },
   ],
   /**
@@ -59,6 +64,7 @@
    */
   type: {type: String, enum: ['unit', 'session_public', 'session_self_study', 'session_service_pack', 'service_pack']},
   price: {type: Number}, // Unit cent 支付金额(现金+gift card)
+  point: {type: Number}, // 支付积分
   // subtotal: {type: Number}, // Unit cent 商品总金额 后续增加
   // cash: {type: Number}, // Unit cent 现金支付 后续增加
   // giftCard: { type: Number }, // Unit cent gift card 支付 后续增加
@@ -66,7 +72,7 @@
 
   payMethod: {type: Array}, // 支付方式 paypal, windcave, giftCard, braintree
   paid: {type: Number, default: 0}, // 支付状态 0未支付 1已支付 2已退款
-  paypalId: {type: String}, // paypal支付号 弃用
+  paypalId: {type: String}, // paypal支付号
   braintreeId: {type: String}, // Braintree支付号
   /**
    * 支付信息 paymentInfo
@@ -90,8 +96,9 @@
   ], // 退款详情
   paidAt: {type: Date},
   reminder: {type: Number, default: 0}, // 未支付提醒,0: 待提醒，1: 超时前15min已提醒
-  inviter: {type: String, trim: true}, //邀请人
+  inviter: {type: String, trim: true}, //分享人
   isPoint: {type: Boolean, default: false}, //积分购买
+  isSeparated: {type: Boolean, default: false}, //积分/佣金是否已分账
 },
 ```
 

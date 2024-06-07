@@ -99,3 +99,10 @@ await App.service("session-takeaway-snapshot").patch(_id, {$addToSet: {comments:
 ```js
 await App.service("session-snapshot").patch(_id, { comment: "..." });
 ```
+
+### 老师在takeaway页面点击发送将最新takeaway发送时,Inform parents to view takeaway
+
+```js
+await App.service('session-takeaway-snapshot').get('informParents', { query: { _id: 'session-takeaway-snapshot._id' } });
+
+```
