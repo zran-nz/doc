@@ -110,6 +110,9 @@ const {
   school: '', email: {$in: ['email', ...]}
 }})
 
+```
+
+```js
 // 关闭提示
-App.service('school-user').patch(_id, { $set: {closeAlert: true}})
+App.service('school-user').patch(_id, { $set: { closeAlert: true } });
 ```
