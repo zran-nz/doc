@@ -18,6 +18,7 @@
   subjectGrade: { [code]: [...'grade1'], ... }
   status: Number, // 0: inactive, 1: pending, 2: success
   del: Boolean, // del
+  closeAlert: {type: Boolean, default: false}, // 关闭显示弹框提示,进入特殊学校
 }
 ```
 
@@ -60,34 +61,34 @@ App.service('school-user').patch(_id, {
 
 ```js
 // 检查当前账号是否存在学校列表中
-await App.service("school-user").get("checkExists", {
-  query: { school: "..." },
+await App.service('school-user').get('checkExists', {
+    query: { school: '...' },
 });
 // 申请加入学校
-await App.service("school-user").get("apply", {
-  query: { school, name: ["first name", "last name"], avatar },
+await App.service('school-user').get('apply', {
+    query: { school, name: ['first name', 'last name'], avatar },
 });
 ```
 
 ### get school user info
 
 ```js
-await App.service("school-user").get("info", {
-  query: { school: pub.user.schoolInfo._id, email: pub.user.email },
+await App.service('school-user').get('info', {
+    query: { school: pub.user.schoolInfo._id, email: pub.user.email },
 });
 ```
 
 ### 获取用户已加入的学校列表
 
 ```js
-await App.service("school-user").get("schoolList");
+await App.service('school-user').get('schoolList');
 ```
 
 ### get school user classList
 
 ```js
-await App.service("school-user").get("classList", {
-  query: { school: pub.user.schoolInfo._id },
+await App.service('school-user').get('classList', {
+    query: { school: pub.user.schoolInfo._id },
 });
 ```
 
@@ -108,4 +109,7 @@ const {
 } = await App.service('school-user').get('checkEmails', { query: {
   school: '', email: {$in: ['email', ...]}
 }})
+
+// 关闭提示
+App.service('school-user').patch(_id, { $set: {closeAlert: true}})
 ```
