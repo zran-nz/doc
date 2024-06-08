@@ -19,6 +19,8 @@
   status: Number, // 0: inactive, 1: pending, 2: success
   del: Boolean, // del
   closeAlert: {type: Boolean, default: false}, // 关闭显示弹框提示,进入特殊学校
+  pipelineEnable: {type: Boolean, default: false}, // 销售渠道
+  contentProviderEnable: {type: Boolean, default: false}, // 内容供应商
 }
 ```
 
@@ -112,7 +114,19 @@ const {
 
 ```
 
+### 关闭提示
+
 ```js
 // 关闭提示
-App.service('school-user').patch(_id, { $set: { closeAlert: true } });
+App.service('school-user').patch(_id, { closeAlert: true });
+```
+
+### 销售渠道/内容供应商
+
+```js
+// 关闭销售渠道,关闭会自动发送邮件
+App.service('school-user').patch(_id, { pipelineEnable: false });
+
+// 关闭内容供应商,关闭会自动发送邮件
+App.service('school-user').patch(_id, { contentProviderEnable: false });
 ```
