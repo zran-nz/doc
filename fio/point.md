@@ -37,11 +37,12 @@ await App.service('point-setting').remove(_id);
 ```js
 {
   uid: {type: String, required: true},
-  tab: {type: String, enum: ['earn', 'claim']}, //类目1 earn:获取积分 claim:兑换积分
+  tab: {type: String, enum: ['earn', 'claim']}, //类目1 earn:增加 claim:减少
   category: {type: String, required: true}, //类目2
   categoryType: {type: String}, //类目3
   value: {type: Number, required: true}, //本次结算的积分
   total: {type: Number, required: true}, //本次结算后的总积分
   businessId: {type: String}, //业务相关id,比如order._id user._id
+  snapshot: {type: Object}, //业务快照
 }
 ```
