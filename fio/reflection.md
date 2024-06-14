@@ -1,23 +1,51 @@
 ## Reflection
 
+### enum
+
+```js
+reflectionMode: ['refl', 'comment'],
+reflectionVisible: ['all', 'school', 'private'],
+```
+
 ### Reflection model
 
 ```js
 {
+  mode: {type: String, enum: Agl.reflectionMode, default: 'refl'},
+  uid: {type: String, required: true}, // pub.user._id
+  pid: {type: String, trim: true}, // parent reflection._id
+  to: {type: [String], sparse: true}, // parent user._id + uid
+  public: {type: Boolean, default: true}, // snapshot to library
+  unit: {type: String, required: true}, // unit._id
+  rkey: {type: String, required: true}, // unit.key or ext.tag._id
+  session: {type: String, required: true}, // 关联 session._id
+  school: {type: String, sparse: true, trim: true}, // 关联学校 pub.user.schoolInfo._id
+  classId: {type: String, required: true}, // 关联班级 classes._id
+  content: {type: String, required: true, trim: true}, // attachment
+  attach: {type: [String]}, // file._id
+  visible: {type: String, enum: Agl.reflectionVisible},
   createdAt: Date, // create time
   updatedAt: Date, // update time
   mode: String, // ['refl', 'comment']
-  school: String, // pub.user.schoolInfo._id
   uid: String, // pub.user._id
   pid?: String, // parent reflection._ids
   to: [String], // parent user._id + uid
-  public: Boolean, // snapshot to library
+  public: Boolean, // snapshot to library, 设为 true 会发布到 library
   unit: String, // unit._id
   rkey: String, // unit.key or ext.tag._id
+  session: {type: String, required: true}, // 关联 session._id
+  school: {type: String, sparse: true, trim: true}, // 关联学校 pub.user.schoolInfo._id
+  classId: {type: String, required: true}, // 关联班级 classes._id
   content: String, // attachment
   attach: [String], // file._id
   visible: String, // ['all', 'school', 'private']
 }
+
+// private comment, public: {to: null}, public+private: {to: user._id}
+
+公开的数据: uid
+私信的数据: uid, to: [sender, recver]
+
 ```
 
 ### 获取公开的数据
@@ -25,7 +53,7 @@
 ```js
 // batch get public list by unit._id
 const list = await App.service("reflection").find({
-  query: { mode: "refl", unit: "unit._id", to: { $exists: false } },
+  query: { mode: "refl", unit: "unit._id", to: null },
 });
 ```
 
@@ -34,7 +62,7 @@ const list = await App.service("reflection").find({
 ```js
 // batch get public + private list by unit._id
 const list = await App.service("reflection").find({
-  query: { mode: "refl", unit: "unit._id", to: pub.user._id },
+  query: { mode: "refl", unit: "unit._id", to: { $in: [null, pub.user._id] } },
 });
 ```
 
@@ -53,12 +81,15 @@ await App.service("reflection").remove(doc._id);
 // create reflection or comment
 const doc = await App.service("reflection").create({
   mode: "refl|comment",
-  school,
-  pid,
-  unit,
+  pid?, // 关联回复
+  unit, // 关联课件
   rkey,
   content,
-  attach,
+  attach?,
+  session?, // 所有排课 产生的数据
+  school?, // 学校身份排课 产生的数据
+  classId?, // 班级下排课 产生的数据
+
 });
 ```
 
@@ -67,14 +98,8 @@ const doc = await App.service("reflection").create({
 ```js
 // create private comment
 const doc = await App.service("reflection").create({
-  mode: "refl|comment",
-  school,
-  pid,
-  unit,
-  rkey,
-  content,
-  attach,
-  to: [pub.user._id, comment.uid],
+  ... // 同创建接口
+  to: [pub.user._id, comment.uid], // 发送人+接受人
 });
 ```
 
