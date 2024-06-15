@@ -57,6 +57,17 @@ const list = await App.service("reflection").find({
 });
 ```
 
+### 获取私信给我的数据
+
+> 如果过了 classId, session 等条件，私信数据需要独立获取再合并
+
+```js
+// batch get public + private list by unit._id
+const list = await App.service("reflection").find({
+  query: { mode: "refl", unit: "unit._id", to: pub.user._id },
+});
+```
+
 ### 更新/删除 reflection or comment
 
 ```js
