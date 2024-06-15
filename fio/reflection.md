@@ -42,6 +42,10 @@ updatedAt: Date, // update time
 const list = await App.service("reflection").find({
   query: { mode: "refl", unit: "unit._id", to: null },
 });
+// 过滤班级下
+query.classId = "";
+// 过滤session下
+query.session = "";
 ```
 
 ### 获取公开+私信给我的数据
@@ -72,11 +76,11 @@ const doc = await App.service("reflection").create({
   unit, // 关联课件
   rkey,
   content,
+  public: false, // 是否公开数据，发布到library
   attach?,
   session?, // 所有排课 产生的数据
   school?, // 学校身份排课 产生的数据
   classId?, // 班级下排课 产生的数据
-
 });
 ```
 
