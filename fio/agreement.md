@@ -6,6 +6,22 @@
 {
   name: {type: String, required: true},
   type: {type: String, required: true, enum: ['all_users', 'service_provider', 'agents', 'education_consultants', 'schools']},
+  mode: {
+  type: String,
+  required: true,
+  enum: [
+    'privacy',
+    'terms_and_conditions',
+    'cancellation',
+    'points_redemption',
+    'verification',
+    'premium_content',
+    'agents',
+    'consultation',
+    'pipeline',
+    'content_provider',
+  ],
+},
   contract: [
     {
       content: {type: String},
