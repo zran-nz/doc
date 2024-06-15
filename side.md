@@ -34,6 +34,7 @@
 - [Commission](fio/commission.md ":include")
 - [Point](fio/point.md ":include")
 - [Manager](fio/manager.md ":include")
+- [Agreement](fio/agreement.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
