@@ -10,42 +10,29 @@ reflectionVisible: ['all', 'school', 'private'],
 ### Reflection model
 
 ```js
-{
-  mode: {type: String, enum: Agl.reflectionMode, default: 'refl'},
-  uid: {type: String, required: true}, // pub.user._id
-  pid: {type: String, trim: true}, // parent reflection._id
-  to: {type: [String], sparse: true}, // parent user._id + uid
-  public: {type: Boolean, default: true}, // snapshot to library
-  unit: {type: String, required: true}, // unit._id
-  rkey: {type: String, required: true}, // unit.key or ext.tag._id
-  session: {type: String, required: true}, // 关联 session._id
-  school: {type: String, sparse: true, trim: true}, // 关联学校 pub.user.schoolInfo._id
-  classId: {type: String, required: true}, // 关联班级 classes._id
-  content: {type: String, required: true, trim: true}, // attachment
-  attach: {type: [String]}, // file._id
-  visible: {type: String, enum: Agl.reflectionVisible},
-  createdAt: Date, // create time
-  updatedAt: Date, // update time
-  mode: String, // ['refl', 'comment']
-  uid: String, // pub.user._id
-  pid?: String, // parent reflection._ids
-  to: [String], // parent user._id + uid
-  public: Boolean, // snapshot to library, 设为 true 会发布到 library
-  unit: String, // unit._id
-  rkey: String, // unit.key or ext.tag._id
-  session: {type: String, required: true}, // 关联 session._id
-  school: {type: String, sparse: true, trim: true}, // 关联学校 pub.user.schoolInfo._id
-  classId: {type: String, required: true}, // 关联班级 classes._id
-  content: String, // attachment
-  attach: [String], // file._id
-  visible: String, // ['all', 'school', 'private']
-}
+mode: {type: String, enum: Agl.reflectionMode, default: 'refl'},
+uid: {type: String, required: true}, // pub.user._id
+pid: {type: String, trim: true}, // parent reflection._id
+to: {type: [String], sparse: true}, // parent user._id + uid
+public: {type: Boolean, default: true}, // snapshot to library
+unit: {type: String, required: true}, // unit._id
+rkey: {type: String, required: true}, // unit.key or ext.tag._id
+session: {type: String, required: true}, // 关联 session._id
+school: {type: String, sparse: true, trim: true}, // 关联学校 pub.user.schoolInfo._id
+classId: {type: String, required: true}, // 关联班级 classes._id
+content: {type: String, required: true, trim: true}, // attachment
+attach: {type: [String]}, // file._id
+visible: {type: String, enum: Agl.reflectionVisible},
+createdAt: Date, // create time
+updatedAt: Date, // update time
 
 // private comment, public: {to: null}, public+private: {to: user._id}
-
-公开的数据: uid
-私信的数据: uid, to: [sender, recver]
-
+公开的数据: uid, public: true
+私信的数据: uid, public: false, to: [sender, recver]
+公开，班级下数据: uid, public: true, classId
+非公开，班级下数据: uid, public: false, classId
+公开，排课的数据: uid, public: true, session
+非公开，排课的数据: uid, public: false, session
 ```
 
 ### 获取公开的数据
