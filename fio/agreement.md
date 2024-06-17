@@ -30,6 +30,9 @@
 ### agreement api
 
 ```js
-// 创建/更新
-await App.service('agreement').get('update', { query: { type: 'type', mode: 'mode', content: 'content' } });
+// 创建
+await App.service('agreement').create({ type: 'type', mode: 'mode', content: 'content' });
+
+// find current
+await App.service('agreement').find({ query: { type: 'type', mode: 'mode', $sort: { createdAt: -1 }, $limit: 1 } });
 ```
