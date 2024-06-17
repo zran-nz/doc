@@ -21,13 +21,9 @@
       'pipeline',
       'content_provider',
     ],
-},
-  contract: [
-    {
-      content: {type: String},
-      createdAt: {type: Date},
-    },
-  ],
+  },
+  content: {type: String},
+  status: {type: Number, default: 1}, // 0: archived, 1: current
 }
 ```
 
