@@ -40,21 +40,12 @@ updatedAt: Date, // update time
 ```js
 // batch get public list by unit._id
 const list = await App.service("reflection").find({
-  query: { mode: "refl", unit: "unit._id", to: null },
+  query: { mode: "refl", unit: "unit._id", to: [] },
 });
 // 过滤班级下
 query.classId = "";
 // 过滤session下
 query.session = "";
-```
-
-### 获取公开+私信给我的数据
-
-```js
-// batch get public + private list by unit._id
-const list = await App.service("reflection").find({
-  query: { mode: "refl", unit: "unit._id", to: { $in: [null, pub.user._id] } },
-});
 ```
 
 ### 获取私信给我的数据
