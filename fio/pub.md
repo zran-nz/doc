@@ -61,6 +61,7 @@ timeZone: String, // 时区文案 Intl.DateTimeFormat().resolvedOptions().timeZo
 tz: Number, // 时区分钟， new Date().getTimezoneOffset()
 ip: String, // reg ip
 last: Date, // last login time
+emergencyContact: {type: String, trim: true, sparse: true}, // E.164 format, maximum of 15 digits, +1001XXX5550100, +440201234567 => +44201234567
 // for tearcher
 tearcherExt: {
   curriculum: [String],
@@ -91,21 +92,21 @@ point: {type: Number, default: 0}, // 积分
 
 ```js
 // 检测账号是否存在, mobile, email 二选一
-await App.service('users').get('checkAccount', { query: { email, mobile } });
+await App.service("users").get("checkAccount", { query: { email, mobile } });
 
 // 获取验证码, mobile, email 二选一
-await App.service('users').get('captcha', { query: { email, mobile } });
+await App.service("users").get("captcha", { query: { email, mobile } });
 
 // 创建账号 mobile, email 二选一
-await App.service('users').create({
-    mobile: '+1123123123', // E.164 format, maximum of 15 digits, +11XXX5550100, +440201234567 => +44201234567
-    countryCode: 'AU', // 国家代码 AU,NZ,US... /fio/conf/CountryCodes
-    email: '',
-    captcha: '',
-    password: 'new password',
-    roles: ['student'], // ['student', 'teacher']
-    lang: navigator.language,
-    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+await App.service("users").create({
+  mobile: "+1123123123", // E.164 format, maximum of 15 digits, +11XXX5550100, +440201234567 => +44201234567
+  countryCode: "AU", // 国家代码 AU,NZ,US... /fio/conf/CountryCodes
+  email: "",
+  captcha: "",
+  password: "new password",
+  roles: ["student"], // ['student', 'teacher']
+  lang: navigator.language,
+  timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 });
 
 // 登录
@@ -116,14 +117,14 @@ AppLocalLogin(email / mobile, password);
 
 ```js
 // 获取验证码
-await App.service('users').get('captcha', { query: { email, mobile } });
+await App.service("users").get("captcha", { query: { email, mobile } });
 
 // 设置密码
-await App.service('users').patch('forgetPassword', {
-    mobile: '', // E.164 format
-    email: '', // mobile, email 二选一
-    captcha: '',
-    password: 'new password',
+await App.service("users").patch("forgetPassword", {
+  mobile: "", // E.164 format
+  email: "", // mobile, email 二选一
+  captcha: "",
+  password: "new password",
 });
 ```
 
@@ -131,14 +132,14 @@ await App.service('users').patch('forgetPassword', {
 
 ```js
 // 更新密码
-await App.service('users').patch('changePassword', { oldPassword, password });
+await App.service("users").patch("changePassword", { oldPassword, password });
 ```
 
 ### 验证码检查
 
 ```js
-await App.service('users').get('checkCaptcha', {
-    query: { email, mobile, captcha: '' },
+await App.service("users").get("checkCaptcha", {
+  query: { email, mobile, captcha: "" },
 });
 ```
 
@@ -165,13 +166,13 @@ await App.service('users').patch(user._id, {studentExt: {...}})
 loginGoogleUrl(type, state, prompt);
 
 // 正常登录
-loginGoogleUrl('login', {});
+loginGoogleUrl("login", {});
 // 编辑google ppt授权
-loginGoogleUrl('slide', {});
+loginGoogleUrl("slide", {});
 // 绑定账户
-loginGoogleUrl('login', { uid: 'pub.user.id' });
+loginGoogleUrl("login", { uid: "pub.user.id" });
 // 注册学生账户
-loginGoogleUrl('login', { type: 'signup', role: 'student' });
+loginGoogleUrl("login", { type: "signup", role: "student" });
 // 注册老师账户
-loginGoogleUrl('login', { type: 'signup', role: 'teacher' });
+loginGoogleUrl("login", { type: "signup", role: "teacher" });
 ```
