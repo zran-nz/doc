@@ -34,9 +34,6 @@
 ### agreement api
 
 ```js
-// 创建
-await App.service('agreement').create({ content: '合同内容', type: type, mode: mode });
-
-// 更新
-await App.service('agreement').patch(_id, { content: '合同内容' });
+// 创建/更新
+await App.service('agreement').get('update', { query: { type: 'type', mode: 'mode', content: 'content' } });
 ```
