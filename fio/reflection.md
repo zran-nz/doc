@@ -105,6 +105,19 @@ const doc = await App.service("reflection").create({
 });
 ```
 
+### 切换私信与公开
+
+```js
+// 设置为私信
+const doc = await App.service("reflection").patch(doc._id, {
+  to: [pub.user._id, comment.uid], // 发送人+接受人
+});
+// 设置为公开
+const doc = await App.service("reflection").patch(doc._id, {
+  $unset: { to: "" },
+});
+```
+
 ### 文件信息批量获取
 
 ```js
