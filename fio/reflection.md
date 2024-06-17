@@ -22,7 +22,7 @@ school: {type: String, sparse: true, trim: true}, // 关联学校 pub.user.schoo
 classId: {type: String, required: true}, // 关联班级 classes._id
 content: {type: String, required: true, trim: true}, // attachment
 attach: {type: [String]}, // file._id
-visible: {type: String, enum: Agl.reflectionVisible},
+visible: {type: String, enum: Agl.reflectionVisible}, // 弃用
 createdAt: Date, // create time
 updatedAt: Date, // update time
 
