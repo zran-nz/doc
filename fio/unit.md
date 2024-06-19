@@ -100,8 +100,9 @@
     group?: String,
   }],
   premiumAuth: {type: Boolean, default: false}, // 是否通过精品认证
-  snapshot: Mixed // library publish clone
-  template: Mixed // unit-tpl.data snapshot
+  snapshot: {type: Schema.Types.Mixed}, // library publish clone
+  template: {type: Schema.Types.Mixed}, // unit-tpl.data snapshot
+  reflection: {type: Schema.Types.Mixed}, // 从library购买的课件，继承过来的公共数据，只读，不可修改，#4875
   income: {type: Number, default: 0}, //收入总计,单位分
 }
 ```
