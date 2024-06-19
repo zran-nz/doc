@@ -91,11 +91,15 @@ point: {type: Number, default: 0}, // 积分
 ### 注册账号
 
 ```js
-// 检测账号是否存在, mobile, email 二选一
-await App.service("users").get("checkAccount", { query: { email, mobile } });
+// 检测账号是否存在, mobile, email, emergencyContact 选一
+await App.service("users").get("checkAccount", {
+  query: { email, mobile, emergencyContact },
+});
 
-// 获取验证码, mobile, email 二选一
-await App.service("users").get("captcha", { query: { email, mobile } });
+// 获取验证码, mobile, email, emergencyContact 选一
+await App.service("users").get("captcha", {
+  query: { email, mobile, emergencyContact },
+});
 
 // 创建账号 mobile, email 二选一
 await App.service("users").create({
@@ -117,7 +121,9 @@ AppLocalLogin(email / mobile, password);
 
 ```js
 // 获取验证码
-await App.service("users").get("captcha", { query: { email, mobile } });
+await App.service("users").get("captcha", {
+  query: { email, mobile, emergencyContact },
+});
 
 // 设置密码
 await App.service("users").patch("forgetPassword", {
@@ -139,7 +145,7 @@ await App.service("users").patch("changePassword", { oldPassword, password });
 
 ```js
 await App.service("users").get("checkCaptcha", {
-  query: { email, mobile, captcha: "" },
+  query: { email, mobile, emergencyContact, captcha: "" },
 });
 ```
 
@@ -147,7 +153,7 @@ await App.service("users").get("checkCaptcha", {
 
 ```js
 // 获取验证码
-await App.service('users').get('captcha', {query: {email, mobile}})
+await App.service('users').get('captcha', {query: {email, mobile, emergencyContact}})
 
 // 更新邮箱
 await App.service('users').patch(user._id, {captcha, email})
