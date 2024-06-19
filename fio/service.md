@@ -355,6 +355,8 @@ logs: [{ // 使用记录
   },
   updatedAt: {type: Date}
 }],
+point: {type: Number}, // 订单支付积分
+isPoint: {type: Boolean, default: false}, // 现金购买/积分购买
 ```
 
 ### 用户已购买的服务包接口
