@@ -110,6 +110,7 @@ attachments: [{ // 附件
   hash: {type: String, trim: true}, // 文件SHA1, files._id
 }],
 reason: {type: String, trim: true}, // 原因
+inviter: {type: String, trim: true}, //分享人
 ```
 
 ### 服务认证接口（仅限当前用户）
