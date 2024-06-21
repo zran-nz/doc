@@ -19,10 +19,6 @@
   status: Number, // 0: inactive, 1: pending, 2: success
   del: Boolean, // del
   closeAlert: {type: Boolean, default: false}, // 关闭显示弹框提示,进入特殊学校
-  pipelineStatus: {type: Number, default: 0}, // 销售渠道 0: inactive, 1: pending, 2: success
-  pipelineAt: {type: Date}, //同意时间
-  contentProviderStatus: {type: Number, default: 0}, // 内容供应商 0: inactive, 1: pending, 2: success
-  contentProviderAt: {type: Date}, //同意时间
 }
 ```
 
@@ -121,18 +117,4 @@ const {
 ```js
 // 关闭提示
 App.service('school-user').patch(_id, { closeAlert: true });
-```
-
-### 销售渠道/内容供应商
-
-```js
-// 关闭销售渠道,关闭会自动发送邮件
-App.service('school-user').patch(_id, { pipelineStatus: 0 });
-// 通过销售渠道
-App.service('school-user').patch(_id, { pipelineStatus: 2 });
-
-// 关闭内容供应商,关闭会自动发送邮件
-App.service('school-user').patch(_id, { contentProviderStatus: 0 });
-// 通过内容供应商
-App.service('school-user').patch(_id, { contentProviderStatus: 2 });
 ```

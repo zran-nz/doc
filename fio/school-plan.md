@@ -26,6 +26,10 @@
   personal: {type: Boolean, default: false},
   commissionEnable: {type: Boolean, default: false}, //佣金开关
   inviter: {type: String, trim: true}, //邀请我的人
+  pipelineStatus: {type: Number, default: 0}, // 销售渠道 0: inactive, 1: pending, 2: success
+  pipelineAt: {type: Date}, //同意时间
+  contentProviderStatus: {type: Number, default: 0}, // 内容供应商 0: inactive, 1: pending, 2: success
+  contentProviderAt: {type: Date}, //同意时间
 }
 ```
 
@@ -37,4 +41,15 @@ await App.service('school-plan').get('pipelineEmail', { query: { id: 'school-pla
 
 // 向学校管理员发送Content provider邀请成为内容供应商的邮件
 await App.service('school-plan').get('contentEmail', { query: { id: 'school-plan._id' } });
+
+### 销售渠道/内容供应商
+// 关闭销售渠道,关闭会自动发送邮件
+App.service('school-plan').patch(_id, { pipelineStatus: 0 });
+// 通过销售渠道
+App.service('school-plan').patch(_id, { pipelineStatus: 2 });
+
+// 关闭内容供应商,关闭会自动发送邮件
+App.service('school-plan').patch(_id, { contentProviderStatus: 0 });
+// 通过内容供应商
+App.service('school-plan').patch(_id, { contentProviderStatus: 2 });
 ```
