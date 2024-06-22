@@ -44,14 +44,14 @@ await App.service('school-plan').get('pipelineEmail', { query: { id: 'school-pla
 // 向学校管理员发送Content provider邀请成为内容供应商的邮件
 await App.service('school-plan').get('contentEmail', { query: { id: 'school-plan._id' } });
 
-### 销售渠道/内容供应商
+// 销售渠道/内容供应商
 // 关闭销售渠道,关闭会自动发送邮件
-App.service('school-plan').patch(_id, { pipelineStatus: 0 });
+App.service('school-plan').patch(_id, { pipelineStatus: 0, pipelineEnable: false });
 // 通过销售渠道
-App.service('school-plan').patch(_id, { pipelineStatus: 2 });
+App.service('school-plan').patch(_id, { pipelineStatus: 2, pipelineEnable: true });
 
 // 关闭内容供应商,关闭会自动发送邮件
-App.service('school-plan').patch(_id, { contentProviderStatus: 0 });
+App.service('school-plan').patch(_id, { contentProviderStatus: 0, contentProviderEnable: false });
 // 通过内容供应商
-App.service('school-plan').patch(_id, { contentProviderStatus: 2 });
+App.service('school-plan').patch(_id, { contentProviderStatus: 2, contentProviderEnable: true });
 ```
