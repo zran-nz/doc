@@ -26,8 +26,10 @@
   personal: {type: Boolean, default: false},
   commissionEnable: {type: Boolean, default: false}, //佣金开关
   inviter: {type: String, trim: true}, //邀请我的人
+  pipelineEnable: {type: Boolean, default: false}, // 销售渠道 系统开关
   pipelineStatus: {type: Number, default: 0}, // 销售渠道 0: inactive, 1: pending, 2: success
   pipelineAt: {type: Date}, //同意时间
+  contentProviderEnable: {type: Boolean, default: false}, // 内容供应商 系统开关
   contentProviderStatus: {type: Number, default: 0}, // 内容供应商 0: inactive, 1: pending, 2: success
   contentProviderAt: {type: Date}, //同意时间
 }
