@@ -115,6 +115,7 @@ attachments: [{ // 附件
 versionId: {type: String, trim: true}, // 版本 #4846
 reason: {type: String, trim: true}, // 原因
 inviter: {type: String, trim: true}, //分享人
+qualification: {type: String, trim: true}, // 审核时候选的资质 #4864
 ```
 
 ### 服务认证接口（仅限当前用户）
