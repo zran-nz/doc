@@ -77,7 +77,7 @@ await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
 ### Enum
 
 ```js
-ServiceItems: ['mentoring', 'substitute', 'correcting', 'consultant'],
+ServiceRoles: ['mentoring', 'substitute', 'correcting', 'consultant'],
 ServiceType: ['workshop', 'content', 'teaching', 'mentoring', 'correcting', 'substituteAcademic', 'substituteService'],
 MentoringType: ['essay', 'academic', 'overseasStudy', 'teacherTraining', 'steam'], // professionalDevelopment, subject
 ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident', 'gift'],
@@ -168,7 +168,7 @@ audioTime: {type: Number}, // 音频时长（秒）
 hours: {type: [[Date, Date], ...], required: true}, // 一周服务可用时间段, [[start, end], [Date, Date], ...]
 holiday: {type: [[Date, Date], ...], required: true}, // 假日日期, 格式: [[start, end], [Date, Date], ...]
 enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}:${mentoringType}`]: true, ...}
-serviceItems: {type: [String], enum: Agl.ServiceItems}, // 可以服务的项目 #4586
+serviceRoles: {type: [String], enum: Agl.ServiceRoles}, // 可以服务的项目 #4586
 fans: {type: Number, default: 0}, // 收藏的数量
 ```
 
