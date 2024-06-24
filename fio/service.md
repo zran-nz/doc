@@ -242,6 +242,7 @@ countryCode: {type: String, trim: true}, // 国家代码
 curriculum: {type: String, trim: true}, // curriculum.code
 subject: {type: [String], trim: true}, // subjects._id
 gradeGroup: {type: [String], trim: true}, // 年级组
+qualification: {type: String, trim: true}, // 服务包需要的资质
 contentOrientated: { // 主题服务包
   enable: {type: Boolean, default: false}, // type === 'mentoring' 专用
   premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
