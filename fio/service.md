@@ -80,6 +80,8 @@ await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
 ServiceType: ['workshop', 'content', 'teaching', 'mentoring', 'correcting', 'substituteAcademic', 'substituteService'],
 MentoringType: ['essay', 'academic', 'overseasStudy', 'teacherTraining', 'steam'], // professionalDevelopment, subject
 ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident', 'gift']
+ServiceItems: ['mentoring', 'substitute', 'correcting', 'consultant'],
+
 ```
 
 ### service-auth model
@@ -164,6 +166,7 @@ audioTime: {type: Number}, // 音频时长（秒）
 hours: {type: [[Date, Date], ...], required: true}, // 一周服务可用时间段, [[start, end], [Date, Date], ...]
 holiday: {type: [[Date, Date], ...], required: true}, // 假日日期, 格式: [[start, end], [Date, Date], ...]
 enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}:${mentoringType}`]: true, ...}
+serviceItems: {type: [String], enum: Agl.ServiceItems}, // 可以服务的项目 #4586
 fans: {type: Number, default: 0}, // 收藏的数量
 ```
 
@@ -237,6 +240,11 @@ countryCode: {type: String, trim: true}, // 国家代码
 curriculum: {type: String, trim: true}, // curriculum.code
 subject: {type: [String], trim: true}, // subjects._id
 gradeGroup: {type: [String], trim: true}, // 年级组
+contentOrientated: { // 主题服务包
+  enable: {type: Boolean, default: false}, // type === 'mentoring' 专用
+  premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
+  times: {type: Number}, // 最少授课次数，必须大于0
+},
 price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
 discount: [{
   count: {type: Number}, // 数量
