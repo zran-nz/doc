@@ -12,7 +12,7 @@
   servicePack: {type: String, required: true}, // 服务包 service-pack._id
   servicePackName: {type: String}, // 服务包 service-pack.name
   servicePackUser: {type: String, required: true}, // 用户服务包 service-pack-user._id
-  order: {type: String, required: true}, // order._d
+  order: {type: String}, // order._d
   sales: {type: String}, // 跟进人 user._id
   salesName: {type: String}, // 跟进人 user.name
   // 联系记录
