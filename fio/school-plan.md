@@ -32,6 +32,27 @@
   contentProviderEnable: {type: Boolean, default: false}, // 内容供应商 系统开关
   contentProviderStatus: {type: Number, default: 0}, // 内容供应商 0: inactive, 1: pending, 2: success
   contentProviderAt: {type: Date}, //同意时间
+  attachmentsTeaching: [
+    {
+      filename: {type: String, trim: true}, // 文件名
+      mime: {type: String, trim: true}, // 文件 MIME
+      hash: {type: String, trim: true}, // 文件SHA1, files._id
+    },
+  ],
+  attachmentsEvaluation: [
+    {
+      filename: {type: String, trim: true}, // 文件名
+      mime: {type: String, trim: true}, // 文件 MIME
+      hash: {type: String, trim: true}, // 文件SHA1, files._id
+    },
+  ],
+  attachmentsDigital: [
+    {
+      filename: {type: String, trim: true}, // 文件名
+      mime: {type: String, trim: true}, // 文件 MIME
+      hash: {type: String, trim: true}, // 文件SHA1, files._id
+    },
+  ],
 }
 ```
 
