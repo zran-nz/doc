@@ -76,13 +76,21 @@ App.service('school-plan').patch(_id, { contentProviderStatus: 0, contentProvide
 // 通过内容供应商
 App.service('school-plan').patch(_id, { contentProviderStatus: 2, contentProviderEnable: true });
 
-// 文件
+// 文件 添加
 App.service('school-plan').patch(_id, {
     $push: {
         attachmentsTeaching: {
             filename: '',
             mime: '',
             hash: '',
+        },
+    },
+});
+// 文件 删除
+await App.service('school-plan').patch(_id, {
+    $pull: {
+        attachmentsTeaching: {
+            _id: attachmentsTeaching._id,
         },
     },
 });
