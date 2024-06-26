@@ -151,6 +151,14 @@ await App.service("service-auth").get("listByUid", {
 });
 ```
 
+### 服务认证日期范围查询
+
+```js
+await App.service("service-auth").find({
+  query: { dateRange: [start, end, zone?] },
+});
+```
+
 ## 用户服务配置
 
 ### service-conf model
