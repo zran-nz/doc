@@ -78,38 +78,62 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
 ```js
 
 {
-  createdAt: Date, // create time
-  updatedAt: Date, // update time
-  uid: String, // user id
-  id: String, // slides id
-  page: String, // page id
-  type: String, // type: ['text', 'choice', 'comment', 'draw', 'media', 'website']
-  multi: Boolean, // text/choice multi
-  bloom : Number, // const.BloomLabels, [Evaluate, Analyze, Apply, Understand, Remember, Create]
-  dimension: Number, // const.KnowledgeLabels, [Factual, Conceptual, Procedural, Megacognitave]
-  verb: [String], // command verb
-  tags: [String], // knowledge tags
-  data?: String, // website url
-  options: [{ // options
-    val: String,
-    on: Boolean, // choice answer
-  }],
-  score: Number,
-  scoreEnable: Boolean,
-  tips: String,
-  outlines: { //
-    outline: [Mixed],
-    assess: [Mixed],
-    pd: [Mixed],
-    skills: [Mixed],
-    goal: [Mixed],
-  }
-  list: [{ // multi questions for new text
-    bloom: Number,
-    dimension: Number,
-    verb: [String], // command verb
-    tags: [String], // knowledge tags
-  }],
+  uid: {type: String}, // user id
+  id: {type: String, required: true, trim: true}, // slides id
+  page: {type: String, required: true, trim: true}, // page id
+  type: {type: String, trim: true, enum: Agl.questionsTypes}, // type:
+  multi: {type: Boolean, default: false}, // text/choice multi
+  bloom: {type: Number}, // [Evaluate, Analyze, Apply, Understand, Remember, Create]
+  dimension: {type: Number}, // [Factual, Conceptual, Procedural, Megacognitave]
+  verb: [{type: String}], // command verb
+  tags: [{type: String}], // knowledge tags
+  tips: {type: String, trim: true},
+  score: { // score config
+    outline: {
+      val: {type: Number}, // total score
+      enable: {type: Boolean, default: false}, // score enable
+    },
+    assess: {
+      val: {type: Number},
+      enable: {type: Boolean, default: false},
+    },
+    pd: {
+      val: {type: Number},
+      enable: {type: Boolean, default: false},
+    },
+    goal: {
+      val: {type: Number},
+      enable: {type: Boolean, default: false},
+    },
+    skills: {
+      val: {type: Number},
+      enable: {type: Boolean, default: false},
+    },
+  },
+  outlines: {
+    outline: {type: Schema.Types.Mixed}, // ppt outlines
+    assess: {type: Schema.Types.Mixed}, // ppt assess
+    pd: {type: Schema.Types.Mixed}, // pd
+    goal: {type: Schema.Types.Mixed}, // ppt assess
+    skills: {type: Schema.Types.Mixed}, // skills
+  },
+  data: {type: String, trim: true}, // url
+  options: [
+    {
+      // options
+      val: {type: String, trim: true},
+      on: {type: Boolean, default: false}, // choice answer
+    },
+  ],
+  list: [
+    {
+      // multi questions for new text
+      bloom: {type: Number},
+      dimension: {type: Number},
+      verb: [{type: String}], // command verb
+      tags: [{type: String}], // knowledge tags
+    },
+  ],
 }
 
 ```
