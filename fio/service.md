@@ -111,6 +111,7 @@ attachments: [{ // 附件
   filename: {type: String, trim: true}, // 文件名
   mime: {type: String, trim: true}, // 文件 MIME
   hash: {type: String, trim: true}, // 文件SHA1, files._id
+  type: {type: String, trim: true}, // 认证类型, conf.val.attachmentType
 }],
 versionId: {type: String, trim: true}, // 版本 #4846
 reason: {type: String, trim: true}, // 原因
@@ -233,6 +234,43 @@ const {
     'count.rate'? // 按好评比率
   }
 }})
+```
+
+## 服务认证配置
+
+### 服务认证项设置结构
+
+```js
+key: `Service:${servicePack.type}:${servicePack.mentoringType}`,
+val: {
+  curriculum: [{
+    code: '',
+    subject: ['', ....],
+  }, ...],
+  topic: [{
+    _id: '',
+    label: ['level 1', 'level 2', ...]
+  }, ...],
+  countryCode: ['', ...],
+  desc: '',
+  attachmentType: ['', ...], // 前端固定，附件类型, 用于 service-auth.attachments.type
+  hourRate: [{
+    price: '1500',
+    value: ['xxx', ...],
+    default: true,
+    qualification: '',
+    curriculum?: '',
+    topic?: ''
+  }]
+}
+```
+
+### 服务认证配置接口
+
+```js
+// 获取配置
+await App.service("conf").get(key);
+await App.service("conf").patch(key, { val });
 ```
 
 ## 服务包
