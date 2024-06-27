@@ -125,6 +125,7 @@ attachments: [{ // 附件
   filename: {type: String, trim: true}, // 文件名
   mime: {type: String, trim: true}, // 文件 MIME
   hash: {type: String, trim: true}, // 文件SHA1, files._id
+  date: {type: Date}, // 上传时间
   type: {type: String, trim: true}, // 认证类型, conf.val.attachmentType
 }],
 versionId: {type: String, trim: true}, // 版本 #4846
