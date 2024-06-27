@@ -11,10 +11,13 @@
   status: {type: Number, default: 0}, // 跟进状态,0:未跟进 1:已跟进
   servicePack: {type: String, required: true}, // 服务包 service-pack._id
   servicePackName: {type: String}, // 服务包 service-pack.name
+  // ServiceRoles: ['mentoring', 'substitute', 'correcting', 'consultant']
+  serviceRoles: {type: String, enum: Agl.ServiceRoles}, // 服务角色
   servicePackUser: {type: String, required: true}, // 用户服务包 service-pack-user._id
   order: {type: String}, // order._d
   sales: {type: String}, // 跟进人 user._id
   salesName: {type: String}, // 跟进人 user.name
+  salesType: {type: String, enum: ['manager', 'consultant']}, // 销售类型 manager:系统销售 consultant:顾问老师
   // 联系记录
   contactLog: [
     {
@@ -39,6 +42,8 @@ await App.service('sales-follow-up').find({ type: 'following' });
 await App.service('sales-follow-up').find({ query: { sales: user._id, status: 1, type: 'following' } });
 // by others
 await App.service('sales-follow-up').find({ query: { sales: { $ne: user._id }, status: 1, type: 'following' } });
+// by me + by others
+await App.service('sales-follow-up').find({ query: { status: 1, type: 'following' } });
 // unclaimed
 await App.service('sales-follow-up').find({ query: { status: 0, type: 'following' } });
 // by me + unclaimed
@@ -52,7 +57,10 @@ await App.service('sales-follow-up').find({
 });
 
 // sorted by sales 获取sales列表 按项目数排序 字段count为项目数
-await App.service('sales-follow-up').get('groupBySales', { query: { $limit: 10, $skip: 0, type: 'following' } });
+await App.service('sales-follow-up').get('groupBySales', { query: { type: 'following', salesType } });
+
+// product type
+await App.service('sales-follow-up').get('groupByProduct');
 
 // stop
 await App.service('sales-follow-up').get('stop', { query: { id: _id } });
