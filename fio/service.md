@@ -53,6 +53,8 @@ graph LR
 
 ## 服务设置
 
+### 服务设置接口
+
 ```js
 // 获取
 await App.service("conf").get(`Service:${type}:${mentoringType}`).catch(e => {
@@ -67,7 +69,19 @@ await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
       code: '', // 大纲代码
       subject: [], // 学科
     }],
-    ...
+    topic: [{
+      _id: '',
+      label: ['level 1', 'level 2', ...]
+    }, ...],
+    attachmentType: ['', ...], // 前端固定，附件类型, 用于 service-auth.attachments.type
+    hourRate: [{ // 小时工资
+      price: '1500',
+      value: ['xxx', ...], // 二级数据（学科/topic）
+      default: true, // 是否默认
+      qualification: '', // 资质
+      curriculum?: '', // 大纲
+      topic?: ''
+    }]
   }
 });
 ```
@@ -234,43 +248,6 @@ const {
     'count.rate'? // 按好评比率
   }
 }})
-```
-
-## 服务认证配置
-
-### 服务认证项设置结构
-
-```js
-key: `Service:${servicePack.type}:${servicePack.mentoringType}`,
-val: {
-  curriculum: [{
-    code: '',
-    subject: ['', ....],
-  }, ...],
-  topic: [{
-    _id: '',
-    label: ['level 1', 'level 2', ...]
-  }, ...],
-  countryCode: ['', ...],
-  desc: '',
-  attachmentType: ['', ...], // 前端固定，附件类型, 用于 service-auth.attachments.type
-  hourRate: [{
-    price: '1500',
-    value: ['xxx', ...],
-    default: true,
-    qualification: '',
-    curriculum?: '',
-    topic?: ''
-  }]
-}
-```
-
-### 服务认证配置接口
-
-```js
-// 获取配置
-await App.service("conf").get(key);
-await App.service("conf").patch(key, { val });
 ```
 
 ## 服务包
