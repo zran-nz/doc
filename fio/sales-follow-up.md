@@ -14,10 +14,10 @@
   // ServiceRoles: ['mentoring', 'substitute', 'correcting', 'consultant']
   serviceRoles: {type: String, enum: Agl.ServiceRoles}, // 服务角色
   servicePackUser: {type: String, required: true}, // 用户服务包 service-pack-user._id
-  order: {type: String}, // order._d
+  order: {type: String}, // order._id
   sales: {type: String}, // 跟进人 user._id
   salesName: {type: String}, // 跟进人 user.name
-  salesType: {type: String, enum: ['manager', 'consultant']}, // 销售类型 manager:系统销售 consultant:顾问老师
+  salesType: {type: String, enum: ['manager', 'consultant']}, // 跟进人类型 manager:系统销售 consultant:顾问老师
   // 联系记录
   contactLog: [
     {
