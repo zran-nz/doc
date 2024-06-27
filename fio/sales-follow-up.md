@@ -81,7 +81,7 @@ await App.service('sales-follow-up').patch(_id, {
 // 更新note
 await App.service('sales-follow-up').patch(_id, { 'contactLog.$.note': note }, { query: { 'contactLog._id': contactLog._id } });
 
-// 详情
+// 详情 servicePackInfo.status:发布状态
 await App.service('sales-follow-up').get(_id);
 // remove
 await App.service('sales-follow-up').remove(_id);
