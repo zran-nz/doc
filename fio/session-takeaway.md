@@ -14,7 +14,7 @@ graph TD
 
 ### session-snapshot model
 
-- 课堂的快照数据
+-   课堂的快照数据
 
 ```js
 _id: {type: ObjectID, required: true}, // session._id
@@ -30,7 +30,7 @@ comment: {type: String, trim: true}, // total comment
 
 ### session-takeaway-snapshot model
 
-- 课堂下每个学生的 takeaway 快照数据
+-   课堂下每个学生的 takeaway 快照数据
 
 ```js
 session: {type: String, required: true}, // session._id
@@ -77,8 +77,8 @@ const outline = {
 ### 创建一次性课堂快照
 
 ```js
-await App.service("session-snapshot").get("snapshot", {
-  query: { _id: "session._id" },
+await App.service('session-snapshot').get('snapshot', {
+    query: { _id: 'session._id' },
 });
 ```
 
@@ -97,12 +97,11 @@ await App.service("session-takeaway-snapshot").patch(_id, {$addToSet: {comments:
 ### 课堂总评
 
 ```js
-await App.service("session-snapshot").patch(_id, { comment: "..." });
+await App.service('session-snapshot').patch(_id, { comment: '...' });
 ```
 
-### 老师在takeaway页面点击发送将最新takeaway发送时,Inform parents to view takeaway
+### 老师在 takeaway 页面点击发送将最新 takeaway 发送时,Inform parents to view takeaway
 
 ```js
-await App.service('session-takeaway-snapshot').get('informParents', { query: { _id: 'session-takeaway-snapshot._id' } });
-
+await App.service('session-takeaway-snapshot').get('informParents', { query: { _id: 'session-takeaway-snapshot._id', hash } });
 ```
