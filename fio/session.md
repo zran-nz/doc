@@ -105,6 +105,10 @@ servicePack: { // 捆绑的服务包
 booking: {type: String}, // service-booking._id 学生的预约
 income: {type: Number, default: 0}, //收入总计,单位分
 personal: {type: Boolean, default: false}, // 个人老师排的课
+count: {
+  students: {type: Number, default: 0}, // 排课或报名的学生数量，需要做报告的学生
+  report: {type: Number, default: 0}, // 已经发送报告的数量
+},
 ```
 
 ### type
