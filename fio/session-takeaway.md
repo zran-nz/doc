@@ -10,6 +10,11 @@ graph TD
     TU[老师拍照上传] -.->|没有答案的学生数据<br>response| SS
     SS -.->|给学生回答评论<br>comments| SS
     SA -->|课堂总评<br>comment| SA
+    SS -.->|发送按钮<br>计算出hash| HC[[比较hash是否一致]]
+    HC -.->|一致| EN(不发送)
+    HC -.->|不一致| E(发送邮件)
+    E -.->|首次发送<br>统计+1| A
+
 ```
 
 ### session-snapshot model
@@ -100,9 +105,10 @@ await App.service("session-takeaway-snapshot").patch(_id, {$addToSet: {comments:
 await App.service("session-snapshot").patch(_id, { comment: "..." });
 ```
 
-### 老师在takeaway页面点击发送将最新takeaway发送时,Inform parents to view takeaway
+### 老师在 takeaway 页面点击发送将最新 takeaway 发送时,Inform parents to view takeaway
 
 ```js
-await App.service('session-takeaway-snapshot').get('informParents', { query: { _id: 'session-takeaway-snapshot._id' } });
-
+await App.service("session-takeaway-snapshot").get("informParents", {
+  query: { _id: "session-takeaway-snapshot._id" },
+});
 ```
