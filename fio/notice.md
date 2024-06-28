@@ -69,6 +69,9 @@ category: {type: String, trim: true}, //类目ID
 await App.service('notice-tpl').patch('notice-tpl._id', { category: '类目' });
 // 更新开关
 await App.service('notice-tpl').patch('notice-tpl._id', { enablePush: true });
+
+// 短信发送 uid,mobile传一个即可
+await App.service('notice-tpl').get('sendSms', { query: { uid, mobile, text: 'sms text content' } });
 ```
 
 ## 推送接口 - deprecated
@@ -82,14 +85,4 @@ curl 例子
 
 ```shell
 curl -H "Content-Type: application/json" -X POST -d '{"msgId":"1566953060269883393","cmd":"user","msgTxt":"You are an admin now","busType":"account","userId":"1493113285880418305"}' /fio/notice
-```
-
-## 短信发送接口 - plivo-sms
-
-```js
-// 短信发送 uid,mobile传一个即可
-App.service('plivo-sms').get('send', { query: { uid, mobile, text: 'sms text content' } });
-
-// 查找短信发送记录
-App.service('plivo-sms').find({ query: { uid, mobile } });
 ```
