@@ -42,6 +42,9 @@ App.service('notice').create({
   email?: '',
   data: {title: '', body: ''},
 })
+
+// 查找sms记录
+await App.service('notice').find({query: {$sys: 1, type: 'sms', to: uid}})
 ```
 
 ## Notice Tpl Model
@@ -63,20 +66,30 @@ category: {type: String, trim: true}, //类目ID
 
 ```js
 // 更新类目
-await App.service('notice-tpl').patch('notice-tpl._id', {category: '类目'})
+await App.service('notice-tpl').patch('notice-tpl._id', { category: '类目' });
 // 更新开关
-await App.service('notice-tpl').patch('notice-tpl._id', {enablePush: true})
+await App.service('notice-tpl').patch('notice-tpl._id', { enablePush: true });
 ```
 
 ## 推送接口 - deprecated
 
-- Post 可以是任意对象
-- 对象中指定了 userId 则只推送给此用户
-- 对象中指定了 schoolId 的则推送给该学校下的所有用户
-- 未指定的 则推送给平台所有用户
+-   Post 可以是任意对象
+-   对象中指定了 userId 则只推送给此用户
+-   对象中指定了 schoolId 的则推送给该学校下的所有用户
+-   未指定的 则推送给平台所有用户
 
 curl 例子
 
 ```shell
 curl -H "Content-Type: application/json" -X POST -d '{"msgId":"1566953060269883393","cmd":"user","msgTxt":"You are an admin now","busType":"account","userId":"1493113285880418305"}' /fio/notice
+```
+
+## 短信发送接口 - plivo-sms
+
+```js
+// 短信发送 uid,mobile传一个即可
+App.service('plivo-sms').get('send', { query: { uid, mobile, text: 'sms text content' } });
+
+// 查找短信发送记录
+App.service('plivo-sms').find({ query: { uid, mobile } });
 ```
