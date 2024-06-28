@@ -84,4 +84,7 @@ await App.service('sales-follow-up').patch(_id, { 'contactLog.$.note': note }, {
 await App.service('sales-follow-up').get(_id);
 // remove
 await App.service('sales-follow-up').remove(_id);
+
+// 发送站内信
+App.service('sales-follow-up').get('sendInbox', { query: { uid: '收件人', content: '站内信内容' } });
 ```
