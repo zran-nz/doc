@@ -387,7 +387,6 @@ gift: {type: Boolean, default: false}, // 是否赠品, 只要服务包付了钱
 giftCount: {type: Number, default: 0}, // 赠送次数
 total: {type: Number, default: 0}, // 总次数
 used: {type: Number, default: 0}, // 已经使用
-expired: [{type: Date, default: 0}], // 过期列表
 expireSoon: {type: Date}, // 即将过期的时间
 order: {type: String, required: true}, // 关联 order._id
 session: {
@@ -398,22 +397,32 @@ session: {
 },
 snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照
 status: {type: Boolean, default: true},
-logs: [{ // 使用记录
-  times: {type: Number, required: true}, // 增减次数
-  type: {type: String, enum: Agl.ServicePackUserType}, // 变化类型
-  remaining: {type: Number}, // 剩余次数
-  expireSoon: {type: Date}, // 新的有效期
-  start: {type: Date}, // booking start
-  name: {type: String}, // session.name
-  servicer: {
-    uid: {type: String}, // users._id
-    avatar: {type: String}, // users.avatar
-    name: {type: [String]}, // users.name
-  },
-  updatedAt: {type: Date}
-}],
 point: {type: Number}, // 订单支付积分
 isPoint: {type: Boolean, default: false}, // 现金购买/积分购买
+```
+
+### service-pack-user-data model
+
+```js
+packUser: {type: String, required: true}, // 关联购买的服务包 service-pack-user._id
+expired: {type: Date}, // 过期列表
+gift: {type: Boolean, default: false}, // 是否赠品
+```
+### service-pack-user-logs model
+
+```js
+packUser: {type: String, required: true}, // 关联购买的服务包 service-pack-user._id
+times: {type: Number, required: true}, // 增减次数
+type: {type: String, enum: Agl.ServicePackUserType}, // 变化类型
+remaining: {type: Number}, // 剩余次数
+expireSoon: {type: Date}, // 新的有效期
+start: {type: Date}, // booking start
+name: {type: String}, // session.name
+servicer: {
+  uid: {type: String}, // users._id
+  avatar: {type: String}, // users.avatar
+  name: {type: [String]}, // users.name
+},
 ```
 
 ### 用户已购买的服务包接口
@@ -436,12 +445,21 @@ await App.service("service-pack-user").find({
 
 ```js
 // 后端接口内部调用
+// 首次创建购买的服务包
 await this.service("service-pack-user").buyByOrder({
   packId, // service-pack._id
   order, // order._id
   session?, // session._id 捆绑购买的session
   total: 10, // 购买的次数
   price, // 服务包支付的实际价格
+  gift, // 是否赠送的服务包
+});
+
+// 对存在的服务包 增加次数
+await this.service("service-pack-user-data").add({
+  packUser, // service-pack-user._id
+  type, // 日志类型
+  times, // 次数
   gift, // 是否赠送的服务包
 });
 ```
