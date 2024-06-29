@@ -12,7 +12,7 @@
   phone: {type: [String], trim: true},
   start: {type: Date},
   end: {type: Date},
-  status: {type: Number, default: 0}, // 0: create, unpaid, 1: trial, 2: Paid, -1: Expired, 3: Created
+  status: {type: Number, default: 0}, // 0: applied, create, unpaid, 1: trial, 2: Paid, -1: Expired, 3: Created
   teacher: {type: Number, default: 1},
   student: {type: Number, default: 10},
   count: {

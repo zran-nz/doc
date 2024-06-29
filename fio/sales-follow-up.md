@@ -59,7 +59,7 @@ await App.service('sales-follow-up').find({
 await App.service('sales-follow-up').get('groupBySales', { query: { type: 'following', salesType } });
 
 // product type
-await App.service('sales-follow-up').get('groupByProduct');
+await App.service('sales-follow-up').get('groupByProduct', { query: { status } });
 
 // stop
 await App.service('sales-follow-up').get('stop', { query: { id: _id } });

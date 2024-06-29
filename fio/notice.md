@@ -55,6 +55,7 @@ name: {type: String, trim: true},
 enable: {type: Boolean, default: true},
 enableInbox: {type: Boolean, default: false},
 enablePush: {type: Boolean, default: false},
+enableText: {type: Boolean, default: false}, // 短信
 title: {type: String, trim: true}, // for mail,inbox title
 text: {type: String, trim: true}, // for mail body
 note: {type: String, trim: true}, // for inbox body
