@@ -442,9 +442,9 @@ await App.service("service-pack-user").find({
 ```
 
 ### 支付完成创建用户的服务包
+> 后端接口内部调用
 
 ```js
-// 后端接口内部调用
 // 首次创建购买的服务包
 await this.service("service-pack-user").buyByOrder({
   packId, // service-pack._id
@@ -455,20 +455,22 @@ await this.service("service-pack-user").buyByOrder({
   gift, // 是否赠送的服务包
 });
 
-// 对存在的服务包 增加次数
+// 对已经购买的服务包 消耗次数
+await this.service("service-pack-user-data").used({
+  packUser, // service-pack-user._id
+  type, // 日志类型
+  times, // 次数
+  servicer, oldSession, start
+});
+// 对已经购买的服务包 增加次数
 await this.service("service-pack-user-data").add({
   packUser, // service-pack-user._id
   type, // 日志类型
   times, // 次数
   gift, // 是否赠送的服务包
+  isNew, // 首次创建服务包的时候增加次数
+  servicer, oldSession, start
 });
-```
-
-### 用户申请退款后调用
-
-```js
-// 后端接口内部调用, 弃用
-// await this.service("service-pack-user").refund(servicePackUser._id);
 ```
 
 ## 用户预约数据
