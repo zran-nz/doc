@@ -426,8 +426,12 @@ servicer: {
   avatar: {type: String}, // users.avatar
   name: {type: [String]}, // users.name
 },
-packUserData: {type: [String], required: true}, // 关联购买的服务包次数 service-pack-user-data._id
-payMethod: {type: [String], trim: true}, // 支付方式
+packUserData: [{
+  _id: {type: String, required: true}, // 关联购买的服务包次数 service-pack-user-data._id
+  payMethod: {type: String, trim: true}, // 支付方式
+  order: {type: String, trim: true}, // order
+  expired: {type: Date}, // 过期
+}]
 ```
 
 ### 用户已购买的服务包接口
