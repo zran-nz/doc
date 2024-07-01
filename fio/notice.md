@@ -44,7 +44,7 @@ App.service('notice').create({
 })
 
 // 查找sms记录
-await App.service('notice').find({query: {$sys: 1, type: 'sms', to: uid}})
+await App.service('notice').find({query: {$sys: 1, type: 'sms', searchTo: uid}})
 ```
 
 ## Notice Tpl Model
