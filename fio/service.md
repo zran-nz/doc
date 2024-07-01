@@ -484,6 +484,13 @@ await this.service("service-pack-user-data").add({
 });
 ```
 
+### 服务包使用记录
+```js
+// 根据服务包id, 查询使用记录
+await App.service('service-pack-user-logs').find({query: {packUser: packUser._id}})
+```
+
+
 ## 用户预约数据
 
 ### service-booking model
