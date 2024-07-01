@@ -406,6 +406,8 @@ isPoint: {type: Boolean, default: false}, // 现金购买/积分购买
 ```js
 packUser: {type: String, required: true}, // 关联购买的服务包 service-pack-user._id
 expired: {type: Date}, // 过期列表
+order: {type: Date}, // 关联 order
+status: {type: Number, default: 0}, // 状态 0: 可用，-1: 过期, 1: 被使用
 gift: {type: Boolean, default: false}, // 是否赠品
 ```
 ### service-pack-user-logs model
@@ -460,16 +462,17 @@ await this.service("service-pack-user-data").used({
   packUser, // service-pack-user._id
   type, // 日志类型
   times, // 次数
-  servicer, oldSession, start
+  servicer?, oldSession?, start?
 });
 // 对已经购买的服务包 增加次数
 await this.service("service-pack-user-data").add({
   packUser, // service-pack-user._id
   type, // 日志类型
   times, // 次数
-  gift, // 是否赠送的服务包
-  isNew, // 首次创建服务包的时候增加次数
-  servicer, oldSession, start
+  gift?, // 是否赠送的服务包
+  isNew?, // 首次创建服务包的时候增加次数
+  order?, // 关联 order
+  servicer?, oldSession?, start?
 });
 ```
 
