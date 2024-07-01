@@ -406,9 +406,10 @@ isPoint: {type: Boolean, default: false}, // 现金购买/积分购买
 ```js
 packUser: {type: String, required: true}, // 关联购买的服务包 service-pack-user._id
 expired: {type: Date}, // 过期列表
-order: {type: Date}, // 关联 order
 status: {type: Number, default: 0}, // 状态 0: 可用，-1: 过期, 1: 被使用
 gift: {type: Boolean, default: false}, // 是否赠品
+order: {type: String, trim: true}, // 关联 order
+payMethod: {type: String, trim: true}, // 支付方式
 ```
 ### service-pack-user-logs model
 
@@ -425,6 +426,8 @@ servicer: {
   avatar: {type: String}, // users.avatar
   name: {type: [String]}, // users.name
 },
+packUserData: {type: [String], required: true}, // 关联购买的服务包次数 service-pack-user-data._id
+payMethod: {type: [String], trim: true}, // 支付方式
 ```
 
 ### 用户已购买的服务包接口
@@ -462,6 +465,7 @@ await this.service("service-pack-user-data").used({
   packUser, // service-pack-user._id
   type, // 日志类型
   times, // 次数
+  order?, // 关联 order 消耗
   servicer?, oldSession?, start?
 });
 // 对已经购买的服务包 增加次数
