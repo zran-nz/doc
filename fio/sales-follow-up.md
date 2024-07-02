@@ -28,6 +28,7 @@
   ],
   followedAt: {type: Date}, // 开始跟进时间
   releasedAt: {type: Date}, // 上次释放时间
+  shareCount: {type: Number, default: 0}, // 分享次数
 },
 ```
 
