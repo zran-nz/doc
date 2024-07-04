@@ -127,6 +127,7 @@ attachments: [{ // 附件
   hash: {type: String, trim: true}, // 文件SHA1, files._id
   date: {type: Date}, // 上传时间
   type: {type: String, trim: true}, // 认证类型, conf.val.attachmentType
+  size: {type: Number}, // 文件大小
 }],
 versionId: {type: String, trim: true}, // 版本 #4846
 reason: {type: String, trim: true}, // 原因
