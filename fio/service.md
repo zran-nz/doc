@@ -96,6 +96,7 @@ ServiceType: ['workshop', 'content', 'teaching', 'mentoring', 'correcting', 'sub
 MentoringType: ['essay', 'academic', 'overseasStudy', 'teacherTraining', 'steam'], // professionalDevelopment, subject
 ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident', 'gift'],
 ServicePackVideoType: ['AcademicValue', 'Features', 'QA'],
+ServiceSalesTarget: ['personal', 'school'],
 
 ```
 
@@ -305,6 +306,7 @@ statistic: [
     orderCount: {type: Number, default: 0}, // 订单购买次数
   },
 ],
+salesTarget: {type: Strin, enum: Agl.ServiceSalesTarget}, // 销售目标
 ```
 
 ### 服务包接口
