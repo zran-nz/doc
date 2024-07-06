@@ -80,7 +80,10 @@ studentExt: {
   subjects: [String],
   grades: [String],
 },
-freeServiceType: {type: [String], enum: Agl.ServiceType}, // 免费使用过的服务类型
+freeServiceType: { // 免费使用过的服务类型 
+  {[MentoringType]: order._id},
+  ...
+}, 
 inviteCode: {type: String, trim: true}, //邀请码
 inviter: {type: String, trim: true}, //邀请我的人
 point: {type: Number, default: 0}, // 积分
