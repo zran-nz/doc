@@ -136,6 +136,41 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
   ],
 }
 
+// 大纲数据例子
+outlines.outline: [{
+  "code": "au:668910baca15935009e0a126",
+  "curr": "AU",
+  "name": "Math",
+  "child": [{
+    "_id": "6524cebc443ec5abf20606c3",
+    "name": "Nature of Science",
+    "enable": true,
+    "score": 8,
+    "readonly": true,
+    "child": [{
+      "_id": "6524cebc443ec5abf20606c4",
+      "name": "Understanding about science",
+      "enable": true,
+      "score": 8,
+      "readonly": true,
+      "child": [{
+        "_id": "6524cebc443ec5abf20606c5",
+        "name": "Appreciate that science is a way of explaining the world and that science knowledge changes over time.",
+        "enable": true,
+        "score": 3,
+        "readonly": false,
+        "child": []
+      }, {
+        "_id": "6524cebc443ec5abf20606c6",
+        "name": "Identify ways in which scientists work together and provide evidence to support their ideas.",
+        "enable": true,
+        "readonly": false,
+        "score": 5,
+        "child": []
+      }]
+    }]
+  }]
+}]
 ```
 
 ### materials model
