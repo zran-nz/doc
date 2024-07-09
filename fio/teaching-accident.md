@@ -11,8 +11,10 @@
   session: {type: String}, // 关联session._id
   sessionName: {type: String}, // 关联session.name
   serviceType: {type: String},
-  service: {type: String}, // servicepacks._id
-  serviceName: {type: String}, // servicepacks.name
+  servicePackUser: {type: String}, // service-pack-user._id
+  serviceBooking: {type: String}, // service-booking._id
+  service: {type: String}, // service-pack._id
+  serviceName: {type: String}, // service-pack.name
   // 学生申诉
   evidencesStudent: [
     {
@@ -45,7 +47,8 @@
   approvedAt: {type: Date}, // 审核通过时间 用于计算停课时间
   checkReason: {type: String}, // 审核理由
   read: {type: Boolean, default: false}, // 已读
-  tags: {type: [String], trim: true}, // 标签
+  tags: {type: [String]}, // 标签
+  serviceReturn: {type: Boolean, default: false}, // 返还使用者服务包次数
 }
 ```
 

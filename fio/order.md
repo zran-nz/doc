@@ -42,7 +42,9 @@
   ],
   /**
    * 订单状态 status 除400外的4xx弃用
-   * 状态100：待支付；200：支付成功；300：支付失败；
+   * 100.待支付；
+   * 200.支付成功；
+   * 300.支付失败；
    * 400.支付超时 Payment has timed out
    * 401.未支付 公开课被讲师取消 canceled by the facilitator
    * 402.未支付 公开课因未成团被系统取消 Minimal registration number not met
@@ -84,6 +86,7 @@
    */
   paymentInfo: {type: Object},
   expiration: {type: Date}, // 支付超时时间
+  // 退款详情
   refund: [
     {
       method: {type: String}, //paypal, windcave, giftCard braintree
@@ -93,13 +96,13 @@
       createdAt: {type: Date},
       executedAt: {type: Date}, //退款执行时间
     },
-  ], // 退款详情
+  ],
   paidAt: {type: Date},
   reminder: {type: Number, default: 0}, // 未支付提醒,0: 待提醒，1: 超时前15min已提醒
   inviter: {type: String, trim: true}, //分享人
   isPoint: {type: Boolean, default: false}, //积分购买
   isSeparated: {type: Boolean, default: false}, //积分/佣金是否已分账
-},
+}
 ```
 
 ### Order api
