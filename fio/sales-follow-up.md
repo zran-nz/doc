@@ -28,7 +28,8 @@
   ],
   followedAt: {type: Date}, // 开始跟进时间
   releasedAt: {type: Date}, // 上次释放时间
-  shareCount: {type: Number, default: 0}, // 分享次数
+  shareCount: {type: Number, default: 0}, // 已分享次数 跟踪的服务包
+  shareGoods: {type: [String]}, // 已分享的推荐商品
 },
 ```
 
