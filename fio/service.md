@@ -270,11 +270,12 @@ curriculum: {type: String, trim: true}, // curriculum.code
 subject: {type: [String], trim: true}, // subjects._id
 gradeGroup: {type: [String], trim: true}, // 年级组
 qualification: {type: String, trim: true}, // 服务包需要的资质
-contentOrientated: { // 主题服务包
-  enable: {type: Boolean, default: false}, // type === 'mentoring' 专用
+// 主题服务包
+contentOrientatedEnable: {type: Boolean, default: false}, // type === 'mentoring' 专用
+contentOrientated: [{
   premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
   times: {type: Number}, // 最少授课次数，必须大于0
-},
+}],
 price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
 discount: [{
   count: {type: Number}, // 数量

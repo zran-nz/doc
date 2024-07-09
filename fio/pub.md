@@ -80,8 +80,9 @@ studentExt: {
   subjects: [String],
   grades: [String],
 },
-freeServiceType: { // 免费使用过的服务类型 
-  {[MentoringType]: order._id},
+// 免费使用过的服务类型, 服务包 id 作为key, order 作为 value
+freeServiceType: {
+  {[servicePack._id]: order._id},
   ...
 }, 
 inviteCode: {type: String, trim: true}, //邀请码
