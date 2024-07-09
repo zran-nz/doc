@@ -403,6 +403,7 @@ snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照
 status: {type: Boolean, default: true},
 point: {type: Number}, // 订单支付积分
 isPoint: {type: Boolean, default: false}, // 现金购买/积分购买
+payMethod: {type: String}, // 默认为空, 现金支付过就会更新为 cash， https://github.com/zran-nz/bug/issues/5020
 ```
 
 ### service-pack-user-data model

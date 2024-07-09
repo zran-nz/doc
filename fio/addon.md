@@ -171,6 +171,7 @@ outlines.outline: [{
           name: {type: String, required: true}, // 名称
           desc: {type: String, required: true}, // 描述
           weight: {type: Number}, // 权重
+          point: {type: Number},
         }, ...]
       }, {
         "_id": "6524cebc443ec5abf20606c6",
