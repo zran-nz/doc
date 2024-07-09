@@ -56,6 +56,7 @@ reg: [{ // register userinfo
   avatar: String, // user.avatar
   nickname: String, // user.nickname
   last: Date, // reg date
+  order: String, // order._id
 }],
 
 // for class session
