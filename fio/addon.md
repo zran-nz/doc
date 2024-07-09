@@ -92,22 +92,27 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
     outline: {
       val: {type: Number}, // total score
       enable: {type: Boolean, default: false}, // score enable
+      rubric: {type: Boolean, default: false}, // rubric enable
     },
     assess: {
       val: {type: Number},
       enable: {type: Boolean, default: false},
+      rubric: {type: Boolean, default: false}, // rubric enable
     },
     pd: {
       val: {type: Number},
       enable: {type: Boolean, default: false},
+      rubric: {type: Boolean, default: false}, // rubric enable
     },
     goal: {
       val: {type: Number},
       enable: {type: Boolean, default: false},
+      rubric: {type: Boolean, default: false}, // rubric enable
     },
     skills: {
       val: {type: Number},
       enable: {type: Boolean, default: false},
+      rubric: {type: Boolean, default: false}, // rubric enable
     },
   },
   outlines: {
@@ -159,7 +164,14 @@ outlines.outline: [{
         "enable": true,
         "score": 3,
         "readonly": false,
-        "child": []
+        "child": [],
+        criteria: [{
+          _id: {type: String, required: true}, // criteria.standard._id
+          code: {type: String, required: true, maxLength: 4}, // 缩略词
+          name: {type: String, required: true}, // 名称
+          desc: {type: String, required: true}, // 描述
+          weight: {type: Number}, // 权重
+        }, ...]
       }, {
         "_id": "6524cebc443ec5abf20606c6",
         "name": "Identify ways in which scientists work together and provide evidence to support their ideas.",
