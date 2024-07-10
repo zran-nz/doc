@@ -89,4 +89,7 @@ await App.service('sales-follow-up').remove(_id);
 
 // 发送站内信
 App.service('sales-follow-up').get('sendInbox', { query: { uid: '收件人', content: '站内信内容' } });
+
+// 推广邮件
+await App.service('sales-follow-up').get('share', { query: { id: _id, goodsId: 'service-pack._id/session._id', style: 'service/session' } });
 ```
