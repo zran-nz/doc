@@ -116,6 +116,10 @@ unit: { // 认证课件
   _id: {type: String, trim: true}, // unit._id
   name: {type: String, trim: true}, // 课件名称
 },
+ability: {type: String, trim: true}, // 学习能力 https://github.com/zran-nz/bug/issues/5030
+styles: {type: [String], trim: true}, // 认知风格
+unitSnapshot: {type: Schema.Types.Mixed}, // 认证unit快照 https://github.com/zran-nz/bug/issues/4861
+linkSnapshot: {type: Schema.Types.Mixed}, // unitl link 的课件快照列表
 topic: [{ // 用于 essay, teacherTraining等大纲层级 认证项
   _id: {type: String, trim: true}, // subjects.topic..._id
   label: {type: [String], trim: true}, // subjects.topic...name
@@ -158,6 +162,12 @@ await App.service("service-auth").patch(doc._id, {
   status: 2 / -1,
   reason: "",
 });
+```
+
+### 精品课认证数据查询
+```js
+await App.service('service-auth').get('unit', query: {...})
+
 ```
 
 ### 服务认证接口（任何人）
