@@ -66,7 +66,7 @@ outlines: {
 
 
 ### 大纲数据嵌套结构
-[参考](/fio/addon?id=questions-outline-example)
+[结构例子参考](/fio/addon?id=questions-outline-example)
 
 > 附加属性
 ```js
