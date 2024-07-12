@@ -64,17 +64,17 @@ outlines: {
 },
 ```
 
-### 大纲数据嵌套结构
 
+### 大纲数据嵌套结构
+[参考](/fio/addon?id=questions-outline-example)
+
+> 附加属性
 ```js
 const outline = {
-  name: {type: String, trim: true},
-  grade: {type: [String]},
-  tags: {type: [String], trim: true},
-  code: {type: String, trim: true},
-  mark: {type: String, trim: true},
+  criteria: [{...}] // 设置的 criteria
   score: {type: Number}, // 设置的分值
   point: {type: Number}, // 学生实际得分
+  criteriaCode: {type: String}, // 学生实际得分 取 criteria.$.code
   child: [outline, ...],
 }
 ```
