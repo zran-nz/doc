@@ -286,6 +286,7 @@ contentOrientatedEnable: {type: Boolean, default: false}, // type === 'mentoring
 contentOrientated: [{
   premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
   times: {type: Number}, // 最少授课次数，必须大于0
+  price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
 }],
 price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
 discount: [{
@@ -296,6 +297,7 @@ discount: [{
 discountConfig: { // 折扣配置
   enable: {type: Boolean, default: false}, // 是否启用折扣
   end: {type: Date} // 折扣截止时间
+  discount: {type: Number}, // 主题服务包 统一折扣 %
 },
 freq: {type: Number, enum: [7, 14, 30, 120]}, // 每张的可用多少天
 duration: {type: Number}, // session duration min
@@ -319,6 +321,9 @@ statistic: [
   },
 ],
 salesTarget: {type: Strin, enum: Agl.ServiceSalesTarget}, // 销售目标
+backgroundCheck: {type: Boolean, default: false}, // academic 是否启用背景审查
+requirements: {type: [String]}, // academic requirements
+interview: {type: Boolean, default: false}, // 是否启用面试
 ```
 
 ### 服务包接口
