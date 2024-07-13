@@ -287,6 +287,7 @@ contentOrientated: [{
   premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
   times: {type: Number}, // 最少授课次数，必须大于0
   price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
+  servicePack: {type: String}, // 捆绑的服务包, service-pack._id 服务包id
 }],
 price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
 discount: [{
