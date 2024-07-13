@@ -118,6 +118,7 @@ unit: { // 认证课件
 },
 ability: {type: String, trim: true}, // 学习能力 https://github.com/zran-nz/bug/issues/5030
 styles: {type: [String], trim: true}, // 认知风格
+otherStyles: {type: [String], trim: true}, // 其他风格
 unitSnapshot: {type: Schema.Types.Mixed}, // 认证unit快照 https://github.com/zran-nz/bug/issues/4861
 linkSnapshot: {type: Schema.Types.Mixed}, // unitl link 的课件快照列表
 topic: [{ // 用于 essay, teacherTraining等大纲层级 认证项
