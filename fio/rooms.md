@@ -203,3 +203,28 @@ App.service('response').create({
 
 > remove  
 > `App.service('response').remove(_id)`
+
+
+## comments model
+```js
+sid: {type: String}, // session.sid
+rid: {type: String, required: true}, // response._id
+page: {type: String, required: true}, // session.page_id
+// receiver
+to: {type: String, required: true}, // receiver user._id
+receiver: {type: String, required: true}, // receiver user.nickname
+otype: {type: String, required: true}, // original type
+otext: {type: String, trim: true}, // original text
+// sender
+from: {type: String, required: true}, // sender user._id
+sender: {type: String, required: true}, // sender user.nickname
+review: {type: String, required: true},
+point: {type: Schema.Types.Mixed},
+read: {type: Boolean, default: false}, // read status
+```
+
+### 标记为已读
+> `App.service('comments').patch(_id, {read: true})`
+
+### 删除评论
+> `App.service('comments').remove(_id)`
