@@ -26,4 +26,7 @@ await App.service('cart').find();
 
 // 移除
 await App.service('cart').remove(cart._id);
+
+// 统计
+await App.service('cart').get('count');
 ```
