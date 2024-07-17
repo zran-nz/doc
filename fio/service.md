@@ -326,6 +326,7 @@ backgroundCheck: {type: Boolean, default: false}, // academic 是否启用背景
 requirements: {type: String, default: false}, // academic 是否启用背景审查描述
 requirementsItems: {type: [String]}, // academic requirements 二级数据
 interview: {type: Boolean, default: false}, // 是否启用面试
+filled: {type: Boolean, default: false}, // All forms have been filled
 ```
 
 ### 服务包接口
