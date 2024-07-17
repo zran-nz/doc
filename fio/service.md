@@ -156,6 +156,8 @@ await App.service("service-auth").find({query: {$sys: 1, ...}});
 await App.service("service-auth").find({query: {}});
 // 已认证列表
 await App.service("service-auth").find({ query: { status: 2 } });
+// 生成课件快照，在选择课件之后，申请之前请求
+await App.service("service-auth").get('unitSnapshot', {query: {_id: 'service-auth._id', unit: 'unit._id'}})
 // 提交申请
 await App.service("service-auth").patch(doc._id, { status: 1 });
 // 审批申请
@@ -167,7 +169,14 @@ await App.service("service-auth").patch(doc._id, {
 
 ### 精品课认证数据查询
 ```js
-await App.service('service-auth').get('unit', query: {...})
+// 查询参数参考 service-auth model
+await App.service('service-auth').get('unit', query: {
+  countryCode?, // 国家代码
+  curriculum?, // 大纲代码 or 自定义的大纲_id
+  subject?, // 学科_id
+  gradeGroup?, // 年级组
+  ...
+})
 
 ```
 
