@@ -327,6 +327,7 @@ requirements: {type: String, default: false}, // academic 是否启用背景审�
 requirementsItems: {type: [String]}, // academic requirements 二级数据
 interview: {type: Boolean, default: false}, // 是否启用面试
 filled: {type: Boolean, default: false}, // All forms have been filled
+reason: {type: String}, // 下架原因
 ```
 
 ### 服务包接口
