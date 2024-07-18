@@ -296,6 +296,7 @@ contentOrientated: [{
   premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
   times: {type: Number}, // 最少授课次数，必须大于0
   price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
+  schoolPrice: {type: Number, trim: true}, // 给机构的价格 单次价格 *100，cc，美分
   servicePack: {type: String}, // 捆绑的服务包, service-pack._id 服务包id
 }],
 price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
@@ -335,6 +336,7 @@ backgroundCheck: {type: Boolean, default: false}, // academic 是否启用背景
 requirements: {type: String, default: false}, // academic 是否启用背景审查描述
 requirementsItems: {type: [String]}, // academic requirements 二级数据
 interview: {type: Boolean, default: false}, // 是否启用面试
+splitSale: {type: Boolean, default: false}, // 是否可以分拆卖
 filled: {type: Boolean, default: false}, // All forms have been filled
 reason: {type: String}, // 下架原因
 ```

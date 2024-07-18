@@ -93,26 +93,31 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
       val: {type: Number}, // total score
       enable: {type: Boolean, default: false}, // score enable
       rubric: {type: Boolean, default: false}, // rubric enable
+      criteria: {type: Schema.Types.Mixed}, // criteria data
     },
     assess: {
       val: {type: Number},
       enable: {type: Boolean, default: false},
-      rubric: {type: Boolean, default: false}, // rubric enable
+      rubric: {type: Boolean, default: false},
+      criteria: {type: Schema.Types.Mixed},
     },
     pd: {
       val: {type: Number},
       enable: {type: Boolean, default: false},
-      rubric: {type: Boolean, default: false}, // rubric enable
+      rubric: {type: Boolean, default: false},
+      criteria: {type: Schema.Types.Mixed},
     },
     goal: {
       val: {type: Number},
       enable: {type: Boolean, default: false},
-      rubric: {type: Boolean, default: false}, // rubric enable
+      rubric: {type: Boolean, default: false},
+      criteria: {type: Schema.Types.Mixed},
     },
     skills: {
       val: {type: Number},
       enable: {type: Boolean, default: false},
-      rubric: {type: Boolean, default: false}, // rubric enable
+      rubric: {type: Boolean, default: false},
+      criteria: {type: Schema.Types.Mixed},
     },
   },
   outlines: {
