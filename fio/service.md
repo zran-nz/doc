@@ -334,7 +334,7 @@ statistic: [
     orderCount: {type: Number, default: 0}, // 订单购买次数
   },
 ],
-salesTarget: {type: Strin, enum: Agl.ServiceSalesTarget}, // 销售目标
+salesTarget: {type: [String], enum: Agl.ServiceSalesTarget}, // 销售目标
 backgroundCheck: {type: Boolean, default: false}, // academic 是否启用背景审查
 requirements: {type: String, default: false}, // academic 是否启用背景审查描述
 requirementsItems: {type: [String]}, // academic requirements 二级数据
