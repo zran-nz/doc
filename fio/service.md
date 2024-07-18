@@ -56,6 +56,9 @@ graph LR
 ### 服务设置接口
 
 ```js
+// 批量获取
+const [...] = await App.service('conf').get(`Service:${type}:.*`)
+
 // 获取
 await App.service("conf").get(`Service:${type}:${mentoringType}`).catch(e => {
   if (e.code === 404) return await App.service("conf").create({_id: `Service:${type}:${mentoringType}`, val: {}})
