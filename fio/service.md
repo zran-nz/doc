@@ -96,7 +96,17 @@ await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
 ```js
 ServiceRoles: ['mentoring', 'substitute', 'correcting', 'consultant'],
 ServiceType: ['workshop', 'content', 'teaching', 'mentoring', 'correcting', 'substituteAcademic', 'substituteService'],
-MentoringType: ['essay', 'academic', 'overseasStudy', 'teacherTraining', 'steam'], // professionalDevelopment, subject
+MentoringType: [
+  'essay',
+  'academic',
+  'overseasStudy',
+  'teacherTraining',
+  'teacherTrainingSubject',
+  'steam',
+  'academicPlanning',
+  'personalStatement',
+  'interest',
+],
 ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident', 'gift', 'point', 'cash'],
 ServicePackVideoType: ['AcademicValue', 'Features', 'QA'],
 ServiceSalesTarget: ['personal', 'school'],
