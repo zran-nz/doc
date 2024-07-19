@@ -184,8 +184,6 @@ const list = await App.service('unit').get('child', {query: {pid: 'unit._id'}})
 
 // query multiple unit details by id
 await App.service('unit').get('listByIds', {query: {ids: [unit._id, unit._id]}})
-
-
 ```
 
 ### unit link api
@@ -197,6 +195,8 @@ const list = await App.service('unit').get('relateLinkList', {query: {rid: 'unit
 // get all relate link list
 const list = await App.service('unit').get('allRelateLinkList', {query: {rid: ['unit._id', ...]}})
 
+// 获取 link 的 live 课数量
+const num = await App.service('unit').get('liveLinkNum', {query: {_id: unit._id}})
 ```
 
 ### unit copy api
