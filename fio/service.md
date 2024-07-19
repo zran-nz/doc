@@ -102,7 +102,7 @@ await App.service("conf").patch(`Service:${type}`, {
 ### Enum
 
 ```js
-ServiceRoles: ['mentoring', 'substitute', 'correcting', 'consultant'],
+ServiceRoles: ['mentoring', 'substitute', 'correcting', 'consultant', 'mentorSystem'],
 ServiceType: ['workshop', 'content', 'teaching', 'mentoring', 'correcting', 'substituteAcademic', 'substituteService'],
 MentoringType: [
   'essay',
