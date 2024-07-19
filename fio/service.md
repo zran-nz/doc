@@ -87,6 +87,14 @@ await App.service("conf").patch(`Service:${type}:${mentoringType}`, {
     }]
   }
 });
+// 精品课认证设置更新
+await App.service("conf").patch(`Service:${type}`, {
+  val: {
+    '服务类型': {
+      desc: '', // 申请描述
+    }
+  }
+}
 ```
 
 ## 服务认证
