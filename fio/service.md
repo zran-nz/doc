@@ -376,6 +376,21 @@ await App.service('service-pack').find({ query: {} });
 await App.service('service-pack').find({ query: { status: true } });
 ```
 
+### 服务包统计
+```js
+const {
+  mentoringType: {
+    'mentoringType': 3, ....
+  }
+  curriculum: {
+    'curriculum': 2, ...
+  },
+  subject: {
+    'subject._id': 4, ...
+  }
+} = await App.service('service-pack').get('groups')
+```
+
 ### 服务包视频
 
 ```js
