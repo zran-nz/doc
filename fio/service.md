@@ -306,7 +306,7 @@ points: {type: [String], trim: true}, // selling points
 type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
 mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
 serviceRoles: {type: String, enum: Agl.ServiceRoles}, // 服务角色
-countryCode: {type: String, trim: true}, // 国家代码
+countryCode: {type: [String], trim: true}, // 国家代码
 curriculum: {type: String, trim: true}, // curriculum.code
 subject: {type: [String], trim: true}, // subjects._id
 gradeGroup: {type: [String], trim: true}, // 年级组
