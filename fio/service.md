@@ -115,6 +115,7 @@ MentoringType: [
   'personalStatement',
   'interest',
 ],
+ConsultantType: ['carer', 'interview'],
 ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident', 'gift', 'point', 'cash'],
 ServicePackVideoType: ['AcademicValue', 'Features', 'QA'],
 ServiceSalesTarget: ['personal', 'school'],
@@ -305,13 +306,17 @@ cover: {type: String, trim: true}, // files._id
 coverName: {type: String, trim: true}, // 图片名称
 points: {type: [String], trim: true}, // selling points
 type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
-mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
 serviceRoles: {type: String, enum: Agl.ServiceRoles}, // 服务角色
+mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
 countryCode: {type: [String], trim: true}, // 国家代码
 curriculum: {type: String, trim: true}, // curriculum.code
 subject: {type: [String], trim: true}, // subjects._id
 gradeGroup: {type: [String], trim: true}, // 年级组
 qualification: {type: String, trim: true}, // 服务包需要的资质
+consultant: { // 顾问配置
+  type: {type: String, enum: Agl.ConsultantType}, // 顾问类型
+  servicePack: {type: String}, // 捆绑的服务包, service-pack._id 服务包id
+},
 // 主题服务包
 contentOrientatedEnable: {type: Boolean, default: false}, // type === 'mentoring' 专用
 contentOrientated: [{
