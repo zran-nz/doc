@@ -189,6 +189,7 @@ await App.service("service-auth").patch(doc._id, {
 ```
 
 ### 精品课认证数据查询
+
 ```js
 // 查询参数参考 service-auth model
 await App.service('service-auth').get('unit', query: {
@@ -804,4 +805,65 @@ await App.service('service-booking').create({
     times: 2,
     message: 'test message',
 });
+```
+
+### 主题服务报名
+
+### service-pack-apply model
+
+```js
+  uid: {type: String, required: true},
+  servicePack: {type: String, required: true}, // service-pack._id
+  school: {type: String}, // school-plan._id
+  isSchool: {type: Boolean, default: false}, // 机构购买/个人购买
+  name: [{type: String, sparse: true, trim: true}], // [ firstname, lastname ]
+  gender: {type: String, sparse: true, trim: true}, // gender
+  mobile: {type: String, trim: true, sparse: true, unique: true}, // E.164 format, maximum of 15 digits, +1001XXX5550100, +440201234567 => +44201234567
+  email: {type: String, lowercase: true, trim: true, sparse: true, unique: true},
+  emailType: {type: String, enum: ['student', 'parent']},
+  attachments: [
+    // 附件Classcipe1
+    {
+      filename: {type: String, trim: true},
+      mime: {type: String, trim: true},
+      hash: {type: String, trim: true},
+      date: {type: Date}, // 上传时间
+      type: {type: String, trim: true}, // 认证类型, conf.val.attachmentType
+      size: {type: Number}, // 文件大小
+    },
+  ],
+  needAcademic: {type: Boolean, default: false}, // 是否需要学术审核
+  interviewStatus: {type: Number, default: 0}, // 面试审核 0:pending, 1:completed
+  needInterview: {type: Boolean, default: false}, // 是否需要面试审核
+  status: {type: Number, default: 1}, // 0: 未申请, 1:申请中/pending, 2: 通过/approved, -1: 拒绝/rejected
+```
+
+### 机构售卖分享设置
+
+### service-pack-school-price model
+
+```js
+  school: {type: String}, // school-plan._id
+  servicePack: {type: String, required: true}, // service-pack._id
+  contentOrientated: [
+    {
+      _id: {type: String},
+      price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
+    },
+  ],
+  deadline: {type: Date}, // 截止时间
+```
+
+### 机构购买代金券信息
+
+### service-pack-ticket model
+
+```js
+  school: {type: String}, // school-plan._id
+  uid: {type: String},
+  servicePack: {type: String, required: true}, // service-pack._id
+  order: {type: String, trim: true}, // 关联 order
+  cashCount: {type: Number, default: 0}, // 现金购买数量
+  pointCount: {type: Number, default: 0}, // 积分购买数量
+  giftCount: {type: Number, default: 0}, // 赠送数量
 ```
