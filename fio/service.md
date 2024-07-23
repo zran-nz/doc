@@ -307,7 +307,7 @@ points: {type: [String], trim: true}, // selling points
 type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
 mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
 serviceRoles: {type: String, enum: Agl.ServiceRoles}, // 服务角色
-countryCode: {type: String, trim: true}, // 国家代码
+countryCode: {type: [String], trim: true}, // 国家代码
 curriculum: {type: String, trim: true}, // curriculum.code
 subject: {type: [String], trim: true}, // subjects._id
 gradeGroup: {type: [String], trim: true}, // 年级组
@@ -375,6 +375,21 @@ await App.service('service-pack').find({ query: {} });
 
 // 服务包列表（featured）
 await App.service('service-pack').find({ query: { status: true } });
+```
+
+### 服务包统计
+```js
+const {
+  mentoringType: {
+    'mentoringType': 3, ....
+  }
+  curriculum: {
+    'curriculum': 2, ...
+  },
+  subject: {
+    'subject._id': 4, ...
+  }
+} = await App.service('service-pack').get('groups')
 ```
 
 ### 服务包视频
