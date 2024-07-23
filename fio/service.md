@@ -341,6 +341,7 @@ freq: {type: Number, enum: [7, 14, 30, 120]}, // 每张的可用多少天
 duration: {type: Number}, // session duration min
 break: {type: Number}, // session break min
 status: {type: Boolean, default: false}, // 发布状态
+lastPublished: {type: Date}, // 上次发布时间
 count: { // 统计
   sold: {type: Number}, // 已售
   valid: {type: Number}, // 有效数量
