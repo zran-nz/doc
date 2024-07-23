@@ -378,6 +378,7 @@ await App.service('service-pack').find({ query: { status: true } });
 ```
 
 ### 服务包统计
+
 ```js
 const {
   mentoringType: {
@@ -860,13 +861,20 @@ await App.service('service-booking').create({
 ```js
   school: {type: String}, // school-plan._id
   servicePack: {type: String, required: true}, // service-pack._id
+  priceEnable: {type: Boolean, default: false}, // 价格设置
   contentOrientated: [
     {
-      _id: {type: String},
+      premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
+      times: {type: Number}, // 最少授课次数，必须大于0
       price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
+      schoolPrice: {type: Number, trim: true}, // 给机构的价格 单次价格 *100，cc，美分
+      servicePack: {type: String}, // 捆绑的服务包, service-pack._id 服务包id
     },
   ],
   deadline: {type: Date}, // 截止时间
+  withinSchool: {type: Boolean, default: false}, // 校内/校外
+  students: {type: [String]}, // 分享的学生
+  shared: {type: Boolean, default: false}, // 已分享
 ```
 
 ### 机构购买代金券信息
