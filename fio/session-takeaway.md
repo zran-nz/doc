@@ -79,11 +79,19 @@ const outline = {
 }
 ```
 
+### 获取指定学生的课堂数据
+```js
+await App.service('session-snapshot').get('studentData', {
+  query: { _id: 'session._id', student: 'user._id' },
+});
+```
+
+
 ### 创建一次性课堂快照
 
 ```js
 await App.service('session-snapshot').get('snapshot', {
-    query: { _id: 'session._id' },
+  query: { _id: 'session._id' },
 });
 ```
 
