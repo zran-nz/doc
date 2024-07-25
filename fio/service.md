@@ -327,6 +327,8 @@ contentOrientated: [{
   schoolPrice: {type: Number, trim: true}, // 给机构的价格 单次价格 *100，cc，美分
   servicePack: {type: String}, // 捆绑的服务包, service-pack._id 服务包id
 }],
+interviewPack: {type: String}, // 面试捆绑的服务包, service-pack._id 服务包id
+carerPack: {type: String}, // 管家捆绑的服务包, service-pack._id 服务包id
 price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
 discount: [{
   count: {type: Number}, // 数量
