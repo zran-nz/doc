@@ -370,6 +370,7 @@ interview: {type: Boolean, default: false}, // 是否启用面试
 splitSale: {type: Boolean, default: false}, // 是否可以分拆卖
 filled: {type: Boolean, default: false}, // All forms have been filled
 reason: {type: String}, // 下架原因
+keywords: {type: [String]}, // 关键词搜索用，[subject, topic, ...]
 ```
 
 ### 服务包接口
