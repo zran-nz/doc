@@ -186,7 +186,8 @@ App.service('order').on('patched', (patchedData) => {
 });
 
 /**
- * 检查商品状态
+ * 检查商品状态 
+ * 新增判断 每个商品只能同时存在一个未支付订单
   return {
       links,
       available,//可下单
@@ -201,7 +202,27 @@ await App.service('order').get('checkLinks', {
             { id: session._id, style: 'session' },
             { id: service._id, style: 'service' },
         ],
-        sharedSchool: 'school-plan._id',
+    },
+});
+/**
+ * 检查商品状态 主题服务包
+ * 新增判断 每个商品只能同时存在一个未支付订单
+  return {
+      links,
+      available,//可下单
+      notExist,//不存在或未发布
+      ordered,//已下单
+      servicePremiumAvailable,//当前links,主题服务包是否可购买
+  };
+ */
+await App.service('order').get('checkLinks', {
+    query: {
+        links: [
+            { id: 'service-pack._id', style: 'service' }, // 1v1服务包
+            { id: 'service-pack.contentOrientated.premium', style: 'service_premium' }, // 主题服务包大课
+        ],
+        servicePremium: 'service-pack._id',
+        sharedSchool: 'school-plan._id', // 购买学校分享服务包时传
     },
 });
 
