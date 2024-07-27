@@ -125,6 +125,7 @@
  * }
  * cart:array optional
  * promotion:boolean optional
+ * freeServiceClaimed:boolean optional 新注册14天用户免费领取
  * inviter:string optional
  * isPoint:boolean optional 积分购买/现金购买可不填
  * isSchool:boolean optional default:false buyer为学校
