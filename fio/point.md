@@ -8,7 +8,7 @@
   category: {
     type: String,
     required: true,
-    enum: ['invite', 'verify', 'unit', 'service', 'session', 'self_study', 'saas_tool', 'premium_content', 'correcting_service', 'cloud_20g', 'cloud_40g', 'points_purchase'],
+    enum: ['invite', 'verify', 'unit', 'service', 'session', 'self_study', 'saas_tool', 'service_premium', 'correcting_service', 'cloud_20g', 'cloud_40g', 'points_purchase'],
   }, //类目2
   categoryType: {type: String}, //类目3
   mode: {type: String, required: true, default: 'percentage', enum: ['fixed', 'percentage']}, //奖励模式 固定数值/按比例

@@ -4,20 +4,20 @@
 
 ```js
 {
-  buyer: {type: String, required: true}, // buyer user._id
-  seller: {type: String}, //seller已废弃,改用sellers
+  buyer: {type: String, required: true}, // buyer user._id/school-plan._id
+  // seller: {type: String}, //seller已废弃,改用sellers
   sellers: {type: Array},
   name: {type: String},
   no: {type: String},
   // link已废弃,改用links
-  link: {
-    id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
-    name: {type: String},
-    mode: {type: String}, // unit.mode
-    type: {type: String}, // 2:unit plan; 4:task; 6:evaluation, old.content_type
-    newId: {type: String},
-    hash: {type: String},
-  },
+  // link: {
+  //   id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
+  //   name: {type: String},
+  //   mode: {type: String}, // unit.mode
+  //   type: {type: String}, // 2:unit plan; 4:task; 6:evaluation, old.content_type
+  //   newId: {type: String},
+  //   hash: {type: String},
+  // },
   links: [
     {
       id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
@@ -29,15 +29,17 @@
       cover: {type: String},
       price: {type: Number},
       point: {type: Number},
-      style: {type: String}, //unit session service
+      style: {type: String}, //unit session service self_study service_premium
       goods: {type: Object}, //下单时商品快照
       sessionId: {type: Object}, //捆绑服务包的公开课_id
       count: {type: Object}, //服务包次数 不包含赠送次数
-      gift: {type: Boolean}, // 是否赠品/推广
+      gift: {type: Boolean}, // 弃用 更换为promotion
+      promotion: {type: Boolean}, // 是否赠品/推广 promotion
       giftCount: {type: Number, default: 0}, // 赠送次数
       removed: {type: Boolean}, //支付前 被下架或删除
       inviter: {type: String, trim: true}, //分享人
       archived: {type: Boolean, default: false}, //archived and deleted
+      persons: {type: Number, default: 1}, // 主题服务包 学校购买 1v1服务包份数
     },
   ],
   /**
@@ -63,8 +65,9 @@
    * session_self_study
    * session_service_pack 捆绑服务包
    * service_pack 服务包
+   * service_premium 主题服务包
    */
-  type: {type: String, enum: ['unit', 'session_public', 'session_self_study', 'session_service_pack', 'service_pack']},
+  type: {type: String, enum: ['unit', 'session_public', 'session_self_study', 'session_service_pack', 'service_pack', 'service_premium']},
   price: {type: Number}, // Unit cent 支付金额(现金+gift card)
   point: {type: Number}, // 支付积分
   // subtotal: {type: Number}, // Unit cent 商品总金额 后续增加
@@ -102,6 +105,10 @@
   inviter: {type: String, trim: true}, //分享人
   isPoint: {type: Boolean, default: false}, //积分购买
   isSeparated: {type: Boolean, default: false}, //积分/佣金是否已分账
+  isSchool: {type: Boolean, default: false}, // buyer为学校
+  sharedSchool: {type: String}, // school-plan._id 从学校分享购买的,分享的学校id
+  servicePremium: {type: String}, // service-pack._id 主题服务包id
+  persons: {type: Number, default: 1}, // buyer为学校,1v1服务包份数
 }
 ```
 
@@ -118,11 +125,28 @@
  * }
  * cart:array optional
  * promotion:boolean optional
+ * freeServiceClaimed:boolean optional 新注册14天用户免费领取
  * inviter:string optional
  * isPoint:boolean optional 积分购买/现金购买可不填
+ * isSchool:boolean optional default:false buyer为学校
+ * school:string optional buyer为学校时需传学校id school-plan._id
+ * sharedSchool:string optional 从学校分享购买的,分享学校id school-plan._id
+ * servicePremium:string optional 主题服务包购买需要 service-pack._id
+ * persons:number optional 主题服务包 1v1服务包份数
  */
 await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id], promotion: false, isPoint: true, inviter: inviteCode });
-
+// 主题服务包购买
+await App.service('order').create({
+    link: [
+        { id: 'service-pack._id', style: 'service', count: 4 }, // 1v1服务包
+        { id: 'service-pack.contentOrientated.premium', style: 'service_premium' }, // 主题服务包大课
+    ],
+    isSchool: true, //buyer为学校
+    school: 'school-plan._id', //buyer为学校时传,个人购买不需要
+    sharedSchool: 'school-plan._id', // 从学校分享购买的,分享学校id
+    persons: 6, //buyer为学校,1v1服务包份数
+    servicePremium: 'service-pack._id', //主题服务包id
+});
 // 订单列表 all
 await App.service('order').find();
 // 订单列表 paid
@@ -163,7 +187,8 @@ App.service('order').on('patched', (patchedData) => {
 });
 
 /**
- * 检查商品状态
+ * 检查商品状态 
+ * 新增判断 每个商品只能同时存在一个未支付订单
   return {
       links,
       available,//可下单
@@ -178,6 +203,27 @@ await App.service('order').get('checkLinks', {
             { id: session._id, style: 'session' },
             { id: service._id, style: 'service' },
         ],
+    },
+});
+/**
+ * 检查商品状态 主题服务包
+ * 新增判断 每个商品只能同时存在一个未支付订单
+  return {
+      links,
+      available,//可下单
+      notExist,//不存在或未发布
+      ordered,//已下单
+      servicePremiumAvailable,//当前links,主题服务包是否可购买
+  };
+ */
+await App.service('order').get('checkLinks', {
+    query: {
+        links: [
+            { id: 'service-pack._id', style: 'service' }, // 1v1服务包
+            { id: 'service-pack.contentOrientated.premium', style: 'service_premium' }, // 主题服务包大课
+        ],
+        servicePremium: 'service-pack._id',
+        sharedSchool: 'school-plan._id', // 购买学校分享服务包时传
     },
 });
 
