@@ -90,6 +90,7 @@ await App.service('classes').get('gradesCount', {query: {school: 'schoolIdOrUid'
   name: String,
   subtitle: String,
   curriculum: String, // curriculum code
+  subjectCode: {type: String}, // subject code
   participants?: String, // participants, ['educators', 'students']
   grade: [String],
   del: Boolean,
