@@ -5,6 +5,7 @@
 ```js
 {
   buyer: {type: String, required: true}, // buyer user._id/school-plan._id
+  schoolAdmin: {type: String}, // user._id 机构下单 下单的学校管理员
   // seller: {type: String}, //seller已废弃,改用sellers
   sellers: {type: Array},
   name: {type: String},
@@ -169,6 +170,14 @@ await App.service('order').find({
 await App.service('order').find({
     userField: '',
     userFieldType: 'email/mobile/classcipeId',
+});
+
+// 学校下单查询
+await App.service('order').find({
+    query: {
+        buyer: 'school-plan._id',
+        $skipSys: 1,
+    },
 });
 
 // 详情
