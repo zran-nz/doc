@@ -884,20 +884,16 @@ await App.service('service-booking').create({
   deadline: {type: Date}, // 截止时间
   withinSchool: {type: Boolean, default: false}, // 校内/校外
   students: {type: [String]}, // 分享的学生
-  shared: {type: Boolean, default: false}, // 已分享
 ```
 
 ### 机构售卖分享设置接口
 
 ```js
-/**
- * 创建或更新
- * 必填 school, servicePack
- * 选填 priceEnable, contentOrientated, deadline, withinSchool, students
- */
-await App.service('service-pack-school-price').get('save', {
-    query: { school: 'school-plan._id', servicePack: 'service-pack._id' },
-});
+// 创建
+await App.service('service-pack-school-price').create({ school: 'school-plan._id', servicePack: 'service-pack._id' });
+
+// 更新
+await App.service('service-pack-school-price').patch('_id', { priceEnable: false });
 
 // find
 await App.service('service-pack-school-price').find({ query: { school: 'school-plan._id', servicePack: 'service-pack._id' } });
