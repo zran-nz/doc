@@ -840,8 +840,7 @@ await App.service('service-booking').create({
 ```js
   uid: {type: String, required: true},
   servicePack: {type: String, required: true}, // service-pack._id
-  school: {type: String}, // school-plan._id
-  isSchool: {type: Boolean, default: false}, // 机构购买/个人购买
+  sharedSchool: {type: String}, // school-plan._id 从学校分享购买的,分享的学校id
   name: [{type: String, sparse: true, trim: true}], // [ firstname, lastname ]
   gender: {type: String, sparse: true, trim: true}, // gender
   mobile: {type: String, trim: true, sparse: true, unique: true}, // E.164 format, maximum of 15 digits, +1001XXX5550100, +440201234567 => +44201234567
