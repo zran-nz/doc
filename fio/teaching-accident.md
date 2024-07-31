@@ -57,8 +57,10 @@
 ```js
 // 查询
 await App.service('teaching-accident').find({
-    teacher: user._id,
-    tags: [],
+    query: {
+        teacher: user._id,
+        tags: [],
+    },
 });
 
 // 创建

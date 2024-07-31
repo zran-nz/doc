@@ -31,9 +31,9 @@ await App.service('poster').create({
 });
 
 // 海报列表
-await App.service('poster').find({ type: 'image' });
+await App.service('poster').find({ query: { type: 'image' } });
 // 文案列表
-await App.service('poster').find({ type: 'text' });
+await App.service('poster').find({ query: { type: 'text' } });
 
 // 获取合并海报,url不传则不生成二维码
 await App.service('poster').get('mergeImage', { query: { image: 'url', imageCover: 'url', url: url } });

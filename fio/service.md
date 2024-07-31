@@ -858,11 +858,13 @@ await App.service('service-booking').create({
       size: {type: Number}, // 文件大小
     },
   ],
+  academicStatus: {type: Number, default: 0}, // 学术审核结果 0:pending, 1:approved, -1:rejected
   needAcademic: {type: Boolean, default: false}, // 是否需要学术审核
-  interviewStatus: {type: Number, default: 0}, // 面试审核 0:pending, 1:completed
+  interviewStatus: {type: Number, default: 0}, // 面试审核结果 0:pending, 1:approved, -1:rejected
   needInterview: {type: Boolean, default: false}, // 是否需要面试审核
+  interviewInvited: {type: Boolean, default: false}, // 面试邀请是否发送
   reason: {type: String, trim: true}, //拒绝理由
-  status: {type: Number, default: 1}, // 0: 未申请, 1:申请中/pending, 2: 通过/approved, -1: 拒绝/rejected
+  status: {type: Number, default: 0}, // 0:申请中/pending, 1: 通过/approved, -1: 拒绝/rejected, 2: 未申请/withdraw
 ```
 
 ### 报名接口
