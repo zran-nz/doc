@@ -2,14 +2,32 @@
 ### library model
 ```js
 uid: {type: String, required: true}, // users._id
-model: {type: String, required: true, enum: ['unit', 'prompt']}, // 关联数据源
+model: {type: String, required: true, enum: ['unit', 'prompts']}, // 关联数据服务源
 publish: {type: Boolean, default: true}, // 发布状态
 snapshot: {type: Schema.Types.Mixed}, // snapshot
 linkSnapshot: {type: Schema.Types.Mixed}, // unit link 的课件快照列表
 ```
 ### library api
 ```js
+// 发布到 library
 await App.service('library').get('publish', {query: {_id, model}})
+
+```
+
+## prompts
+### prompts model
+```js
+uid: {type: String, required: true}, // users._id
+unit: {type: String, required: true}, // unit._id
+publish: {type: Boolean, default: false}, // 发布状态
+pages: {type: Schema.Types.Mixed}, // pages snapshot
+questions: {type: Schema.Types.Mixed}, // questions snapshot
+materials: {type: Schema.Types.Mixed}, // materials snapshot
+```
+### prompts api
+```js
+// 创建
+await App.service('prompts').create({unit, pages, questions, materials})
 ```
 
 ## Unit
