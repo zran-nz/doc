@@ -841,11 +841,12 @@ await App.service('service-booking').create({
   uid: {type: String, required: true},
   servicePack: {type: String, required: true}, // service-pack._id
   sharedSchool: {type: String}, // school-plan._id 从学校分享购买的,分享的学校id
-  name: [{type: String, sparse: true, trim: true}], // [ firstname, lastname ]
-  gender: {type: String, sparse: true, trim: true}, // gender
-  mobile: {type: String, trim: true, sparse: true, unique: true}, // E.164 format, maximum of 15 digits, +1001XXX5550100, +440201234567 => +44201234567
-  email: {type: String, lowercase: true, trim: true, sparse: true, unique: true},
+  name: [{type: String, trim: true}], // [ firstname, lastname ]
+  gender: {type: String, trim: true}, // gender
+  mobile: {type: String, trim: true}, // E.164 format, maximum of 15 digits, +1001XXX5550100, +440201234567 => +44201234567
+  email: {type: String, lowercase: true, trim: true},
   emailType: {type: String, enum: ['student', 'parent']},
+  mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
   attachments: [
     // 附件Classcipe1
     {
@@ -860,7 +861,24 @@ await App.service('service-booking').create({
   needAcademic: {type: Boolean, default: false}, // 是否需要学术审核
   interviewStatus: {type: Number, default: 0}, // 面试审核 0:pending, 1:completed
   needInterview: {type: Boolean, default: false}, // 是否需要面试审核
+  reason: {type: String, trim: true}, //拒绝理由
   status: {type: Number, default: 1}, // 0: 未申请, 1:申请中/pending, 2: 通过/approved, -1: 拒绝/rejected
+```
+
+### 报名接口
+
+```js
+// 创建
+await App.service('service-pack-apply').create({ uid: 'user._id', servicePack: 'service-pack._id', sharedSchool: 'school-plan._id' });
+
+// withdraw
+await App.service('service-pack-apply').patch('_id', { status: 0 });
+
+// find
+await App.service('service-pack-school-price').find({ query: { uid: 'user._id', servicePack: 'service-pack._id', sharedSchool: 'school-plan._id' } });
+
+// 按mentoringType统计
+await App.service('service-pack-apply').get('countType');
 ```
 
 ### 机构售卖分享设置
@@ -885,7 +903,7 @@ await App.service('service-booking').create({
   students: {type: [String]}, // 分享的学生
 ```
 
-### 机构售卖分享设置接口
+### 分享接口
 
 ```js
 // 创建
