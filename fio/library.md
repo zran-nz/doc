@@ -1,3 +1,17 @@
+## Library
+### library model
+```js
+uid: {type: String, required: true}, // users._id
+model: {type: String, required: true, enum: ['unit', 'prompt']}, // 关联数据源
+publish: {type: Boolean, default: true}, // 发布状态
+snapshot: {type: Schema.Types.Mixed}, // snapshot
+linkSnapshot: {type: Schema.Types.Mixed}, // unit link 的课件快照列表
+```
+### library api
+```js
+await App.service('library').get('publish', {query: {_id, model}})
+```
+
 ## Unit
 
 ### unit model ext
