@@ -847,6 +847,8 @@ await App.service('service-booking').create({
   email: {type: String, lowercase: true, trim: true},
   emailType: {type: String, enum: ['student', 'parent']},
   mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
+  serviceTicket: {type: String}, // service-pack-ticket._id 分配的ticket
+  order: {type: [String]}, // 关联 order._id
   attachments: [
     // 附件Classcipe1
     {
