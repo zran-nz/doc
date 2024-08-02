@@ -848,6 +848,9 @@ await App.service('service-booking').create({
   email: {type: String, lowercase: true, trim: true},
   emailType: {type: String, enum: ['student', 'parent']},
   mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
+  serviceTicket: {type: String}, // service-pack-ticket._id 分配的ticket
+  order: {type: [String]}, // 关联 order._id
+  withinSchool: {type: Boolean, default: false}, // 校内/校外
   attachments: [
     // 附件Classcipe1
     {
@@ -882,6 +885,9 @@ await App.service('service-pack-school-price').find({ query: { uid: 'user._id', 
 
 // 按mentoringType统计
 await App.service('service-pack-apply').get('countType');
+
+// 校内外统计
+await App.service('service-pack-apply').get('count', { query: { sharedSchool: 'school-plan._id' } });
 ```
 
 ### 机构售卖分享设置
@@ -924,11 +930,30 @@ await App.service('service-pack-school-price').find({ query: { school: 'school-p
 ### service-pack-ticket model
 
 ```js
-  school: {type: String}, // school-plan._id
   uid: {type: String},
-  servicePack: {type: String, required: true}, // service-pack._id
+  school: {type: String}, // school-plan._id
+  servicePremium: {type: String, required: true}, // service-pack._id
   order: {type: String, trim: true}, // 关联 order
-  cashCount: {type: Number, default: 0}, // 现金购买数量
-  pointCount: {type: Number, default: 0}, // 积分购买数量
-  giftCount: {type: Number, default: 0}, // 赠送数量
+  serviceData: {
+    type: [
+      {
+        servicePack: {type: String, required: true}, // service-pack._id
+        cash: {type: Number, default: 0}, // 现金购买数量 当前剩余
+        point: {type: Number, default: 0}, // 积分购买数量 当前剩余
+        gift: {type: Number, default: 0}, // 赠送数量 当前剩余
+        cashOrigin: {type: Number, default: 0}, // 现金购买数量
+        pointOrigin: {type: Number, default: 0}, // 积分购买数量
+        giftOrigin: {type: Number, default: 0}, // 赠送数量
+      },
+    ],
+  },
+```
+
+### 代金券接口
+
+```js
+// 分配
+await App.service('service-pack-ticket').get('claim', { query: { id: 'service-pack-ticket._id', uid: 'uid' } });
+// 取消分配
+await App.service('service-pack-ticket').get('disclaim', { query: { id: 'service-pack-ticket._id' } });
 ```
