@@ -933,3 +933,12 @@ await App.service('service-pack-school-price').find({ query: { school: 'school-p
   pointCount: {type: Number, default: 0}, // 积分购买数量
   giftCount: {type: Number, default: 0}, // 赠送数量
 ```
+
+### 代金券接口
+
+```js
+// 分配
+await App.service('service-pack-ticket').get('claim', { query: { id: 'service-pack-ticket._id', uid: 'uid' } });
+// 取消分配
+await App.service('service-pack-ticket').get('disclaim', { query: { id: 'service-pack-ticket._id' } });
+```
