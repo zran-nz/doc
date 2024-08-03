@@ -930,13 +930,13 @@ await App.service('service-pack-school-price').find({ query: { school: 'school-p
 
 ```js
   uid: {type: String},
-  school: {type: String}, // school-plan._id
+  school: {type: String, required: true}, // school-plan._id
   servicePremium: {type: String, required: true}, // service-pack._id
   order: {type: String, trim: true}, // 关联 order
   serviceData: {
     type: [
       {
-        servicePack: {type: String, required: true}, // service-pack._id
+        servicePack: {type: String}, // service-pack._id
         cash: {type: Number, default: 0}, // 现金购买数量 当前剩余
         point: {type: Number, default: 0}, // 积分购买数量 当前剩余
         gift: {type: Number, default: 0}, // 赠送数量 当前剩余
@@ -946,6 +946,7 @@ await App.service('service-pack-school-price').find({ query: { school: 'school-p
       },
     ],
   },
+  refund: {type: Boolean, default: false}, // 已退款
 ```
 
 ### 代金券接口
