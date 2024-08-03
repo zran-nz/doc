@@ -241,4 +241,7 @@ await App.service('order').get('orderRefundCheck', { query: { id: order._id } })
 
 // 订单数量统计 unpaid,paid
 await App.service('order').get('count');
+
+// 学校购买,按ticket退款
+await App.service('order').get('cancelTicket', { query: { tickets: ['service-pack-ticket._id', 'service-pack-ticket._id'] } });
 ```
