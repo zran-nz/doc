@@ -843,6 +843,7 @@ await App.service('service-booking').create({
   servicePack: {type: String, required: true}, // service-pack._id
   sharedSchool: {type: String}, // school-plan._id 从学校分享购买的,分享的学校id
   name: [{type: String, trim: true}], // [ firstname, lastname ]
+  nickname: {type: String, trim: true},
   gender: {type: String, trim: true}, // gender
   mobile: {type: String, trim: true}, // E.164 format, maximum of 15 digits, +1001XXX5550100, +440201234567 => +44201234567
   email: {type: String, lowercase: true, trim: true},
@@ -851,6 +852,7 @@ await App.service('service-booking').create({
   serviceTicket: {type: String}, // service-pack-ticket._id 分配的ticket
   order: {type: [String]}, // 关联 order._id
   withinSchool: {type: Boolean, default: false}, // 校内/校外
+  needOrder: {type: Boolean, default: false}, // 只有从学校报名,且该学校priceEnable=false时,无需下单;其余情况都需下单
   attachments: [
     // 附件Classcipe1
     {
