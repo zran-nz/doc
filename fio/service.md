@@ -222,6 +222,23 @@ await App.service("service-auth").find({
 });
 ```
 
+## 认证消息
+### service-auth-message model
+```js
+uid: { type: String, required: true },
+rid: { type: String, required: true }, // 关联的 service-auth._id
+message: { type: String, required: true },
+```
+
+### 认证消息接口
+```js
+// 创建消息
+await App.service('service-auth-message').create({rid: 'service-auth._id', message})
+
+// 最新的消息列表
+await App.service('service-auth-message').find({query: {rid: 'service-auth._id', $skip: {_id: -1}}})
+```
+
 ## 用户服务配置
 
 ### service-conf model
