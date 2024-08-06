@@ -849,7 +849,7 @@ await App.service('service-booking').create({
   email: {type: String, lowercase: true, trim: true},
   emailType: {type: String, enum: ['student', 'parent']},
   mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
-  serviceTicket: {type: String}, // service-pack-ticket._id 分配的ticket
+  serviceTicket: {type: [String], default: []}, // service-pack-ticket._id 分配的ticket
   order: {type: [String]}, // 关联 order._id
   withinSchool: {type: Boolean, default: false}, // 校内/校外
   needOrder: {type: Boolean, default: false}, // 只有从学校报名,且该学校priceEnable=false时,无需下单;其余情况都需下单
