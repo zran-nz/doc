@@ -334,6 +334,7 @@ gradeGroup: {type: [String], trim: true}, // 年级组
 qualification: {type: String, trim: true}, // 服务包需要的资质
 consultant: { // 顾问配置
   type: {type: String, enum: Agl.ConsultantType}, // 顾问类型
+  carerService: {type: String},
   servicePack: {type: String}, // 捆绑的服务包, service-pack._id 服务包id
 },
 // 主题服务包
