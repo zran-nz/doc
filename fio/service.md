@@ -228,6 +228,7 @@ await App.service("service-auth").find({
 uid: { type: String, required: true },
 rid: { type: String, required: true }, // 关联的 service-auth._id
 message: { type: String, required: true },
+read: {type: Boolean, default: false}, // read status
 ```
 
 ### 认证消息接口
