@@ -168,7 +168,8 @@ feedback: { // 留言反馈
   date: {type: Date}, // 留言时间
   read: {type: Boolean, default: false}, // read status
   reply: {type: String}, // 后台回复内容
-  replyDate: {type: Date}
+  replyDate: {type: Date},
+  replyRead: {type: Boolean, default: false}, // read status
 },
 ```
 
@@ -206,6 +207,7 @@ await App.service('service-auth').patch('message', {_id, message})
 await App.service('service-auth').patch('reply', {_id, reply})
 // 标记为已读
 await App.service('service-auth').patch(_id, {'feedback.read': true})
+await App.service('service-auth').patch(_id, {'feedback.replyRead': true})
 // 已读未读过滤条件
 await App.service('service-auth').find({query: {
   ...,
