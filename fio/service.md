@@ -163,6 +163,13 @@ versionId: {type: String, trim: true}, // 版本 #4846
 reason: {type: String, trim: true}, // 原因
 inviter: {type: String, trim: true}, //分享人
 qualification: {type: String, trim: true}, // 审核时候选的资质 #4864
+feedback: { // 留言反馈
+  message: {type: String}, // 用户留言内容
+  date: {type: Date}, // 留言时间
+  read: {type: Boolean, default: false}, // read status
+  reply: {type: String}, // 后台回复内容
+  replyDate: {type: Date}
+},
 ```
 
 ### 服务认证接口（仅限当前用户）
@@ -189,6 +196,21 @@ await App.service("service-auth").patch(doc._id, {
   status: 2 / -1,
   reason: "",
 });
+```
+
+### 认证留言
+```js
+// 创建留言
+await App.service('service-auth').patch('message', {_id, message})
+// 后台回复
+await App.service('service-auth').patch('reply', {_id, reply})
+// 标记为已读
+await App.service('service-auth').patch(_id, {'feedback.read': true})
+// 已读未读过滤条件
+await App.service('service-auth').find({query: {
+  ...,
+  'feedback.read': true/false // 未读
+}})
 ```
 
 ### 精品课认证数据查询
@@ -220,24 +242,6 @@ await App.service('service-auth').get('listByUid', {
 await App.service("service-auth").find({
   query: { dateRange: [start, end, zone?] },
 });
-```
-
-## 认证消息
-### service-auth-message model
-```js
-uid: { type: String, required: true },
-rid: { type: String, required: true }, // 关联的 service-auth._id
-message: { type: String, required: true },
-read: {type: Boolean, default: false}, // read status
-```
-
-### 认证消息接口
-```js
-// 创建消息
-await App.service('service-auth-message').create({rid: 'service-auth._id', message})
-
-// 最新的消息列表
-await App.service('service-auth-message').find({query: {rid: 'service-auth._id', $skip: {_id: -1}}})
 ```
 
 ## 用户服务配置
