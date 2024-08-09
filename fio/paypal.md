@@ -77,7 +77,8 @@ CVC code 278
 // 请求paypal支付参数
 App.service('paypal').get('payment', {
     query: {
-        id: '65a111fe7107463f3af0accb',
+        id: 'order._id',
+        checkPremium: true, //默认不传为false,是否检查主题服务包
     },
 });
 ```

@@ -520,6 +520,7 @@ expired: {type: Date}, // 过期列表
 status: {type: Number, default: 0}, // 状态 0: 可用，-1: 过期, 1: 被使用
 gift: {type: Boolean, default: false}, // 是否赠品
 order: {type: String, trim: true}, // 关联 order
+serviceTicket: {type: String, trim: true}, // 关联 service-pack-ticket._id
 payMethod: {type: String, trim: true}, // 支付方式
 ```
 
@@ -938,6 +939,7 @@ await App.service('service-pack-apply').get('count', { query: { sharedSchool: 's
   deadline: {type: Date}, // 截止时间
   withinSchool: {type: Boolean, default: false}, // 校内/校外
   students: {type: [String]}, // 分享的学生
+  teachers: {type: [String]}, // 分享的老师
   role: {type: String, default: 'student', enum: ['student', 'teacher']},
 ```
 
@@ -985,5 +987,5 @@ await App.service('service-pack-school-price').find({ query: { school: 'school-p
 // 分配
 await App.service('service-pack-ticket').get('claim', { query: { id: 'service-pack-ticket._id', uid: 'uid' } });
 // 取消分配
-await App.service('service-pack-ticket').get('disclaim', { query: { id: 'service-pack-ticket._id' } });
+await App.service('service-pack-ticket').get('disclaim', { query: { ids: ['service-pack-ticket._id'] } });
 ```
