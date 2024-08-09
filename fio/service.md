@@ -200,6 +200,7 @@ await App.service("service-auth").patch(doc._id, {
 ```
 
 ### 认证留言
+
 ```js
 // 创建留言
 await App.service('service-auth').patch('message', {_id, message})
@@ -937,6 +938,7 @@ await App.service('service-pack-apply').get('count', { query: { sharedSchool: 's
   deadline: {type: Date}, // 截止时间
   withinSchool: {type: Boolean, default: false}, // 校内/校外
   students: {type: [String]}, // 分享的学生
+  role: {type: String, default: 'student', enum: ['student', 'teacher']},
 ```
 
 ### 分享接口

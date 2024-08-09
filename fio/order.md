@@ -109,6 +109,7 @@
   isSchool: {type: Boolean, default: false}, // buyer为学校
   sharedSchool: {type: String}, // school-plan._id 从学校分享购买的,分享的学校id
   servicePremium: {type: String}, // service-pack._id 主题服务包id
+  premiumSnapshot: {type: Object}, //主题服务包快照
   persons: {type: Number, default: 1}, // buyer为学校,1v1服务包份数
 }
 ```
