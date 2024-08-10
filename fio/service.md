@@ -449,6 +449,8 @@ await App.service('service-pack').patch(doc._id, {
 ```js
 // 老师取 "teacherTraining"的数据, 学生取非"teacherTraining"的数据
 await App.service('service-pack').get('index');
+// 学校下
+await App.service('service-pack').get('index', {query: {salesTarget: 'school'}});
 ```
 
 ### 统计认证老师数量
