@@ -78,7 +78,6 @@ CVC code 278
 App.service('paypal').get('payment', {
     query: {
         id: 'order._id',
-        checkPremium: true, //默认不传为false,是否检查主题服务包
     },
 });
 ```
