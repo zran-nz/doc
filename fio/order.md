@@ -52,6 +52,7 @@
    * 401.未支付 公开课被讲师取消 canceled by the facilitator
    * 402.未支付 公开课因未成团被系统取消 Minimal registration number not met
    * 403.未支付 课件/自学习被下架 Product removed
+   * 404.未支付 商品已更新 系统取消
    * 500.已支付 公开课/服务包被购买者取消 canceled by the purchaser
    * 501.已支付 公开课被讲师取消 canceled by the facilitator (session支付前被取消,支付成功退款都为此状态)
    * 502.已支付 公开课因未成团被系统取消 Minimal registration number not met
@@ -245,4 +246,7 @@ await App.service('order').get('count');
 
 // 学校购买,按ticket退款
 await App.service('order').get('cancelTicket', { query: { tickets: ['service-pack-ticket._id', 'service-pack-ticket._id'] } });
+
+// 取消未支付订单
+await App.service('order').get('cancelBeforePay', { query: { id: 'order._id', status: '404' } });
 ```
