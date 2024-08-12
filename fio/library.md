@@ -15,6 +15,7 @@ await App.service('library').get('publish', {query: {_id, model}})
 ```
 
 ## prompts
+- 将 task 中的 ppt 其中的一页独立发布
 ### prompts model
 ```js
 uid: {type: String, required: true}, // users._id

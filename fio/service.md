@@ -512,6 +512,9 @@ status: {type: Boolean, default: true},
 point: {type: Number}, // 订单支付积分
 isPoint: {type: Boolean, default: false}, // 现金购买/积分购买
 payMethod: {type: String}, // 默认为空, 现金支付过就会更新为 cash， https://github.com/zran-nz/bug/issues/5020
+// 主题服务包用 https://github.com/zran-nz/bug/issues/5196
+pid: {type: String}, // 主题服务包的主包, 本身用于Lecture包，一个主题服务包包含多个Lecture包
+premium: {type: String}, // Lecture包 对应的 service-auth 认证的精品课 service-auth._id
 ```
 
 ### service-pack-user-data model
