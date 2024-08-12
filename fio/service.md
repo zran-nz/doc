@@ -603,6 +603,22 @@ await this.service("service-pack-user-data").add({
 });
 ```
 
+### 主题服务包购买后的处理逻辑
+```js
+// 创建主题服务包及Lecture包
+const {..., childs} = await this.service("service-pack-user").buyByOrder(...)
+// 批量对Lecture包增加服务次数数据
+for(const o of childs) {
+  await this.service("service-pack-user-data").add({...})
+}
+```
+
+### 主题服务包下的Lecture包列表
+```js
+await App.service('service-pack-user').find({query: {pid: 'service-pack-user._id'}})
+```
+
+
 ### 服务包使用记录
 
 ```js
