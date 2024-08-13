@@ -412,6 +412,9 @@ await App.service('service-pack').find({ query: {} });
 
 // 服务包列表（featured）
 await App.service('service-pack').find({ query: { status: true } });
+
+// 服务包列表 拼接service-pack-school-price数据 判断是否显示buy按钮
+await App.service('service-pack').find({ query: { $school: 'school-plan._id' } });
 ```
 
 ### 服务包统计
@@ -450,7 +453,7 @@ await App.service('service-pack').patch(doc._id, {
 // 老师取 "teacherTraining"的数据, 学生取非"teacherTraining"的数据
 await App.service('service-pack').get('index');
 // 学校下
-await App.service('service-pack').get('index', {query: {salesTarget: 'school'}});
+await App.service('service-pack').get('index', { query: { salesTarget: 'school' } });
 ```
 
 ### 统计认证老师数量
@@ -604,6 +607,7 @@ await this.service("service-pack-user-data").add({
 ```
 
 ### 主题服务包购买后的处理逻辑
+
 ```js
 // 创建主题服务包及Lecture包
 const {..., childs} = await this.service("service-pack-user").buyByOrder(...)
@@ -613,11 +617,11 @@ for(const o of childs) {
 }
 ```
 
-### 主题服务包下的Lecture包列表
-```js
-await App.service('service-pack-user').find({query: {pid: 'service-pack-user._id'}})
-```
+### 主题服务包下的 Lecture 包列表
 
+```js
+await App.service('service-pack-user').find({ query: { pid: 'service-pack-user._id' } });
+```
 
 ### 服务包使用记录
 
