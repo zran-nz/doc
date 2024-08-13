@@ -979,6 +979,9 @@ await App.service('service-pack-school-price').patch('_id', { priceEnable: false
 
 // find
 await App.service('service-pack-school-price').find({ query: { school: 'school-plan._id', servicePack: 'service-pack._id' } });
+
+// 统计
+await App.service('service-pack-school-price').get('count', { query: { school: 'service-pack._id' } });
 ```
 
 ### 机构购买代金券信息
