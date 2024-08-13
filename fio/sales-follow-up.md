@@ -23,6 +23,7 @@
       duration: {type: Number},
       createdAt: {type: Date, default: Date.now},
       sales: {type: String}, // 跟进人 user._id
+      salesName: {type: String}, // 跟进人 user.name
       note: {type: String},
     },
   ],
