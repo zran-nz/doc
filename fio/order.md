@@ -124,7 +124,7 @@
  * {
  *  id,
  *  style:'unit,session,service',
- *  count:1,//服务包 购买次数
+ *  count:1,//服务包 购买次数; service_premium下选填,不填则取contentOrientated.times
  * }
  * cart:array optional
  * promotion:boolean optional
@@ -142,7 +142,7 @@ await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, styl
 await App.service('order').create({
     link: [
         { id: 'service-pack._id', style: 'service', count: 4 }, // 1v1服务包
-        { id: 'service-pack.contentOrientated.premium', style: 'service_premium' }, // 主题服务包大课
+        { id: 'service-pack.contentOrientated.premium', style: 'service_premium', count: 2 }, // 主题服务包大课 count选填
     ],
     isSchool: true, //buyer为学校
     school: 'school-plan._id', //buyer为学校时传,个人购买不需要
