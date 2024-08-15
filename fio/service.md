@@ -345,6 +345,7 @@ consultant: { // 顾问配置
   carerService: {type: String},
   servicePack: {type: String}, // 捆绑的服务包, service-pack._id 服务包id
 },
+contentOrientatedPrice: {type: Number}, // 主题服务包的价格
 // 主题服务包
 contentOrientatedEnable: {type: Boolean, default: false}, // type === 'mentoring' 专用
 contentOrientated: [{
