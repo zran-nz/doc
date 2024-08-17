@@ -199,8 +199,12 @@ await App.service("service-auth").patch(doc._id, {
 });
 ```
 
-### 认证留言
+### 统计被多少服务包关联
+```js
+await App.service('service-auth').get('countPackUse', {query: {_id}})
+```
 
+### 认证留言
 ```js
 // 创建留言
 await App.service('service-auth').patch('message', {_id, message})
