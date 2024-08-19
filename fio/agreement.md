@@ -15,7 +15,7 @@
       'cancellation',
       'points_redemption',
       'verification',
-      'premium_content',
+      'service_premium',
       'agents',
       'consultation',
       'pipeline',
