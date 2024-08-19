@@ -249,4 +249,7 @@ await App.service('order').get('cancelTicket', { query: { tickets: ['service-pac
 
 // 取消未支付订单
 await App.service('order').get('cancelBeforePay', { query: { id: 'order._id', status: '404' } });
+
+// 统计一个月内Promotion数量
+await App.service('order').get('countPromotionByMonth', { query: { buyer: 'uid' } });
 ```
