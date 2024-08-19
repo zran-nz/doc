@@ -11,7 +11,7 @@
   status: {type: Number, default: 0}, // 跟进状态,0:未跟进 1:已跟进
   servicePack: {type: String, required: true}, // 服务包 service-pack._id
   servicePackName: {type: String}, // 服务包 service-pack.name
-  serviceType: {type: String, enum: ['mentoring', 'correcting', 'substitute', 'premium_content']}, // 服务包类型
+  serviceType: {type: String, enum: ['mentoring', 'correcting', 'substitute', 'service_premium']}, // 服务包类型
   servicePackUser: {type: String, required: true}, // 用户服务包 service-pack-user._id
   order: {type: String}, // order._id
   sales: {type: String}, // 跟进人 user._id
