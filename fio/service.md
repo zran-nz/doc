@@ -960,6 +960,9 @@ await App.service('service-pack-apply').get('countType');
 
 // 校内外统计
 await App.service('service-pack-apply').get('count', { query: { sharedSchool: 'school-plan._id' } });
+
+// 当前面试服务包下,可预约面试的申请
+await App.service('service-pack-apply').find({ query: { status: 0, interviewInvited: true, interviewPack: 'service-pack._id' } });
 ```
 
 ### 机构售卖分享设置
