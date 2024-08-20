@@ -356,7 +356,7 @@ await tags.get('tag._id', true)
 ## criteria model
 ```js
 name: {type: String, required: true},
-school: {type: String, required: true}, // school-plan._id
+school: {type: String, required: true}, // 个人: pub.user._id, 学校: school-plan._id,  系统公共数据: "1"
 standard: [
   {
     code: {type: String, required: true, maxLength: 4}, // 缩略词, 限制4位长度
@@ -370,21 +370,21 @@ standard: [
 ```js
 // 获取最后使用的数据
 await App.service('criteria').get('last', {query: {
-  school?: school-plan._id, // 个人身份不用传
+  school?: school-plan._id, // 个人身份不用传, 系统公共数据: "1"
 }})
-// 更新最后使用的数据
+// 更新最后使用的数据, 系统后台的数据不能调用
 await App.service('criteria').patch('last', {
   _id: 'criteria._id',
   school?: school-plan._id, // 个人身份不用传
 })
 // 查找
 await App.service('criteria').find({query: {
-  school?: school-plan._id, // 个人身份不用传
+  school?: school-plan._id, // 个人身份不用传, 系统公共数据: "1"
 }})
 // 创建
 await App.service('criteria').create({
-  name: 'xxx', 
-  school?: school-plan._id, // 个人身份不用传
+  name: 'xxx',
+  school?: school-plan._id, // 个人身份不用传, 系统后台传(仅限管理员): "1"
   standard?
 })
 // 更新
