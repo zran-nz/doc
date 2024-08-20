@@ -200,11 +200,13 @@ await App.service("service-auth").patch(doc._id, {
 ```
 
 ### 统计被多少服务包关联
+
 ```js
-await App.service('service-auth').get('countPackUse', {query: {_id}})
+await App.service('service-auth').get('countPackUse', { query: { _id } });
 ```
 
 ### 认证留言
+
 ```js
 // 创建留言
 await App.service('service-auth').patch('message', {_id, message})
@@ -937,6 +939,8 @@ await App.service('service-booking').create({
   interviewInvited: {type: Boolean, default: false}, // 面试邀请是否发送
   reason: {type: String, trim: true}, //拒绝理由
   status: {type: Number, default: 0}, // 0:申请中/pending, 1: 通过/approved, -1: 拒绝/rejected, 2: 未申请/withdraw
+  interviewPack: {type: String}, // 面试服务包id
+  takeaway: {type: String}, // takeaway
 ```
 
 ### 报名接口
