@@ -112,6 +112,7 @@
   servicePremium: {type: String}, // service-pack._id 主题服务包id
   servicePremiumSnapshot: {type: Object}, //主题服务包快照
   persons: {type: Number, default: 1}, // buyer为学校,1v1服务包份数
+  servicePackApply: {type: String}, // 主题服务包申请id
 }
 ```
 
@@ -137,7 +138,14 @@
  * servicePremium:string optional 主题服务包购买需要 service-pack._id
  * persons:number optional 主题服务包 1v1服务包份数
  */
-await App.service('order').create({ link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }], cart: [cart._id], promotion: false, isPoint: true, inviter: inviteCode });
+await App.service('order').create({
+    link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }],
+    cart: [cart._id],
+    promotion: false,
+    isPoint: true,
+    inviter: inviteCode,
+    servicePackApply: 'service-pack-apply._id', // 购买面试服务包时传
+});
 // 主题服务包购买
 await App.service('order').create({
     link: [
