@@ -911,7 +911,7 @@ await App.service('service-booking').create({
   servicePack: {type: String, required: true}, // service-pack._id
   sharedSchool: {type: String}, // school-plan._id 从学校分享购买的,分享的学校id
   name: [{type: String, trim: true}], // [ firstname, lastname ]
-  nickname: {type: String, trim: true},
+  nickname: {type: String, sparse: true, trim: true},
   gender: {type: String, trim: true}, // gender
   mobile: {type: String, trim: true}, // E.164 format, maximum of 15 digits, +1001XXX5550100, +440201234567 => +44201234567
   email: {type: String, lowercase: true, trim: true},
@@ -940,6 +940,8 @@ await App.service('service-booking').create({
   reason: {type: String, trim: true}, //拒绝理由
   status: {type: Number, default: 0}, // 0:申请中/pending, 1: 通过/approved, -1: 拒绝/rejected, 2: 未申请/withdraw
   interviewPack: {type: String}, // 面试服务包id
+  interviewOrder: {type: String}, // 购买的面试服务包订单id
+  interviewApply: {type: Boolean, default: false}, // 面试已预约
   takeaway: {type: String}, // takeaway
 ```
 
@@ -960,6 +962,9 @@ await App.service('service-pack-apply').get('countType');
 
 // 校内外统计
 await App.service('service-pack-apply').get('count', { query: { sharedSchool: 'school-plan._id' } });
+
+// 当前面试服务包下,可预约面试的申请
+await App.service('service-pack-apply').find({ query: { status: 0, interviewInvited: true, interviewPack: 'service-pack._id' } });
 ```
 
 ### 机构售卖分享设置
