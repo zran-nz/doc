@@ -686,7 +686,8 @@ accident: {
   id: {type: String}, //teaching-accident._id
   status: {type: String, enum: ['pending', 'approved', 'rejected']}, // 教学事故状态
   tags: {type: [String]}, // 标签
-}
+},
+servicePackApply: {type: String}, // 主题服务包报名id
 ```
 
 ### 预约接口

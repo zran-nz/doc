@@ -245,12 +245,12 @@ await App.service('session').find({query: {
 ### patch session questions options [new]
 
 ```js
-await App.service("session").patch(
-  _id,
-  {
-    "quetions.$.options": [...options],
-  },
-  { query: { "questions._id": "" } }
+await App.service('session').patch(
+    _id,
+    {
+        'quetions.$.options': [...options],
+    },
+    { query: { 'questions._id': '' } }
 );
 ```
 
@@ -346,13 +346,13 @@ const courseDoc = await App.service('session').create({type: 'courses', cid: uni
 ### patch session [new]
 
 ```js
-await App.service("session").patch(_id, {
-  name: "",
-  image: "cover url",
-  regMax: 100,
-  regDate: new Date("register dealine"),
-  start: new Date("start time"),
-  end: new Date("end time"),
+await App.service('session').patch(_id, {
+    name: '',
+    image: 'cover url',
+    regMax: 100,
+    regDate: new Date('register dealine'),
+    start: new Date('start time'),
+    end: new Date('end time'),
 });
 ```
 
@@ -391,20 +391,20 @@ await App.service('session').find({query: {
 ```js
 // register
 // _date: use send mail, session localtime format
-await App.service("session").patch(session._id, {
-  _date: new Date(session.start).toString(),
-  $addToSet: {
-    reg: {
-      avatar: pub.user.avatar,
-      nickname: pub.user.nickname,
-      _id: pub.user._id,
+await App.service('session').patch(session._id, {
+    _date: new Date(session.start).toString(),
+    $addToSet: {
+        reg: {
+            avatar: pub.user.avatar,
+            nickname: pub.user.nickname,
+            _id: pub.user._id,
+        },
     },
-  },
 });
 
 // unregister
-await App.service("session").patch(session._id, {
-  $pull: { reg: { _id: "reg._id" } },
+await App.service('session').patch(session._id, {
+    $pull: { reg: { _id: 'reg._id' } },
 });
 ```
 
@@ -412,52 +412,52 @@ await App.service("session").patch(session._id, {
 
 ```js
 // live workshop - featured
-await App.service("session").find({
-  query: {
-    del: false,
-    isLib: true,
-    school: null,
-    type: "workshop",
-    status: { $ne: "close" },
-    end: { $gte: new Date() },
-    $sort: { start: 1, name: 1, _id: 1 },
-  },
+await App.service('session').find({
+    query: {
+        del: false,
+        isLib: true,
+        school: null,
+        type: 'workshop',
+        status: { $ne: 'close' },
+        end: { $gte: new Date() },
+        $sort: { start: 1, name: 1, _id: 1 },
+    },
 });
 // live workshop - scheduled
-await App.service("session").find({
-  query: {
-    del: false,
-    school: { $in: [...school.id, null] },
-    type: "workshop",
-    status: { $ne: "close" },
-    start: { $gte: new Date() },
-    $sort: { _id: -1 },
-    "reg._id": pub.user._id,
-  },
+await App.service('session').find({
+    query: {
+        del: false,
+        school: { $in: [...school.id, null] },
+        type: 'workshop',
+        status: { $ne: 'close' },
+        start: { $gte: new Date() },
+        $sort: { _id: -1 },
+        'reg._id': pub.user._id,
+    },
 });
 // live workshop - on-going
-await App.service("session").find({
-  query: {
-    del: false,
-    school: { $in: [...school.id, null] },
-    type: "workshop",
-    status: { $ne: "close" },
-    start: { $lte: new Date() },
-    $sort: { _id: -1 },
-    "reg._id": pub.user._id,
-  },
+await App.service('session').find({
+    query: {
+        del: false,
+        school: { $in: [...school.id, null] },
+        type: 'workshop',
+        status: { $ne: 'close' },
+        start: { $lte: new Date() },
+        $sort: { _id: -1 },
+        'reg._id': pub.user._id,
+    },
 });
 // live workshop - ended
-await App.service("session").find({
-  query: {
-    del: false,
-    school: { $in: [...school.id, null] },
-    type: "workshop",
-    status: "close",
-    start: { $lte: new Date() },
-    $sort: { _id: -1 },
-    "reg._id": pub.user._id,
-  },
+await App.service('session').find({
+    query: {
+        del: false,
+        school: { $in: [...school.id, null] },
+        type: 'workshop',
+        status: 'close',
+        start: { $lte: new Date() },
+        $sort: { _id: -1 },
+        'reg._id': pub.user._id,
+    },
 });
 ```
 
@@ -465,80 +465,80 @@ await App.service("session").find({
 
 ```js
 // scheduled
-await App.service("session").find({
-  query: {
-    del: false,
-    classId: "",
-    type: "session",
-    status: { $ne: "close" },
-    start: { $gte: new Date() },
-    $sort: { start: 1, name: 1, _id: 1 },
-  },
+await App.service('session').find({
+    query: {
+        del: false,
+        classId: '',
+        type: 'session',
+        status: { $ne: 'close' },
+        start: { $gte: new Date() },
+        $sort: { start: 1, name: 1, _id: 1 },
+    },
 });
 // on-going
-await App.service("session").find({
-  query: {
-    del: false,
-    classId: "",
-    type: "session",
-    status: { $ne: "close" },
-    start: { $lte: new Date() },
-    $sort: { _id: -1 },
-  },
+await App.service('session').find({
+    query: {
+        del: false,
+        classId: '',
+        type: 'session',
+        status: { $ne: 'close' },
+        start: { $lte: new Date() },
+        $sort: { _id: -1 },
+    },
 });
 // ended
-await App.service("session").find({
-  query: {
-    del: false,
-    classId: "",
-    type: "session",
-    status: "close",
-    $sort: { _id: -1 },
-  },
+await App.service('session').find({
+    query: {
+        del: false,
+        classId: '',
+        type: 'session',
+        status: 'close',
+        $sort: { _id: -1 },
+    },
 });
 // archived
-await App.service("session").find({
-  query: {
-    del: true,
-    classId: "",
-    type: "session",
-    status: "close",
-    $sort: { _id: -1 },
-  },
+await App.service('session').find({
+    query: {
+        del: true,
+        classId: '',
+        type: 'session',
+        status: 'close',
+        $sort: { _id: -1 },
+    },
 });
 
 // ext search
-$or: [{ name: { $search: "123" } }];
+$or: [{ name: { $search: '123' } }];
 ```
 
 ### Session list for calendar
 
 ```js
 // 根据时间范围过滤
-await App.service("session").get("calendarList", {
-  query: {
-    start: new Date("start time"),
-    end: new Date("end time"),
-    zone: new Date().getTimezoneOffset(),
-  },
+await App.service('session').get('calendarList', {
+    query: {
+        start: new Date('start time'),
+        end: new Date('end time'),
+        zone: new Date().getTimezoneOffset(),
+    },
 });
 
 // 所有为该学校老师排的公开课
-query.school = "school-plan._id";
-query.type = { $in: ["pdSchoolTeacherWorkshop"] };
+query.school = 'school-plan._id';
+query.type = { $in: ['pdSchoolTeacherWorkshop'] };
 
 // 所有为该学校学生排的公开课
-query.school = "school-plan._id";
-query.type = { $in: ["taskSchoolWorkshop", "pdSchoolStudentWorkshop"] };
+query.school = 'school-plan._id';
+query.type = { $in: ['taskSchoolWorkshop', 'pdSchoolStudentWorkshop'] };
 
 // 班级下所有类型的live课
-query.classId = "classes._id";
+query.classId = 'classes._id';
 
 // 所有我上的课
 query = {};
 
 // 所有我参与的课
-query.$or = [{ "reg._id": "user._id" }, { students: "user._id" }];
+query.$or = [{ 'reg._id': 'user._id' }, { students: 'user._id' }];
 ```
 
 ### Session list for date
@@ -617,7 +617,7 @@ await App.service('session').find({
 
 ### Session action
 
-- \_id 为 session.\_id
+-   \_id 为 session.\_id
 
 > End session  
 > `App.service('session').patch(_id, {status: 'close'})`
@@ -638,26 +638,26 @@ await App.service('session').find({
 
 ```js
 // get members for student
-const doc = await App.service("session").get("toolMembers", {
-  query: { sid: "session.sid", role: "student" },
+const doc = await App.service('session').get('toolMembers', {
+    query: { sid: 'session.sid', role: 'student' },
 });
 // get members for teacher
-const doc = await App.service("session").get("toolMembers", {
-  query: { sid: "session.sid" },
+const doc = await App.service('session').get('toolMembers', {
+    query: { sid: 'session.sid' },
 });
 
 // example test
-var doc = await App.service("session").get("63eed1c5338d4d5568c5ab94");
-await App.service("session").patch(doc._id, {
-  _date: new Date(doc.start).toString(),
-  $addToSet: {
-    reg: { avatar: Auser.avatar, nickname: Auser.nickname, _id: Auser._id },
-  },
+var doc = await App.service('session').get('63eed1c5338d4d5568c5ab94');
+await App.service('session').patch(doc._id, {
+    _date: new Date(doc.start).toString(),
+    $addToSet: {
+        reg: { avatar: Auser.avatar, nickname: Auser.nickname, _id: Auser._id },
+    },
 });
-await App.service("session").get("toolMembers", {
-  query: { sid: "C17cmGC9", role: "student" },
+await App.service('session').get('toolMembers', {
+    query: { sid: 'C17cmGC9', role: 'student' },
 });
-await App.service("session").get("toolMembers", { query: { sid: "C17cmGC9" } });
+await App.service('session').get('toolMembers', { query: { sid: 'C17cmGC9' } });
 ```
 
 ### LearningData
@@ -713,40 +713,28 @@ count = {
 
 ```js
 const {
-  // for teacher
-  live: [],
-  student: [],
-  // for students or register
-  myLive: [],
-  myStudent: [],
-  // service
-  booking: [],
-  service: [],
-  toBeBooked: [], // 可预约列表
-  toBeScheduled: [], // 待排课列表
-} = await App.service("session").get("recommend");
+    // for teacher
+    live: [],
+    student: [],
+    // for students or register
+    myLive: [],
+    myStudent: [],
+    // service
+    booking: [],
+    service: [],
+    toBeBooked: [], // 可预约列表
+    toBeScheduled: [], // 待排课列表
+} = await App.service('session').get('recommend');
 
 // query filter
 query.dateRange = [start, end, zone];
-(query.status = "scheduled"), "ongoing", "ended";
+(query.status = 'scheduled'), 'ongoing', 'ended';
 
 // for more list
-const { total, limit, skip, data } = await App.service("session").get(
-  "recommendLive",
-  { query: { $skip: 10 } }
-);
-const { total, limit, skip, data } = await App.service("session").get(
-  "recommendStudent",
-  { query: { $skip: 10 } }
-);
-const { total, limit, skip, data } = await App.service("session").get(
-  "recommendMyLive",
-  { query: { $skip: 10 } }
-);
-const { total, limit, skip, data } = await App.service("session").get(
-  "recommendMyStudent",
-  { query: { $skip: 10 } }
-);
+const { total, limit, skip, data } = await App.service('session').get('recommendLive', { query: { $skip: 10 } });
+const { total, limit, skip, data } = await App.service('session').get('recommendStudent', { query: { $skip: 10 } });
+const { total, limit, skip, data } = await App.service('session').get('recommendMyLive', { query: { $skip: 10 } });
+const { total, limit, skip, data } = await App.service('session').get('recommendMyStudent', { query: { $skip: 10 } });
 ```
 
 ### Roaster
@@ -759,41 +747,38 @@ const [...] = await App.service('session').get('roaster', {query: {sid: session.
 
 ```js
 // 自学习中心首页
-const { study, live, premium } = await App.service("session").get(
-  "indexStudent",
-  {
+const { study, live, premium } = await App.service('session').get('indexStudent', {
     query: { $limit: 10 },
-  }
-);
+});
 
 // 自学习列表
 const {
-  data: [],
-  total,
-  limit,
-  skip,
-} = await App.service("session").get("indexStudy", {
-  query: { $limit: 10, $skip: 0 },
+    data: [],
+    total,
+    limit,
+    skip,
+} = await App.service('session').get('indexStudy', {
+    query: { $limit: 10, $skip: 0 },
 });
 
 // live列表
 const {
-  data: [],
-  total,
-  limit,
-  skip,
-} = await App.service("session").get("indexLive", {
-  query: { $limit: 10, $skip: 0 },
+    data: [],
+    total,
+    limit,
+    skip,
+} = await App.service('session').get('indexLive', {
+    query: { $limit: 10, $skip: 0 },
 });
 
 // premium列表
 const {
-  data: [],
-  total,
-  limit,
-  skip,
-} = await App.service("session").get("indexPremium", {
-  query: { $limit: 10, $skip: 0 },
+    data: [],
+    total,
+    limit,
+    skip,
+} = await App.service('session').get('indexPremium', {
+    query: { $limit: 10, $skip: 0 },
 });
 ```
 
@@ -801,9 +786,9 @@ const {
 
 ```js
 const {
-  data: [],
-  total,
-} = await App.service("session").get("indexPromotion");
+    data: [],
+    total,
+} = await App.service('session').get('indexPromotion');
 ```
 
 ### new prompt
