@@ -688,7 +688,6 @@ accident: {
   tags: {type: [String]}, // 标签
 },
 servicePackApply: {type: String}, // 主题服务包报名id
-takeawayTime: {type: Date},
 ```
 
 ### 预约接口
@@ -945,6 +944,7 @@ await App.service('service-booking').create({
   interviewOrder: {type: String}, // 购买的面试服务包订单id
   interviewApply: {type: Boolean, default: false}, // 面试已预约
   takeaway: {type: String}, // takeaway
+  takeawayCreatedAt: {type: Date},
 ```
 
 ### 报名接口
