@@ -39,7 +39,7 @@ await addon.copy(sid, pages, postData);
 ### addon enum
 
 ```js
-questionsTypes: ['text', 'choice', 'comment', 'draw', 'media', 'website', 'matching', 'filling', 'graph'],
+questionsTypes: ['text', 'choice', 'comment', 'draw', 'media', 'website', 'matching', 'filling', 'graph', 'video'],
 templateCategory: ['Beginning of the session', 'During the session', 'End of the session', 'General purpose'],
 ```
 
