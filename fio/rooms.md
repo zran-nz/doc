@@ -1,3 +1,11 @@
+### takeaway
+
+```mermaid
+graph TD
+    A[(Slides)] -->|add questions| Q[Questions]
+
+```
+
 ## Rooms
 
 ### Rooms model
