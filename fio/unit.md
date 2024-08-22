@@ -39,7 +39,8 @@
   overview?: String,
   cover: String,
   type?: String, // ['FA', 'SA', 'Activity', 'IA', 'single', 'integrated']
-  source: String, // library auther user._id
+  source: {type: String, trim: true}, // library auther unit._id
+  sourceUid: {type: String, trim: true}, // library auther user._id
   discount: {
     val: Number, // discount value 0-99
     price: Number, // original price
