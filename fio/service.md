@@ -481,6 +481,7 @@ const {
   subject: { '64d99bcc0476f7faf45ef0d8': [{...}], ...},
   gradeGroup: { 'Intermediate': [{...}], ...},
   topic: {'topic._id': [{...}], ...}
+  serviceRoles: {'mentoring|substitute|...': [{...}], ...}
 } = await App.service("service-auth").get("groups", { query: { type, mentoringType?, curriculum?, countryCode?, subject?, gradeGroup?, 'topic._id'? } });
 
 // const {
