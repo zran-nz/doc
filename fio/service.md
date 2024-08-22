@@ -688,6 +688,7 @@ accident: {
   tags: {type: [String]}, // 标签
 },
 servicePackApply: {type: String}, // 主题服务包报名id
+takeawayTime: {type: Date},
 ```
 
 ### 预约接口
