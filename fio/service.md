@@ -481,6 +481,7 @@ const {
   subject: { '64d99bcc0476f7faf45ef0d8': [{...}], ...},
   gradeGroup: { 'Intermediate': [{...}], ...},
   topic: {'topic._id': [{...}], ...}
+  serviceRoles: {'mentoring|substitute|...': [{...}], ...}
 } = await App.service("service-auth").get("groups", { query: { type, mentoringType?, curriculum?, countryCode?, subject?, gradeGroup?, 'topic._id'? } });
 
 // const {
@@ -534,6 +535,7 @@ payMethod: {type: String}, // 默认为空, 现金支付过就会更新为 cash�
 // 主题服务包用 https://github.com/zran-nz/bug/issues/5196
 pid: {type: String}, // 主题服务包的主包, 本身用于Lecture包，一个主题服务包包含多个Lecture包
 premium: {type: String}, // Lecture包 对应的 service-auth 认证的精品课 service-auth._id
+// 需要预约的课件id，用于自动计算出预约的关联的课件，增加：首次购买/补买/取消预约，扣除：预约，[id1, id2, ...]
 ```
 
 ### service-pack-user-data model
@@ -944,6 +946,7 @@ await App.service('service-booking').create({
   interviewOrder: {type: String}, // 购买的面试服务包订单id
   interviewApply: {type: Boolean, default: false}, // 面试已预约
   takeaway: {type: String}, // takeaway
+  takeawayCreatedAt: {type: Date},
 ```
 
 ### 报名接口
