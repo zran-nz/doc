@@ -137,6 +137,7 @@
  * sharedSchool:string optional 从学校分享购买的,分享学校id school-plan._id
  * servicePremium:string optional 主题服务包购买需要 service-pack._id
  * persons:number optional 主题服务包 1v1服务包份数
+ * noDiscount:boolean optional 计算折扣 默认不传为false 默认计算折扣
  */
 await App.service('order').create({
     link: [{ id: unit._id, mode: unit.mode, style: 'unit/session/service', count: 1 }],
@@ -145,6 +146,7 @@ await App.service('order').create({
     isPoint: true,
     inviter: inviteCode,
     servicePackApply: 'service-pack-apply._id', // 购买面试服务包时传
+    noDiscount: true,
 });
 // 主题服务包购买
 await App.service('order').create({
