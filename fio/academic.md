@@ -366,17 +366,23 @@ standard: [
   },
 ],
 ```
-### criteria api
+
+### criteria 默认数据
 ```js
-// 获取最后使用的数据
+// 获取默认数据的 criteria._id
 await App.service('criteria').get('last', {query: {
-  school?: school-plan._id, // 个人身份不用传, 系统公共数据: "1"
+  school?: school-plan._id, // 个人身份不用传
 }})
-// 更新最后使用的数据, 系统后台的数据不能调用
+
+// 更新默认数据的 criteria._id, 系统后台的数据不能调用
 await App.service('criteria').patch('last', {
   _id: 'criteria._id',
   school?: school-plan._id, // 个人身份不用传
 })
+```
+
+### criteria api
+```js
 // 查找
 await App.service('criteria').find({query: {
   school?: school-plan._id, // 个人身份不用传, 系统公共数据: "1"
