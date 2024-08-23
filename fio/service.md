@@ -51,6 +51,32 @@ graph LR
     C44 --> C441(大纲二级数据)
 ```
 
+### 用户服务包
+
+```mermaid
+graph LR
+  PU(已购服务包<br>service-pack-user) -->|次数数据| PUD(service-pack-user-data)
+  PU -->|主题服务包有多个| PUC(Lecture包<br>service-pack-user)
+```
+
+> Lecture包补买
+```mermaid
+graph LR
+  PU(主题服务包<br>service-pack-user) --> PUC(Lecture包<br>service-pack-user)
+  PUC -->|复购| MT(多择课件【已经结束的课】)
+  PUC -->|补买| KC(不够的课次)
+  MT --> O(下单购买) --> PUC
+  KC --> O
+```
+> Lecture包预约
+```mermaid
+graph LR
+  PUC(Lecture包<br>service-pack-user)
+  PUC -->|关联课件| LT(Lecture下的课件快照<br>service-pack-user.snapshot<br>ppt可选，可本地上传) -->|找老师| TF(选择老师)
+  TF -.->|预定| SB(service-booking)
+  SB -->|消耗次数| PUL(service-pack-user-logs)
+```
+
 ## 服务设置
 
 ### 服务设置接口
@@ -535,7 +561,8 @@ payMethod: {type: String}, // 默认为空, 现金支付过就会更新为 cash�
 // 主题服务包用 https://github.com/zran-nz/bug/issues/5196
 pid: {type: String}, // 主题服务包的主包, 本身用于Lecture包，一个主题服务包包含多个Lecture包
 premium: {type: String}, // Lecture包 对应的 service-auth 认证的精品课 service-auth._id
-tasks: {type: [String]}, // Lecture包下, 需要预约的课件id，用于自动计算出预约的关联的课件，增加：首次购买/补买/取消预约，扣除：预约，[id1, id2, ...] https://github.com/zran-nz/bug/issues/5200
+taskIndex: {type: [String]}, // Lecture包下, 课件去重后的索引 https://github.com/zran-nz/bug/issues/5200
+tasks: {type: [String]}, // Lecture包下, 需要预约的课件id，用于自动计算出预约的关联的课件，增加：首次购买/补买/取消预约，扣除：预约，[id1, id2, ...]
 ```
 
 ### service-pack-user-data model
