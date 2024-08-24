@@ -59,7 +59,8 @@ graph LR
   PU -->|主题服务包有多个| PUC(Lecture包<br>service-pack-user)
 ```
 
-> Lecture包补买
+> Lecture 包补买
+
 ```mermaid
 graph LR
   PU(主题服务包<br>service-pack-user) --> PUC(Lecture包<br>service-pack-user)
@@ -68,7 +69,9 @@ graph LR
   MT --> O(下单购买) --> PUC
   KC --> O
 ```
-> Lecture包预约
+
+> Lecture 包预约
+
 ```mermaid
 graph LR
   PUC(Lecture包<br>service-pack-user)
@@ -197,6 +200,8 @@ feedback: { // 留言反馈
   replyDate: {type: Date},
   replyRead: {type: Boolean, default: false}, // read status
 },
+follower: {type: String}, // 跟进人 user._id
+followedAt: {type: Date}, // 开始跟进时间
 ```
 
 ### 服务认证接口（仅限当前用户）
@@ -277,6 +282,20 @@ await App.service('service-auth').get('listByUid', {
 await App.service("service-auth").find({
   query: { dateRange: [start, end, zone?] },
 });
+
+```
+
+### 服务认证协同审批
+
+```js
+// claim
+await App.service('service-auth').patch('service-auth._id', { follower: 'uid', followedAt: new Date() });
+
+// unclaim stop
+await App.service('service-auth').patch('service-auth._id', { $unset: { follower: '', followedAt: '' } });
+
+// 获取follower列表 按项目数排序 字段count为项目数
+await App.service('service-auth').get('groupByFollower');
 ```
 
 ## 用户服务配置
