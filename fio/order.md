@@ -261,5 +261,8 @@ await App.service('order').get('cancelTicket', { query: { tickets: ['service-pac
 await App.service('order').get('cancelBeforePay', { query: { id: 'order._id', status: '404' } });
 
 // 统计一个月内Promotion数量
-await App.service('order').get('countPromotionByMonth', { query: { buyer: 'uid' } });
+await App.service('order').get('countPromotionByMonth', { query: { buyer: 'uid/school-plan._id' } });
+
+// 该用户已购买的Promotion服务包id 替代users.freeServiceType
+await App.service('order').get('promotionServiceId', { query: { buyer: 'uid/school-plan._id' } });
 ```
