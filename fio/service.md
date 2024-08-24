@@ -64,10 +64,10 @@ graph LR
 ```mermaid
 graph LR
   PU(主题服务包<br>service-pack-user) --> PUC(Lecture包<br>service-pack-user)
-  PUC -->|复购| MT(多择课件【已经结束的课】)
-  PUC -->|补买| KC(不够的课次)
-  MT --> O(下单购买) --> PUC
-  KC --> O
+  PUC -.->|复购| MT(多择课件【已经结束的课】)
+  PUC -.->|补买| KC(不够的课次)
+  MT -.-> O(下单购买) -->|加到原来的服务包上| PUC
+  KC -.-> O
 ```
 
 > Lecture 包预约
@@ -572,7 +572,7 @@ session: {
   start: {type: String}, // session.start
   end: {type: String}, // session.end
 },
-snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照
+snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照，主题服务包下的Lecture包用 service-auth 快照
 status: {type: Boolean, default: true},
 point: {type: Number}, // 订单支付积分
 isPoint: {type: Boolean, default: false}, // 现金购买/积分购买
@@ -661,6 +661,8 @@ await this.service("service-pack-user-data").used({
 // 对已经购买的服务包 增加次数
 await this.service("service-pack-user-data").add({
   packUser, // service-pack-user._id
+  packUserData?,
+  packUserTasks?, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
   type, // 日志类型
   times, // 次数
   gift?, // 是否赠送的服务包
@@ -700,6 +702,8 @@ await App.service('service-pack-user-logs').find({ query: { packUser: packUser._
 
 ```js
 packUser: {type: String, required: true}, // service-pack-user._id 用户购买的服务包
+packUserData: {type: [String], required: true}, // 关联的次数id列表 service-pack-user-data._id
+packUserTasks: {type: [String], required: true}, // 关联的课件id列表
 booker: {type: String, required: true}, // user._id 预订人
 servicer: {type: String, required: true}, // user._id 服务人
 type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
