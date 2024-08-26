@@ -1094,3 +1094,18 @@ await App.service('service-pack-ticket').get('claim', { query: { id: 'service-pa
 // 取消分配
 await App.service('service-pack-ticket').get('disclaim', { query: { ids: ['service-pack-ticket._id'] } });
 ```
+
+### service-auth-message model
+
+```js
+  uid: {type: String, required: true},
+  rid: {type: String, required: true}, // 关联的 service-auth._id
+  message: {type: String, required: true},
+  read: {type: Boolean, default: false}, // read status
+```
+
+### 留言接口
+
+```js
+await App.service('service-auth-message').create({ rid: 'service-auth._id', message });
+```

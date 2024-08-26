@@ -265,4 +265,7 @@ await App.service('order').get('countPromotionByMonth', { query: { buyer: 'uid/s
 
 // 该用户已购买的Promotion服务包id 替代users.freeServiceType
 await App.service('order').get('promotionServiceId', { query: { buyer: 'uid/school-plan._id' } });
+
+// 根据booking查询Promotion赠送订单
+await App.service('order').get('promotionByBooking', { query: { booking: 'session.booking' } });
 ```
