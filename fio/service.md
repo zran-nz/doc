@@ -297,6 +297,27 @@ await App.service('service-auth').patch('service-auth._id', { $unset: { follower
 
 // 获取follower列表 按项目数排序 字段count为项目数
 await App.service('service-auth').get('groupByFollower');
+
+// by me
+await App.service('service-auth').find({ query: { follower: user._id } });
+// by others
+await App.service('service-auth').find({ query: { follower: { $ne: user._id, $exists: true } } });
+// unclaimed
+await App.service('service-auth').find({ query: { follower: { $exists: false } } });
+// by me + by others
+await App.service('service-auth').find({ query: { follower: { $exists: true } } });
+// by me + unclaimed
+await App.service('service-auth').find({
+    query: {
+        $or: [{ follower: user._id }, { follower: { $exists: false } }],
+    },
+});
+// by others + unclaimed
+await App.service('service-auth').find({
+    query: {
+        $or: [{ follower: { $ne: user._id, $exists: true } }, { follower: { $exists: false } }],
+    },
+});
 ```
 
 ## 用户服务配置
