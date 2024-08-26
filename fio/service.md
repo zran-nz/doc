@@ -1129,5 +1129,9 @@ await App.service('service-pack-ticket').get('disclaim', { query: { ids: ['servi
 ### 留言接口
 
 ```js
+// 创建
 await App.service('service-auth-message').create({ rid: 'service-auth._id', message });
+
+// 列表
+await App.service('service-auth-message').find({ query: { rid: 'service-auth._id', $sort: { createdAt: -1 } } });
 ```
