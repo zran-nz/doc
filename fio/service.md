@@ -202,6 +202,7 @@ feedback: { // 留言反馈
 },
 follower: {type: String}, // 跟进人 user._id
 followedAt: {type: Date}, // 开始跟进时间
+releasedAt: {type: Date}, // 上次释放时间
 ```
 
 ### 服务认证接口（仅限当前用户）
@@ -292,7 +293,7 @@ await App.service("service-auth").find({
 await App.service('service-auth').patch('service-auth._id', { follower: 'uid', followedAt: new Date() });
 
 // unclaim stop
-await App.service('service-auth').patch('service-auth._id', { $unset: { follower: '', followedAt: '' } });
+await App.service('service-auth').patch('service-auth._id', { $unset: { follower: '', followedAt: '' }, releasedAt: new Date() });
 
 // 获取follower列表 按项目数排序 字段count为项目数
 await App.service('service-auth').get('groupByFollower');
