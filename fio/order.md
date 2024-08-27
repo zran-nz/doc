@@ -156,7 +156,7 @@ await App.service('order').create({
             id: 'service-pack.contentOrientated.premium',
             style: 'service_premium',
             count: 2,
-            packUserTasks: [], //补买
+            packUserTasks: [], //补买 optional
         }, // 主题服务包大课 count选填
     ],
     isSchool: true, //buyer为学校
