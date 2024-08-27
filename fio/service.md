@@ -1124,6 +1124,7 @@ await App.service('service-pack-ticket').get('disclaim', { query: { ids: ['servi
   rid: {type: String, required: true}, // 关联的 service-auth._id
   message: {type: String, required: true},
   read: {type: Boolean, default: false}, // read status
+  isAdmin: {type: Boolean, default: false},
 ```
 
 ### 留言接口
