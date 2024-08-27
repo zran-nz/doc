@@ -41,6 +41,7 @@
       inviter: {type: String, trim: true}, //分享人
       archived: {type: Boolean, default: false}, //archived and deleted
       persons: {type: Number, default: 1}, // 主题服务包 学校购买 1v1服务包份数
+      packUserTasks: {type: Array}, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
     },
   ],
   /**
@@ -146,19 +147,24 @@ await App.service('order').create({
     isPoint: true,
     inviter: inviteCode,
     servicePackApply: 'service-pack-apply._id', // 购买面试服务包时传
-    noDiscount: true,
 });
 // 主题服务包购买
 await App.service('order').create({
     link: [
         { id: 'service-pack._id', style: 'service', count: 4 }, // 1v1服务包
-        { id: 'service-pack.contentOrientated.premium', style: 'service_premium', count: 2 }, // 主题服务包大课 count选填
+        {
+            id: 'service-pack.contentOrientated.premium',
+            style: 'service_premium',
+            count: 2,
+            packUserTasks: [], //补买
+        }, // 主题服务包大课 count选填
     ],
     isSchool: true, //buyer为学校
     school: 'school-plan._id', //buyer为学校时传,个人购买不需要
     sharedSchool: 'school-plan._id', // 从学校分享购买的,分享学校id
     persons: 6, //buyer为学校,1v1服务包份数
     servicePremium: 'service-pack._id', //主题服务包id
+    noDiscount: true, //补买, 不计算折扣
 });
 // 订单列表 all
 await App.service('order').find();
@@ -208,7 +214,7 @@ App.service('order').on('patched', (patchedData) => {
 });
 
 /**
- * 检查商品状态 
+ * 检查商品状态
  * 新增判断 每个商品只能同时存在一个未支付订单
   return {
       links,
