@@ -36,6 +36,7 @@
 - [Manager](fio/manager.md ":include")
 - [Agreement](fio/agreement.md ":include")
 - [SalesFollowUp](fio/sales-follow-up.md ":include")
+- [CampusLocation](fio/campus-location.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
