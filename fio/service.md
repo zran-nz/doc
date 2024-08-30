@@ -357,6 +357,7 @@ await App.service('service-auth').find({
   country: {type: String, trim: true},
   city: {type: String, trim: true},
   address: {type: String, trim: true},
+  place_id: {type: String, trim: true},
   location: {
     type: {
       type: String,
