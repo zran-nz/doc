@@ -452,9 +452,6 @@ await App.service('service-conf').patch('_id', {
     address: 'desc',
     place_id: 'place_id',
 });
-
-google地址获取,参考web-PubSelect-find的city获取
-/fio/maps/address/${country}?q=${query}
 ```
 
 ## 服务包
