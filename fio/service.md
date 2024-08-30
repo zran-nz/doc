@@ -325,20 +325,66 @@ await App.service('service-auth').find({
 ### service-conf model
 
 ```js
-rating: {type: Number}, // 好评
-count: {
-  rate: {type: Number}, // 好评，比率 ＝ 1-(count.accident/count.rating)
-  rating: {type: Number}, // 总的评价次数
-  accident: {type: Number}, // 教学事故次数
-},
-introduction: {type: String, trim: true}, // 自我介绍
-audio: {type: String, trim: true}, // 音频文件 hash files._id
-audioTime: {type: Number}, // 音频时长（秒）
-hours: {type: [[Date, Date], ...], required: true}, // 一周服务可用时间段, [[start, end], [Date, Date], ...]
-holiday: {type: [[Date, Date], ...], required: true}, // 假日日期, 格式: [[start, end], [Date, Date], ...]
-enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}:${mentoringType}`]: true, ...}
-serviceRoles: {type: [String], enum: Agl.ServiceRoles}, // 可以服务的项目 #4586
-fans: {type: Number, default: 0}, // 收藏的数量
+  rating: {type: Number}, // 好评
+  introduction: {type: String, trim: true}, // 自我介绍
+  audio: {type: String, trim: true}, // 音频文件 hash files._id
+  audioTime: {type: Number}, // 音频时长（秒）
+  hours: {type: [[Date]]}, // 一周服务可用时间段 [[start, end], ...]
+  // validDate: {type: [[Date]]}, // 有效日期, 当前用户的一天的开始时间, 格式: [[start, end], ...]
+  holiday: {type: [[Date]]}, // 假日日期,  格式: [[start, end], ...]
+  enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}${mentoringType}`]: true, ...}
+  serviceRoles: {type: [String], enum: Agl.ServiceRoles, default: Agl.ServiceRoles}, // 可以服务的项目 #4586
+  fans: {type: Number, default: 0}, // 收藏的数量
+  // 以下字段用于索引，数据在更新的时候自动生成
+  hoursIndex: {type: [[String]]}, // 自动生成，用于时间段匹配查询
+  hoursMax: {type: Number}, // 取最大时间段的分钟数，用于查询老师
+  /*
+  按服务包的认证项 认证通过时间来排序 #4455
+  认证项: 认证通过时间
+  */
+  sort: {type: Schema.Types.Mixed},
+  // 滞后显示：若老师terminate/cancel了超过1/3的被预约辅导课
+  lag: {type: Boolean, default: false}, // (cancel+terminate)/booking > 1/3
+  count: {
+    rate: {type: Number}, // 好评，比率 ＝ 1-(count.accident/count.rating)
+    rating: {type: Number}, // 总的评价次数
+    accident: {type: Number}, // 教学事故次数
+    booking: {type: Number, default: 0}, // 每收到预约 +1
+    cancel: {type: Number, default: 0}, // 取消一次 +1
+    terminate: {type: Number, default: 0}, //
+  },
+
+  country: {type: String, trim: true},
+  city: {type: String, trim: true},
+  address: {type: String, trim: true},
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point',
+    },
+    coordinates: {
+      type: [Number],
+    },
+  },
+  serviceRadius: {type: Number}, // in meters
+  attachmentsAddress: [
+    {
+      filename: {type: String, trim: true}, // 文件名
+      mime: {type: String, trim: true}, // 文件 MIME
+      hash: {type: String, trim: true}, // 文件SHA1, files._id
+    },
+  ],
+  attachmentsVetting: [
+    {
+      filename: {type: String, trim: true}, // 文件名
+      mime: {type: String, trim: true}, // 文件 MIME
+      hash: {type: String, trim: true}, // 文件SHA1, files._id
+    },
+  ],
+  vettingDate: {type: Date},
+  status: {type: Number, default: 0}, // 0: 未申请/Apply verification, 1:申请中/Under processing, 2: 通过/Verified, -1: 拒绝/Under processing
+  vettingReminder: {type: Boolean, default: false}, // 审批过期时间少于30天提醒
 ```
 
 ### 用户服务配置接口
@@ -394,6 +440,21 @@ const {
     'count.rate'? // 按好评比率
   }
 }})
+```
+
+### 线下助教 个体用户线下服务认证
+
+```js
+service-conf._id=uid
+// 地址必须是从google接口搜索出来的的,且必须要带该地址的place_id
+// google地址获取接口:/fio/maps/address/${country}?q=${query} 参考web-PubSelect-find的city获取
+await App.service('service-conf').patch('_id', {
+    address: 'desc',
+    place_id: 'place_id',
+});
+
+google地址获取,参考web-PubSelect-find的city获取
+/fio/maps/address/${country}?q=${query}
 ```
 
 ## 服务包
