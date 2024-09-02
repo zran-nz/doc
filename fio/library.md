@@ -45,7 +45,7 @@ materials: {type: Schema.Types.Mixed}, // materials snapshot
 ### prompts api
 ```js
 // 创建
-await App.service('prompts').create({unit, pages, questions, materials})
+await App.service('prompts').create({unit, pages, questions, materials, curriculum, service, subjects, grades})
 ```
 
 ## Unit
