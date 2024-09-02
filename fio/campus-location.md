@@ -6,8 +6,8 @@
 {
   country: {type: String, trim: true},
   city: {type: String, trim: true},
-  experienceRate: {type: Number},
-  tutorRate: {type: Number},
+  experienceRate: {type: Object}, // {grade: Rate}
+  tutorRate: {type: Object}, // {grade: Rate}
   compensationHour: {type: Number},
   attachmentsCity: [
     {
