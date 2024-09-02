@@ -369,20 +369,16 @@ await App.service('service-auth').find({
     },
   },
   serviceRadius: {type: Number}, // in meters
-  attachmentsAddress: [
-    {
-      filename: {type: String, trim: true}, // 文件名
-      mime: {type: String, trim: true}, // 文件 MIME
-      hash: {type: String, trim: true}, // 文件SHA1, files._id
-    },
-  ],
-  attachmentsVetting: [
-    {
-      filename: {type: String, trim: true}, // 文件名
-      mime: {type: String, trim: true}, // 文件 MIME
-      hash: {type: String, trim: true}, // 文件SHA1, files._id
-    },
-  ],
+  attachmentsAddress: {
+    filename: {type: String, trim: true}, // 文件名
+    mime: {type: String, trim: true}, // 文件 MIME
+    hash: {type: String, trim: true}, // 文件SHA1, files._id
+  },
+  attachmentsVetting: {
+    filename: {type: String, trim: true}, // 文件名
+    mime: {type: String, trim: true}, // 文件 MIME
+    hash: {type: String, trim: true}, // 文件SHA1, files._id
+  },
   vettingDate: {type: Date},
   status: {type: Number, default: 0}, // 0: 未申请/Apply verification, 1:申请中/Under processing, 2: 通过/Verified, -1: 拒绝/Under processing
   vettingReminder: {type: Boolean, default: false}, // 审批过期时间少于30天提醒
