@@ -20,6 +20,23 @@ await App.service('library').get('publish', {query: {_id, model}})
 ```js
 uid: {type: String, required: true}, // users._id
 unit: {type: String, required: true}, // unit._id
+curriculum: {type: String, required: true}, // curriculum code
+service: {
+  type: {type: [String]}, // service type, pd: subjects._id
+  participants: {type: String, sparse: true, enum: Agl.subjectsParticipants}, // participants
+},
+subjects: [
+  {
+    label: {type: String, sparse: true, trim: true},
+    value: {type: String, sparse: true, trim: true},
+  },
+],
+grades: [
+  {
+    label: {type: String, sparse: true, trim: true},
+    value: {type: String, sparse: true, trim: true},
+  },
+],
 publish: {type: Boolean, default: false}, // 发布状态
 pages: {type: Schema.Types.Mixed}, // pages snapshot
 questions: {type: Schema.Types.Mixed}, // questions snapshot
