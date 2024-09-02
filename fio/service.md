@@ -773,6 +773,12 @@ await App.service('service-pack-user').find({ query: { pid: 'service-pack-user._
 await App.service('service-pack-user-logs').find({ query: { packUser: packUser._id } });
 ```
 
+### 检查 service-pack-user 是否为 free
+
+```js
+await App.service('service-pack-user').get('checkFree', { query: { ids: ['service-pack-user._id'] } });
+```
+
 ## 用户预约数据
 
 ### service-booking model
