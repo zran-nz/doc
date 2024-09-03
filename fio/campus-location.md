@@ -26,5 +26,8 @@
 await App.service('campus-location').get('country');
 
 // 获取国家下城市
-await App.service('campus-location').get('city', { query: { country: '' } });
+await App.service('campus-location').get('cityByCountry', { query: { country: '' } });
+
+// 获取所有城市
+await App.service('campus-location').get('city');
 ```
