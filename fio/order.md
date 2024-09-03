@@ -42,6 +42,7 @@
       archived: {type: Boolean, default: false}, //archived and deleted
       persons: {type: Number, default: 1}, // 主题服务包 学校购买 1v1服务包份数
       packUserTasks: {type: Array}, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
+      oldPackUser: {type: String}, // 补买用,主题服务包Lecture加到原来的packUser中
     },
   ],
   /**
@@ -157,6 +158,7 @@ await App.service('order').create({
             style: 'service_premium',
             count: 2,
             packUserTasks: [], //补买 optional
+            oldPackUser: 'service-pack-user._id', //补买 Lecture的pack-user optional
         }, // 主题服务包大课 count选填
     ],
     isSchool: true, //buyer为学校
