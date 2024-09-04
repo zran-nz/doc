@@ -811,7 +811,7 @@ times: {type: Number, default: 1}, // 本次预约消耗次数 = (end-start)/dur
 message: {type: String}, // 留言
 slides: {
   packUserTask: {type: String}, // 主题lecture包取课件快照service-pack-user.taskSnapshot[x].pages 下的数据
-  pages: {type: [String]}, // 学校所选的ppt，公开课捆绑服务包取课堂快照 用oldSession._id 查询session
+  pages: {type: [Schema.Types.Mixed]}, // 学校所选的ppt对象，公开课捆绑服务包取课堂快照 用oldSession._id 查询session
 },
 // 留言附件，老师import的时候需要插入到课堂
 attachments: [{
