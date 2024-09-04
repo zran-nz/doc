@@ -521,10 +521,19 @@ attachments: [{ // 图片/视频，附件，推广素材, 插入到课堂的时�
   videoType: {type: String, Agl.ServicePackVideoType}, // 视频的类型
 }],
 income: {type: Number, default: 0}, //收入总计,单位分
+/**
+ * 销售统计 statistic
+ * 没有type的为老数据,展示时可以忽略
+ * 个人购买的type全部为all,无论主题或非主题
+ * 主题服务包的count全部为1
+ */
 statistic: [
   {
     count: {type: Number}, // 数量 服务包次数
     orderCount: {type: Number, default: 0}, // 订单购买次数
+    income: {type: Number, default: 0}, //收入总计,单位分
+    isSchool: {type: Boolean, default: false}, // 学校/个人购买
+    type: {type: String, enum: ['lecture', 'mentor', 'all']}, // 购买类型
   },
 ],
 salesTarget: {type: [String], enum: Agl.ServiceSalesTarget}, // 销售目标
