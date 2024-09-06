@@ -1201,6 +1201,7 @@ await App.service('service-pack-ticket').get('disclaim', { query: { ids: ['servi
   message: {type: String, required: true},
   read: {type: Boolean, default: false}, // read status
   isAdmin: {type: Boolean, default: false},
+  type: {type: String, default: 'service-auth', enum: ['service-auth', 'service-conf']},
 ```
 
 ### 留言接口
