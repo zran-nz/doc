@@ -203,6 +203,8 @@ feedback: { // 留言反馈
 follower: {type: String}, // 跟进人 user._id
 followedAt: {type: Date}, // 开始跟进时间
 releasedAt: {type: Date}, // 上次释放时间
+importUsers: {type: [String]}, // 老师预约排课购买的自动排课被取消后，需要加入，可以重复
+
 ```
 
 ### 服务认证接口（仅限当前用户）
@@ -229,6 +231,14 @@ await App.service("service-auth").patch(doc._id, {
   status: 2 / -1,
   reason: "",
 });
+```
+
+### import classcipe cloud
+> 导入认证精品课列表
+```js
+// 课件数据列表
+await App.service("service-auth").get('cloudList', {query: {}});
+
 ```
 
 ### 统计被多少服务包关联
@@ -838,6 +848,8 @@ accident: {
   tags: {type: [String]}, // 标签
 },
 servicePackApply: {type: String}, // 主题服务包报名id
+serviceAuthId: {type: String}, // service-auth._id from import classcipe cloud, 精品认证课购买后一次性排课
+
 ```
 
 ### 预约接口
@@ -880,6 +892,12 @@ const doc = await App.service("service-booking").create({
     hash
   }]
 });
+```
+
+### 认证精品课快照购买支付成功后 自动排课
+```js
+// 内部接口调用
+await this.app.service('service-booking').importByBooking({serviceAuthId, bookingId}, params)
 ```
 
 #### 老师对预约进行排课
