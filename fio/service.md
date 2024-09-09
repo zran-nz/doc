@@ -394,14 +394,15 @@ await App.service('service-auth').find({
   status: {type: Number, default: 0}, // 0: 未申请/Apply verification, 1:申请中/Under processing, 2: 通过/Verified, -1: 拒绝/Under processing
   vettingReminder: {type: Boolean, default: false}, // 审批过期时间少于30天提醒
   feedback: {
-  // 留言反馈
-  message: {type: String}, // 用户留言内容
-  date: {type: Date}, // 留言时间
-  read: {type: Boolean, default: false}, // read status
-  reply: {type: String}, // 后台回复内容
-  replyDate: {type: Date},
-  replyRead: {type: Boolean, default: false}, // read status
-},
+    // 留言反馈
+    message: {type: String}, // 用户留言内容
+    date: {type: Date}, // 留言时间
+    read: {type: Boolean, default: false}, // read status
+    reply: {type: String}, // 后台回复内容
+    replyDate: {type: Date},
+    replyRead: {type: Boolean, default: false}, // read status
+  },
+  reason: {type: String, trim: true},
 ```
 
 ### 用户服务配置接口
