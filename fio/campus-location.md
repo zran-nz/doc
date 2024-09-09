@@ -30,4 +30,7 @@ await App.service('campus-location').get('cityByCountry', { query: { country: ''
 
 // 获取所有城市
 await App.service('campus-location').get('city');
+
+// 统计该国家下,每个城市的老师数量,按学科统计
+await App.service('campus-location').get('cityTeacherStatistics', { query: { country: 'NZ' } });
 ```

@@ -20,6 +20,7 @@
       'consultation',
       'pipeline',
       'content_provider',
+      'on_campus',
     ],
   },
   content: {type: String},
