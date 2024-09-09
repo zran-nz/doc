@@ -258,6 +258,27 @@ await App.service('session').patch(
 
 `await App.service('session').create({ id: 'presentation_id', image: 'cover url', guest: true })'`
 
+### start booking session
+
+```js
+await App.service('session').create({
+  type, 
+  name,
+  image: 'cover url',
+  unitType: String, // unit.type
+  sessionType: String, // unit.sessionType
+  start: new Date('start time'), end: new Date('end time'),
+  zoom: { passcode: true/false, waiting_room: true/false },
+  category?: '', color?: '',
+  subjects?: [...],
+  students: {type: [String]}, // session student user_id
+  pages: {type: Schema.Types.Mixed}, // slides.pages snapshot
+  questions: {type: Schema.Types.Mixed}, // questions snapshot
+  materials: {type: Schema.Types.Mixed}, // materials snapshot
+  booking: {type: String}, // service-booking._id 学生的预约
+})
+```
+
 ### start workshop [new]
 
 ```js
