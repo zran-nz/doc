@@ -1125,6 +1125,7 @@ await App.service('service-booking').create({
   interviewApply: {type: Boolean, default: false}, // 面试已预约
   takeaway: {type: String}, // takeaway
   takeawayCreatedAt: {type: Date},
+  archive: {type: Boolean, default: false},
 ```
 
 ### 报名接口
