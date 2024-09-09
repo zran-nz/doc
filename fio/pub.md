@@ -169,6 +169,11 @@ await App.service('users').patch(user._id, {captcha, mobile, countryCode})
 await App.service('users').patch(user._id, {studentExt: {...}})
 ```
 
+### 获取google登录的邮箱
+```js
+await App.service('users').get('googleEmail')
+```
+
 ### google 授权 url
 
 ```js
