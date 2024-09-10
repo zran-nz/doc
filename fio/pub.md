@@ -173,6 +173,10 @@ await App.service('users').patch(user._id, {studentExt: {...}})
 ```js
 await App.service('users').get('googleEmail')
 ```
+### 更新账号的邮箱为google登录的邮箱
+```js
+await App.service('users').get('googleEmailSync')
+```
 
 ### google 授权 url
 
