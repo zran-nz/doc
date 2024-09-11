@@ -665,14 +665,9 @@ await App.service("serssion").create({
 
 ```js
 uid: {type: String}, // users._id
-price: {type: Number, default: 0}, // 订单金额
-payCount: {type: Number, default: 0}, // 购买可退次数，不可修改
-gift: {type: Boolean, default: false}, // 是否赠品, 只要服务包付了钱的都不是赠品
-giftCount: {type: Number, default: 0}, // 赠送次数
-total: {type: Number, default: 0}, // 总次数
-used: {type: Number, default: 0}, // 已经使用
+total: {type: Number, default: 0}, // 总次数 会变化，代课服务下为分钟数
+used: {type: Number, default: 0}, // 已经使用，代课服务下为分钟数
 expireSoon: {type: Date}, // 即将过期的时间
-order: {type: String, required: true}, // 关联 order._id
 session: {
   _id: {type: String}, // 关联session._id
   name: {type: String}, // session.name
@@ -681,6 +676,8 @@ session: {
 },
 snapshot: {type: Schema.Types.Mixed, required: true}, // service-pack 快照，主题服务包下的Lecture包用 service-auth 快照
 status: {type: Boolean, default: true},
+order: {type: String, required: true}, // 关联 order._id
+price: {type: Number, default: 0}, // 订单金额
 point: {type: Number}, // 订单支付积分
 isPoint: {type: Boolean, default: false}, // 现金购买/积分购买
 payMethod: {type: String}, // 默认为空, 现金支付过就会更新为 cash， https://github.com/zran-nz/bug/issues/5020
@@ -689,6 +686,9 @@ pid: {type: String}, // 主题服务包的主包, 本身用于Lecture包，一�
 premium: {type: String}, // Lecture包 对应的 service-auth 认证的精品课 service-auth._id
 taskIndex: {type: [String]}, // Lecture包下, 课件去重后的索引 https://github.com/zran-nz/bug/issues/5200
 tasks: {type: [String]}, // Lecture包下, 需要预约的课件id，用于自动计算出预约的关联的课件，增加：首次购买/补买/取消预约，扣除：预约，[id1, id2, ...]
+// 线下包
+country: {type: String}, // 国家
+city: {type: String}, // 城市
 ```
 
 ### service-pack-user-data model
@@ -707,7 +707,7 @@ payMethod: {type: String, trim: true}, // 支付方式
 
 ```js
 packUser: {type: String, required: true}, // 关联购买的服务包 service-pack-user._id
-times: {type: Number, required: true}, // 增减次数
+times: {type: Number, required: true}, // 增减次数, 分钟数(代课服务)
 type: {type: String, enum: Agl.ServicePackUserType}, // 变化类型
 remaining: {type: Number}, // 剩余次数
 expireSoon: {type: Date}, // 新的有效期
@@ -752,7 +752,7 @@ await this.service("service-pack-user").buyByOrder({
   packId, // service-pack._id
   order, // order._id
   session?, // session._id 捆绑购买的session
-  total: 10, // 购买的次数
+  total: 10, // 购买的分钟数，代课服务需要传
   price, // 服务包支付的实际价格
   gift, // 是否赠送的服务包
 });
@@ -794,6 +794,14 @@ for(const o of childs) {
 
 ```js
 await App.service('service-pack-user').find({ query: { pid: 'service-pack-user._id' } });
+```
+
+### 代课服务包
+```js
+// 增加分钟数
+await this.service("service-pack-user-data").addSubstitute({...})
+// 消耗分钟数
+await this.service("service-pack-user-data").usedSubstitute({...})
 ```
 
 ### 服务包使用记录
