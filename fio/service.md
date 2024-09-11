@@ -168,6 +168,7 @@ tags: {type: [String], trim: true}, // 标签
 unit: { // 认证课件
   _id: {type: String, trim: true}, // unit._id
   name: {type: String, trim: true}, // 课件名称
+  price: {type: Number}, // 课件价格, 单位 分 = 互动题数量*20
 },
 ability: {type: String, trim: true}, // 学习能力 https://github.com/zran-nz/bug/issues/5030
 styles: {type: [String], trim: true}, // 认知风格
