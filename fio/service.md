@@ -567,7 +567,7 @@ splitSale: {type: Boolean, default: false}, // 是否可以分拆卖
 filled: {type: Boolean, default: false}, // All forms have been filled
 reason: {type: String}, // 下架原因
 keywords: {type: [String]}, // 关键词搜索用，[subject, topic, ...]
-scenario: {type: String, enum: ['online', 'onCampus']}, // 线上/线下
+isOnCampus: {type: Boolean, default: false}, // 线上/线下
 country: {type: String, trim: true},
 onCampusPrice: [
   {
