@@ -567,6 +567,21 @@ splitSale: {type: Boolean, default: false}, // 是否可以分拆卖
 filled: {type: Boolean, default: false}, // All forms have been filled
 reason: {type: String}, // 下架原因
 keywords: {type: [String]}, // 关键词搜索用，[subject, topic, ...]
+scenario: {type: String, enum: ['online', 'onCampus']}, // 线上/线下
+country: {type: String, trim: true},
+onCampusPrice: [
+  {
+    city: {type: String, trim: true},
+    price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
+    discount: [
+      {
+        count: {type: Number}, // 数量
+        discount: {type: Number}, // 折扣 %
+        gifts: {type: Number, default: 0}, // 免费赠送的次数
+      },
+    ],
+  },
+],
 ```
 
 ### 服务包接口
@@ -798,6 +813,7 @@ await App.service('service-pack-user').find({ query: { pid: 'service-pack-user._
 ```
 
 ### 代课服务包
+
 ```js
 // 增加分钟数
 await this.service("service-pack-user-data").addSubstitute({...})
