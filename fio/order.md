@@ -163,6 +163,10 @@ await App.service('order').create({
 await App.service('order').create({
     link: [{ id: service._id, mode: unit.mode, style: 'unit/session/service', count: 1, isOnCampus: true, country: 'NZ', city: 'Ashburton' }],
 });
+// 认证精品课快照购买
+await App.service('order').create({
+    link: [{ id: service - auth._id, style: 'premium_cloud', bookingId }],
+});
 await App.service('service-pack').patch('66e2cf2e1646b5698dcdf80d', {
     isOnCampus: true, // 线上/线下
     country: 'NZ',
