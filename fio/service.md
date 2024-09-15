@@ -1151,6 +1151,16 @@ await App.service('service-booking').create({
   takeaway: {type: String}, // takeaway
   takeawayCreatedAt: {type: Date},
   archive: {type: Boolean, default: false},
+  contentOrientated: [
+    {
+      premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
+      times: {type: Number}, // 最少授课次数，必须大于0
+      price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
+      schoolPrice: {type: Number, trim: true}, // 给机构的价格 单次价格 *100，cc，美分
+      servicePack: {type: String}, // 捆绑的服务包, service-pack._id 服务包id
+    },
+  ],
+  purchaseExpireAt: {type: Date}, //购买过期时间 1.申请通过+7天, 2更新报价+7天
 ```
 
 ### 报名接口
@@ -1173,6 +1183,12 @@ await App.service('service-pack-apply').get('count', { query: { sharedSchool: 's
 
 // 当前面试服务包下,可预约面试的申请
 await App.service('service-pack-apply').find({ query: { status: 0, interviewInvited: true, interviewPack: 'service-pack._id' } });
+
+// 单独更新报价 需同时更新字段purchaseExpireAt
+await App.service('service-pack-apply').patch('_id', {
+    contentOrientated: [],
+    purchaseExpireAt: Date.now() + 7 * 24 * 3600 * 1000,
+});
 ```
 
 ### 机构售卖分享设置
