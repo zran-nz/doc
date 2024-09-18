@@ -660,6 +660,15 @@ const {
 // } = await App.service("service-auth").get("stats", { query: { type, mentoringType? } });
 ```
 
+### 认证的课件按 topic._id 统计数量
+```js
+const {
+  $topic._id: $count,
+  '66506185267ada5104400226': 2,
+  ...
+} = await App.service("service-auth").get("groupTopic", { query: {type, mentoringType, curriculum, subject}});
+```
+
 ### 老师发布公开课捆绑服务包
 
 ```js
