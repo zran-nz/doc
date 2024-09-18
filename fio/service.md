@@ -1160,7 +1160,9 @@ await App.service('service-booking').create({
       servicePack: {type: String}, // 捆绑的服务包, service-pack._id 服务包id
     },
   ],
-  purchaseExpireAt: {type: Date}, //购买过期时间 1.申请通过+7天, 2更新报价+7天
+  purchaseExpireAt: {type: Date}, //可购买过期时间 1.申请通过+7天, 2.更新报价+7天
+  interviewPurchaseExpireAt: {type: Date}, // 面试可购买过期时间 1.邀请+7天,
+  interviewPurchaseExpired: {type: Boolean, default: false}, // 面试购买过期
 ```
 
 ### 报名接口
@@ -1189,6 +1191,9 @@ await App.service('service-pack-apply').patch('_id', {
     contentOrientated: [],
     purchaseExpireAt: Date.now() + 7 * 24 * 3600 * 1000,
 });
+
+// 重置面试数据
+await App.service('service-pack-apply').get('interviewReturn', { query: { id: '_id' } });
 ```
 
 ### 机构售卖分享设置
