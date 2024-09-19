@@ -660,7 +660,8 @@ const {
 // } = await App.service("service-auth").get("stats", { query: { type, mentoringType? } });
 ```
 
-### 认证的课件按 topic._id 统计数量
+### 认证的课件按 topic.\_id 统计数量
+
 ```js
 const {
   $topic._id: $count,
@@ -1190,7 +1191,7 @@ await App.service('service-pack-school-price').find({ query: { uid: 'user._id', 
 await App.service('service-pack-apply').get('countType');
 
 // 校内外统计
-await App.service('service-pack-apply').get('count', { query: { sharedSchool: 'school-plan._id' } });
+await App.service('service-pack-apply').get('count', { query: { sharedSchool: 'school-plan._id', status, servicePack, archive } });
 
 // 当前面试服务包下,可预约面试的申请
 await App.service('service-pack-apply').find({ query: { status: 0, interviewInvited: true, interviewPack: 'service-pack._id' } });
