@@ -758,6 +758,9 @@ packUserData: [{
 // 服务包列表（purchased）
 await this.service('service-pack-user').find({ query: {} });
 
+// 服务包列表（purchased） 学校购买
+await this.service('service-pack-user').find({ query: { uid: 'school-plan._id', $isSchool: true } });
+
 /**
  * 按用户查询
  * fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
