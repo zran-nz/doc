@@ -30,7 +30,7 @@
   pipelineStatus: {type: Number, default: 0}, // 销售渠道 0: inactive, 1: pending, 2: success
   pipelineAt: {type: Date}, //同意时间
   contentProviderEnable: {type: Boolean, default: false}, // 内容供应商 系统开关
-  contentProviderStatus: {type: Number, default: 0}, // 内容供应商 0: inactive, 1: pending, 2: success
+  contentProviderStatus: {type: Number, default: 0}, // 内容供应商 0: inactive, 1: pending, 2: success, 3: apply
   contentProviderAt: {type: Date}, //同意时间
   attachmentsTeaching: [
     {
@@ -53,6 +53,72 @@
       hash: {type: String, trim: true}, // 文件SHA1, files._id
     },
   ],
+  attachmentsLogo: {
+    filename: {type: String, trim: true}, // 文件名
+    mime: {type: String, trim: true}, // 文件 MIME
+    hash: {type: String, trim: true}, // 文件SHA1, files._id
+  },
+  attachmentsCurriculum: {
+    Certificate: {
+      subject: {type: String, trim: true}, // subjects._id
+      attachments: [
+        {
+          filename: {type: String, trim: true}, // 文件名
+          mime: {type: String, trim: true}, // 文件 MIME
+          hash: {type: String, trim: true}, // 文件SHA1, files._id
+        },
+      ],
+    },
+    Foundation: {
+      subject: {type: String, trim: true}, // subjects._id
+      attachments: [
+        {
+          filename: {type: String, trim: true}, // 文件名
+          mime: {type: String, trim: true}, // 文件 MIME
+          hash: {type: String, trim: true}, // 文件SHA1, files._id
+        },
+      ],
+    },
+    Master: {
+      subject: {type: String, trim: true}, // subjects._id
+      attachments: [
+        {
+          filename: {type: String, trim: true}, // 文件名
+          mime: {type: String, trim: true}, // 文件 MIME
+          hash: {type: String, trim: true}, // 文件SHA1, files._id
+        },
+      ],
+    },
+    Bachelor: {
+      subject: {type: String, trim: true}, // subjects._id
+      attachments: [
+        {
+          filename: {type: String, trim: true}, // 文件名
+          mime: {type: String, trim: true}, // 文件 MIME
+          hash: {type: String, trim: true}, // 文件SHA1, files._id
+        },
+      ],
+    },
+    Diploma: {
+      subject: {type: String, trim: true}, // subjects._id
+      attachments: [
+        {
+          filename: {type: String, trim: true}, // 文件名
+          mime: {type: String, trim: true}, // 文件 MIME
+          hash: {type: String, trim: true}, // 文件SHA1, files._id
+        },
+      ],
+    },
+  },
+  feedback: {
+    // 留言反馈
+    message: {type: String}, // 用户留言内容
+    date: {type: Date}, // 留言时间
+    read: {type: Boolean, default: false}, // read status
+    reply: {type: String}, // 后台回复内容
+    replyDate: {type: Date},
+    replyRead: {type: Boolean, default: false}, // read status
+  },
 }
 ```
 
