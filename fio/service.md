@@ -1286,12 +1286,20 @@ await App.service('service-pack-ticket').get('disclaim', { query: { ids: ['servi
 ### service-auth-message model
 
 ```js
+{
   uid: {type: String, required: true},
-  rid: {type: String, required: true}, // 关联的 service-auth._id
-  message: {type: String, required: true},
+  rid: {type: String, required: true}, // 关联的 service-auth._id, service-conf._id, school-plan._id
+  message: {type: String},
   read: {type: Boolean, default: false}, // read status
   isAdmin: {type: Boolean, default: false},
-  type: {type: String, default: 'service-auth', enum: ['service-auth', 'service-conf']},
+  type: {type: String, default: 'service-auth', enum: ['service-auth', 'service-conf', 'school-plan']},
+  attachments: {
+    // 图片/视频证据
+    filename: {type: String, trim: true}, // 文件名
+    mime: {type: String, trim: true}, // 文件 MIME
+    hash: {type: String, trim: true}, // 文件SHA1, files._id
+  },
+}
 ```
 
 ### 留言接口
