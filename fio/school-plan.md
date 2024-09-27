@@ -37,58 +37,22 @@
     mime: {type: String, trim: true}, // 文件 MIME
     hash: {type: String, trim: true}, // 文件SHA1, files._id
   },
-  attachmentsCurriculum: {
-    Certificate: {
+  attachmentsCurriculum: [
+    {
+      type: {type: String, trim: true, enum: ['Certificate', 'Foundation', 'Master', 'Bachelor', 'Diploma']},
       subject: {type: String, trim: true}, // subjects._id
       attachments: [
         {
-          filename: {type: String, trim: true}, // 文件名
-          mime: {type: String, trim: true}, // 文件 MIME
-          hash: {type: String, trim: true}, // 文件SHA1, files._id
+          filename: {type: String, trim: true},
+          mime: {type: String, trim: true},
+          hash: {type: String, trim: true},
+          date: {type: Date}, // 上传时间
+          type: {type: String, trim: true}, // 认证类型, conf.val.attachmentType
+          size: {type: Number}, // 文件大小
         },
       ],
     },
-    Foundation: {
-      subject: {type: String, trim: true}, // subjects._id
-      attachments: [
-        {
-          filename: {type: String, trim: true}, // 文件名
-          mime: {type: String, trim: true}, // 文件 MIME
-          hash: {type: String, trim: true}, // 文件SHA1, files._id
-        },
-      ],
-    },
-    Master: {
-      subject: {type: String, trim: true}, // subjects._id
-      attachments: [
-        {
-          filename: {type: String, trim: true}, // 文件名
-          mime: {type: String, trim: true}, // 文件 MIME
-          hash: {type: String, trim: true}, // 文件SHA1, files._id
-        },
-      ],
-    },
-    Bachelor: {
-      subject: {type: String, trim: true}, // subjects._id
-      attachments: [
-        {
-          filename: {type: String, trim: true}, // 文件名
-          mime: {type: String, trim: true}, // 文件 MIME
-          hash: {type: String, trim: true}, // 文件SHA1, files._id
-        },
-      ],
-    },
-    Diploma: {
-      subject: {type: String, trim: true}, // subjects._id
-      attachments: [
-        {
-          filename: {type: String, trim: true}, // 文件名
-          mime: {type: String, trim: true}, // 文件 MIME
-          hash: {type: String, trim: true}, // 文件SHA1, files._id
-        },
-      ],
-    },
-  },
+  ],
   feedback: {
     // 留言反馈
     message: {type: String}, // 用户留言内容
