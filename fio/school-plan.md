@@ -41,16 +41,14 @@
     {
       type: {type: String, trim: true, enum: ['Certificate', 'Foundation', 'Master', 'Bachelor', 'Diploma']},
       subject: {type: String, trim: true}, // subjects._id
-      attachments: [
-        {
-          filename: {type: String, trim: true},
-          mime: {type: String, trim: true},
-          hash: {type: String, trim: true},
-          date: {type: Date}, // 上传时间
-          type: {type: String, trim: true}, // 认证类型, conf.val.attachmentType
-          size: {type: Number}, // 文件大小
-        },
-      ],
+      attachments: {
+        filename: {type: String, trim: true},
+        mime: {type: String, trim: true},
+        hash: {type: String, trim: true},
+        date: {type: Date}, // 上传时间
+        type: {type: String, trim: true}, // 认证类型, conf.val.attachmentType
+        size: {type: Number}, // 文件大小
+      },
     },
   ],
   feedback: {
@@ -103,4 +101,43 @@ await App.service('school-plan').patch(_id, {
         },
     },
 });
+
+// 创建attachmentsCurriculum
+await App.service('school-plan').patch('school-plan._id', {
+    $push: {
+        attachmentsCurriculum: {
+            type: { type: String, trim: true, enum: ['Certificate', 'Foundation', 'Master', 'Bachelor', 'Diploma'] },
+            subject: { type: String, trim: true }, // subjects._id
+            attachments: {
+                filename: { type: String, trim: true },
+                mime: { type: String, trim: true },
+                hash: { type: String, trim: true },
+                date: { type: Date }, // 上传时间
+                type: { type: String, trim: true }, // 认证类型, conf.val.attachmentType
+                size: { type: Number }, // 文件大小
+            },
+        },
+    },
+});
+
+// 更新attachmentsCurriculum
+await App.service('school-plan').patch(
+    'school-plan._id',
+    {
+        // 更新内容
+        'attachmentsCurriculum.$.attachments': {
+            filename: { type: String, trim: true },
+            mime: { type: String, trim: true },
+            hash: { type: String, trim: true },
+            date: { type: Date }, // 上传时间
+            type: { type: String, trim: true }, // 认证类型, conf.val.attachmentType
+            size: { type: Number }, // 文件大小
+        },
+    },
+    {
+        query: {
+            'attachmentsCurriculum.type': 'Certificate', //要更新的type
+        },
+    }
+);
 ```
