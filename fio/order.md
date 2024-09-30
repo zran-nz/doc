@@ -30,7 +30,7 @@
         cover: {type: String},
         price: {type: Number},
         point: {type: Number},
-        style: {type: String}, //unit session service self_study service_premium premium_cloud
+        style: {type: String}, //unit session service self_study service_premium service_substitute premium_cloud
         goods: {type: Object}, //下单时商品快照
         sessionId: {type: Object}, //捆绑服务包的公开课_id
         count: {type: Object}, //服务包次数 不包含赠送次数
@@ -44,7 +44,7 @@
         packUserTasks: {type: Array}, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
         oldPackUser: {type: String}, // 补买用,主题服务包Lecture加到原来的packUser中
         bookingId: {type: String}, // 认证精品课快照购买支付成功后 自动排课用
-        isOnCampus: {type: Boolean, default: false}, // 线上/线下
+        isOnCampus: {type: Boolean, default: false}, // 线上false, 线下true
         country: {type: String, trim: true},
         city: {type: String, trim: true},
     },
@@ -74,9 +74,22 @@
      * session_service_pack 捆绑服务包
      * service_pack 服务包
      * service_premium 主题服务包
+     * service_substitute 代课服务包
      * premium_cloud 认证精品课快照
      */
-    type: {type: String, enum: ['unit', 'session_public', 'session_self_study', 'session_service_pack', 'service_pack', 'service_premium', 'premium_cloud']},
+    type: {
+    type: String,
+    enum: [
+        'unit',
+        'session_public',
+        'session_self_study',
+        'session_service_pack',
+        'service_pack',
+        'service_premium',
+        'service_substitute',
+        'premium_cloud',
+    ],
+    },
     price: {type: Number}, // Unit cent 支付金额(现金+gift card)
     point: {type: Number}, // 支付积分
     // subtotal: {type: Number}, // Unit cent 商品总金额 后续增加
@@ -159,9 +172,9 @@ await App.service('order').create({
     inviter: inviteCode,
     servicePackApply: 'service-pack-apply._id', // 购买面试服务包时传
 });
-// 线下购买 需要以下三字段isOnCampus country city
+// 代课服务包线下购买 需要以下三字段isOnCampus country city
 await App.service('order').create({
-    link: [{ id: service._id, mode: unit.mode, style: 'unit/session/service', count: 1, isOnCampus: true, country: 'NZ', city: 'Ashburton' }],
+    link: [{ id: service._id, mode: unit.mode, style: 'service_substitute', count: 1, isOnCampus: true, country: 'NZ', city: 'Ashburton' }],
 });
 // 认证精品课快照购买
 await App.service('order').create({
