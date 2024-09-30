@@ -6,7 +6,7 @@
 ```text
 Front-end UI framework: quasar
 Backend technology stack: nodejs, redis, mongodb, mqtt.
-nodejs lib：feathers, express, mongodb-core, mongoose, googleapis, google-images, mqtt, socket.io, nodemailer, pdfkit-table, node-fetch.
+nodejs lib：feathers, express, jsonwebtoken, mongodb-core, mongoose, googleapis, google-images, mqtt, socket.io, nodemailer, pdfkit-table, node-fetch.
 API: googleapi, cloudflare r2, aws s3.
 ```
 ## 架构图
