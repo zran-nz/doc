@@ -39,3 +39,18 @@ graph TD
   Stu((Student)) --Open class room--> SD(Student dashboard)
   SD --Open meeting link--> Z
 ```
+
+
+### 应用程序开发
+- 如回答“是”，则需提供相应的证据文件和报告供审核。
+全都选否
+
+### 安全
+- 您的应用是否使用传输层安全性（TLS）并且仅支持所有网络流量（包括 Zoom 用户的数据）的 TLS 1.2 或更高版本？
+是的
+
+- 集成是否利用验证令牌或秘密令牌和 x-zm-signature 标头来确认传入的 Webhook 事件来自 Zoom？
+不
+
+- 您的应用程序是否收集、存储、记录或保留 Zoom 用户数据，包括 Zoom OAuth 令牌？
+是的
