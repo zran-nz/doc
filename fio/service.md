@@ -465,7 +465,7 @@ const {
 
 ```js
 service-conf._id=uid
-// 地址必须是从google接口搜索出来的的,且必须要带该地址的place_id
+// 地址必须是从google接口搜索出来的,且必须要带该地址的place_id
 // google地址获取接口:/fio/maps/address/${country}?q=${query} 参考web-PubSelect-find的city获取
 await App.service('service-conf').patch('_id', {
     address: 'desc',

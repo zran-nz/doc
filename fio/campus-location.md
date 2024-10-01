@@ -33,4 +33,13 @@ await App.service('campus-location').get('city');
 
 // 统计该国家下,每个城市的老师数量,按学科统计
 await App.service('campus-location').get('cityTeacherStatistics', { query: { country: 'NZ' } });
+
+// 距离某地址半径内的老师数量,按学科统计
+await App.service('campus-location').get('cityTeacherStatisticsRadius', {
+    query: {
+        country: 'NZ',
+        city: 'Ashburton',
+        place_id: 'ChIJfUvHmvcEJmsRInIqgBaIUaM', // 从google接口获取的
+    },
+});
 ```
