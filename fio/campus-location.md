@@ -39,7 +39,6 @@ await App.service('campus-location').get('cityTeacherStatisticsRadius', {
     query: {
         country: 'NZ',
         city: 'Ashburton',
-        radius: 150, // in meters
         place_id: 'ChIJfUvHmvcEJmsRInIqgBaIUaM', // 从google接口获取的
     },
 });
