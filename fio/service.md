@@ -503,6 +503,7 @@ contentOrientatedConfig: {
 contentOrientatedEnable: {type: Boolean, default: false}, // type === 'mentoring' 专用
 contentOrientated: [{
   premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
+  subject: {type: String, trim: true}, // 学科_id https://github.com/zran-nz/bug/issues/5344
   times: {type: Number}, // 最少授课次数，必须大于0
   price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
   schoolPrice: {type: Number, trim: true}, // 给机构的价格 单次价格 *100，cc，美分
