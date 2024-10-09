@@ -572,6 +572,7 @@ isOnCampus: {type: Boolean, default: false}, // 线上/线下
 country: {type: String, trim: true},
 onCampusPrice: [
   {
+    hash: {type: String, trim: true},
     city: {type: String, trim: true},
     price: {type: Number, trim: true}, // 单次价格 *100，cc，美分
     discount: [
