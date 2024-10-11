@@ -44,6 +44,8 @@
         packUserTasks: {type: Array}, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
         oldPackUser: {type: String}, // 补买用,主题服务包Lecture加到原来的packUser中
         bookingId: {type: String}, // 认证精品课快照购买支付成功后 自动排课用
+        premiumCloudUnused: {type: Boolean, default: false}, // 认证精品课快照未使用
+        session: {type: String}, // 认证精品课快照未使用 绑定的session._id
         isOnCampus: {type: Boolean, default: false}, // 线上false, 线下true
         country: {type: String, trim: true},
         city: {type: String, trim: true},
@@ -324,4 +326,7 @@ await App.service('order').get('promotionServiceId', { query: { buyer: 'uid/scho
 
 // 根据booking查询Promotion赠送订单
 await App.service('order').get('promotionByBooking', { query: { booking: 'session.booking' } });
+
+// 1v1无主题服务包的import 未使用列表(premium_cloud)
+await App.service('order').get('premiumCloudUnused');
 ```
