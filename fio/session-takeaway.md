@@ -31,6 +31,12 @@ pages: {type: Schema.Types.Mixed}, // pages snapshot
 questions: {type: Schema.Types.Mixed}, // questions snapshot
 materials: {type: Schema.Types.Mixed}, // materials snapshot
 comment: {type: String, trim: true}, // total comment
+stats: [{ // 生成takeaway的时候自动计算出课堂统计数据
+  page: {type: String},
+  question: {type: String},
+  answer: {type: Number}, // 做题的人数
+  options: {type: [Number]}, // 选择题，各选项选择人数
+}],
 ```
 
 ### session-takeaway-snapshot model
