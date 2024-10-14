@@ -13,6 +13,7 @@
   role: {type: String, trim: true, enum: Agl.usersManagerRoles},
   status: {type: Number, default: 0}, // 0: inactive, 1: pending, 2: success
   del: {type: Boolean, default: false}, // del
+  joinAt: {type: Date},
 }
 ```
 
