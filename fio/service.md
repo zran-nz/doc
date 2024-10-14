@@ -206,7 +206,9 @@ followedAt: {type: Date}, // 开始跟进时间
 releasedAt: {type: Date}, // 上次释放时间
 isSchoolFollower: {type: Boolean, default: false}, // 跟进人是否是学校
 importUsers: {type: [String]}, // 老师预约排课购买的自动排课被取消后，需要加入，可以重复
-
+interviewInvited: {type: Boolean, default: false}, // 面试邀请是否发送
+interviewPack: {type: String}, // 面试服务包id
+interviewApply: {type: Boolean, default: false}, // 面试已预约
 ```
 
 ### 服务认证接口（仅限当前用户）
@@ -331,6 +333,13 @@ await App.service('service-auth').find({
         $or: [{ follower: { $ne: user._id, $exists: true } }, { follower: { $exists: false } }],
     },
 });
+```
+
+### 服务认证协同审批
+
+```js
+// 发送面试邀请
+await App.service('service-auth').patch('service-auth._id', { interviewInvited: true, interviewPack: 'service-pack._id' });
 ```
 
 ## 用户服务配置
