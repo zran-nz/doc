@@ -978,6 +978,12 @@ await App.service('service-booking').patch('cancel', {
 });
 ```
 
+#### 认证精品课快照 自动排课
+
+```js
+await App.service('service-booking').get('importByBooking', { query: { serviceAuthId, bookingId } });
+```
+
 ## 用户评价数据
 
 ### service-rating model
