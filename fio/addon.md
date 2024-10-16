@@ -40,7 +40,8 @@ await addon.copy(sid, pages, postData);
 
 ```js
 questionsTypes: ['text', 'choice', 'comment', 'draw', 'media', 'website', 'matching', 'filling', 'graph', 'video'],
-templateCategory: ['Beginning of the session', 'During the session', 'End of the session', 'General purpose'],
+templateTab: ['Teaching scenario', 'Interview for enrolment(Students)', 'Interview for thesis defense', 'Interview for enrolment(Teachers)'],
+// templateCategory: ['Beginning of the session', 'During the session', 'End of the session', 'General purpose'], 改为前端定义
 ```
 
 ### addon api
@@ -242,7 +243,8 @@ sid: {type: String, required: true, trim: true}, // slides id 谷歌幻灯片id
 cover: {type: String, trim: true}, // 幻灯片图片地址
 unitName: {type: String, trim: true}, // 课件名称
 type: {type: String, required: true, enum: Agl.questionsTypes}, // 互动题类型
-category: {type: String, required: true, enum: Agl.templateCategory}, // 分类
+tab: {type: String, required: true, enum: Agl.templateTab}, // Tab
+category: {type: String, required: true}, // 分类，改为前端定义
 ```
 
 #### 通过谷歌幻灯片 id 创建模板
