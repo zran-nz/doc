@@ -209,6 +209,8 @@ importUsers: {type: [String]}, // 老师预约排课购买的自动排课被取�
 interviewInvited: {type: Boolean, default: false}, // 面试邀请是否发送
 interviewPack: {type: String}, // 面试服务包id
 interviewApply: {type: Boolean, default: false}, // 面试已预约
+takeaway: {type: String}, // takeaway
+takeawayCreatedAt: {type: Date},
 ```
 
 ### 服务认证接口（仅限当前用户）
@@ -340,6 +342,9 @@ await App.service('service-auth').find({
 ```js
 // 发送面试邀请
 await App.service('service-auth').patch('service-auth._id', { interviewInvited: true, interviewPack: 'service-pack._id' });
+
+// 面试手动return
+await App.service('service-auth').get('interviewReturn', { query: { id: 'service-auth._id' } });
 ```
 
 ## 用户服务配置
