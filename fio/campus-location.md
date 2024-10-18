@@ -16,6 +16,7 @@
       hash: {type: String, trim: true}, // 文件SHA1, files._id
     },
   ],
+  archive: {type: Boolean, default: false},
 },
 ```
 
