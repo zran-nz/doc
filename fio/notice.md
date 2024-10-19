@@ -55,10 +55,11 @@ name: {type: String, trim: true},
 enable: {type: Boolean, default: true},
 enableInbox: {type: Boolean, default: false},
 enablePush: {type: Boolean, default: false},
-enableText: {type: Boolean, default: false}, // 短信
+enableSms: {type: Boolean, default: false}, // 短信
 title: {type: String, trim: true}, // for mail,inbox title
 text: {type: String, trim: true}, // for mail body
 note: {type: String, trim: true}, // for inbox body
+sms: {type: String, trim: true}, // for sms body
 keys: {type: [String], trim: true}, // for mail replace var
 category: {type: String, trim: true}, //类目ID
 ```
