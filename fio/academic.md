@@ -411,3 +411,35 @@ await App.service('criteria').patch(doc._id, {
   }
 })
 ```
+
+## task-category model
+```js
+uid: {type: String, required: true}, // 个人: pub.user._id, 学校: school-plan._id,  系统公共数据: "1"
+name: {type: String, required: true}, // 名称
+color: {type: String, required: true}, // 颜色
+del: {type: Boolean, default: false},
+```
+
+### task-category api
+```js
+// 查找
+await App.service('task-category').find({query: {
+  uid?: school-plan._id, // 个人身份不用传, 系统公共数据: "1"
+}})
+// 创建
+await App.service('task-category').create({
+  uid?: school-plan._id, // 个人身份不用传, 系统后台传(仅限管理员): "1"
+  name: 'xxx',
+  color: ''
+})
+// 更新
+await App.service('task-category').patch(doc._id, {
+  name: 'xxx',
+  color: '',
+  ...
+})
+// 归档/恢复
+await App.service('task-category').patch(doc._id, {
+  del: true/false
+})
+```
