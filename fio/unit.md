@@ -33,6 +33,7 @@
   publish: {
     lib: Boolean, // to library
     link: Boolean, // link content publish
+    sales: {type: Number, default: 0}, // library sales count
   },
   curriculumn: String, // readonly, curriculumn code
   tpl: String, // unit-tpl._id
@@ -242,6 +243,7 @@ tpl: {
   // auto create
   unit: String, // unit-tpl._id
   task: String, // unit-tpl._id
+}
 }
 ```
 

@@ -38,6 +38,7 @@ grades: [
   },
 ],
 publish: {type: Boolean, default: false}, // 发布状态
+sales: {type: Number, default: 0}, // 销量
 pages: {type: Schema.Types.Mixed}, // pages snapshot
 questions: {type: Schema.Types.Mixed}, // questions snapshot
 materials: {type: Schema.Types.Mixed}, // materials snapshot
