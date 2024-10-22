@@ -1241,6 +1241,9 @@ await App.service('service-pack-apply').patch('_id', {
 
 // 重置面试数据
 await App.service('service-pack-apply').get('interviewReturn', { query: { id: '_id' } });
+
+// 获取follower列表 按项目数排序 字段count为项目数
+await App.service('service-pack-apply').get('groupByFollower');
 ```
 
 ### 机构售卖分享设置
