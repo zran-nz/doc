@@ -476,6 +476,57 @@ const {
 }})
 ```
 
+### 批量查询多个老师最近几天，每日可预约的次数
+```js
+// 批量查询多个老师最近几天的冲突时间段
+const {
+  booking: [{
+    servicer, start, end
+  }],
+  session: [{
+    uid, start, end
+  }]
+} = await App.service('service-conf').get('recentDaysHours', query: {uid: ['xxx', ...], days: 14})
+
+// 计算出最近几天的可用次数
+function recentDays({days = 14, block = 30, hoursIndex = [], booking = [], session = []}) {
+  function getUtcTime(n = new Date()) {
+    return new Date(n.getTime() + new Date().getTimezoneOffset() * 60000)
+  }
+  function diffMinute([start, end]) {
+    return (new Date(`2000-01-01T${end.substring(2)}:00Z`).getTime() - new Date(`2000-01-01T${start.substring(2)}:00Z`).getTime()) / 60000
+  }
+  const firstDay = new Date(Date.now() + 12 * 3600000).getTime() // 计算12小时后的时间
+  const rs = {}
+  for (let i = 0; i < days; i++) {
+    const first = new Date(firstDay + i * 86400000)
+    const utcFirst = getUtcTime(first)
+    const wday = utcFirst.getDay() + 'w'
+    for (const hrr of hoursIndex) {
+      // 循环可用时间段(utc hours)
+      let minutes = 0
+      if (hrr[0].includes(wday)) {
+        // 属于当天的时间段
+        minutes = diffMinute(hrr)
+        if (!hrr[1].includes(wday)) {
+          // 跨天，计算24点内
+          minutes = diffMinute([hrr[0], wday + '24:00'])
+        }
+      } else if (hrr[1].includes(wday)) {
+        // 当天00点-hrr[1]之间的
+        minutes = diffMinute([wday + '00:00', diffMinute])
+      }
+      const localDay = new Date().toLocaleDateString()
+      if (!minutes) continue // 可用时间段不匹配
+      if (rs[localDay]) rs[localDay] += Math.floor(minutes / block) // 已经存在则累加
+      else rs[localDay] = Math.floor(minutes / block)
+    }
+  }
+  return rs
+}
+
+```
+
 ### 线下助教 个体用户线下服务认证
 
 ```js
