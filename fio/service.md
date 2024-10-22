@@ -204,7 +204,7 @@ feedback: { // 留言反馈
 follower: {type: String}, // 跟进人 user._id
 followedAt: {type: Date}, // 开始跟进时间
 releasedAt: {type: Date}, // 上次释放时间
-isSchoolFollower: {type: Boolean, default: false}, // 跟进人是否是学校
+schoolOfFollower: {type: String}, // school-plan._id 学校管理员所属学校
 importUsers: {type: [String]}, // 老师预约排课购买的自动排课被取消后，需要加入，可以重复
 interviewInvited: {type: Boolean, default: false}, // 面试邀请是否发送
 interviewPack: {type: String}, // 面试服务包id
