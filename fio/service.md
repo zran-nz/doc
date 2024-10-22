@@ -1207,6 +1207,9 @@ await App.service('service-booking').create({
   purchaseExpireAt: {type: Date}, //可购买过期时间 1.申请通过+7天, 2.更新报价+7天
   interviewPurchaseExpireAt: {type: Date}, // 面试可购买过期时间 1.邀请+7天,
   interviewPurchaseExpired: {type: Boolean, default: false}, // 面试购买过期
+  follower: {type: String}, // 跟进人 user._id
+  followedAt: {type: Date}, // 开始跟进时间
+  schoolOfFollower: {type: String}, // school-plan._id 学校管理员所属学校
 ```
 
 ### 报名接口
