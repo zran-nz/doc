@@ -204,7 +204,7 @@ feedback: { // 留言反馈
 follower: {type: String}, // 跟进人 user._id
 followedAt: {type: Date}, // 开始跟进时间
 releasedAt: {type: Date}, // 上次释放时间
-isSchoolFollower: {type: Boolean, default: false}, // 跟进人是否是学校
+schoolOfFollower: {type: String}, // school-plan._id 学校管理员所属学校
 importUsers: {type: [String]}, // 老师预约排课购买的自动排课被取消后，需要加入，可以重复
 interviewInvited: {type: Boolean, default: false}, // 面试邀请是否发送
 interviewPack: {type: String}, // 面试服务包id
@@ -1258,6 +1258,9 @@ await App.service('service-booking').create({
   purchaseExpireAt: {type: Date}, //可购买过期时间 1.申请通过+7天, 2.更新报价+7天
   interviewPurchaseExpireAt: {type: Date}, // 面试可购买过期时间 1.邀请+7天,
   interviewPurchaseExpired: {type: Boolean, default: false}, // 面试购买过期
+  follower: {type: String}, // 跟进人 user._id
+  followedAt: {type: Date}, // 开始跟进时间
+  schoolOfFollower: {type: String}, // school-plan._id 学校管理员所属学校
 ```
 
 ### 报名接口
@@ -1289,6 +1292,9 @@ await App.service('service-pack-apply').patch('_id', {
 
 // 重置面试数据
 await App.service('service-pack-apply').get('interviewReturn', { query: { id: '_id' } });
+
+// 获取follower列表 按项目数排序 字段count为项目数
+await App.service('service-pack-apply').get('groupByFollower');
 ```
 
 ### 机构售卖分享设置
