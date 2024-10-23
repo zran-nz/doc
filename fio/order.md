@@ -30,9 +30,9 @@
         cover: {type: String},
         price: {type: Number},
         point: {type: Number},
-        style: {type: String}, //unit session service self_study service_premium service_substitute premium_cloud
+        style: {type: String}, //unit session service self_study service_premium service_substitute premium_cloud prompt
         goods: {type: Object}, //下单时商品快照
-        sessionId: {type: Object}, //捆绑服务包的公开课_id
+        sessionId: {type: Object}, //捆绑服务包的公开课_id,prompt购买插入的课程
         count: {type: Object}, //服务包次数 不包含赠送次数
         gift: {type: Boolean}, // 弃用 更换为promotion
         promotion: {type: Boolean}, // 是否赠品/推广 promotion
@@ -78,6 +78,7 @@
      * service_premium 主题服务包
      * service_substitute 代课服务包
      * premium_cloud 认证精品课快照
+     * prompt
      */
     type: {
     type: String,
