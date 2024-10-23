@@ -49,6 +49,7 @@
         isOnCampus: {type: Boolean, default: false}, // 线上false, 线下true
         country: {type: String, trim: true},
         city: {type: String, trim: true},
+        used: {type: Boolean, default: false}, // prompt被使用
     },
     ],
     /**
@@ -91,6 +92,7 @@
         'service_premium',
         'service_substitute',
         'premium_cloud',
+        'prompt',
     ],
     },
     price: {type: Number}, // Unit cent 支付金额(现金+gift card)
@@ -219,6 +221,11 @@ await App.service('order').create({
     servicePremium: 'service-pack._id', //主题服务包id
     noDiscount: true, //补买, 不计算折扣
 });
+// prompt购买
+await App.service('order').create({
+    link: [{ id: 'prompts._id', sessionId: 'session._id', style: 'prompt', count: 1 }],
+});
+
 // 订单列表 all
 await App.service('order').find();
 // 订单列表 paid
@@ -330,4 +337,10 @@ await App.service('order').get('promotionByBooking', { query: { booking: 'sessio
 
 // 1v1无主题服务包的import 未使用列表(premium_cloud)
 await App.service('order').get('premiumCloudUnused');
+
+// prompt已购买未使用,classcipe cloud tab
+await App.service('order').find({ query: { buyer: 'user._id', links: { $elemMatch: { style: 'prompt', used: false } } } });
+
+// 使用一个prompt
+await App.service('order').get('usePrompt', { query: { uid: 'user._id', prompt: 'prompts._id' } });
 ```
