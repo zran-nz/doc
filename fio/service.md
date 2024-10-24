@@ -488,43 +488,16 @@ const {
   }]
 } = await App.service('service-conf').get('recentDaysHours', query: {uid: ['xxx', ...], days: 14})
 
-// 计算出最近几天的可用次数
-function recentDays({days = 14, block = 30, hoursIndex = [], booking = [], session = []}) {
-  function getUtcTime(n = new Date()) {
-    return new Date(n.getTime() + new Date().getTimezoneOffset() * 60000)
-  }
-  function diffMinute([start, end]) {
-    return (new Date(`2000-01-01T${end.substring(2)}:00Z`).getTime() - new Date(`2000-01-01T${start.substring(2)}:00Z`).getTime()) / 60000
-  }
-  const firstDay = new Date(Date.now() + 12 * 3600000).getTime() // 计算12小时后的时间
-  const rs = {}
-  for (let i = 0; i < days; i++) {
-    const first = new Date(firstDay + i * 86400000)
-    const utcFirst = getUtcTime(first)
-    const wday = utcFirst.getDay() + 'w'
-    for (const hrr of hoursIndex) {
-      // 循环可用时间段(utc hours)
-      let minutes = 0
-      if (hrr[0].includes(wday)) {
-        // 属于当天的时间段
-        minutes = diffMinute(hrr)
-        if (!hrr[1].includes(wday)) {
-          // 跨天，计算24点内
-          minutes = diffMinute([hrr[0], wday + '24:00'])
-        }
-      } else if (hrr[1].includes(wday)) {
-        // 当天00点-hrr[1]之间的
-        minutes = diffMinute([wday + '00:00', diffMinute])
-      }
-      const localDay = new Date().toLocaleDateString()
-      if (!minutes) continue // 可用时间段不匹配
-      if (rs[localDay]) rs[localDay] += Math.floor(minutes / block) // 已经存在则累加
-      else rs[localDay] = Math.floor(minutes / block)
-    }
-  }
-  return rs
-}
+// 批量计算多个老师的最近几日可预约次数
+confStore.getRecentDays(data: 找老师接口列表的数据, days: 天数, blockTime: 预订多少分钟的课)
+data: [{_id, hoursIndex, ...}, ...]
 
+// 这里是例子，实际需要通过找老师接口获取老师列表
+const rs = await App.service('service-conf').find({query: {$sort: {_id: -1}}})
+// 批量计算可用次数
+const list = await confStore.getRecentDays(rs.data, 10, 60)
+console.log(list)
+list: {[uid]: {[day]: count, ...}, ...}
 ```
 
 ### 线下助教 个体用户线下服务认证
