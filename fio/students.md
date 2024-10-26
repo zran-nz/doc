@@ -9,6 +9,7 @@
   password: String,
   school: String, // school_id or user._id for personal
   email: String,
+  mobile: {type: String, trim: true, sparse: true}, // E.164 format, maximum of 15 digits, +1001XXX5550100, +440201234567 => +44201234567
   name: ['first name', 'last name'],
   nickname: String, //
   avatar: String,
