@@ -477,6 +477,7 @@ const {
 ```
 
 ### 批量查询多个老师最近几天，每日可预约的次数
+
 ```js
 // 批量查询多个老师最近几天的冲突时间段
 const {
@@ -603,6 +604,7 @@ statistic: [
     income: {type: Number, default: 0}, //收入总计,单位分
     isSchool: {type: Boolean, default: false}, // 学校/个人购买
     type: {type: String, enum: ['lecture', 'mentor', 'all']}, // 购买类型
+    city: {type: String}, // 线下 城市
   },
 ],
 salesTarget: {type: [String], enum: Agl.ServiceSalesTarget}, // 销售目标
