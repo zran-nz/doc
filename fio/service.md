@@ -181,6 +181,11 @@ topic: [{ // 用于 essay, teacherTraining等大纲层级 认证项
 }],
 desc: {type: String, trim: true}, // 描述
 status: {type: Number, default: 0}, // 0: 未申请, 1:申请中, 2: 通过, -1: 拒绝
+approval: { // 审批信息
+  submitted: {type: Date}, // 提交时间
+  approved: {type: Date}, // 审核时间
+  approver: {type: String}, // 审核人uid
+},
 attachments: [{ // 附件
   filename: {type: String, trim: true}, // 文件名
   mime: {type: String, trim: true}, // 文件 MIME
