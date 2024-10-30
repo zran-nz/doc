@@ -144,7 +144,7 @@ MentoringType: [
   'personalStatement',
   'interest',
 ],
-ConsultantType: ['carer', 'interview'],
+ConsultantType: ['carer', 'interview', 'interviewTeacher'], // 顾问类型
 ServicePackUserType: ['order', 'booking', 'cancel', 'timeout', 'expired', 'refund', 'teachingAccident', 'gift', 'point', 'cash'],
 ServicePackVideoType: ['AcademicValue', 'Features', 'QA'],
 ServiceSalesTarget: ['personal', 'school'],
