@@ -38,6 +38,7 @@
 - [SalesFollowUp](fio/sales-follow-up.md ":include")
 - [CampusLocation](fio/campus-location.md ":include")
 - [Zoom](fio/zoom.md ":include")
+- [Message](fio/message.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
