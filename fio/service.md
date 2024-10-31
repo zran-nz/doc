@@ -657,6 +657,15 @@ await App.service('service-pack').find({ query: { status: true } });
 await App.service('service-pack').find({ query: { $school: 'school-plan._id' } });
 ```
 
+### 老师自己可用的服务包列表
+```js
+const {data: [{ // 参考 service-pack model
+  _id, name, cover, type, mentoringType, 
+  countryCode, curriculum, subject, topic, 
+  gradeGroup, qualification, serviceRoles
+}]} = await App.service('service-pack').get('TeacherSideViewData')
+```
+
 ### 服务包统计
 
 ```js
