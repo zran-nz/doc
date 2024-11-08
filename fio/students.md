@@ -108,3 +108,8 @@ await App.service("students").get("apply", {
   query: { school, name: ["first name", "last name"], avatar },
 });
 ```
+### 统计 cloud room 班级数量
+
+```js
+await App.service('students').get('cloudRoomCount', { query: { school: 'school-plan._id' } });
+```

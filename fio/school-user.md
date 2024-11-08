@@ -118,3 +118,9 @@ const {
 // 关闭提示
 App.service('school-user').patch(_id, { closeAlert: true });
 ```
+
+### 统计 cloud room 班级数量
+
+```js
+await App.service('school-user').get('cloudRoomCount', { query: { school: 'school-plan._id' } });
+```
