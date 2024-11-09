@@ -460,3 +460,18 @@ data: [
 ],
 thesisDefense: {type: Boolean, default: false}, // Thesis defense按钮开关 是否要求论文答辩
 ```
+
+### criteria-weight api
+```js
+// 查找
+await App.service('criteria-weight').find({query: {
+  uid?: school-plan._id, // 个人身份不用传, 系统公共数据: "1"
+}})
+// 创建
+await App.service('criteria-weight').create({
+  uid?: school-plan._id, // 个人身份不用传, 系统后台传(仅限管理员): "1"
+  tab,
+  names: ['xxx'],
+  ...
+})
+```
