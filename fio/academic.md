@@ -443,3 +443,35 @@ await App.service('task-category').patch(doc._id, {
   del: true/false
 })
 ```
+
+## criteria-weight model
+```js
+tab: {type: String, enum: ['teacherTraining', 'teacherTrainingSubjects']}, // tab
+uid: {type: String, required: true}, // 个人: pub.user._id, 学校: school-plan._id,  系统公共数据: "1"
+names: {type: [String]}, // 认证项 / topic数据
+data: [
+  {
+    taskCategory: {type: String, required: true}, // task-category._id
+    hours: {type: Number, required: true}, // No of teaching hours
+    assessment: {type: String}, // Assessment for credits of this subjects
+    weight: {type: Number}, // 权重
+    assessments: {type: [Number]}, // [20, 20, ...] no of assessments required 考核数及权重
+  },
+],
+thesisDefense: {type: Boolean, default: false}, // Thesis defense按钮开关 是否要求论文答辩
+```
+
+### criteria-weight api
+```js
+// 查找
+await App.service('criteria-weight').find({query: {
+  uid?: school-plan._id, // 个人身份不用传, 系统公共数据: "1"
+}})
+// 创建
+await App.service('criteria-weight').create({
+  uid?: school-plan._id, // 个人身份不用传, 系统后台传(仅限管理员): "1"
+  tab,
+  names: ['xxx'],
+  ...
+})
+```

@@ -34,6 +34,7 @@
     lib: Boolean, // to library
     link: Boolean, // link content publish
     sales: {type: Number, default: 0}, // library sales count
+    date: {type: Date}, // publish date
   },
   curriculumn: String, // readonly, curriculumn code
   tpl: String, // unit-tpl._id
