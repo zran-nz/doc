@@ -1250,6 +1250,15 @@ await App.service('service-booking').create({
   follower: {type: String}, // 跟进人 user._id
   followedAt: {type: Date}, // 开始跟进时间
   schoolOfFollower: {type: String}, // school-plan._id 学校管理员所属学校
+  feedback: {
+    // 留言反馈
+    message: {type: String}, // 用户留言内容
+    date: {type: Date}, // 留言时间
+    read: {type: Boolean, default: false}, // read status
+    reply: {type: String}, // 后台回复内容
+    replyDate: {type: Date},
+    replyRead: {type: Boolean, default: false}, // read status
+  },
 ```
 
 ### 报名接口
