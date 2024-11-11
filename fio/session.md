@@ -150,11 +150,14 @@ count: {
 ### type for booking
 
 > for educators booking  
-> task => bookingTask  
-> pdTask => bookingPdTask  
+- task => bookingTask  
+- pdTask => bookingPdTask  
 > for Student booking  
-> task => bookingStuTask  
-> pdTask => bookingStuPdTask
+- task => bookingStuTask  
+- pdTask => bookingStuPdTask  
+> 用于education consultant - interview for teacher verification
+- task => jobSeekerTask  
+- pdTask => jobSeekerPdTask  
 
 ### filter for find
 
