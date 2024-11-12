@@ -245,6 +245,7 @@ unitName: {type: String, trim: true}, // 课件名称
 type: {type: String, required: true, enum: Agl.questionsTypes}, // 互动题类型
 tab: {type: String, required: true, enum: Agl.templateTab}, // Tab
 category: {type: String, required: true}, // 分类，改为前端定义
+default: {type: Boolean, default: false}, // 每个category下可以设置为默认值 https://github.com/zran-nz/bug/issues/5560
 ```
 
 #### 通过谷歌幻灯片 id 创建模板
