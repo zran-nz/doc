@@ -918,8 +918,8 @@ await App.service('service-pack-user').get('checkFree', { query: { ids: ['servic
 
 ```js
 packUser: {type: String, required: true}, // service-pack-user._id 用户购买的服务包
-packUserData: {type: [String], required: true}, // 关联的次数id列表 service-pack-user-data._id
-packUserTasks: {type: [String], required: true}, // 关联的课件id列表
+packUserData: {type: [String]}, // 关联的次数id列表 service-pack-user-data._id
+packUserTasks: {type: [String]}, // 关联的课件id列表
 booker: {type: String, required: true}, // user._id 预订人
 servicer: {type: String, required: true}, // user._id 服务人
 type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
