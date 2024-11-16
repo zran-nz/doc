@@ -345,5 +345,5 @@ await App.service('order').find({ query: { buyer: 'user._id', links: { $elemMatc
 await App.service('order').get('usePrompt', { query: { uid: 'user._id', prompt: 'prompts._id' } });
 
 // 免费prompt数量
-await App.service('order').get('freePromptCount', { query: { uid: 'user._id', prompt: 'prompts._id' } });
+await App.service('order').get('freePromptCount');
 ```
