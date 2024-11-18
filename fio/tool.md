@@ -36,7 +36,6 @@
     mark: String,
     type: String, //  ['radio', 'text', 'number', 'date']
     options: [...String],
-    toolType: {type: String, enum: Agl.unitToolType},
   }],
   toolData: [{
     _id: String, // outline.child.$._id or auto create
