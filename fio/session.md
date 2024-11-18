@@ -110,6 +110,19 @@ count: {
   students: {type: Number, default: 0}, // 排课或报名的学生数量，需要做报告的学生
   report: {type: Number, default: 0}, // 已经发送报告的数量
 },
+isView: {type: Boolean, default: false}, // 是否点击查看过takeaway页面 https://github.com/zran-nz/bug/issues/5479#issuecomment-2408292950
+
+substitute: {
+  teacher: {type: String}, // 代课老师的id
+  within: {type: Boolean, default: false}, // 代课 校内/校外
+  teacherStatus: {type: Number, default: 0}, // 代课老师 0: 待审核/Pending, 1: 已通过/Approved, -1: 已拒绝/Rejected
+  teacherMessage: {type: String}, // 给老师留言
+  admin: {type: String}, // 代课审批管理员
+  adminStatus: {type: Number, default: 0}, // 管理员 0: 待审核/Pending, 1: 已通过/Approved, 2: 已拒绝/Rejected
+  adminMessage: {type: String}, // 给管理员留言
+  packUser: {type: String}, // 关联使用的服务包 service-pack-user._id
+  servicePackSnapshot: {type: Schema.Types.Mixed}, // 使用的服务包的快照
+},
 ```
 
 ### type
@@ -149,17 +162,20 @@ count: {
 
 ### type for booking
 
-> for educators booking  
-- task => bookingTask  
-- pdTask => bookingPdTask  
+> for educators booking
 
-> for Student booking  
-- task => bookingStuTask  
-- pdTask => bookingStuPdTask  
+-   task => bookingTask
+-   pdTask => bookingPdTask
 
-> 用于education consultant - interview for teacher verification
-- task => jobSeekerTask  
-- pdTask => jobSeekerPdTask  
+> for Student booking
+
+-   task => bookingStuTask
+-   pdTask => bookingStuPdTask
+
+> 用于 education consultant - interview for teacher verification
+
+-   task => jobSeekerTask
+-   pdTask => jobSeekerPdTask
 
 ### filter for find
 
@@ -267,7 +283,7 @@ await App.service('session').patch(
 
 ```js
 await App.service('session').create({
-  type, 
+  type,
   name,
   image: 'cover url',
   unitType: String, // unit.type
