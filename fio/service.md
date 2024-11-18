@@ -1033,6 +1033,11 @@ const doc = await App.service("service-booking").create({
 });
 ```
 
+### 获取booking中的lecture对应的task快照
+```js
+await App.service('service-booking').get('lectureTaskSnapshot', {query: {_id: 'booking._id', packUser: 'booking.packUser'}})
+```
+
 ### 认证精品课快照购买支付成功后 自动排课
 
 ```js
