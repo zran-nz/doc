@@ -36,6 +36,7 @@
     mark: String,
     type: String, //  ['radio', 'text', 'number', 'date']
     options: [...String],
+    toolType: {type: String, enum: Agl.unitToolType},
   }],
   toolData: [{
     _id: String, // outline.child.$._id or auto create
@@ -44,7 +45,6 @@
     mark: String, // mark
     type: String, // ['radio', 'text', 'number', 'date']
     options: [...String], // options
-    toolType: {type: String, enum: Agl.unitToolType},
   }],
   ext: { // linked data, from link unit ext
     _id: any,
