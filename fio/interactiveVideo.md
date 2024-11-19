@@ -65,10 +65,10 @@
 }
 ```
 
-### unit api
+### interactive-video api
 
 ```js
-// create unit data
+// create video data
 App.service('interactive-videoes').create({data}) // data is the object holds the schema data
 
 // patch
