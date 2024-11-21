@@ -13,6 +13,7 @@
     adminMessage: {type: String}, // 给管理员留言
     packUser: {type: String}, // 关联使用的服务包 service-pack-user._id
     servicePackSnapshot: {type: Schema.Types.Mixed}, // 使用的服务包快照
+    session: {type: String}, // session._id
     sessionSnapshot: {type: Schema.Types.Mixed}, // session快照
 }
 ```
