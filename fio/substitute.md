@@ -15,6 +15,7 @@
     servicePackSnapshot: {type: Schema.Types.Mixed}, // 使用的服务包快照
     session: {type: String}, // session._id
     sessionSnapshot: {type: Schema.Types.Mixed}, // session快照
+    subject: {type: [String], trim: true}, // subjects._id
 }
 ```
 
