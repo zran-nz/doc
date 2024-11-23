@@ -127,16 +127,30 @@ await App.service('teaching-accident').get('unreadCount');
 await App.service('teaching-accident').patch('_id', { read: true });
 
 /**
+ * 弃用,改用patch
  * 审核通过
  * days: Number 停课天数
  */
 await App.service('teaching-accident').get('check', {
     query: { id: 'teaching-accident._id', status: 'approved', checkReason: '审核理由', days: 5 },
 });
-// 审核拒绝
+/**
+ * 弃用,改用patch
+ * 审核拒绝
+ */
 await App.service('teaching-accident').get('check', {
     query: { id: 'teaching-accident._id', status: 'rejected', checkReason: '审核理由' },
 });
+
+/**
+ * 审核通过
+ * days: Number 停课天数
+ */
+await App.service('teaching-accident').patch('teaching-accident._id', { status: 'approved', checkReason: '审核理由', days: 1 });
+/**
+ * 审核拒绝
+ */
+await App.service('teaching-accident').patch('teaching-accident._id', { status: 'rejected', checkReason: '审核理由' });
 ```
 
 ---
