@@ -114,10 +114,10 @@ isView: {type: Boolean, default: false}, // 是否点击查看过takeaway页面 
 
 substituteWithin: {type: Boolean, default: false}, // 代课 校内/校外
 substituteTeacher: {type: String}, // 代课老师的id
-substituteTeacherStatus: {type: Number, default: 0}, // 代课老师 0: 待审核/Pending, 1: 已通过/Approved
+substituteTeacherStatus: {type: Number}, // 代课老师 0: 待审核/Pending, 1: 已通过/Approved
 substituteTeacherMessage: {type: String}, // 给老师留言
 substituteAdmin: {type: String}, // 代课审批管理员
-substituteAdminStatus: {type: Number, default: 0}, // 管理员 0: 待审核/Pending, 1: 已通过/Approved
+substituteAdminStatus: {type: Number}, // 管理员 0: 待审核/Pending, 1: 已通过/Approved
 substituteAdminMessage: {type: String}, // 给管理员留言
 substitutePackUser: {type: String}, // 关联使用的服务包 service-pack-user._id
 substituteServicePackSnapshot: {type: Schema.Types.Mixed}, // 使用的服务包快照
