@@ -111,6 +111,7 @@ count: {
   report: {type: Number, default: 0}, // 已经发送报告的数量
 },
 isView: {type: Boolean, default: false}, // 是否点击查看过takeaway页面 https://github.com/zran-nz/bug/issues/5479#issuecomment-2408292950
+freePromptCount: {type: Number, default: 0}, // Prompts免费购买次数统计
 
 substituteWithin: {type: Boolean, default: false}, // 代课 校内/校外
 substituteTeacher: {type: String}, // 代课老师的id
@@ -123,6 +124,7 @@ substitutePackUser: {type: String}, // 关联使用的服务包 service-pack-use
 substituteServicePackSnapshot: {type: Schema.Types.Mixed}, // 使用的服务包快照
 substituteSubject: {type: [String], trim: true}, // subjects._id
 substitutePush: {type: [String], trim: true}, // 已推送老师uid
+substituteDuration: {type: Number}, // 校外 使用的服务包分钟数
 ```
 
 ### type
