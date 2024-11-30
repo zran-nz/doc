@@ -861,3 +861,10 @@ await App.service("session").patch("newPrompt", {
   }]
 });
 ```
+
+### substitute
+
+```js
+// 代课 管理员待审核数量
+await App.service('session').get('substituteAdminCount');
+```
