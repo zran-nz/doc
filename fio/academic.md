@@ -449,11 +449,11 @@ await App.service('task-category').patch(doc._id, {
 tab: {type: String, enum: ['teacherTraining', 'teacherTrainingSubjects']}, // tab
 uid: {type: String, required: true}, // 个人: pub.user._id, 学校: school-plan._id,  系统公共数据: "1"
 names: {type: [String]}, // 认证项 / topic数据
+hours: {type: Number, required: true}, // No of teaching hours
+assessment: {type: String}, // Assessment for credits of this subjects
 data: [
   {
     taskCategory: {type: String, required: true}, // task-category._id
-    hours: {type: Number, required: true}, // No of teaching hours
-    assessment: {type: String}, // Assessment for credits of this subjects
     weight: {type: Number}, // 权重
     assessments: {type: [Number]}, // [20, 20, ...] no of assessments required 考核数及权重
   },
