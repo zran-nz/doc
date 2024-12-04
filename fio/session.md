@@ -835,6 +835,11 @@ const {
 } = await App.service('session').get('indexPromotion');
 ```
 
+### 插入云端Prompts
+```js
+await App.service("session").insertPrompts({_id: 'session._id', promptId: 'prompts._id', index: '插入的位置'})
+```
+
 ### new prompt
 
 ```js
