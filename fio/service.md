@@ -961,6 +961,11 @@ session: {
   image: {type: String, trim: true},
   status: {type: String},
 },
+carer: {
+  subject: {type: String}, // 管家服务包预订的时候选择
+  hasView: {type: Boolean, default: false}, // 管家服务包排课的时候是否查看过
+  used: {type: Boolean, default: false}, // 是否已经用过管家服务
+},
 start: {type: Date},
 end: {type: Date},
 duration: {type: Date}, // 服务包对应的时长 service-pack-user.snapshot.duration
@@ -1044,7 +1049,7 @@ await App.service('service-booking').get('lectureTaskSnapshot', {query: {_id: 'b
 // 通过管家服务的预订ID 获取关联已经结束的课堂预订数据
 const bookingList = await App.service('service-booking').get('byCarer', { _id: bookingId });
 // 点击查看takeaway的时候标记为已经看过
-await App.service('service-booking').patch(_id, { 'session.hasView': true });
+await App.service('service-booking').patch(_id, { 'carer.hasView': true });
 // 管家服务import
 await App.service('service-booking').get('importCarer', { _id: bookingId, bookings: ['关联的预订_id数组', ...] });
 ```
