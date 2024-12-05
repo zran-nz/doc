@@ -1,7 +1,7 @@
 ## collab model
 ```js
 rid: String, // unit._id
-type: String, // ['task', 'pd', 'unit']
+type: {type: String, required: true, enum: Agl.unitMode}, // unit.mode
 uid: String, // owner user._id
 members: [{
   email: String, // user.email
