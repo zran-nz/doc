@@ -1047,11 +1047,11 @@ await App.service('service-booking').get('lectureTaskSnapshot', {query: {_id: 'b
 
 ```js
 // 通过管家服务的预订ID 获取关联已经结束的课堂预订数据
-const bookingList = await App.service('service-booking').get('byCarer', { _id: bookingId });
+const bookingList = await App.service('service-booking').get('byCarer', {query: {_id: bookingId}});
 // 点击查看takeaway的时候标记为已经看过
 await App.service('service-booking').patch(_id, { 'carer.hasView': true });
 // 管家服务import
-await App.service('service-booking').get('importCarer', { _id: bookingId, bookings: ['关联的预订_id数组', ...] });
+await App.service('service-booking').get('importCarer', {query: {_id: bookingId, bookings: ['关联的预订_id数组', ...] }});
 ```
 
 ### 认证精品课快照购买支付成功后 自动排课
