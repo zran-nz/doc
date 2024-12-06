@@ -122,9 +122,14 @@ substituteAdminStatus: {type: Number}, // 管理员 0: 待审核/Pending, 1: 已
 substituteAdminMessage: {type: String}, // 给管理员留言
 substitutePackUser: {type: String}, // 关联使用的服务包 service-pack-user._id
 substituteServicePackSnapshot: {type: Schema.Types.Mixed}, // 使用的服务包快照
+substituteServicePackUserSnapshot: {type: Schema.Types.Mixed}, // pack-user快照
 substituteSubject: {type: [String], trim: true}, // subjects._id
 substitutePush: {type: [String], trim: true}, // 已推送老师uid
 substituteDuration: {type: Number}, // 校外 使用的服务包分钟数
+substitutePushTime: {type: Date}, // 上次推送时间
+substitutePushAll: {type: Boolean}, // 是否已推送全部老师
+substitutePriorityPush: {type: Boolean}, // 线下 是否已进行优先推送
+substituteMatched: {type: Boolean}, // 历史上匹配成功过
 ```
 
 ### type
@@ -835,9 +840,10 @@ const {
 } = await App.service('session').get('indexPromotion');
 ```
 
-### 插入云端Prompts
+### 插入云端 Prompts
+
 ```js
-await App.service("session").insertPrompts({_id: 'session._id', promptId: 'prompts._id', index: '插入的位置'})
+await App.service('session').insertPrompts({ _id: 'session._id', promptId: 'prompts._id', index: '插入的位置' });
 ```
 
 ### new prompt
