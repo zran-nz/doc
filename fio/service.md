@@ -1043,6 +1043,11 @@ const doc = await App.service("service-booking").create({
 await App.service('service-booking').get('lectureTaskSnapshot', {query: {_id: 'booking._id', packUser: 'booking.packUser'}})
 ```
 
+### 通过新的预订获取Lecture服务包的最后一节结束的预订详情
+```js
+await App.service('service-booking').get('lectureLastEnd', {query: {_id: 'booking._id'}})
+```
+
 ### 管家服务import
 
 ```js
