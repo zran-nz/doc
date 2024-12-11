@@ -854,6 +854,7 @@ await this.service('service-pack-user').find({ query: { uid: 'school-plan._id', 
 /**
  * 按用户查询
  * fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
+ * 弃用 改为getFind
  */
 await App.service('service-pack-user').find({
     userField: '',
@@ -1038,17 +1039,19 @@ const doc = await App.service("service-booking").create({
 });
 ```
 
-### 获取booking中的lecture对应的task快照
+### 获取 booking 中的 lecture 对应的 task 快照
+
 ```js
-await App.service('service-booking').get('lectureTaskSnapshot', {query: {_id: 'booking._id', packUser: 'booking.packUser'}})
+await App.service('service-booking').get('lectureTaskSnapshot', { query: { _id: 'booking._id', packUser: 'booking.packUser' } });
 ```
 
-### 通过新的预订获取Lecture服务包的最后一节结束的预订详情
+### 通过新的预订获取 Lecture 服务包的最后一节结束的预订详情
+
 ```js
-await App.service('service-booking').get('lectureLastEnd', {query: {_id: 'booking._id'}})
+await App.service('service-booking').get('lectureLastEnd', { query: { _id: 'booking._id' } });
 ```
 
-### 管家服务import
+### 管家服务 import
 
 ```js
 // 通过管家服务的预订ID 获取关联已经结束的课堂预订数据
@@ -1095,6 +1098,14 @@ await App.service('service-booking').patch('cancel', {
 
 ```js
 await App.service('service-booking').get('importByBooking', { query: { serviceAuthId, bookingId } });
+```
+
+#### 替代 find userQuery,可按邮箱/手机/classcipeId 查询
+
+```js
+// 查询参数与find一致
+// fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
+await App.service('service-booking').get('find', { query: { userField: 'email@gmail.com', userFieldType: 'email' } });
 ```
 
 ## 用户评价数据
