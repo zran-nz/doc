@@ -49,6 +49,7 @@
   read: {type: Boolean, default: false}, // 已读
   tags: {type: [String]}, // 标签
   serviceReturn: {type: Boolean, default: false}, // 返还使用者服务包次数
+  days: {type: Number}, // 停课天数
 }
 ```
 
@@ -164,8 +165,47 @@ await App.service('teaching-accident').patch('teaching-accident._id', { status: 
 ```js
 {
   uid: {type: String, required: true}, // user._id
-  accident: {type: String, required: true}, // teaching-accident._id
+  nickname: {type: String, sparse: true, trim: true},
+  lag: {type: Boolean, default: false}, // 取terminate/cancel的超过1/3的被预约辅导课的老师
   startAt: {type: Date}, // 停课开始时间
   endAt: {type: Date}, // 停课结束时间
 }
+```
+
+### suspend-class api
+
+```js
+/**
+ * 停课 内部调用
+ * type: String 类型 enum: ['teaching-accident', 'frequent-cancellation', '0-satisfaction-rate']
+ */
+
+// 教学事故调用
+await this.app.service('suspend-class').suspend({ type: 'teaching-accident', accidentId: 'teaching-accident._id', status, days, uid });
+// 差评等调用
+await this.app.service('suspend-class').suspend({ type: 'frequent-cancellation/0-satisfaction-rate', days, uid });
+```
+
+## suspend-logs
+
+## 停课日志表
+
+### suspend-logs model
+
+```js
+{
+  uid: {type: String, required: true}, // user._id
+  nickname: {type: String, sparse: true, trim: true},
+  type: {type: String, enum: ['teaching-accident', 'frequent-cancellation', '0-satisfaction-rate']},
+  accident: {type: String}, // teaching-accident._id
+  days: {type: Number}, //停课天数
+  withdraw: {type: Boolean, default: false}, // 撤销
+}
+```
+
+### suspend-class api
+
+```js
+// 撤销
+await App.service('suspend-logs').get('withdraw', { query: { uid: 'uid', accident: 'teaching-accident._id' } });
 ```
