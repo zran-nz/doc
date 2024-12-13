@@ -80,8 +80,8 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
 
 {
   uid: {type: String}, // user id
-  id: {type: String, required: true, trim: true}, // slides id
-  page: {type: String, required: true, trim: true}, // page id
+  id: {type: String, required: true, trim: true}, // slides id or video.id
+  page: {type: String, required: true, trim: true}, // page id or video.time HH:mm:ss
   type: {type: String, trim: true, enum: Agl.questionsTypes}, // type:
   multi: {type: Boolean, default: false}, // text/choice multi
   bloom: {type: Number}, // [Evaluate, Analyze, Apply, Understand, Remember, Create]
@@ -89,6 +89,7 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
   verb: [{type: String}], // command verb
   tags: [{type: String}], // knowledge tags
   tips: {type: String, trim: true},
+  data: {type: String, trim: true}, // url or video question desc
   score: { // score config
     outline: {
       val: {type: Number}, // total score
@@ -128,7 +129,6 @@ await App.service('unit').get('addonFind', { query: { $sort, $skip = 0, $limit =
     goal: {type: Schema.Types.Mixed}, // ppt assess
     skills: {type: Schema.Types.Mixed}, // skills
   },
-  data: {type: String, trim: true}, // url
   options: [
     {
       // options
