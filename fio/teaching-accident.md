@@ -202,3 +202,10 @@ await this.app.service('suspend-class').suspend({ type: 'frequent-cancellation/0
   withdraw: {type: Boolean, default: false}, // 撤销
 }
 ```
+
+### suspend-class api
+
+```js
+// 撤销
+await App.service('suspend-logs').get('withdraw', { query: { uid: 'uid', accident: 'teaching-accident._id' } });
+```
