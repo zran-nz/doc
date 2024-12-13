@@ -215,9 +215,9 @@ const doc = await App.service('unit').patch('copy', {_id: 'unit._id', orderId: '
 
 ```js
 // publish unit self
-await App.service('unit').patch('publish', {_id, discount: {val, price, size}, subjects: [...], 'publish.lib': true})
+await App.service('unit').patch('publish', {_id, discount: {val, price, size}, subjects: [...]})
 
-// publish unit link content
+// publish unit link content 不需要请求了
 await App.service('unit').patch('publish', {_id, 'publish.link': true})
 
 // unpublish unit
