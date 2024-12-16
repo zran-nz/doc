@@ -882,3 +882,14 @@ await App.service("session").patch("newPrompt", {
 // 代课 管理员待审核数量
 await App.service('session').get('substituteAdminCount');
 ```
+
+### create video
+```js
+await App.service('session').create({
+  type: 'videoSession',
+  status: 'student', sessionType: 'student',
+  cid: 'unit.id', image: 'unit.cover',
+  regMax: 0,
+  subjects?,
+})
+```
