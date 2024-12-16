@@ -89,6 +89,7 @@ task: {
     outline: Mixed, // task-outline.outline snapshot
   }
 },
+video: {type: Schema.Types.Mixed}, // interactive-videoes snapshot
 pages: Mixed, // slides.pages snapshot
 questions: Mixed, // questions snapshot
 reminder: Number, // mail notice: WorkshopReminderBeforeClass
