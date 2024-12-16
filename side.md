@@ -39,6 +39,7 @@
 - [CampusLocation](fio/campus-location.md ":include")
 - [Zoom](fio/zoom.md ":include")
 - [Message](fio/message.md ":include")
+- [Announcement](fio/announcement.md ":include")
 - [Substitute](fio/substitute.md ":include")
 
 - 课堂 UML
