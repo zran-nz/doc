@@ -7,8 +7,8 @@
     from: {type: String, trim: true}, // user._id
     to: {type: [String], trim: true}, // user._id
     at: {type: String, enum: ['all'], default: 'all'},
-    school: {type: String, trim: true}, // school_id
-    class: {type: [String], trim: true}, // class list [class.id]
+    school: {type: String, trim: true}, // school._id
+    class: {type: String, trim: true}, // class._id
     message: {type: String},
     attachments: {
         // 图片/视频证据
