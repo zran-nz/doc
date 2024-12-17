@@ -1051,7 +1051,7 @@ await App.service('service-booking').get('lectureTaskSnapshot', { query: { _id: 
 await App.service('service-booking').get('lectureLastEnd', { query: { _id: 'booking._id' } });
 ```
 
-### 通过预订ID获取辅导课
+### 通过预订ID获取辅导课ID
 ```js
 await App.service('service-booking').get('tutorialPackId', {query: {_id: "booking._id"}})
 ```
