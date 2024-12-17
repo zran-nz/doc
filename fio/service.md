@@ -1051,6 +1051,11 @@ await App.service('service-booking').get('lectureTaskSnapshot', { query: { _id: 
 await App.service('service-booking').get('lectureLastEnd', { query: { _id: 'booking._id' } });
 ```
 
+### 通过预订ID获取辅导课
+```js
+await App.service('service-booking').get('tutorialPackId', {query: {_id: "booking._id"}})
+```
+
 ### 管家服务 import
 
 ```js
@@ -1068,6 +1073,8 @@ await App.service('service-booking').get('importCarer', {query: {_id: bookingId,
 // 内部接口调用
 await this.app.service('service-booking').importByBooking({ serviceAuthId, bookingId }, params);
 ```
+
+
 
 #### 老师对预约进行排课
 
