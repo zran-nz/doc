@@ -23,5 +23,12 @@
 ### Announcement api
 
 ```js
-
+// 发送通知
+await App.service('announcement').create({
+    from: 'uid',
+    at: 'all',
+    school: 'school._id',
+    class: 'class._id',
+    message: 'message',
+});
 ```
