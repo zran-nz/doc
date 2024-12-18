@@ -98,13 +98,14 @@ drawkey: String, // excalidraw room key
 premium: {type: Boolean, default: false}, // 是否为精品公开课
 promotion: {type: Boolean, default: false}, // 是否为推广课
 promotionSession: {type: String}, // 关联推广课的session._id，用于上课new prompt选择
-servicePack: { // 捆绑的服务包
+servicePack: { // 公开课捆绑销售的服务包
   _id: {type: String}, // service-pack._id 服务包id
   times: {type: Number}, // live直播课的数量
   price: {type: Number}, // 美分，服务包价格 = service-pack.discount 折扣 * live直播课的数量
 },
 // for service booking
 booking: {type: String}, // service-booking._id 学生的预约
+tutorialPackUser: {type: String}, // Lecture关联的辅导包 https://github.com/zran-nz/bug/issues/5584
 income: {type: Number, default: 0}, //收入总计,单位分
 personal: {type: Boolean, default: false}, // 个人老师排的课
 count: {
