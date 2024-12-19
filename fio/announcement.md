@@ -31,4 +31,7 @@ await App.service('announcement').create({
     class: 'class._id',
     message: 'message',
 });
+
+// 已读
+await App.service('announcement').get('read', { query: { class: 'class._id', school: 'school-plan._id' } });
 ```
