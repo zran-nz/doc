@@ -126,12 +126,14 @@ substitutePackUser: {type: String}, // 关联使用的服务包 service-pack-use
 substituteServicePackSnapshot: {type: Schema.Types.Mixed}, // 使用的服务包快照
 substituteServicePackUserSnapshot: {type: Schema.Types.Mixed}, // pack-user快照
 substituteSubject: {type: [String], trim: true}, // subjects._id
+substituteTopic: {type: [String], trim: true}, // topic._id
 substitutePush: {type: [String], trim: true}, // 已推送老师uid
 substituteDuration: {type: Number}, // 校外 使用的服务包分钟数
 substitutePushTime: {type: Date}, // 上次推送时间
 substitutePushAll: {type: Boolean}, // 是否已推送全部老师
 substitutePriorityPush: {type: Boolean}, // 线下 是否已进行优先推送
-substituteMatched: {type: Boolean}, // 历史上匹配成功过
+substituteReminder: {type: Boolean}, // 代课 开课前3小时 未匹配 通知
+substituteMatched: {type: Boolean}, // 历史上匹配成功过 取消代课不删除此字段
 ```
 
 ### type
@@ -845,7 +847,7 @@ const {
 ### 插入云端 Prompts
 
 ```js
-await App.service('session').patch("insertPrompts", { _id: 'session._id', promptId: 'prompts._id', index: '插入的位置' });
+await App.service('session').patch('insertPrompts', { _id: 'session._id', promptId: 'prompts._id', index: '插入的位置' });
 ```
 
 ### new prompt
@@ -885,6 +887,7 @@ await App.service('session').get('substituteAdminCount');
 ```
 
 ### create video
+
 ```js
 await App.service('session').create({
   type: 'videoSession',
