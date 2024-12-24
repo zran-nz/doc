@@ -883,7 +883,7 @@ await App.service("session").patch("newPrompt", {
 
 ```js
 // 代课 管理员待审核数量
-await App.service('session').get('substituteAdminCount');
+await App.service('session').get('substituteAdminCount', { query: { school: 'school-plan._id' } });
 ```
 
 ### create video
