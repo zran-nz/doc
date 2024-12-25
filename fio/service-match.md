@@ -37,12 +37,14 @@
     - query['topic._id'] = {$in: packDoc.topic}
       - 如果 packDoc.mentoringType === 'academic', 则不能匹配topic条件
         delete query['topic._id']
+
 > 查询匹配的认证项, 获取所有不重复的uid
   - uids = db.getCollection('serviceauths').distinct('uid', query)
   - 如果uids中包含自己, 需要排除自己
   - 取出被拉黑的老师的uid, 进行排除
     - blocks = db.getCollection('suspendclasses').distinct('uid')
     - 循环uids将在blocks里的uid排除掉, 不能参与匹配
+
 > 根据uids过滤可以预约的老师
   - 生成老师批评条件
     - query._id = {$in: uids}
@@ -67,6 +69,7 @@
         }
   - 匹配可用老师
     - teachers = db.getCollection('serviceconfs').find(query)
+
 > 置顶逻辑
   - 找出自己收藏过的老师
     - fans = db.getCollection('servicefans').Model.findById(user._id)
@@ -75,9 +78,11 @@
     - 查询认证项里包含 consultant 的 uid
       - uids = db.getCollection('serviceauths').distinct('uid', query: {认证项的条件, uid: {$in: teachers.map(v => v._id)}})
       - 循环找出teachers中的_id 包含 uids 中的老师进行置顶
+
 > 排除自己不可用时间段
   - 排除所有未开始的预订的时间段
   - 排除所有未开始的公开课的时间段
+
 > 匹配老师的时候再次查询是否有冲突
   - 排除所有未开始的预订的时间段
     - sessions = db.getCollection('sessions').find({
