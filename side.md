@@ -28,6 +28,7 @@
 - [Braintree](fio/braintree.md ":include")
 - [Cart](fio/cart.md ":include")
 - [Service](fio/service.md ":include")
+- [ServiceMatch](fio/service-match.md ":include")
 - [UserNoticeSetting](fio/user-notice-setting.md ":include")
 - [Poster](fio/poster.md ":include")
 - [Teaching-Accident](fio/teaching-accident.md ":include")
