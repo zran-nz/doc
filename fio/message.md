@@ -3,28 +3,26 @@
 ### Message model
 
 ```js
-{
-    uid: {type: String, required: true},
-    rid: {type: String, required: true}, // 关联的 service-auth._id, service-conf._id, school-plan._id
-    message: {type: String},
-    read: {type: Boolean, default: false}, // read status
-    role: {type: String, default: 'user', enum: ['admin', 'user']}, // 发送用户
-    /**
-     * type rid对应关系
-     * service-auth-premium service-auth._id
-     * session-takeaway session._id
-     */
-    type: {
-        type: String,
-        default: 'service-auth',
-        enum: ['service-auth', 'service-pack-apply', 'school-plan', 'service-auth-premium', 'classes', 'session-takeaway', 'prompts', 'unit', 'service-conf'],
-    },
-    attachments: {
-        // 图片/视频证据
-        filename: {type: String, trim: true}, // 文件名
-        mime: {type: String, trim: true}, // 文件 MIME
-        hash: {type: String, trim: true}, // 文件SHA1, files._id
-    },
+uid: {type: String, required: true},
+rid: {type: String, required: true}, // 关联的 service-auth._id, service-conf._id, school-plan._id
+message: {type: String},
+read: {type: Boolean, default: false}, // read status
+role: {type: String, default: 'user', enum: ['admin', 'user']}, // 发送用户
+/**
+ * type rid对应关系
+ * service-auth-premium service-auth._id
+ * session-takeaway session._id
+ */
+type: {
+    type: String,
+    default: 'service-auth',
+    enum: ['service-auth', 'service-pack-apply', 'school-plan', 'service-auth-premium', 'classes', 'session-takeaway', 'prompts', 'unit', 'service-conf'],
+},
+attachments: {
+    // 图片/视频证据
+    filename: {type: String, trim: true}, // 文件名
+    mime: {type: String, trim: true}, // 文件 MIME
+    hash: {type: String, trim: true}, // 文件SHA1, files._id
 },
 ```
 
