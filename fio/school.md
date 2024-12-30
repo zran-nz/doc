@@ -1,5 +1,3 @@
-## school
-
 ### classes model
 ```js
 school: {type: String, required: true},
