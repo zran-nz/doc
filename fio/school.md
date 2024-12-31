@@ -54,10 +54,18 @@ block: [
 
 ```js
 student: {type: String, trim: true, required: true}, // students._id
+type: {type: String, default: 'subject', enum: Agl.classesTypes},
 school: {type: String, required: true, trim: true}, // school-plan._id
 class: {type: String, trim: true, required: true}, // class._id
 answers: {type: Schema.Types.Mixed},
-status: {type: Number, default: 1}, // 0: pending, 1: approved, -1: rejected
+status: {type: Number, default: 0}, // 0: pending, 1: approved, -1: rejected
+```
+
+### class-apply API
+
+```js
+// 通过审核 会自动更新students.subjectClass
+await App.service('class-apply').patch(_id, { status: 1 });
 ```
 
 ### class-question-logs model
