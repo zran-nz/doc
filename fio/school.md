@@ -87,3 +87,10 @@ await App.service('class-apply').get('count', { query: { class: 'class._id' } })
 // _id = uid
 questions: {type: [String]},// classes在create或patch字段questions时,会更新本表字段,每次更新需提交整个字段classes.questions,不要使用addToSet或pull等
 ```
+
+### class-apply API
+
+```js
+// 获取
+await App.service('class-question-logs').get('uid');
+```
