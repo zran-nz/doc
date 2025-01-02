@@ -3,7 +3,7 @@
 ```js
 school: {type: String, required: true},
 type: {type: String, default: 'standard', enum: Agl.classesTypes},
-host: {type: String}, // user._id 标准班班主任，或者学科班创建人 (学科班创建时自动添加)
+host: {type: String}, // user._id 标准班班主任，或者学科班创建人
 grade: {type: String, required: true},
 name: {type: String, required: true},
 del: {type: Boolean, default: false},
@@ -29,7 +29,7 @@ attachmentsCover: {
 },
 deadline: {type: Date}, // deadline
 maxParticipants: {type: Number}, // 最大人数 0:不限制
-approvalRequired: {type: Boolean, default: false}, // 报名审批开关
+approvalEnable: {type: Boolean, default: false}, // 报名审批开关
 questions: {type: [String]},
 // time: {type: Number}, // session time, unit sec
 // break: {type: Number}, // break time, unit sec
@@ -47,7 +47,8 @@ block: [
 ### class API
 
 ```js
-
+// 添加班主任
+await App.service('class').patch(_id, { host: uid });
 ```
 
 ### class-apply model
@@ -64,13 +65,25 @@ status: {type: Number, default: 0}, // 0: pending, 1: approved, -1: rejected
 ### class-apply API
 
 ```js
+/**
+ * 创建报名
+ * status 不用传,默认为0,approvalEnable=false时,status默认为1
+ */
+await App.service('class-apply').create({
+    student: 'students._id',
+    class: 'classes._id',
+    school: 'school-plan._id',
+});
 // 通过审核 会自动更新students.subjectClass
 await App.service('class-apply').patch(_id, { status: 1 });
+
+// 报名通过 加入班级学生数量
+await App.service('class-apply').get('count', { query: { class: 'class._id' } });
 ```
 
 ### class-question-logs model
 
 ```js
 uid: {type: String, trim: true}, // user._id
-questions: {type: [String]},
+questions: {type: [String]},// classes在create或patch字段questions时,会更新本表字段,每次更新需提交整个字段classes.questions,不要使用addToSet或pull等
 ```
