@@ -123,6 +123,11 @@ await App.service('users').create({
 AppLocalLogin(email / mobile, password);
 ```
 
+### 通过学生ID查询用户
+```js
+await App.service('users').get('studentId',{query:{studentId: 'xxxx'}})
+```
+
 ### 忘记密码
 
 ```js
