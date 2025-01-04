@@ -125,7 +125,7 @@ await App.service('classes').get('gradesCount', {query: {school: 'schoolIdOrUid'
     topicSet: [String], // curriculum.title + subject.title
   },
   publish: [String], // has publish
-  snapshot: {} // publish to snapshot
+  snapshot: {}, // publish to snapshot
   coordinator: {type: [String], trim: true}, // 学科组长 uid
 }
 
