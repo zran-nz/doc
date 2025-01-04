@@ -43,6 +43,9 @@ App.service('students').patch(_id, { $addToSet: { class: ['class_id'] } });
 // Remove students from class
 App.service('students').patch(_id, { $pull: { class: 'class_id' } });
 
+// 学生加入学科班
+App.service('students').patch(_id, { $addToSet: { subjectClass: 'class_id' } });
+
 // Resend email
 App.service('students').get('resend', { query: { _id: student._id } });
 ```

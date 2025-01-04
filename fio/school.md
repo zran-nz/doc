@@ -77,7 +77,7 @@ await App.service('class-apply').create({
 // 通过审核 会自动更新students.subjectClass
 await App.service('class-apply').patch(_id, { status: 1 });
 
-// 报名通过 加入班级学生数量
+// 获取报名通过学生数量
 await App.service('class-apply').get('count', { query: { class: 'class._id' } });
 ```
 
