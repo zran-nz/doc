@@ -472,6 +472,7 @@ const {
   search: 'xxx', // users.name 老师名称
   packUserId: 'servive-pack-user._id',
   subject?: [],
+  topic?: [],
   hours?: [start, end], // 按指定时间段查询老师
   gradeGroup?: ['', ...], // 按年级段过滤老师，不传则以服务包限制为准
   $sort: { // 排序, 值为 1 或 -1
