@@ -134,7 +134,7 @@ substitutePushAll: {type: Boolean}, // 是否已推送全部老师
 substitutePriorityPush: {type: Boolean}, // 线下 是否已进行优先推送
 substituteReminder: {type: Boolean}, // 代课 开课前3小时 未匹配 通知
 substituteMatched: {type: Boolean}, // 历史上匹配成功过 取消代课不删除此字段
-substituteExclude: {type: [String], trim: true}, // 排除老师uid 有匹配过的
+substituteExclude: {type: [String], trim: true}, // 排除老师uid 已匹配成功又取消的老师需要排除
 substitutePriority: {type: Boolean}, // 线下 优先推送匹配到的 没有路程补贴 (同地点结束一小时内优先推送的老师)
 ```
 
