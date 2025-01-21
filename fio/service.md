@@ -1003,6 +1003,7 @@ accident: {
 },
 servicePackApply: {type: String}, // 主题服务包报名id
 serviceAuthId: {type: String}, // service-auth._id from import classcipe cloud, 精品认证课购买后一次性排课
+topic: {type: String}, // 匹配老师时选择的 topic service-pack-user.snapshot.topic
 
 ```
 
@@ -1044,7 +1045,8 @@ const doc = await App.service("service-booking").create({
     filename,
     mime,
     hash
-  }]
+  }],
+  topic?
 });
 ```
 
@@ -1121,6 +1123,11 @@ await App.service('service-booking').get('importByBooking', { query: { serviceAu
 // 查询参数与find一致
 // fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
 await App.service('service-booking').get('find', { query: { userField: 'email@gmail.com', userFieldType: 'email' } });
+```
+
+### 通过bookingId批量获取服务包数据
+```js
+const {bookingId: {topic, packInfo:{}}} = await App.service('service-booking').get('packListByBookingIds',{query:{_id:[...]}})
 ```
 
 ## 用户评价数据
