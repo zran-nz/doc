@@ -809,7 +809,6 @@ location: {
 roster: {type: [String]}, // uid
 zoom: {
   enabled: {type: Boolean},
-  waitingRoom: {type: Boolean},
   maxParticipants: {type: Boolean},
   max: {type: Number},
   min: {type: Number},
