@@ -25,6 +25,7 @@
   pilot: {type: Boolean, default: false},
   personal: {type: Boolean, default: false},
   commissionEnable: {type: Boolean, default: false}, //佣金开关
+  contact: {type: String}, // users._id 联系人 main contact
   inviter: {type: String, trim: true}, //邀请我的人
   pipelineEnable: {type: Boolean, default: false}, // 销售渠道 系统开关
   pipelineStatus: {type: Number, default: 0}, // 销售渠道 0: inactive, 1: pending, 2: success
