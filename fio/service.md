@@ -806,7 +806,7 @@ location: {
     type: [Number],
   },
 },
-participant: {type: [String]}, // uid
+participants: {type: [String]}, // uid
 zoom: {
   enabled: {type: Boolean},
   maxParticipants: {type: Boolean},
