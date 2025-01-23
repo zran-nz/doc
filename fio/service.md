@@ -806,6 +806,7 @@ location: {
     type: [Number],
   },
 },
+servicePremium: {type: String}, // service-pack._id lecture下有此主题服务包id
 participants: {type: [String]}, // uid
 zoom: {
   enabled: {type: Boolean},
