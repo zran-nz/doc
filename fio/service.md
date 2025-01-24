@@ -1003,7 +1003,7 @@ accident: {
 },
 servicePackApply: {type: String}, // 主题服务包报名id
 serviceAuthId: {type: String}, // service-auth._id from import classcipe cloud, 精品认证课购买后一次性排课
-topic: {type: String}, // 匹配老师时选择的 topic service-pack-user.snapshot.topic
+topic: {type: [String]}, // 匹配老师时选择的 topic service-pack-user.snapshot.topic
 
 ```
 
