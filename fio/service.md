@@ -159,6 +159,7 @@ type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
 mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
 enable: {type: Boolean, default: true}, // 是否启用
 serviceRoles: {type: [String], enum: Agl.ServiceRoles, default: Agl.ServiceRoles}, // 可以服务的项目 #4586
+serviceRolesUser: {type: [String], enum: Agl.ServiceRoles, default: Agl.ServiceRoles}, // 用户选择的
 countryCode: {type: [String], trim: true}, // 国家代码
 curriculum: {type: String, trim: true}, // 大纲代码 or 自定义的大纲_id
 subject: {type: String, trim: true}, // 学科_id
