@@ -123,9 +123,10 @@ await App.service('users').create({
 AppLocalLogin(email / mobile, password);
 ```
 
-### 通过学生ID查询用户
+### 通过学生 ID 查询用户
+
 ```js
-await App.service('users').get('studentId',{query:{studentId: 'xxxx'}})
+await App.service('users').get('studentId', { query: { studentId: 'xxxx' } });
 ```
 
 ### 忘记密码
@@ -156,7 +157,7 @@ await App.service('users').patch('changePassword', { oldPassword, password });
 
 ```js
 await App.service('users').get('checkCaptcha', {
-    query: { email, mobile, emergencyContact, captcha: '' },
+    query: { email, mobile, emergencyContact, id, captcha: '' },
 });
 ```
 
@@ -165,6 +166,9 @@ await App.service('users').get('checkCaptcha', {
 ```js
 // 获取验证码
 await App.service('users').get('captcha', {query: {email, mobile, emergencyContact}})
+
+// 获取验证码 students.id
+await App.service('users').get('captchaById', { query: { id: 'students.id' } })
 
 // 更新邮箱
 await App.service('users').patch(user._id, {captcha, email})
@@ -175,13 +179,16 @@ await App.service('users').patch(user._id, {captcha, mobile, countryCode})
 await App.service('users').patch(user._id, {studentExt: {...}})
 ```
 
-### 获取google登录的邮箱
+### 获取 google 登录的邮箱
+
 ```js
-await App.service('users').get('googleEmail')
+await App.service('users').get('googleEmail');
 ```
-### 更新账号的邮箱为google登录的邮箱
+
+### 更新账号的邮箱为 google 登录的邮箱
+
 ```js
-await App.service('users').get('googleEmailSync')
+await App.service('users').get('googleEmailSync');
 ```
 
 ### google 授权 url
