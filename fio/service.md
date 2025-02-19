@@ -834,6 +834,7 @@ payMethod: {type: String, trim: true}, // 支付方式
 ```js
 packUser: {type: String, required: true}, // 关联购买的服务包 service-pack-user._id
 times: {type: Number, required: true}, // 增减次数, 分钟数(代课服务)
+compensation: {type: Number}, // 分钟数(代课服务 补贴时长)
 type: {type: String, enum: Agl.ServicePackUserType}, // 变化类型
 remaining: {type: Number}, // 剩余次数
 expireSoon: {type: Date}, // 新的有效期
@@ -844,12 +845,15 @@ servicer: {
   avatar: {type: String}, // users.avatar
   name: {type: [String]}, // users.name
 },
-packUserData: [{
-  _id: {type: String, required: true}, // 关联购买的服务包次数 service-pack-user-data._id
-  payMethod: {type: String, trim: true}, // 支付方式
-  order: {type: String, trim: true}, // order
-  expired: {type: Date}, // 过期
-}]
+packUserData: [
+  {
+    _id: {type: String, required: true}, // 关联购买的服务包次数 service-pack-user-data._id
+    payMethod: {type: String, trim: true}, // 支付方式
+    order: {type: String, trim: true}, // order
+    expired: {type: Date}, // 过期
+  },
+],
+session: {type: String}, // session._id
 ```
 
 ### 用户已购买的服务包接口
