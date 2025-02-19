@@ -854,6 +854,7 @@ packUserData: [
   },
 ],
 session: {type: String}, // session._id
+packUserSnapshot: {type: Schema.Types.Mixed}, // service-pack-user 快照
 ```
 
 ### 用户已购买的服务包接口
