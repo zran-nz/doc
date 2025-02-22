@@ -1,6 +1,7 @@
 ## school year
 
 ### school-year model
+
 ```js
 {
   school: String, // school-plan._id
@@ -13,6 +14,7 @@
 ## school term
 
 ### school-term model
+
 ```js
 {
   school: String, // school-plan._id
@@ -31,6 +33,7 @@
 ```
 
 ### school-term API
+
 ```js
 
 // 获取year列表
@@ -51,4 +54,19 @@ await App.service('school-term').patch(doc._id, {$addToSet: {block: {week, start
 // 删除单个block
 await App.service('school-term').patch(doc._id, {$pull: {block: {_id: block._id}}})
 
+```
+
+## school term plan
+
+### school-term-plan model
+
+```js
+schoolTerm: {type: String, required: true}, // school-term._id
+week: {type: [Number]}, // day of the week, 0-6, new Date().getDay(): Sunday - Saturday : 0 - 6
+block: [
+  {
+    start: {type: String, required: true}, // 00:00, hour:min
+    end: {type: String, required: true},
+  },
+],
 ```
