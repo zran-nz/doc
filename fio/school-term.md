@@ -70,3 +70,16 @@ block: [
   },
 ],
 ```
+
+### school-term-plan API
+
+```js
+// 获取plan列表
+await App.service('school-term-plan').find({ query: { schoolTerm: 'school-term._id' } });
+
+// 创建plan
+await App.service('school-term-plan').create({ schoolTerm, week, block });
+
+// 修改plan
+await App.service('school-term-plan').patch(_id, { week, block });
+```
