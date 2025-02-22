@@ -42,6 +42,8 @@ block: [
     repeat: {type: String, enum: Agl.classesBlockRepeat, default: 'week'},
   },
 ],
+every: {type: Number, default: 1},
+repeat: {type: String, enum: Agl.classesBlockRepeat, default: 'week'},
 ```
 
 ### class API
