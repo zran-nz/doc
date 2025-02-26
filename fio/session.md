@@ -136,6 +136,7 @@ substituteReminder: {type: Boolean}, // 代课 开课前3小时 未匹配 通知
 substituteMatched: {type: Boolean}, // 历史上匹配成功过 取消代课不删除此字段
 substituteExclude: {type: [String], trim: true}, // 排除老师uid 已匹配成功又取消的老师需要排除
 substituteNoCompensation: {type: Boolean}, // 校外 线下没有路费补贴 (同地点结束一小时内优先推送的老师)
+substituteOperateAt: {type: Date}, // last update 代课操作时间记录 #5763
 ```
 
 ### type
