@@ -75,7 +75,24 @@ const {
 } = await App.service('students').get('checkParents', { query: {
   school: '', 'parent.email': {$in: ['xxx@xxx.com', ...]}}
 })
+```
 
+### check student id
+```js
+// 检查学生id验证是否存在
+await App.service('students').get('checkId', { query: {
+  school: 'xxx', id: 'id'
+}})
+
+// 批量检查 学生id验证是否存在
+const {
+  student: { // 存在代表已经注册过学生账号
+    'id': 1,
+    ...
+  }
+} = await App.service('students').get('checkIds', { query: {
+  school: 'xxx', id: {$in: ['id', ...]}
+}})
 ```
 
 ### 获取用户已加入的学校列表
