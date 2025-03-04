@@ -85,6 +85,9 @@ await App.service('class-apply').patch(_id, { status: 1 });
 
 // 获取报名通过学生数量
 await App.service('class-apply').get('count', { query: { class: 'class._id' } });
+
+// 获取报名列表(已审核通过)
+await App.service('class-apply').find({ query: { class: 'class._id', status: 1 } });
 ```
 
 ### class-question-logs model
