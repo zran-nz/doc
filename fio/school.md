@@ -59,6 +59,10 @@ await App.service('class').patch(_id, { host: uid });
 student: {type: String, trim: true, required: true}, // students._id
 type: {type: String, default: 'subject', enum: Agl.classesTypes},
 school: {type: String, required: true, trim: true}, // school-plan._id
+// [
+//   {question: 'Want to join us?', anser: 'Yes'},
+//   // ...
+// ]
 class: {type: String, trim: true, required: true}, // class._id
 answers: {type: Schema.Types.Mixed},
 status: {type: Number, default: 0}, // 0: pending, 1: approved, -1: rejected
@@ -90,7 +94,7 @@ await App.service('class-apply').get('count', { query: { class: 'class._id' } })
 questions: {type: [String]},// classes在create或patch字段questions时,会更新本表字段,每次更新需提交整个字段classes.questions,不要使用addToSet或pull等
 ```
 
-### class-apply API
+### class-question-logs API
 
 ```js
 // 获取
