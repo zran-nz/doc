@@ -60,7 +60,7 @@ student: {type: String, trim: true, required: true}, // students._id
 type: {type: String, default: 'subject', enum: Agl.classesTypes},
 school: {type: String, required: true, trim: true}, // school-plan._id
 // [
-//   {question: 'Want to join us?', anser: 'Yes'},
+//   {question: 'Want to join us?', answer: 'Yes'},
 //   // ...
 // ]
 class: {type: String, trim: true, required: true}, // class._id
