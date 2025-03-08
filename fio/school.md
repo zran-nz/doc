@@ -38,8 +38,8 @@ block: [
     week: {type: Number}, // day of the week, 0-6, new Date().getDay(): Sunday - Saturday : 0 - 6
     start: {type: String, required: true}, // 00:00, hour:min
     end: {type: String, required: true},
-    every: {type: Number, default: 1},
-    repeat: {type: String, enum: Agl.classesBlockRepeat, default: 'week'},
+    // every: {type: Number, default: 1},// 弃用,改为整体设置
+    // repeat: {type: String, enum: Agl.classesBlockRepeat, default: 'week'},// 弃用,改为整体设置
   },
 ],
 every: {type: Number, default: 1},
