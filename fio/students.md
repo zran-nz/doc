@@ -95,6 +95,24 @@ const {
 }})
 ```
 
+### check student mobile
+```js
+// 检查学生id验证是否存在
+await App.service('students').get('checkMobile', { query: {
+  school: 'xxx', mobile: 'xxxx'
+}})
+
+// 批量检查 学生Mobile验证是否存在
+const {
+  student: { // 存在代表已经注册过学生账号
+    'mobile': 1,
+    ...
+  }
+} = await App.service('students').get('checkMobiles', { query: {
+  school: 'xxx', mobile: {$in: ['xxxx', ...]}
+}})
+```
+
 ### 获取用户已加入的学校列表
 
 ```js
