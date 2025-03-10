@@ -875,6 +875,9 @@ await App.service('service-pack-user').find({
     userField: '',
     userFieldType: 'email/mobile/classcipeId',
 });
+
+// 更新线下服务包地址
+await App.service('service-pack-user').patch('location', { _id: 'service-pack-user._id', place_id: 'from google', address: '' });
 ```
 
 ### 支付完成创建用户的服务包
