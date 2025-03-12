@@ -371,6 +371,14 @@ await App.service('session').create({
     sid: String, // session.sid
   }, ...]
 })
+```
+
+### create zoom
+```js
+await App.service('session').patch('createZoom', {_id, sid, start, name, zoom})
+```
+
+
 
 // example
 const unitDoc = await App.service('unit').get('unit._id')
