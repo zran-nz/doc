@@ -3,143 +3,142 @@
 ### Order model
 
 ```js
-{
-    buyer: {type: String, required: true}, // buyer user._id/school-plan._id
-    schoolAdmin: {type: String}, // 机构下单 下单的学校管理员
-    // seller: {type: String}, //seller已废弃,改用sellers
-    sellers: {type: Array},
-    name: {type: String},
-    no: {type: String},
-    // link已废弃,改用links
-    // link: {
-    //   id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
-    //   name: {type: String},
-    //   mode: {type: String}, // unit.mode
-    //   type: {type: String}, // 2:unit plan; 4:task; 6:evaluation, old.content_type
-    //   newId: {type: String},
-    //   hash: {type: String},
-    // },
-    links: [
-        {
-            id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
-            name: {type: String},
-            mode: {type: String}, // unit.mode
-            type: {type: String}, // 2:unit plan; 4:task; 6:evaluation, old.content_type
-            newId: {type: String},
-            hash: {type: String},
-            cover: {type: String},
-            price: {type: Number},
-            point: {type: Number},
-            style: {type: String}, //unit session service self_study service_premium service_substitute premium_cloud prompt
-            goods: {type: Object}, //下单时商品快照
-            sessionId: {type: Object}, //捆绑服务包的公开课_id,prompt购买插入的课程
-            count: {type: Object}, //服务包次数 不包含赠送次数
-            gift: {type: Boolean}, // 弃用 更换为promotion
-            promotion: {type: Boolean}, // 是否赠品/推广 promotion
-            giftCount: {type: Number, default: 0}, // 赠送次数
-            removed: {type: Boolean}, //支付前 被下架或删除
-            inviter: {type: String, trim: true}, //分享人
-            archived: {type: Boolean, default: false}, //archived and deleted
-            persons: {type: Number, default: 1}, // 主题服务包 学校购买 1v1服务包份数
-            packUserTasks: {type: Array}, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
-            oldPackUser: {type: String}, // 补买用,主题服务包Lecture加到原来的packUser中
-            bookingId: {type: String}, // 认证精品课快照购买支付成功后 自动排课用
-            premiumCloudUnused: {type: Boolean, default: false}, // 认证精品课快照未使用
-            session: {type: String}, // 认证精品课快照未使用 绑定的session._id
-            isOnCampus: {type: Boolean, default: false}, // 线上false, 线下true
-            country: {type: String, trim: true},
-            city: {type: String, trim: true},
-            used: {type: Boolean, default: false}, // prompt被使用
-        },
-    ],
-    /**
-     * 订单状态 status 除400外的4xx弃用
-     * 100.待支付；
-     * 200.支付成功；
-     * 300.支付失败；
-     * 400.支付超时 Payment has timed out
-     * 401.未支付 公开课被讲师取消 canceled by the facilitator
-     * 402.未支付 公开课因未成团被系统取消 Minimal registration number not met
-     * 403.未支付 课件/自学习被下架 Product removed
-     * 404.未支付 商品已更新 系统取消
-     * 500.已支付 公开课/服务包被购买者取消 canceled by the purchaser
-     * 501.已支付 公开课被讲师取消 canceled by the facilitator (session支付前被取消,支付成功退款都为此状态)
-     * 502.已支付 公开课因未成团被系统取消 Minimal registration number not met
-     * 503.已支付 支付前被下架/删除,支付后立即退款
-     */
-    status: {type: Number, default: 100},
-    settled: {type: Boolean, default: false}, //braintree settled
-    /**
-     * 订单类型
-     * unit
-     * session_public
-     * session_self_study
-     * session_service_pack 捆绑服务包
-     * service_pack 服务包
-     * service_premium 主题服务包
-     * service_substitute 代课服务包
-     * premium_cloud 认证精品课快照
-     * prompt
-     */
-    type: {
-        type: String,
-        enum: [
-            'unit',
-            'session_public',
-            'session_self_study',
-            'session_service_pack',
-            'service_pack',
-            'service_premium',
-            'service_substitute',
-            'premium_cloud',
-            'prompt',
-        ],
+buyer: {type: String, required: true}, // buyer user._id/school-plan._id
+schoolAdmin: {type: String}, // 机构下单 下单的学校管理员
+// seller: {type: String}, //seller已废弃,改用sellers
+sellers: {type: Array},
+name: {type: String},
+no: {type: String},
+// link已废弃,改用links
+// link: {
+//   id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
+//   name: {type: String},
+//   mode: {type: String}, // unit.mode
+//   type: {type: String}, // 2:unit plan; 4:task; 6:evaluation, old.content_type
+//   newId: {type: String},
+//   hash: {type: String},
+// },
+links: [
+    {
+        id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
+        name: {type: String},
+        mode: {type: String}, // unit.mode
+        type: {type: String}, // 2:unit plan; 4:task; 6:evaluation, old.content_type
+        newId: {type: String},
+        hash: {type: String},
+        cover: {type: String},
+        price: {type: Number},
+        point: {type: Number},
+        style: {type: String}, //unit session service self_study service_premium service_substitute premium_cloud prompt
+        goods: {type: Object}, //下单时商品快照
+        sessionId: {type: Object}, //捆绑服务包的公开课_id,prompt购买插入的课程
+        count: {type: Object}, //服务包次数 不包含赠送次数
+        gift: {type: Boolean}, // 弃用 更换为promotion
+        promotion: {type: Boolean}, // 是否赠品/推广 promotion
+        giftCount: {type: Number, default: 0}, // 赠送次数
+        removed: {type: Boolean}, //支付前 被下架或删除
+        inviter: {type: String, trim: true}, //分享人
+        archived: {type: Boolean, default: false}, //archived and deleted
+        persons: {type: Number, default: 1}, // 主题服务包 学校购买 1v1服务包份数
+        packUserTasks: {type: Array}, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
+        oldPackUser: {type: String}, // 补买用,主题服务包Lecture加到原来的packUser中
+        bookingId: {type: String}, // 认证精品课快照购买支付成功后 自动排课用
+        premiumCloudUnused: {type: Boolean, default: false}, // 认证精品课快照未使用
+        session: {type: String}, // 认证精品课快照未使用 绑定的session._id
+        isOnCampus: {type: Boolean, default: false}, // 线上false, 线下true
+        country: {type: String, trim: true},
+        city: {type: String, trim: true},
+        used: {type: Boolean, default: false}, // prompt被使用
     },
-    price: {type: Number}, // Unit cent 支付金额(现金+gift card)
-    point: {type: Number}, // 支付积分
-    // subtotal: {type: Number}, // Unit cent 商品总金额 后续增加
-    // cash: {type: Number}, // Unit cent 现金支付 后续增加
-    // giftCard: { type: Number }, // Unit cent gift card 支付 后续增加
-    // coupon: { type: Number }, // Unit cent 优惠金额 后续增加
-
-    payMethod: {type: Array}, // 支付方式 paypal, windcave, giftCard, braintree
-    paid: {type: Number, default: 0}, // 支付状态 0未支付 1已支付 2已退款
-    paypalId: {type: String}, // paypal支付号
-    braintreeId: {type: String}, // Braintree支付号
-    /**
-     * 支付信息 paymentInfo
-     * {
-     *  paymentInstrumentType string 支付方式
-     *  cardType string 卡机构
-     *  last4 string 卡号后四位
-     * }
-     */
-    paymentInfo: {type: Object},
-    expiration: {type: Date}, // 支付超时时间
-    // 退款详情
-    refund: [
-        {
-            method: {type: String}, //paypal, windcave, giftCard braintree
-            status: {type: Number}, //状态同order status
-            amount: {type: Number}, // Unit cent 退款金额,
-            executed: {type: Boolean, default: true}, //退款已执行
-            createdAt: {type: Date},
-            executedAt: {type: Date}, //退款执行时间
-        },
+],
+/**
+ * 订单状态 status 除400外的4xx弃用
+ * 100.待支付；
+ * 200.支付成功；
+ * 300.支付失败；
+ * 400.支付超时 Payment has timed out
+ * 401.未支付 公开课被讲师取消 canceled by the facilitator
+ * 402.未支付 公开课因未成团被系统取消 Minimal registration number not met
+ * 403.未支付 课件/自学习被下架 Product removed
+ * 404.未支付 商品已更新 系统取消
+ * 500.已支付 公开课/服务包被购买者取消 canceled by the purchaser
+ * 501.已支付 公开课被讲师取消 canceled by the facilitator (session支付前被取消,支付成功退款都为此状态)
+ * 502.已支付 公开课因未成团被系统取消 Minimal registration number not met
+ * 503.已支付 支付前被下架/删除,支付后立即退款
+ */
+status: {type: Number, default: 100},
+settled: {type: Boolean, default: false}, //braintree settled
+/**
+ * 订单类型
+ * unit
+ * session_public
+ * session_self_study
+ * session_service_pack 捆绑服务包
+ * service_pack 服务包
+ * service_premium 主题服务包
+ * service_substitute 代课服务包
+ * premium_cloud 认证精品课快照
+ * prompt
+ */
+type: {
+    type: String,
+    enum: [
+        'unit',
+        'session_public',
+        'session_self_study',
+        'session_service_pack',
+        'service_pack',
+        'service_premium',
+        'service_substitute',
+        'premium_cloud',
+        'prompt',
     ],
-    paidAt: {type: Date},
-    reminder: {type: Number, default: 0}, // 未支付提醒,0: 待提醒，1: 超时前15min已提醒
-    inviter: {type: String, trim: true}, //分享人
-    isPoint: {type: Boolean, default: false}, //积分购买
-    isSeparated: {type: Boolean, default: false}, //积分/佣金是否已分账
-    isTicket: {type: Boolean, default: false}, // 主题服务包 需生成代金券
-    isSchool: {type: Boolean, default: false}, // buyer为学校
-    sharedSchool: {type: String}, // school-plan._id 从学校分享购买的,分享的学校id
-    servicePremium: {type: String}, // service-pack._id 主题服务包id
-    servicePremiumSnapshot: {type: Object}, //主题服务包快照
-    persons: {type: Number, default: 1}, // buyer为学校,1v1服务包份数
-    servicePackApply: {type: String}, // 主题服务包申请id
-}
+},
+price: {type: Number}, // Unit cent 支付金额(现金+gift card)
+point: {type: Number}, // 支付积分
+// subtotal: {type: Number}, // Unit cent 商品总金额 后续增加
+// cash: {type: Number}, // Unit cent 现金支付 后续增加
+// giftCard: { type: Number }, // Unit cent gift card 支付 后续增加
+// coupon: { type: Number }, // Unit cent 优惠金额 后续增加
+
+payMethod: {type: Array}, // 支付方式 paypal, windcave, giftCard, braintree
+paid: {type: Number, default: 0}, // 支付状态 0未支付 1已支付 2已退款
+paypalId: {type: String}, // paypal支付号
+braintreeId: {type: String}, // Braintree支付号
+/**
+ * 支付信息 paymentInfo
+ * {
+ *  paymentInstrumentType string 支付方式
+ *  cardType string 卡机构
+ *  last4 string 卡号后四位
+ * }
+ */
+paymentInfo: {type: Object},
+expiration: {type: Date}, // 支付超时时间
+// 退款详情
+refund: [
+    {
+        method: {type: String}, //paypal, windcave, giftCard braintree
+        status: {type: Number}, //状态同order status
+        amount: {type: Number}, // Unit cent 退款金额,
+        executed: {type: Boolean, default: true}, //退款已执行
+        createdAt: {type: Date},
+        executedAt: {type: Date}, //退款执行时间
+    },
+],
+paidAt: {type: Date},
+reminder: {type: Number, default: 0}, // 未支付提醒,0: 待提醒，1: 超时前15min已提醒
+inviter: {type: String, trim: true}, //分享人 users.inviteCode
+schoolInviter: {type: String, trim: true}, //分享人为学校 school-plan._id
+isPoint: {type: Boolean, default: false}, //积分购买
+isSeparated: {type: Boolean, default: false}, //积分/佣金是否已分账
+isTicket: {type: Boolean, default: false}, // 主题服务包 需生成代金券
+isSchool: {type: Boolean, default: false}, // buyer为学校
+sharedSchool: {type: String}, // school-plan._id 从学校分享购买的,分享的学校id
+servicePremium: {type: String}, // service-pack._id 主题服务包id
+servicePremiumSnapshot: {type: Object}, //主题服务包快照
+persons: {type: Number, default: 1}, // buyer为学校,1v1服务包份数
+servicePackApply: {type: String}, // 主题服务包申请id
 ```
 
 ### Order api
