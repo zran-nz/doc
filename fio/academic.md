@@ -14,6 +14,7 @@ count: {
 unit: [String],
 task: [String],
 del: Boolean,
+
 ```
 
 ### Curriculum store
