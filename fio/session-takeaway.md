@@ -45,6 +45,8 @@ stats: [{ // 生成takeaway的时候自动计算出课堂统计数据
 
 ```js
 session: {type: String, required: true}, // session._id
+school: {type: String}, // session.school
+classId: {type: String}, // session.classId
 uid: {type: String, required: true}, // users._id for student user
 response: {type: [Schema.Types.Mixed]}, // rooms student answer, response snapshot
 comments: {type: [Schema.Types.Mixed]}, // rooms feedback, comments snapshot
