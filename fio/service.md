@@ -1326,7 +1326,8 @@ await App.service('service-booking').create({
   interviewPack: {type: String}, // 面试服务包id
   interviewOrder: {type: String}, // 购买的面试服务包订单id
   interviewApply: {type: Boolean, default: false}, // 面试已预约
-  takeaway: {type: String}, // takeaway
+  takeaway: {type: String}, // takeaway url
+  takeawayId: {type: String}, // takeaway _id
   takeawayCreatedAt: {type: Date},
   archive: {type: Boolean, default: false},
   contentOrientated: [
