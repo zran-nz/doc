@@ -80,7 +80,7 @@ await App.service('users').get('checkCaptcha', {
 });
 ```
 
-### CREATE:/users
+### POST:/users
 ```js
 // 创建账号 mobile, email 二选一
 await App.service('users').create({
