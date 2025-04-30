@@ -276,10 +276,14 @@ App.service('order').on('patched', (patchedData) => {
  * 检查商品状态
  * 新增判断 每个商品只能同时存在一个未支付订单
   return {
-      links,
-      available,//可下单
-      notExist,//不存在或未发布
-      ordered,//已下单
+    links, 
+    available, //Array 可下单的商品id
+    notExist, //Array 不存在或未发布的商品id
+    ordered, //Array 已下单(支付+未支付)的商品id
+    orderId, //Array 已支付+未支付订单id
+    paidOrderId, //Array 已支付订单id
+    unpaidOrderId, //Array 未支付订单id
+    servicePremiumAvailable, //Boolean 主题服务包是否可购买
   };
  */
 await App.service('order').get('checkLinks', {
@@ -295,11 +299,14 @@ await App.service('order').get('checkLinks', {
  * 检查商品状态 主题服务包
  * 新增判断 每个商品只能同时存在一个未支付订单
   return {
-      links,
-      available,//可下单
-      notExist,//不存在或未发布
-      ordered,//已下单
-      servicePremiumAvailable,//当前links,主题服务包是否可购买
+    links, 
+    available, //Array 可下单的商品id
+    notExist, //Array 不存在或未发布的商品id
+    ordered, //Array 已下单(支付+未支付)的商品id
+    orderId, //Array 已支付+未支付订单id
+    paidOrderId, //Array 已支付订单id
+    unpaidOrderId, //Array 未支付订单id
+    servicePremiumAvailable, //Boolean 主题服务包是否可购买
   };
  */
 await App.service('order').get('checkLinks', {
