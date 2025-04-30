@@ -143,6 +143,7 @@ servicePackApply: {type: String}, // 主题服务包申请id
 
 ### Order api
 
+### POST:/order
 ```js
 /**
  * create 传数组
@@ -184,23 +185,6 @@ await App.service('order').create({
 await App.service('order').create({
     link: [{ id: 'service-auth._id', style: 'premium_cloud', bookingId }],
 });
-await App.service('service-pack').patch('66e2cf2e1646b5698dcdf80d', {
-    isOnCampus: true, // 线上/线下
-    country: 'NZ',
-    onCampusPrice: [
-        {
-            city: 'Ashburton',
-            price: 60, // 单次价格 *100，cc，美分
-            discount: [
-                {
-                    count: 2, // 数量
-                    discount: 5, // 折扣 %
-                    gifts: 1, // 免费赠送的次数
-                },
-            ],
-        },
-    ],
-});
 // 主题服务包购买
 await App.service('order').create({
     link: [
@@ -224,7 +208,10 @@ await App.service('order').create({
 await App.service('order').create({
     link: [{ id: 'prompts._id', sessionId: 'session._id', style: 'prompt', count: 1 }],
 });
+```
 
+### GET:/order
+```js
 // 订单列表 all
 await App.service('order').find();
 // 订单列表 paid
@@ -256,10 +243,16 @@ await App.service('order').find({
         $skipSys: 1,
     },
 });
+```
 
+### GET:/order/:id
+```js
 // 详情
 await App.service('order').get(_id);
+```
 
+### GET:/order/:cancel
+```js
 /**
  * 取消订单
  * status:只有500需手动处理
@@ -271,7 +264,10 @@ await App.service('order').get('cancel', { query: { id: _id, status: status } })
 App.service('order').on('patched', (patchedData) => {
     // if (patchedData.status === 200) {}
 });
+```
 
+### GET:/order/checkLinks
+```js
 /**
  * 检查商品状态
  * 新增判断 每个商品只能同时存在一个未支付订单
@@ -319,34 +315,65 @@ await App.service('order').get('checkLinks', {
         sharedSchool: 'school-plan._id', // 购买学校分享服务包时传
     },
 });
+```
 
+### GET:/order/orderRefundCheck
+```js
 // 订单可退款检查
 await App.service('order').get('orderRefundCheck', { query: { id: order._id } });
+```
 
+### GET:/order/count
+```js
 // 订单数量统计 unpaid,paid
 await App.service('order').get('count');
+```
 
+### GET:/order/cancelTicket
+```js
 // 学校购买,按ticket退款
 await App.service('order').get('cancelTicket', { query: { tickets: ['service-pack-ticket._id', 'service-pack-ticket._id'] } });
+```
 
+### GET:/order/cancelBeforePay
+```js
 // 取消未支付订单
 await App.service('order').get('cancelBeforePay', { query: { id: 'order._id'} });
+```
 
+### GET:/order/countPromotionByMonth
+```js
 // 统计一个月内Promotion数量
 await App.service('order').get('countPromotionByMonth', { query: { buyer: 'uid/school-plan._id' } });
+```
 
+### GET:/order/promotionServiceId
+```js
 // 该用户已购买的Promotion服务包id 替代users.freeServiceType
 await App.service('order').get('promotionServiceId', { query: { buyer: 'uid/school-plan._id' } });
+```
 
+### GET:/order/promotionByBooking
+```js
 // 根据booking查询Promotion赠送订单
 await App.service('order').get('promotionByBooking', { query: { booking: 'session.booking' } });
+```
 
+### GET:/order/premiumCloudUnused
+```js
 // 1v1无主题服务包的import 未使用列表(premium_cloud)
 await App.service('order').get('premiumCloudUnused');
+```
 
+### GET:/order
+```js
 // prompt已购买未使用,classcipe cloud tab
 await App.service('order').find({ query: { buyer: 'user._id', links: { $elemMatch: { style: 'prompt', used: false } } } });
 
+```
+### GET:/order/usePrompt
+```js
 // 使用一个prompt
 await App.service('order').get('usePrompt', { query: { uid: 'user._id', prompt: 'prompts._id', sessionId: 'session._id' } });
 ```
+
