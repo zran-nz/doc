@@ -801,7 +801,7 @@ const { total, limit, skip, data } = await App.service('session').get('recommend
 const { total, limit, skip, data } = await App.service('session').get('recommendMyStudent', { query: { $skip: 10 } });
 ```
 
-### Roaster
+### GET:/session/roaster
 
 ```js
 const [...] = await App.service('session').get('roaster', {query: {sid: session.sid}})
