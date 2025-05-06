@@ -28,6 +28,7 @@ value: {type: Number, required: true}, //固定数值;按比例
 
 ### commission-setting api
 
+#### POST:/commission-setting
 ```js
 //创建
 await App.service('commission-setting').create({
@@ -36,7 +37,10 @@ await App.service('commission-setting').create({
     mode: 'percentage',
     value: 10,
 });
+```
 
+#### DELETE:/commission-setting/:id
+```js
 // 删除
 await App.service('commission-setting').remove(_id);
 ```
