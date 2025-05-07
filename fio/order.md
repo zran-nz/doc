@@ -254,11 +254,12 @@ await App.service('order').get(_id);
 ### GET:/order/:cancel
 ```js
 /**
- * 取消订单
- * status:只有500需手动处理
+ * 订单取消/退款
+ * status: 只有500需手动处理
+ * linkId: Array 要退款的link._id,传空数组或不传取消所有link
  * 500.已支付 公开课/服务包被购买者取消 canceled by the purchaser
  */
-await App.service('order').get('cancel', { query: { id: _id, status: status } });
+await App.service('order').get('cancel', { query: { id: _id, status: status, linkId: [] } });
 
 // 监听支付完成回调 link传数组
 App.service('order').on('patched', (patchedData) => {

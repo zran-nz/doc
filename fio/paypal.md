@@ -67,9 +67,18 @@ AVj0ejw9ioxhqTWelmz-1h6UMQZaNrNGObZFWc0iQzJ94SvBVE98Vf88tLfZapi7JXJMd_jWLAmLEJ0g
 
 ### 3.paypal sandbox 支付信息
 
+#### CARD
+
 Card number 4032033576774181  
 Expiry date 06/2026  
 CVC code 278
+
+#### ACCOUNT
+
+Email
+sb-athji8504516@personal.example.com  
+Password
+B+lqiq#7
 
 ### 4.Paypal api
 

@@ -32,6 +32,7 @@ value: {type: Number, required: true}, //固定数值;按比例
 
 ### point-setting api
 
+### POST:/point-setting
 ```js
 //创建
 await App.service('point-setting').create({
@@ -41,7 +42,10 @@ await App.service('point-setting').create({
     mode: 'percentage',
     value: 10,
 });
+```
 
+### DELETE:/point-setting/:id
+```js
 // 删除
 await App.service('point-setting').remove(_id);
 ```
