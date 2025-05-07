@@ -22,12 +22,15 @@
 }
 ```
 
+### GET:/school-user
+```js
+// 学校老师列表获取
+await App.service('school-user').find({query: {school: 'school_id', del: false}})
+```
+
 ### school-user API
 
 ```js
-
-// 学校老师列表获取
-await App.service('school-user').find({query: {school: 'school_id', del: false}})
 
 // 学校权限 - 添加管理员
 App.service('school-user').patch(_id, { $addToSet: {role: ['admin']}})

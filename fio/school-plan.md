@@ -64,6 +64,12 @@
 }
 ```
 
+### Cron:/school-plan
+```js
+// 找出套餐过期，状态处于试用期+正式的学校，更新为过期状态
+// https://github.com/zran-nz/bug/issues/5000
+```
+
 ### school-plan API
 
 ```js

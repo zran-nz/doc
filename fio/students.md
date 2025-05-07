@@ -30,14 +30,17 @@ del: {type: Boolean, default: false}, // del
 - school + name + parent.email
 ```
 
-### students API
-
+### GET:/students
 ```js
 // get list by school
 await App.service('students').find({
     query: { school: 'school_id', del: false },
 });
+```
 
+### students API
+
+```js
 // Add students from class
 App.service('students').patch(_id, { $addToSet: { class: ['class_id'] } });
 // Remove students from class
