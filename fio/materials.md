@@ -40,8 +40,8 @@ const doc = await App.service("materials").patch(doc._id, {
 });
 ```
 
-### Addon -> save to classcipe
-- code in [api3](https://github.com/zran-nz/api3), routes/slide.js
+### Addon -> save to classcipe Logic
+- code in [api3](https://github.com/zran-nz/api3), file in routes/slide.js
 - use `slides.presentations.get` download google slides
 - parse materials data from each slides page
 - delete all old materials documents via slides.id use `mongoMaterials.deleteMany({id: slides.id})`
