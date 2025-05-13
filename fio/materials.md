@@ -13,6 +13,11 @@
     size: Number, // s3 file size
     desc: String, // youtube title or desc
     ext: Mixed // video: { start, end }
+    position: {type: Schema.Types.Mixed}, // position of the material in the
+    slideMatrerial: {type: Boolean}, // flag to check the material is inserted from slides or not
+    dimensions: {type: Schema.Types.Mixed}, // dimention of added material
+    slideWidth: {type: Number}, // slide width
+    slideHeight: {type: Number}, // slide height
   }],
 }
 ```
