@@ -7,6 +7,7 @@
   _id: String,
   name: String, // template name
   curriculum: String, // curriculum code
+  curricId: {type: String, required: true}, // user custom curric._id
   school: String, // school-plan._id or user._id
   mode: String, // ['unit', 'task', 'pdUnit', 'pdTask', 'video', 'tool']
   data: [{
@@ -111,6 +112,13 @@ const doc = await App.service('unit-tpl').patch(_id, {'data.$': {...subdata}}, {
 const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdata._id}}})
 
 ```
+
+### GET:/unit-tpl/copyTpl
+```js
+// create unit and task tpl from sys tpl
+await App.service("unit-tpl").get("copyTpl", { query: { curricId: 'curric._id', school: 'school-plan._id' }});
+```
+
 
 ### unit-tpl.snapshot
 - 对模板和tags生成快照, 保存到课件上
