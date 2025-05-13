@@ -7,7 +7,6 @@
   id: String, // slides id
   page: String, // slides.pages._id
   list: [{
-    question: String //questions._id 弃用
     type: String, // iframe, video, audio, image, pdf
     url: String, // url or youtube id
     key: String, // s3 files key
