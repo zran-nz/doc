@@ -49,6 +49,7 @@ inviter: {type: String, trim: true}, //邀请我的人
 point: {type: Number, default: 0}, // 积分
 freeServiceClaimed: {type: Boolean, default: false}, // 已领取免费服务包
 freePromptCount: {type: Number, default: 0}, // Prompts免费购买次数统计
+agreedToTerms: {type: Boolean, default: false}, // terms and conditions agreed to verification page
 ```
 
 [ServiceType](/fio/service?id=enum)
