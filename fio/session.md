@@ -806,6 +806,23 @@ const { total, limit, skip, data } = await App.service('session').get('recommend
 const [...] = await App.service('session').get('roaster', {query: {sid: session.sid}})
 ```
 
+### publish to study center
+```js
+await App.service('session').create({
+  type: 'selfStudy',
+  status: 'student',
+  name,
+  sessionType: 'unit.sessionType',
+  id: 'unit.sid',
+  childs: [...], // link content session
+  subjects: getUniqueSubjects(unit),
+  cid: 'unit.cid',
+  image: 'unit.cover',
+  unitType: 'unit.type',
+  regMax: 0,
+})
+```
+
 ### student study center
 
 ```js
