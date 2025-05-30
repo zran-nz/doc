@@ -90,7 +90,6 @@ task: {
   }
 },
 video: {type: Schema.Types.Mixed}, // interactive-videoes snapshot
-pages: Mixed, // slides.pages snapshot
 questions: Mixed, // questions snapshot
 reminder: Number, // mail notice: WorkshopReminderBeforeClass
 drawkey: String, // excalidraw room key
