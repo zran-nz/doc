@@ -399,3 +399,10 @@ await App.service('order').find({ query: { buyer: 'user._id', links: { $elemMatc
 // 使用一个prompt
 await App.service('order').get('usePrompt', { query: { uid: 'user._id', prompt: 'prompts._id', sessionId: 'session._id' } });
 ```
+
+### GET:/order/checkPaypalPayment
+
+```js
+// paypal支付完成后 前端主动回调
+await App.service('order').get('checkPaypalPayment', { query: { id: 'order._id', paypalOrderId } });
+```
