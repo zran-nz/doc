@@ -19,44 +19,49 @@ no: {type: String},
 //   hash: {type: String},
 // },
 links: [
-    {
-        id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
-        name: {type: String},
-        mode: {type: String}, // unit.mode
-        type: {type: String}, // 2:unit plan; 4:task; 6:evaluation, old.content_type
-        newId: {type: String},
-        hash: {type: String},
-        cover: {type: String},
-        price: {type: Number},
-        point: {type: Number},
-        style: {type: String}, //unit session service self_study service_premium service_substitute premium_cloud prompt
-        goods: {type: Object}, //下单时商品快照
-        sessionId: {type: Object}, //捆绑服务包的公开课_id,prompt购买插入的课程
-        count: {type: Object}, //服务包次数 不包含赠送次数
-        gift: {type: Boolean}, // 弃用 更换为promotion
-        promotion: {type: Boolean}, // 是否赠品/推广 promotion
-        giftCount: {type: Number, default: 0}, // 赠送次数
-        removed: {type: Boolean}, //支付前 被下架或删除
-        inviter: {type: String, trim: true}, //分享人
-        archived: {type: Boolean, default: false}, //archived and deleted
-        persons: {type: Number, default: 1}, // 主题服务包 学校购买 1v1服务包份数
-        packUserTasks: {type: Array}, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
-        oldPackUser: {type: String}, // 补买用,主题服务包Lecture加到原来的packUser中
-        bookingId: {type: String}, // 认证精品课快照购买支付成功后 自动排课用
-        premiumCloudUnused: {type: Boolean, default: false}, // 认证精品课快照未使用
-        session: {type: String}, // 认证精品课快照未使用 绑定的session._id
-        isOnCampus: {type: Boolean, default: false}, // 线上false, 线下true
-        country: {type: String, trim: true},
-        city: {type: String, trim: true},
-        used: {type: Boolean, default: false}, // prompt被使用
-    },
+{
+    id: {type: String}, // link id, Ex: task.id, unit.id, workshop.id
+    name: {type: String},
+    mode: {type: String}, // unit.mode
+    type: {type: String}, // 2:unit plan; 4:task; 6:evaluation, old.content_type
+    newId: {type: String},
+    hash: {type: String},
+    cover: {type: String},
+    price: {type: Number},
+    point: {type: Number},
+    style: {type: String}, //unit session service self_study service_premium service_substitute premium_cloud prompt
+    goods: {type: Object}, //下单时商品快照
+    sessionId: {type: Object}, //捆绑服务包的公开课_id,prompt购买插入的课程
+    count: {type: Object}, //服务包次数 不包含赠送次数
+    // gift: {type: Boolean}, // 弃用 更换为promotion
+    promotion: {type: Boolean}, // 是否赠品/推广 promotion
+    giftCount: {type: Number, default: 0}, // 赠送次数
+    removed: {type: Boolean}, //支付前 被下架或删除; 或已取消已退款
+    inviter: {type: String, trim: true}, //分享人
+    schoolInviter: {type: String, trim: true}, //分享人为学校 school-plan._id
+    inviteSource: {type: String, trim: true, enum: ['new_prompt', 'sales_follow_up']}, //分享来源,new-prompt;sales-follow-up: 销售跟进
+    inviteSourceId: {type: String, trim: true}, //目前只有一个场景,从new prompt下分享的workshop的_id
+    archived: {type: Boolean, default: false}, //archived and deleted
+    persons: {type: Number, default: 1}, // 主题服务包 学校购买 1v1服务包份数
+    packUserTasks: {type: Array}, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
+    oldPackUser: {type: String}, // 补买用,主题服务包Lecture加到原来的packUser中
+    bookingId: {type: String}, // 认证精品课快照购买支付成功后 自动排课用
+    premiumCloudUnused: {type: Boolean, default: false}, // 认证精品课快照未使用
+    session: {type: String}, // 认证精品课快照未使用 绑定的session._id
+    isOnCampus: {type: Boolean, default: false}, // 线上false, 线下true
+    country: {type: String, trim: true},
+    city: {type: String, trim: true},
+    used: {type: Boolean, default: false}, // prompt被使用
+    refundPrice: {type: Number, default: 0}, // 退款金额
+    refundPoint: {type: Number, default: 0}, // 退款积分
+},
 ],
 /**
  * 订单状态 status 除400外的4xx弃用
  * 100.待支付；
  * 200.支付成功；
  * 300.支付失败；
- * 400.支付超时 Payment has timed out
+ * 400.支付超时 Payment has timed out 除400外的4xx弃用
  * 401.未支付 公开课被讲师取消 canceled by the facilitator
  * 402.未支付 公开课因未成团被系统取消 Minimal registration number not met
  * 403.未支付 课件/自学习被下架 Product removed
@@ -81,18 +86,18 @@ settled: {type: Boolean, default: false}, //braintree settled
  * prompt
  */
 type: {
-    type: String,
-    enum: [
-        'unit',
-        'session_public',
-        'session_self_study',
-        'session_service_pack',
-        'service_pack',
-        'service_premium',
-        'service_substitute',
-        'premium_cloud',
-        'prompt',
-    ],
+type: String,
+enum: [
+    'unit',
+    'session_public',
+    'session_self_study',
+    'session_service_pack',
+    'service_pack',
+    'service_premium',
+    'service_substitute',
+    'premium_cloud',
+    'prompt',
+],
 },
 price: {type: Number}, // Unit cent 支付金额(现金+gift card)
 point: {type: Number}, // 支付积分
@@ -117,19 +122,21 @@ paymentInfo: {type: Object},
 expiration: {type: Date}, // 支付超时时间
 // 退款详情
 refund: [
-    {
-        method: {type: String}, //paypal, windcave, giftCard braintree
-        status: {type: Number}, //状态同order status
-        amount: {type: Number}, // Unit cent 退款金额,
-        executed: {type: Boolean, default: true}, //退款已执行
-        createdAt: {type: Date},
-        executedAt: {type: Date}, //退款执行时间
-    },
+{
+    method: {type: String}, //paypal, windcave, giftCard braintree
+    status: {type: Number}, //状态同order status
+    amount: {type: Number}, // Unit cent 退款金额,
+    executed: {type: Boolean, default: true}, //退款已执行
+    createdAt: {type: Date},
+    executedAt: {type: Date}, //退款执行时间
+},
 ],
 paidAt: {type: Date},
 reminder: {type: Number, default: 0}, // 未支付提醒,0: 待提醒，1: 超时前15min已提醒
 inviter: {type: String, trim: true}, //分享人 users.inviteCode
 schoolInviter: {type: String, trim: true}, //分享人为学校 school-plan._id
+inviteSource: {type: String, trim: true, enum: ['new_prompt', 'sales_follow_up']}, //分享来源,new-prompt;sales-follow-up: 销售跟进
+inviteSourceId: {type: String, trim: true}, //目前只有一个场景,从new prompt下分享的workshop的_id
 isPoint: {type: Boolean, default: false}, //积分购买
 isSeparated: {type: Boolean, default: false}, //积分/佣金是否已分账
 isTicket: {type: Boolean, default: false}, // 主题服务包 需生成代金券
@@ -144,6 +151,7 @@ servicePackApply: {type: String}, // 主题服务包申请id
 ### Order api
 
 ### POST:/order
+
 ```js
 /**
  * create 传数组
@@ -211,6 +219,7 @@ await App.service('order').create({
 ```
 
 ### GET:/order
+
 ```js
 // 订单列表 all
 await App.service('order').find();
@@ -246,12 +255,14 @@ await App.service('order').find({
 ```
 
 ### GET:/order/:id
+
 ```js
 // 详情
 await App.service('order').get(_id);
 ```
 
 ### GET:/order/:cancel
+
 ```js
 /**
  * 订单取消/退款
@@ -268,6 +279,7 @@ App.service('order').on('patched', (patchedData) => {
 ```
 
 ### GET:/order/checkLinks
+
 ```js
 /**
  * 检查商品状态
@@ -319,62 +331,71 @@ await App.service('order').get('checkLinks', {
 ```
 
 ### GET:/order/orderRefundCheck
+
 ```js
 // 订单可退款检查
 await App.service('order').get('orderRefundCheck', { query: { id: order._id } });
 ```
 
 ### GET:/order/count
+
 ```js
 // 订单数量统计 unpaid,paid
 await App.service('order').get('count');
 ```
 
 ### GET:/order/cancelTicket
+
 ```js
 // 学校购买,按ticket退款
 await App.service('order').get('cancelTicket', { query: { tickets: ['service-pack-ticket._id', 'service-pack-ticket._id'] } });
 ```
 
 ### GET:/order/cancelBeforePay
+
 ```js
 // 取消未支付订单
-await App.service('order').get('cancelBeforePay', { query: { id: 'order._id'} });
+await App.service('order').get('cancelBeforePay', { query: { id: 'order._id' } });
 ```
 
 ### GET:/order/countPromotionByMonth
+
 ```js
 // 统计一个月内Promotion数量
 await App.service('order').get('countPromotionByMonth', { query: { buyer: 'uid/school-plan._id' } });
 ```
 
 ### GET:/order/promotionServiceId
+
 ```js
 // 该用户已购买的Promotion服务包id 替代users.freeServiceType
 await App.service('order').get('promotionServiceId', { query: { buyer: 'uid/school-plan._id' } });
 ```
 
 ### GET:/order/promotionByBooking
+
 ```js
 // 根据booking查询Promotion赠送订单
 await App.service('order').get('promotionByBooking', { query: { booking: 'session.booking' } });
 ```
 
 ### GET:/order/premiumCloudUnused
+
 ```js
 // 1v1无主题服务包的import 未使用列表(premium_cloud)
 await App.service('order').get('premiumCloudUnused');
 ```
 
 ### GET:/order
+
 ```js
 // prompt已购买未使用,classcipe cloud tab
 await App.service('order').find({ query: { buyer: 'user._id', links: { $elemMatch: { style: 'prompt', used: false } } } });
-
 ```
+
 ### GET:/order/usePrompt
+
 ```js
 // 使用一个prompt
 await App.service('order').get('usePrompt', { query: { uid: 'user._id', prompt: 'prompts._id', sessionId: 'session._id' } });
 ```
-
