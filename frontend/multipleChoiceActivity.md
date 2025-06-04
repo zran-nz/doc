@@ -25,12 +25,6 @@ A quiz builder component used to create and edit multiple choice questions with 
 | `isLandscape`  | Boolean | false   | Adjusts layout scaling for landscape mode           |
 | `readOnly`     | Boolean | false   | If true, disables editing of the quiz               |
 
-### APIs Used
-
-* `videoStore.addQuestion(newQuiz)`: Adds a new question to the video
-* `videoStore.updateQuestion(updatedQuiz)`: Updates an existing question
-* `videoStore.removeQuestion(quizId)`: Deletes a question by ID
-
 ### Stores Used
 
 * `interactiveVideoStore`: Manages video state and interactive questions
