@@ -3,7 +3,9 @@
 
 A feature-rich video player component built with Video.js that supports YouTube/MP4 playback, trimming, interactive markers, and quiz integration.
 
-### ComponentImage(https://github.com/zran-nz/doc/blob/master/image.png?raw=true)
+### Component
+- **Image:** ![VideoPlayer Screenshot](https://github.com/zran-nz/doc/blob/master/image.png?raw=true)
+- **Path:** `web/src/components/VideoPlayer/VideoPlayer.vue`
 
 ### Features
 
@@ -48,5 +50,14 @@ A feature-rich video player component built with Video.js that supports YouTube/
 - `MainModalStud`: Quiz modal for student
 - `EyesUp`: Case study component
 - `CaseStudy`: Case study modal
+
+### URL's where this component is used
+- https://dev.classcipe.com/v2/video/edit/683d24ccea2b20962e8314f6?back=/home/contents
+- https://dev.classcipe.com/v2/video/view/683d24ccea2b20962e8314f6?back=/home/contents
+- https://dev.classcipe.com/v2/com/video/edit/683d24ccea2b20962e8314f6?back=/home/contents&format=video
+- https://dev.classcipe.com/v2/com/video/view/683d24ccea2b20962e8314f6?back=/home/contents&format=video
+- https://dev.classcipe.com/v2/detail/question/683d24ccea2b20962e8314f6?back=/detail/content/me/683d24ccea2b20962e8314f6?back=/home/contents?tab=me%2526mode=video
+- https://dev.classcipe.com/v2/s/C007bKe73?back=%252Fdetail%252Fsession%252F681acb7645b6a165643caddb%253Fback%253D%252Fstudy%252Fclass%253Ftab%253Dprivate%252526subtab%253Dongoing
+- https://dev.classcipe.com/v2/account/takeaway/68340ba412173b08cc1639e6/view/6809dbfa44a8b73200d6e844
 
 ---
