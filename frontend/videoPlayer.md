@@ -3,6 +3,8 @@
 
 A feature-rich video player component built with Video.js that supports YouTube/MP4 playback, trimming, interactive markers, and quiz integration.
 
+### ComponentImage(https://github.com/zran-nz/doc/blob/master/image.png?raw=true)
+
 ### Features
 
 - Video Playback 
