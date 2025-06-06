@@ -1,4 +1,5 @@
 
+## template
 ### template model
 
 ```js
@@ -11,7 +12,13 @@ category: {type: String, required: true}, // 分类，改为前端定义
 default: {type: Boolean, default: false}, // 每个tab下可以设置为默认值 https://github.com/zran-nz/bug/issues/5560
 ```
 
-#### 通过谷歌幻灯片 id 创建模板
+### GET:/template
+```js
+await App.service("template").find({query: {tab, category?}})
+```
+
+### POST:/template
+- 通过谷歌幻灯片 id 创建模板
 
 ```js
 // 查询幻灯片数据
@@ -29,5 +36,11 @@ const questions = await App.service("template").create({
   type: quetions.data.find((v) => v.page === slides.pages[0]._id).type,
   unitName: unit.name,
   category: "$templateCategory",
+  tab: '',
 });
 ```
+
+### todo
+- 创建的时候同事保存快照
+- 提供快照更新接口
+- 排课和课堂中插入改为直接使用快照
