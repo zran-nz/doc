@@ -119,6 +119,11 @@ const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdat
 await App.service("unit-tpl").get("copyTpl", { query: { curricId: 'curric._id', school: 'school-plan._id' }});
 ```
 
+### PATCH:/unit-tpl/setDefault
+```js
+// set default unit+task tpl by unit-tpl.group
+await App.service("unit-tpl").get("setDefault", { group: 'unit-tpl.group', school: 'school-plan._id' }});
+```
 
 ### unit-tpl.snapshot
 - 对模板和tags生成快照, 保存到课件上
