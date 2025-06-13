@@ -36,7 +36,7 @@ links: [
     // gift: {type: Boolean}, // 弃用 更换为promotion
     promotion: {type: Boolean}, // 是否赠品/推广 promotion
     giftCount: {type: Number, default: 0}, // 赠送次数
-    removed: {type: Boolean}, //支付前 被下架或删除; 或已取消已退款
+    removed: {type: Boolean, default: false}, //支付前 被下架或删除; 或已取消已退款
     inviter: {type: String, trim: true}, //分享人
     schoolInviter: {type: String, trim: true}, //分享人为学校 school-plan._id
     inviteSource: {type: String, trim: true, enum: ['new_prompt', 'sales_follow_up']}, //分享来源,new-prompt;sales-follow-up: 销售跟进
@@ -46,12 +46,12 @@ links: [
     packUserTasks: {type: Array}, // Lecture包复购的课件id数组, 预定取消/复购/补买调用
     oldPackUser: {type: String}, // 补买用,主题服务包Lecture加到原来的packUser中
     bookingId: {type: String}, // 认证精品课快照购买支付成功后 自动排课用
-    premiumCloudUnused: {type: Boolean, default: false}, // 认证精品课快照未使用
-    session: {type: String}, // 认证精品课快照未使用 绑定的session._id
+    // premiumCloudUnused: {type: Boolean, default: false}, // 认证精品课快照未使用
+    session: {type: String}, // premium_cloud认证精品课快照未使用 绑定的session._id
     isOnCampus: {type: Boolean, default: false}, // 线上false, 线下true
     country: {type: String, trim: true},
     city: {type: String, trim: true},
-    used: {type: Boolean, default: false}, // prompt被使用
+    used: {type: Boolean, default: false}, // prompt,premium_cloud使用情况
     refundPrice: {type: Number, default: 0}, // 退款金额
     refundPoint: {type: Number, default: 0}, // 退款积分
 },

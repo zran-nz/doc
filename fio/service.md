@@ -956,7 +956,6 @@ await App.service('service-pack-user-logs').find({ query: { packUser: packUser._
 await App.service('service-pack-user').get('checkFree', { query: { ids: ['service-pack-user._id'] } });
 ```
 
-
 ### 获取 booking 中的 lecture 对应的 task 快照
 
 ```js
@@ -1021,7 +1020,7 @@ await App.service('service-booking').patch('cancel', {
 #### 认证精品课快照 自动排课
 
 ```js
-await App.service('service-booking').get('importByBooking', { query: { serviceAuthId, bookingId } });
+await App.service('service-booking').get('importByBooking', { query: { serviceAuthId, bookingId, order: 'order._id' } });
 ```
 
 #### 替代 find userQuery,可按邮箱/手机/classcipeId 查询
