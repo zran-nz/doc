@@ -36,7 +36,7 @@ links: [
     // gift: {type: Boolean}, // 弃用 更换为promotion
     promotion: {type: Boolean}, // 是否赠品/推广 promotion
     giftCount: {type: Number, default: 0}, // 赠送次数
-    removed: {type: Boolean, default: false}, //支付前 被下架或删除; 或已取消已退款
+    removed: {type: Boolean}, //支付前 被下架或删除; 或已取消已退款
     inviter: {type: String, trim: true}, //分享人
     schoolInviter: {type: String, trim: true}, //分享人为学校 school-plan._id
     inviteSource: {type: String, trim: true, enum: ['new_prompt', 'sales_follow_up']}, //分享来源,new-prompt;sales-follow-up: 销售跟进
