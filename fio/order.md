@@ -29,7 +29,7 @@ links: [
     cover: {type: String},
     price: {type: Number},
     point: {type: Number},
-    style: {type: String}, //unit session service self_study service_premium service_substitute premium_cloud prompt
+    style: {type: String}, //unit session service service_premium service_substitute premium_cloud prompt
     goods: {type: Object}, //下单时商品快照
     sessionId: {type: Object}, //捆绑服务包的公开课_id,prompt购买插入的课程
     count: {type: Object}, //服务包次数 不包含赠送次数
@@ -67,7 +67,7 @@ links: [
  * 403.未支付 课件/自学习被下架 Product removed
  * 404.未支付 商品已更新 系统取消
  * 500.已支付 公开课/服务包被购买者取消 canceled by the purchaser
- * 501.已支付 公开课被讲师取消 canceled by the facilitator (session支付前被取消,支付成功退款都为此状态)
+ * 501.已支付 公开课被讲师取消 canceled by the facilitator
  * 502.已支付 公开课因未成团被系统取消 Minimal registration number not met
  * 503.已支付 支付前被下架/删除,支付后立即退款
  */
