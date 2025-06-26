@@ -42,6 +42,7 @@
 - [Message](fio/message.md ":include")
 - [Announcement](fio/announcement.md ":include")
 - [Substitute](fio/substitute.md ":include")
+- [Income](fio/income.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
