@@ -14,26 +14,26 @@ role: {type: String, default: 'user', enum: ['admin', 'user']}, // 发送用户
  * session-takeaway session._id
  */
 type: {
-type: String,
-default: 'service-auth',
-enum: [
-    'service-auth',
-    'service-pack-apply',
-    'school-plan',
-    'service-auth-premium',
-    'classes',
-    'session-takeaway',
-    'prompts',
-    'unit',
-    'service-conf',
-    'ambassador-auth',
-],
+    type: String,
+    default: 'service-auth',
+    enum: [
+        'service-auth',
+        'service-pack-apply',
+        'school-plan',
+        'service-auth-premium',
+        'classes',
+        'session-takeaway',
+        'prompts',
+        'unit',
+        'service-conf',
+        'ambassador-auth',
+    ],
 },
 attachments: {
-// 图片/视频证据
-filename: {type: String, trim: true}, // 文件名
-mime: {type: String, trim: true}, // 文件 MIME
-hash: {type: String, trim: true}, // 文件SHA1, files._id
+    // 图片/视频证据
+    filename: {type: String, trim: true}, // 文件名
+    mime: {type: String, trim: true}, // 文件 MIME
+    hash: {type: String, trim: true}, // 文件SHA1, files._id
 },
 ```
 
