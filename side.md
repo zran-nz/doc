@@ -43,6 +43,7 @@
 - [Announcement](fio/announcement.md ":include")
 - [Substitute](fio/substitute.md ":include")
 - [Income](fio/income.md ":include")
+- [AmbassadorAuth](fio/ambassador-auth.md ":include")
 
 - 课堂 UML
   - [课堂](uml/index)
