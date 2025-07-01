@@ -6,6 +6,7 @@
 uid: {type: String, index: true, required: true},
 role: {type: String, enum: Agl.usersRoles}, // user.roles
 status: {type: Number, index: true, default: 1}, // 0: 未申请/Apply verification, 1:申请中/Under processing, 2: 通过/Verified, -1: 拒绝/Under processing
+reason: {type: String, trim: true},
 attachments: [
   // 附件
   {
