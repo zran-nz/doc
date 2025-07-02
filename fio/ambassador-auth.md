@@ -43,6 +43,8 @@ await App.service('ambassador-auth').create({
 ### PATCH:/ambassador-auth/:id
 
 ```js
-// 通过/拒绝
-await App.service('ambassador-auth').patch('_id', { status: 2 / -1 });
+// 通过
+await App.service('ambassador-auth').patch('_id', { status: 2 });
+// 拒绝
+await App.service('ambassador-auth').patch('_id', { status: -1, reason: '拒绝原因' });
 ```
