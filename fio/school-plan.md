@@ -41,7 +41,7 @@
   attachmentsCurriculum: [
     {
       type: {type: String, trim: true, enum: ['Certificate', 'Foundation', 'Master', 'Bachelor', 'Diploma']},
-      subject: {type: String, trim: true}, // subjects._id
+      subject: {type: Schema.Types.Mixed}, // subjects snapshot
       attachments: {
         filename: {type: String, trim: true},
         mime: {type: String, trim: true},
@@ -65,6 +65,7 @@
 ```
 
 ### Cron:/school-plan
+
 ```js
 // 找出套餐过期，状态处于试用期+正式的学校，更新为过期状态
 // https://github.com/zran-nz/bug/issues/5000
