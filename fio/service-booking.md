@@ -101,3 +101,68 @@ const doc = await App.service("service-booking").create({
   topic?
 });
 ```
+
+#### 老师/学生 取消预约逻辑
+
+```js
+await App.service('service-booking').patch('cancel', {
+    _id: serviceBooking._id,
+});
+```
+
+#### 认证精品课快照 自动排课
+
+```js
+await App.service('service-booking').get('importByBooking', { query: { serviceAuthId, bookingId, order: 'order._id' } });
+```
+
+#### 替代 find userQuery,可按邮箱/手机/classcipeId 查询
+
+```js
+// 查询参数与find一致
+// fieldType: {type: String, enum: ['email', 'mobile', 'classcipeId']}
+await App.service('service-booking').get('find', { query: { userField: 'email@gmail.com', userFieldType: 'email' } });
+```
+
+### 通过 bookingId 批量获取服务包数据
+
+```js
+const {bookingId: {topic, packInfo:{}}} = await App.service('service-booking').get('packListByBookingIds',{query:{_id:[...]}})
+```
+
+
+### 获取 booking 中的 lecture 对应的 task 快照
+
+```js
+await App.service('service-booking').get('lectureTaskSnapshot', { query: { _id: 'booking._id', packUser: 'booking.packUser' } });
+```
+
+### 通过新的预订获取 Lecture 服务包的最后一节结束的预订详情
+
+```js
+await App.service('service-booking').get('lectureLastEnd', { query: { _id: 'booking._id' } });
+```
+
+### 通过预订 ID 获取辅导课 ID
+
+```js
+await App.service('service-booking').get('tutorialPackId', { query: { _id: 'booking._id' } });
+```
+
+### 管家服务 import
+
+```js
+// 通过管家服务的预订ID 获取关联已经结束的课堂预订数据
+const bookingList = await App.service('service-booking').get('byCarer', {query: {_id: bookingId}});
+// 点击查看takeaway的时候标记为已经看过
+await App.service('service-booking').patch(_id, { 'carer.hasView': true });
+// 管家服务import
+await App.service('service-booking').get('importCarer', {query: {_id: bookingId, bookings: ['关联的预订_id数组', ...] }});
+```
+
+### 认证精品课快照购买支付成功后 自动排课
+
+```js
+// 内部接口调用
+await this.app.service('service-booking').importByBooking({ serviceAuthId, bookingId }, params);
+```
