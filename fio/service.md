@@ -151,405 +151,6 @@ ServiceSalesTarget: ['personal', 'school'],
 
 ```
 
-### service-auth model
-
-```js
-uid: {type: String, required: true},
-type: {type: String, required: true, enum: Agl.ServiceType}, // 服务类型
-mentoringType: {type: String, enum: Agl.MentoringType}, // 辅导类型
-enable: {type: Boolean, default: true}, // 是否启用
-serviceRoles: {type: [String], enum: Agl.ServiceRoles, default: Agl.ServiceRoles}, // 可以服务的项目 #4586
-serviceRolesUser: {type: [String], enum: Agl.ServiceRoles, default: Agl.ServiceRoles}, // 用户选择的
-countryCode: {type: [String], trim: true}, // 国家代码
-curriculum: {type: String, trim: true}, // 大纲代码 or 自定义的大纲_id
-subject: {type: String, trim: true}, // 学科_id
-gradeGroup: {type: [String], trim: true}, // 年级组
-grades: {type: [String], trim: true}, // 实际年级
-tags: {type: [String], trim: true}, // 标签
-unit: { // 认证课件
-  _id: {type: String, trim: true}, // unit._id
-  name: {type: String, trim: true}, // 课件名称
-  price: {type: Number}, // 课件价格, 单位 分 = 互动题数量*20
-},
-ability: {type: String, trim: true}, // 学习能力 https://github.com/zran-nz/bug/issues/5030
-styles: {type: [String], trim: true}, // 认知风格
-otherStyles: {type: [String], trim: true}, // 其他风格
-unitSnapshot: {type: Schema.Types.Mixed}, // 认证unit快照 https://github.com/zran-nz/bug/issues/4861
-linkSnapshot: {type: Schema.Types.Mixed}, // unitl link 的课件快照列表
-topic: [{ // 用于 essay, teacherTraining等大纲层级 认证项
-  _id: {type: String, trim: true}, // subjects.topic..._id
-  label: {type: [String], trim: true}, // subjects.topic...name
-}],
-desc: {type: String, trim: true}, // 描述
-status: {type: Number, default: 0}, // 0: 未申请, 1:申请中, 2: 通过, -1: 拒绝
-approval: { // 审批信息
-  submitted: {type: Date}, // 提交时间
-  approved: {type: Date}, // 审核时间
-  approver: {type: String}, // 审核人uid
-},
-attachments: [{ // 附件
-  filename: {type: String, trim: true}, // 文件名
-  mime: {type: String, trim: true}, // 文件 MIME
-  hash: {type: String, trim: true}, // 文件SHA1, files._id
-  date: {type: Date}, // 上传时间
-  type: {type: String, trim: true}, // 认证类型, conf.val.attachmentType
-  size: {type: Number}, // 文件大小
-}],
-versionId: {type: String, trim: true}, // 版本 #4846
-reason: {type: String, trim: true}, // 原因
-inviter: {type: String, trim: true}, //分享人
-qualification: {type: String, trim: true}, // 审核时候选的资质 #4864
-feedback: { // 留言反馈
-  message: {type: String}, // 用户留言内容
-  date: {type: Date}, // 留言时间
-  read: {type: Boolean, default: false}, // read status
-  reply: {type: String}, // 后台回复内容
-  replyDate: {type: Date},
-  replyRead: {type: Boolean, default: false}, // read status
-},
-follower: {type: String}, // 跟进人 user._id
-followedAt: {type: Date}, // 开始跟进时间
-releasedAt: {type: Date}, // 上次释放时间
-schoolOfFollower: {type: String}, // school-plan._id 学校管理员所属学校
-importUsers: {type: [String]}, // 老师预约排课购买的自动排课被取消后，需要加入，可以重复
-interviewInvited: {type: Boolean, default: false}, // 面试邀请是否发送
-interviewPack: {type: String}, // 面试服务包id
-interviewApply: {type: Boolean, default: false}, // 面试已预约
-takeaway: {type: String}, // takeaway
-takeawayCreatedAt: {type: Date},
-```
-
-### 服务认证接口（仅限当前用户）
-
-```js
-// 系统后台 服务认证类型数量统计
-const [{
-  _id: {type, mentoringType, status}, count: 1
-}, ...] = await App.service("service-auth").get("countType");
-
-// 服务认证列表（系统后台）
-await App.service("service-auth").find({query: {$sys: 1, ...}});
-
-// 服务认证列表（用户查看自己的）
-await App.service("service-auth").find({query: {}});
-// 已认证列表
-await App.service("service-auth").find({ query: { status: 2 } });
-// 生成课件快照，在选择课件之后，申请之前请求
-await App.service("service-auth").get('unitSnapshot', {query: {_id: 'service-auth._id', unit: 'unit._id'}})
-// 提交申请
-await App.service("service-auth").patch(doc._id, { status: 1 });
-// 审批申请
-await App.service("service-auth").patch(doc._id, {
-  status: 2 / -1,
-  reason: "",
-});
-```
-
-### import classcipe cloud
-
-> 导入认证精品课列表
-
-```js
-// 课件数据列表
-await App.service('service-auth').get('cloudList', { query: {} });
-```
-
-### 统计被多少服务包关联
-
-```js
-await App.service('service-auth').get('countPackUse', { query: { _id } });
-```
-
-### 认证留言
-
-```js
-// 创建留言
-await App.service('service-auth').patch('message', {_id, message})
-// 后台回复
-await App.service('service-auth').patch('reply', {_id, reply})
-// 标记为已读
-await App.service('service-auth').patch(_id, {'feedback.read': true})
-await App.service('service-auth').patch(_id, {'feedback.replyRead': true})
-// 已读未读过滤条件
-await App.service('service-auth').find({query: {
-  ...,
-  'feedback.read': true/false // 未读
-}})
-```
-
-### 精品课认证数据查询
-
-```js
-// 查询参数参考 service-auth model
-await App.service('service-auth').get('unit', query: {
-  countryCode?, // 国家代码
-  curriculum?, // 大纲代码 or 自定义的大纲_id
-  subject?, // 学科_id
-  gradeGroup?, // 年级组
-  ...
-})
-
-```
-
-### 服务认证接口（任何人）
-
-```js
-// 查询某个老师的已认证列表
-await App.service('service-auth').get('listByUid', {
-    query: { uid: 'user._id' },
-});
-```
-
-### 服务认证日期范围查询
-
-```js
-await App.service("service-auth").find({
-  query: { dateRange: [start, end, zone?] },
-});
-
-```
-
-### 服务认证协同审批
-
-```js
-// claim
-await App.service('service-auth').patch('service-auth._id', { follower: 'uid', followedAt: new Date() });
-
-// unclaim stop
-await App.service('service-auth').patch('service-auth._id', { $unset: { follower: '', followedAt: '' }, releasedAt: new Date() });
-
-// 获取follower列表 按项目数排序 字段count为项目数
-await App.service('service-auth').get('groupByFollower');
-
-// by me
-await App.service('service-auth').find({ query: { follower: user._id } });
-// by others
-await App.service('service-auth').find({ query: { follower: { $ne: user._id, $exists: true } } });
-// unclaimed
-await App.service('service-auth').find({ query: { follower: { $exists: false } } });
-// by me + by others
-await App.service('service-auth').find({ query: { follower: { $exists: true } } });
-// by me + unclaimed
-await App.service('service-auth').find({
-    query: {
-        $or: [{ follower: user._id }, { follower: { $exists: false } }],
-    },
-});
-// by others + unclaimed
-await App.service('service-auth').find({
-    query: {
-        $or: [{ follower: { $ne: user._id, $exists: true } }, { follower: { $exists: false } }],
-    },
-});
-```
-
-### 服务认证协同审批
-
-```js
-// 发送面试邀请
-await App.service('service-auth').patch('service-auth._id', { interviewInvited: true, interviewPack: 'service-pack._id' });
-
-// 面试手动return
-await App.service('service-auth').get('interviewReturn', { query: { id: 'service-auth._id' } });
-```
-
-## 用户服务配置
-
-### service-conf model
-
-```js
-  rating: {type: Number}, // 好评
-  introduction: {type: String, trim: true}, // 自我介绍
-  audio: {type: String, trim: true}, // 音频文件 hash files._id
-  audioTime: {type: Number}, // 音频时长（秒）
-  hours: {type: [[Date]]}, // 一周服务可用时间段 [[start, end], ...]
-  // validDate: {type: [[Date]]}, // 有效日期, 当前用户的一天的开始时间, 格式: [[start, end], ...]
-  holiday: {type: [[Date]]}, // 假日日期,  格式: [[start, end], ...]
-  enable: {type: Schema.Types.Mixed}, // 服务启用状态, {[`${type}${mentoringType}`]: true, ...}
-  serviceRoles: {type: [String], enum: Agl.ServiceRoles, default: Agl.ServiceRoles}, // 可以服务的项目 #4586
-  fans: {type: Number, default: 0}, // 收藏的数量
-  // 以下字段用于索引，数据在更新的时候自动生成
-  hoursIndex: {type: [[String]]}, // 自动生成，用于时间段匹配查询
-  hoursMax: {type: Number}, // 取最大时间段的分钟数，用于查询老师
-  /*
-  按服务包的认证项 认证通过时间来排序 #4455
-  认证项: 认证通过时间
-  */
-  sort: {type: Schema.Types.Mixed},
-  // 滞后显示：若老师terminate/cancel了超过1/3的被预约辅导课
-  lag: {type: Boolean, default: false}, // (cancel+terminate)/booking > 1/3
-  count: {
-    rate: {type: Number}, // 好评，比率 ＝ 1-(count.accident/count.rating)
-    rating: {type: Number}, // 总的评价次数
-    accident: {type: Number}, // 教学事故次数
-    booking: {type: Number, default: 0}, // 每收到预约 +1
-    cancel: {type: Number, default: 0}, // 取消一次 +1
-    terminate: {type: Number, default: 0}, //
-  },
-
-  country: {type: String, trim: true},
-  city: {type: String, trim: true},
-  address: {type: String, trim: true},
-  place_id: {type: String, trim: true},
-  location: {
-    type: {
-      type: String,
-      enum: ['Point'],
-      default: 'Point',
-    },
-    coordinates: {
-      type: [Number],
-    },
-  },
-  serviceRadius: {type: Number}, // in meters
-  attachmentsAddress: {
-    filename: {type: String, trim: true}, // 文件名
-    mime: {type: String, trim: true}, // 文件 MIME
-    hash: {type: String, trim: true}, // 文件SHA1, files._id
-  },
-  attachmentsVetting: {
-    filename: {type: String, trim: true}, // 文件名
-    mime: {type: String, trim: true}, // 文件 MIME
-    hash: {type: String, trim: true}, // 文件SHA1, files._id
-  },
-  vettingDate: {type: Date},
-  status: {type: Number, default: 0}, // 0: 未申请/Apply verification, 1:申请中/Under processing, 2: 通过/Verified, -1: 拒绝/Under processing
-  vettingReminder: {type: Boolean, default: false}, // 审批过期时间少于30天提醒
-  feedback: {
-    // 留言反馈
-    message: {type: String}, // 用户留言内容
-    date: {type: Date}, // 留言时间
-    read: {type: Boolean, default: false}, // read status
-    reply: {type: String}, // 后台回复内容
-    replyDate: {type: Date},
-    replyRead: {type: Boolean, default: false}, // read status
-  },
-  reason: {type: String, trim: true},
-```
-
-### 用户服务配置接口
-
-```js
-// 获取用户的服务配置
-const doc = await App.service("service-conf").get(pub.user._id).catch(async (e) => {
-  if(e.code === 404) return await App.service("service-conf").create({_id: pub.user._id, hours: []})
-})
-// 设置一周服务可用时间, 格式
-await App.service("service-conf").patch(pub.user._id, {hours: [[start, end], ['2024-01-18T05:00:00.000Z', '2024-01-18T12:00:00.000Z'], ...]})
-// 设置假日日期, 当前用户的一天的开始时间
-await App.service("service-conf").patch(pub.user._id, {holiday:  [[start, end], ['2024-01-18T05:00:00.000Z', '2024-01-18T12:00:00.000Z'], ...]})
-
-```
-
-### 启用/禁用服务
-
-```js
-// 启用服务
-await App.service("service-conf").patch(pub.user._id, {[`enable.${type}:${mentoringType}`]: true]})
-// 禁用服务
-await App.service("service-conf").patch(pub.user._id, {[`enable.${type}:${mentoringType}`]: false]})
-```
-
-### 查找可预约的老师列表
-
-```js
-// 可预约的老师列表 通过服务包查找
-const {
-  total, limit, skip,
-  data: [{
-    rating,
-    introduction,
-    audio,
-    audioTime,
-    hours,
-    holiday,
-    enable,
-    owner: {_id, name, avatar, email},
-    auths: [{ // 已认证的服务项目
-      type, mentoringType, countryCode, curriculum, subject, gradeGroup
-    }, ...]
-  }, ...]
-} = await App.service('service-conf').get('teachersByPack', {query: {
-  search: 'xxx', // users.name 老师名称
-  packUserId: 'servive-pack-user._id',
-  subject?: [],
-  topic?: [],
-  hours?: [start, end], // 按指定时间段查询老师
-  gradeGroup?: ['', ...], // 按年级段过滤老师，不传则以服务包限制为准
-  $sort: { // 排序, 值为 1 或 -1
-    fans?, // 按粉丝
-    'count.rate'? // 按好评比率
-  }
-}})
-```
-
-### 批量查询多个老师最近几天，每日可预约的次数
-
-```js
-// 批量查询多个老师最近几天的冲突时间段
-const {
-  booking: [{
-    servicer, start, end
-  }],
-  session: [{
-    uid, start, end
-  }]
-} = await App.service('service-conf').get('recentDaysHours', query: {uid: ['xxx', ...], days: 14})
-
-// 批量计算多个老师的最近几日可预约次数
-confStore.getRecentDays(data: 找老师接口列表的数据, days: 天数, blockTime: 预订多少分钟的课)
-data: [{_id, hoursIndex, ...}, ...]
-
-// 这里是例子，实际需要通过找老师接口获取老师列表
-const rs = await App.service('service-conf').find({query: {$sort: {_id: -1}}})
-// 批量计算可用次数
-const list = await confStore.getRecentDays(rs.data, 10, 60)
-console.log(list)
-list: {[uid]: {[day]: count, ...}, ...}
-```
-
-### 线下助教 个体用户线下服务认证
-
-```js
-service-conf._id=uid
-// 地址必须是从google接口搜索出来的,且必须要带该地址的place_id
-// google地址获取接口:/fio/maps/address/${country}?q=${query} 参考web-PubSelect-find的city获取
-await App.service('service-conf').patch('_id', {
-    address: 'desc',
-    place_id: 'place_id',
-});
-```
-
-### 统计认证老师数量
-
-```js
-const {
-  countryCode: { 'AU': [{...}], ...},
-  curriculum: { 'au': [{...}], ...},
-  subject: { '64d99bcc0476f7faf45ef0d8': [{...}], ...},
-  gradeGroup: { 'Intermediate': [{...}], ...},
-  topic: {'topic._id': [{...}], ...}
-  serviceRoles: {'mentoring|substitute|...': [{...}], ...}
-} = await App.service("service-auth").get("groups", { query: { type, mentoringType?, curriculum?, countryCode?, subject?, gradeGroup?, 'topic._id'? } });
-
-// const {
-//   curriculum: { 'au': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
-//   gradeGroup: { 'Intermediate': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
-//   subject: { '64d99bcc0476f7faf45ef0d8': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
-//   countryCode: { 'AU': {-1: 0, 0: 1, 1: 1, 2: 1}, ...},
-// } = await App.service("service-auth").get("stats", { query: { type, mentoringType? } });
-```
-
-### 认证的课件按 topic.\_id 统计数量
-
-```js
-const {
-  $topic._id: $count,
-  '66506185267ada5104400226': 2,
-  ...
-} = await App.service("service-auth").get("groupTopic", { query: {type, mentoringType, curriculum, subject}});
-```
-
 ### 老师发布公开课捆绑服务包
 
 ```js
@@ -564,7 +165,6 @@ await App.service("serssion").create({
   },
 });
 ```
-
 
 ### service-pack-user-logs model
 
@@ -593,7 +193,6 @@ packUserData: [
 session: {type: String}, // session._id
 packUserSnapshot: {type: Schema.Types.Mixed}, // service-pack-user 快照
 ```
-
 
 ### 支付完成创建用户的服务包
 
@@ -656,9 +255,10 @@ await this.service("service-pack-user-data").usedSubstitute({...})
 
 ```js
 // 根据服务包id, 查询使用记录
-await App.service('service-pack-user-logs').find({ query: { packUser: packUser._id } });
+await App.service("service-pack-user-logs").find({
+  query: { packUser: packUser._id },
+});
 ```
-
 
 #### 老师对预约进行排课
 
@@ -674,9 +274,8 @@ await App.service("session").create({
 
 ```js
 // - 从 session 中点击取消，删除 session 本身
-await App.service('session').remove(sessionId);
+await App.service("session").remove(sessionId);
 ```
-
 
 ## 用户评价数据
 
@@ -742,14 +341,14 @@ servicer: {type: [String], required: true}, // 服务者
 
 ```js
 // 我关注的老师数据
-await App.service('service-fans').get(pub.user._id);
+await App.service("service-fans").get(pub.user._id);
 // 关注老师
-await App.service('service-fans').patch(pub.user._id, {
-    $addToSet: { servicer: 'user._id' },
+await App.service("service-fans").patch(pub.user._id, {
+  $addToSet: { servicer: "user._id" },
 });
 // 取消关注
-await App.service('service-fans').patch(pub.user._id, {
-    $pull: { servicer: 'user._id' },
+await App.service("service-fans").patch(pub.user._id, {
+  $pull: { servicer: "user._id" },
 });
 ```
 
@@ -757,70 +356,70 @@ await App.service('service-fans').patch(pub.user._id, {
 
 ```js
 // service-pack create > publish > buy
-var doc = await App.service('service-pack').create({
-    name: Date.now().toString(32),
-    points: ['test points', 'test points2'],
-    type: 'mentoring',
-    mentoringType: 'academic',
-    curriculum: 'au',
-    subject: ['64d99bcc0476f7faf45ef0d8'],
-    gradeGroup: ['Intermediate'],
-    price: 1000,
-    discount: [{ count: 10, discount: 90 }],
-    freq: 7,
-    duration: 30,
-    break: 10,
+var doc = await App.service("service-pack").create({
+  name: Date.now().toString(32),
+  points: ["test points", "test points2"],
+  type: "mentoring",
+  mentoringType: "academic",
+  curriculum: "au",
+  subject: ["64d99bcc0476f7faf45ef0d8"],
+  gradeGroup: ["Intermediate"],
+  price: 1000,
+  discount: [{ count: 10, discount: 90 }],
+  freq: 7,
+  duration: 30,
+  break: 10,
 });
-await App.service('service-pack').patch(doc._id, { status: true });
+await App.service("service-pack").patch(doc._id, { status: true });
 // buy in api
-var packUser = await App.service('service-pack-user').get('buyByOrder', {
-    query: {
-        packId: '65b47af5a70318050560dc25',
-        order: '65b45c361e0529e3d990cc19',
-        total: 10,
-    },
+var packUser = await App.service("service-pack-user").get("buyByOrder", {
+  query: {
+    packId: "65b47af5a70318050560dc25",
+    order: "65b45c361e0529e3d990cc19",
+    total: 10,
+  },
 });
 
 // teacher auth, create > apply
-var confDoc = await App.service('service-conf')
-    .get(pub.user._id)
-    .catch(async (e) => {
-        if (e.code === 404)
-            return await App.service('service-conf').create({
-                _id: pub.user._id,
-                hours: [],
-            });
-    });
-confDoc = await App.service('service-conf').patch(confDoc._id, {
-    introduction: 'test introduction',
+var confDoc = await App.service("service-conf")
+  .get(pub.user._id)
+  .catch(async (e) => {
+    if (e.code === 404)
+      return await App.service("service-conf").create({
+        _id: pub.user._id,
+        hours: [],
+      });
+  });
+confDoc = await App.service("service-conf").patch(confDoc._id, {
+  introduction: "test introduction",
 });
-var doc = await App.service('service-auth').create({
-    type: 'mentoring',
-    mentoringType: 'academic',
-    curriculum: 'au',
-    subject: '64d99bcc0476f7faf45ef0d8',
-    gradeGroup: ['Intermediate'],
-    grades: ['Grade 1', 'Grade 2'],
+var doc = await App.service("service-auth").create({
+  type: "mentoring",
+  mentoringType: "academic",
+  curriculum: "au",
+  subject: "64d99bcc0476f7faf45ef0d8",
+  gradeGroup: ["Intermediate"],
+  grades: ["Grade 1", "Grade 2"],
 });
 // 提交申请
-await App.service('service-auth').patch(doc._id, { status: 1 });
+await App.service("service-auth").patch(doc._id, { status: 1 });
 // 通过申请
-await App.service('service-auth').patch(doc._id, { status: 2 });
+await App.service("service-auth").patch(doc._id, { status: 2 });
 
 // 老师列表通过服务包查找
-await App.service('service-conf').get('teachersByPack', {
-    query: { packUserId: packUser._id, subject: ['64d99bcc0476f7faf45ef0d8'] },
+await App.service("service-conf").get("teachersByPack", {
+  query: { packUserId: packUser._id, subject: ["64d99bcc0476f7faf45ef0d8"] },
 });
 // 创建预约
 var nt = Date.now();
-await App.service('service-booking').create({
-    packUser: '65b9c284b5d0b55bf51037de',
-    servicer: '634b275c15c7439ecd28d610',
-    start: new Date(nt + 3600000).toISOString(),
-    end: new Date(nt + 3600000 * 2).toISOString(),
-    duration: 30,
-    times: 2,
-    message: 'test message',
+await App.service("service-booking").create({
+  packUser: "65b9c284b5d0b55bf51037de",
+  servicer: "634b275c15c7439ecd28d610",
+  start: new Date(nt + 3600000).toISOString(),
+  end: new Date(nt + 3600000 * 2).toISOString(),
+  duration: 30,
+  times: 2,
+  message: "test message",
 });
 ```
 
@@ -898,34 +497,54 @@ await App.service('service-booking').create({
 
 ```js
 // 创建
-await App.service('service-pack-apply').create({ uid: 'user._id', servicePack: 'service-pack._id', sharedSchool: 'school-plan._id' });
+await App.service("service-pack-apply").create({
+  uid: "user._id",
+  servicePack: "service-pack._id",
+  sharedSchool: "school-plan._id",
+});
 
 // withdraw
-await App.service('service-pack-apply').patch('_id', { status: 0 });
+await App.service("service-pack-apply").patch("_id", { status: 0 });
 
 // find
-await App.service('service-pack-school-price').find({ query: { uid: 'user._id', servicePack: 'service-pack._id', sharedSchool: 'school-plan._id' } });
+await App.service("service-pack-school-price").find({
+  query: {
+    uid: "user._id",
+    servicePack: "service-pack._id",
+    sharedSchool: "school-plan._id",
+  },
+});
 
 // 按mentoringType统计
-await App.service('service-pack-apply').get('countType');
+await App.service("service-pack-apply").get("countType");
 
 // 校内外统计
-await App.service('service-pack-apply').get('count', { query: { sharedSchool: 'school-plan._id', status, servicePack, archive } });
+await App.service("service-pack-apply").get("count", {
+  query: { sharedSchool: "school-plan._id", status, servicePack, archive },
+});
 
 // 当前面试服务包下,可预约面试的申请
-await App.service('service-pack-apply').find({ query: { status: 0, interviewInvited: true, interviewPack: 'service-pack._id' } });
+await App.service("service-pack-apply").find({
+  query: {
+    status: 0,
+    interviewInvited: true,
+    interviewPack: "service-pack._id",
+  },
+});
 
 // 单独更新报价 需同时更新字段purchaseExpireAt
-await App.service('service-pack-apply').patch('_id', {
-    contentOrientated: [],
-    purchaseExpireAt: Date.now() + 7 * 24 * 3600 * 1000,
+await App.service("service-pack-apply").patch("_id", {
+  contentOrientated: [],
+  purchaseExpireAt: Date.now() + 7 * 24 * 3600 * 1000,
 });
 
 // 重置面试数据
-await App.service('service-pack-apply').get('interviewReturn', { query: { id: '_id' } });
+await App.service("service-pack-apply").get("interviewReturn", {
+  query: { id: "_id" },
+});
 
 // 获取follower列表 按项目数排序 字段count为项目数
-await App.service('service-pack-apply').get('groupByFollower');
+await App.service("service-pack-apply").get("groupByFollower");
 ```
 
 ### 机构售卖分享设置
@@ -956,16 +575,25 @@ await App.service('service-pack-apply').get('groupByFollower');
 
 ```js
 // 创建
-await App.service('service-pack-school-price').create({ school: 'school-plan._id', servicePack: 'service-pack._id' });
+await App.service("service-pack-school-price").create({
+  school: "school-plan._id",
+  servicePack: "service-pack._id",
+});
 
 // 更新
-await App.service('service-pack-school-price').patch('_id', { priceEnable: false });
+await App.service("service-pack-school-price").patch("_id", {
+  priceEnable: false,
+});
 
 // find
-await App.service('service-pack-school-price').find({ query: { school: 'school-plan._id', servicePack: 'service-pack._id' } });
+await App.service("service-pack-school-price").find({
+  query: { school: "school-plan._id", servicePack: "service-pack._id" },
+});
 
 // 统计
-await App.service('service-pack-school-price').get('count', { query: { school: 'service-pack._id' } });
+await App.service("service-pack-school-price").get("count", {
+  query: { school: "service-pack._id" },
+});
 ```
 
 ### 机构购买代金券信息
@@ -997,9 +625,13 @@ await App.service('service-pack-school-price').get('count', { query: { school: '
 
 ```js
 // 分配
-await App.service('service-pack-ticket').get('claim', { query: { id: 'service-pack-ticket._id', uid: 'uid' } });
+await App.service("service-pack-ticket").get("claim", {
+  query: { id: "service-pack-ticket._id", uid: "uid" },
+});
 // 取消分配
-await App.service('service-pack-ticket').get('disclaim', { query: { ids: ['service-pack-ticket._id'] } });
+await App.service("service-pack-ticket").get("disclaim", {
+  query: { ids: ["service-pack-ticket._id"] },
+});
 ```
 
 ### service-auth-message model
@@ -1025,8 +657,13 @@ await App.service('service-pack-ticket').get('disclaim', { query: { ids: ['servi
 
 ```js
 // 创建
-await App.service('service-auth-message').create({ rid: 'service-auth._id', message });
+await App.service("service-auth-message").create({
+  rid: "service-auth._id",
+  message,
+});
 
 // 列表
-await App.service('service-auth-message').find({ query: { rid: 'service-auth._id', $sort: { createdAt: -1 } } });
+await App.service("service-auth-message").find({
+  query: { rid: "service-auth._id", $sort: { createdAt: -1 } },
+});
 ```
