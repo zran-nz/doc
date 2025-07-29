@@ -1,5 +1,5 @@
+## unit-tpl
 
-## unit-tpl 
 ### unit-tpl model
 
 ```js
@@ -30,42 +30,54 @@
 ### Platform Default unit-tpl api
 
 ### GET:/unit-tpl/pdUnit
+
 ```js
 // get pd default unit-tpl
 await App.service("unit-tpl").get("pdUnit");
 ```
+
 ### GET:/unit-tpl/pdTask
+
 ```js
 // get pd default task-tpl
 await App.service("unit-tpl").get("pdTask");
 ```
+
 ### GET:/unit-tpl/task
+
 ```js
 // get task sys default unit-tpl
 await App.service("unit-tpl").get("task", { query: { curriculum: "au" } });
 ```
+
 ### GET:/unit-tpl/unit
+
 ```js
 // get unit sys default unit-tpl
 await App.service("unit-tpl").get("unit", { query: { curriculum: "au" } });
 ```
 
 ### GET:/unit-tpl/:id
+
 ```js
 // get unit-tpl one
-const doc = await App.service('unit-tpl').get('unit-tpl._id')
+const doc = await App.service("unit-tpl").get("unit-tpl._id");
 ```
+
 ### GET:/unit-tpl
+
 ```js
 // get unit-tpl list
-const doc = await App.service('unit-tpl').find({query: {school: 'school._id'}})
+const doc = await App.service("unit-tpl").find({
+  query: { school: "school._id" },
+});
 ```
+
 ### unit-tpl api
 
 ```js
 // get default school user unit-tpl
 let doc = await App.service('conf-user').get('UnitTplDefault')
-let doc = await App.service('conf-user').create({key: 'UnitTplDefault', val: {}})
 // set default school user unit-tpl
 let rs = await App.service('conf-user').patch(doc._id, {val: {
   personal: unit-tpl._id, // for personal
@@ -114,17 +126,22 @@ const doc = await App.service('unit-tpl').patch(_id, {$pull: {data: {_id: subdat
 ```
 
 ### GET:/unit-tpl/copyTpl
+
 ```js
 // create unit and task tpl from sys tpl
-await App.service("unit-tpl").get("copyTpl", { query: { curricId: 'curric._id', school: 'school-plan._id' }});
+await App.service("unit-tpl").get("copyTpl", {
+  query: { curricId: "curric._id", school: "school-plan._id" },
+});
 ```
 
 ### PATCH:/unit-tpl/setDefault
+
 ```js
 // set default unit+task tpl by unit-tpl.group
 await App.service("unit-tpl").get("setDefault", { group: 'unit-tpl.group', school: 'school-plan._id' }});
 ```
 
 ### unit-tpl.snapshot
-- 对模板和tags生成快照, 保存到课件上
+
+- 对模板和 tags 生成快照, 保存到课件上
 - 在首次创建和切换模板的时候会调用

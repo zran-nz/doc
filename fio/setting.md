@@ -1,12 +1,15 @@
 ### List of country codes
+
 `await App.service('conf').get('CountryCodes')`
+
 > https://dev.classcipe.com/fio/conf/CountryCodes
 
 ### City search
+
 > /fio/maps/city/{CountryCodes}?q={search}
 
-
 ### Unit/Task/PD Tpl Public Config
+
 ```js
 await App.service('conf').get('UnitTpl')
 await App.service('conf').get('TaskTpl')
@@ -29,6 +32,7 @@ await App.service('conf').get('PdTaskTpl')
 ```
 
 ### Grade list model
+
 ```js
 {
   _id: String,
@@ -41,7 +45,9 @@ await App.service('conf').get('PdTaskTpl')
   }, ....]
 }
 ```
+
 ### Grades api
+
 ```js
 // get current grades conf
 await curriculum.gradeConf(pub.getSchoolOrUserId)
@@ -62,17 +68,18 @@ const doc = await App.service(model).patch(doc._id, {val: {...}})
 ```
 
 ### Curriculum (Deprecated)
+
 > get personal Curriculum
-`App.service('conf-user').get('Curriculum')`
+> `App.service('conf-user').get('Curriculum')`
 
 > get school Curriculum
-`App.service('conf-school').get('get', { query: { key: 'Curriculum', rid: schoolId }})`
+> `App.service('conf-school').get('get', { query: { key: 'Curriculum', rid: schoolId }})`
 
 > patch school Curriculum
-`App.service('conf-school').patch(_id, {'val.{subjects}.{curriculumn}': [...subjects]})`
-
+> `App.service('conf-school').patch(_id, {'val.{subjects}.{curriculumn}': [...subjects]})`
 
 ### Teacher outline tag
+
 ```js
 // get outline tags
 await App.service('conf-user').get('OutlineTags')
@@ -85,6 +92,7 @@ await App.service('conf-user').patch(doc._id, {[`val.${schoolID}`]: ['test', ...
 ## Tags
 
 ### tags model
+
 ```js
 {
   _id: String,
@@ -107,58 +115,61 @@ await App.service('conf-user').patch(doc._id, {[`val.${schoolID}`]: ['test', ...
 4、新增的标签 分类为在当前分类
 
 - 获取平台标签
-  - ```await App.service('tags').get('pubList')```
+  - `await App.service('tags').get('pubList')`
   - 指定分类下的标签
-    - ```await App.service('tags').get('pubList', { query: { set: ['Task types', 'Inquiry stages'] }})```
+    - `await App.service('tags').get('pubList', { query: { set: ['Task types', 'Inquiry stages'] }})`
 - 获取标签
-  - ```await App.service('tags').get('list')```
+  - `await App.service('tags').get('list')`
   - 指定分类下的标签
-    - ```await App.service('tags').get('list', { query: { set: ['Task types', 'Inquiry stages'] }})```
+    - `await App.service('tags').get('list', { query: { set: ['Task types', 'Inquiry stages'] }})`
 - 新增分类
   - 对当前身份不重复
-  - ```await App.service('tags').create({set: 'test'})```
+  - `await App.service('tags').create({set: 'test'})`
 - 新增分类同时设置标签 (当前身份下标签重复也会不成功)
-  - ```await App.service('tags').create({set: 'test', tags: ['test1', 'test2']})```
+  - `await App.service('tags').create({set: 'test', tags: ['test1', 'test2']})`
 - 新增标签 (单个分类下可以批量操作)
   - 对当前身份不重复
-  - ```await App.service('tags').patch('62937c447fdb088d59cfc366', {$addToSet: { tags: ['test', 'test1'] }})```
+  - `await App.service('tags').patch('62937c447fdb088d59cfc366', {$addToSet: { tags: ['test', 'test1'] }})`
 - 删除标签 (单个分类下可以批量操作)
-  - ```await App.service('tags').patch('62937c447fdb088d59cfc366', {$pull: { tags: ['test'] }})```
+  - `await App.service('tags').patch('62937c447fdb088d59cfc366', {$pull: { tags: ['test'] }})`
 - 删除分类及标签
-  - ```await App.service('tags').remove('62937c447fdb088d59cfc366')```
+  - `await App.service('tags').remove('62937c447fdb088d59cfc366')`
 
-> 标签iframe引用
-- 个人身份      /v2/com/tags?token={token}
-- 学校老师身份  /v2/com/tags/{schoolId}?token={token}
-- 学校身份      /v2/com/tags/school/{schoolId}?token={token}
-- 平台管理页面  /v2/sys/tags?uid=1
+> 标签 iframe 引用
 
+- 个人身份 /v2/com/tags?token={token}
+- 学校老师身份 /v2/com/tags/{schoolId}?token={token}
+- 学校身份 /v2/com/tags/school/{schoolId}?token={token}
+- 平台管理页面 /v2/sys/tags?uid=1
 
 ### Unit relate link group tags
+
 ```js
 // Get link group tags
 // get public tags: 'Inquiry stages'
-const [inquiryStages] = await App.service('tags').get('pubList', { query: { set: ['Inquiry stages'] }})
+const [inquiryStages] = await App.service("tags").get("pubList", {
+  query: { set: ["Inquiry stages"] },
+});
 // get personal Group tag
-const doc = await App.service('conf-user').get('UnitSet')
+const doc = await App.service("conf-user").get("UnitSet");
 
 // add personal Group tag
-await App.service('conf-user').patch(doc._id, { $addToSet: { val: 'test' }})
+await App.service("conf-user").patch(doc._id, { $addToSet: { val: "test" } });
 // remove personal Group tag
-await App.service('conf-user').patch(doc._id, { $pull: { val: 'test' }})
+await App.service("conf-user").patch(doc._id, { $pull: { val: "test" } });
 
 // Get the group tags last selected
-const lastDoc = await App.service('conf-user').get('UnitSetLast')
+const lastDoc = await App.service("conf-user").get("UnitSetLast");
 
 // Save the group tags last selected
-await App.service('conf-user').patch(lastDoc._id, { val: selected})
+await App.service("conf-user").patch(lastDoc._id, { val: selected });
 ```
 
 ### schedule session category
+
 ```js
 // get category
 let doc = await App.service('conf-user').get('SessionCategory')
-if (!doc) doc = await App.service('conf-user').create({key: 'SessionCategory', val: []})
 
 // add category
 await App.service('conf-user').patch(doc._id, {$addToSet: {val: {name: '', color: ''}}})
