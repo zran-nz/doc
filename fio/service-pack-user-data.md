@@ -104,6 +104,16 @@ this.app.service('service-pack-user-data').add({
     await this.app.service('service-pack-user-logs').create(logs)
   ```
 
+-   销售跟踪列表数据处理,根据次数,付费等数据,更新销售跟踪列表数据
+    ```js
+    this.app.service('sales-follow-up').handleFollowUpPaid(packUser);
+    ```
+-   同步 ticket 可用次数
+    ```js
+    if (!isClaim) {
+        this.app.service('service-pack-ticket').updateCount({ userData: rs });
+    }
+    ```
 ### service-pack-user-data:used
 
 ```js
