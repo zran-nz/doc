@@ -11,3 +11,4 @@
 | cn website | https://classcipe.cn | https://app.classcipe.cn |
 | cn dev website | https://dev.classcipe.cn | https://devroom.classcipe.cn |
 | cn test website | https://test.classcipe.cn |  |
+| dev api3 ip | 13.238.184.27:3000 |  |
