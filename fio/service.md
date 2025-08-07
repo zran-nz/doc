@@ -555,6 +555,7 @@ await App.service("service-pack-apply").get("groupByFollower");
   school: {type: String}, // school-plan._id
   servicePack: {type: String, required: true}, // service-pack._id
   priceEnable: {type: Boolean, default: false}, // 价格设置
+  info: {type: String, trim: true}, // course info
   contentOrientated: [
     {
       premium: {type: String}, // contentOrientated === true 才有，取认证过的精品课
