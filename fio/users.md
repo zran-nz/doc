@@ -1,4 +1,5 @@
 ## Users
+
 ### Users model
 
 ```js
@@ -55,25 +56,32 @@ agreedToTerms: {type: Boolean, default: false}, // terms and conditions agreed t
 [ServiceType](/fio/service?id=enum)
 
 ### GET:/users/checkAccount
+
 ```js
 // 检测账号是否存在, mobile, email, emergencyContact 选一
 await App.service('users').get('checkAccount', {
     query: { email, mobile, emergencyContact },
 });
 ```
+
 ### GET:/users/captcha
+
 ```js
 // 获取验证码, mobile, email, emergencyContact 选一
 await App.service('users').get('captcha', {
     query: { email, mobile, emergencyContact },
 });
 ```
+
 ### GET:/users/captchaById
+
 ```js
 // 获取验证码 students.id
-await App.service('users').get('captchaById', { query: { id: 'students.id' } })
+await App.service('users').get('captchaById', { query: { id: 'students.id' } });
 ```
+
 ### GET:/users/checkCaptcha
+
 ```js
 // 验证码检查
 await App.service('users').get('checkCaptcha', {
@@ -82,6 +90,7 @@ await App.service('users').get('checkCaptcha', {
 ```
 
 ### POST:/users
+
 ```js
 // 创建账号 mobile, email 二选一
 await App.service('users').create({
@@ -99,12 +108,14 @@ AppLocalLogin(email / mobile, password);
 ```
 
 ### GET:/users/studentId
+
 ```js
 // 通过学生 ID 查询用户
 await App.service('users').get('studentId', { query: { studentId: 'xxxx' } });
 ```
 
 ### PATCH:/users/forgetPassword
+
 ```js
 // 设置密码
 await App.service('users').patch('forgetPassword', {
@@ -116,14 +127,16 @@ await App.service('users').patch('forgetPassword', {
 ```
 
 ### PATCH:/users/changePassword
+
 ```js
 // 更新密码
 await App.service('users').patch('changePassword', { oldPassword, password });
 ```
 
-
 ### PATCH:/users/:id
-- 更新用户信息
+
+-   更新用户信息
+
 ```js
 // 更新邮箱
 await App.service('users').patch(user._id, {captcha, email})
@@ -134,13 +147,22 @@ await App.service('users').patch(user._id, {studentExt: {...}})
 ```
 
 ### GET:/users/googleEmail
+
 ```js
 // 获取 google 登录的邮箱
 await App.service('users').get('googleEmail');
 ```
 
 ### GET:/users/googleEmailSync
+
 ```js
 // 更新账号的邮箱为 google 登录的邮箱
 await App.service('users').get('googleEmailSync');
+```
+
+### PATCH:/users/bindInviter/:id
+
+```js
+// 更新用户inviter
+await App.service('users').patch('bindInviter', { inviter: 'inviteCode' });
 ```
