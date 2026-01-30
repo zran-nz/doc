@@ -208,7 +208,7 @@ curl -X POST -F "file=@./index.html" https://dev.classcipe.com/fio/tool/upfileTm
 # 产线
 curl -X POST -F "file=@./index.html" https://classcipe.com/fio/tool/upfileTmp
 ```
-> 返回
+> 返回结果取 _id 即可
 ```json
 {
     "_id":"8b3861a7c59d33f651ee90629bf5d2a045e3638b",
