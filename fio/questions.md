@@ -14,9 +14,9 @@ tips: {type: String, trim: true},
 data: {type: String, trim: true}, // url or video question desc
 cpa: {
     status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认
-    curriculum: {type: String},
+    curriculum: {type: String}, // 大纲代码
     curriculumName: {type: String},
-    subject: {type: String},
+    subject: {type: String}, // 学科id
     subjectName: {type: String},
     grade: {type: String},
     outcome: {type: String},
