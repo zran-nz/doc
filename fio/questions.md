@@ -251,13 +251,35 @@ curl -X POST -F "file=@./index.html" https://classcipe.com/fio/tool/upfileTmp
 - 开发环境: https://r2dev.classcipe.com/8b3861a7c59d33f651ee90629bf5d2a045e3638b
 - 产线: https://r2.classcipe.com/8b3861a7c59d33f651ee90629bf5d2a045e3638b
 
-## cpa 离线生成后需要的字段
+## cpa 离线生成后需要更新的字段
 - status: 0 的数据是需要生成的，生成后改为 1
 ```js
 cpa: {
-    status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认
-    a: {type: String, trim: true}, // 文本题
-    c: {type: String, trim: true}, // sagemath 代码在r2存储的sha1
-    p: {type: String, trim: true}, // sagemath 代码在r2存储的sha1
-}
+  status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认
+  outcome: {type: String, trim: true},
+  feedback: {type: [String], trim: true}, // learning outcome 反馈标签
+},
+abstract: {
+  cover: {type: String, trim: true}, // PPT 封面, 用来插入google slide, 课堂上课
+  reason: {type: String, trim: true}, // AI推荐理由
+  data: {type: String, trim: true}, // 题目文本内容
+  status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
+  feedback: {type: [String], trim: true}, // 反馈标签
+},
+pictorial: {
+  cover: {type: String, trim: true}, // 封面
+  reason: {type: String, trim: true}, // AI推荐理由
+  script: {type: String, trim: true}, // 出题脚本
+  data: {type: String, trim: true}, // html代码上传r2存储的sha1
+  status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
+  feedback: {type: [String], trim: true}, // 反馈标签
+},
+concrete: {
+  cover: {type: String, trim: true}, // 封面
+  reason: {type: String, trim: true}, // AI推荐理由
+  script: {type: String, trim: true}, // 出题脚本
+  data: {type: String, trim: true}, // html代码上传r2存储的sha1
+  status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
+  feedback: {type: [String], trim: true}, // 反馈标签
+},
 ```
