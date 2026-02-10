@@ -1,110 +1,113 @@
 
 ## questions model
 ```js
-      uid: {type: String}, // user id
-      id: {type: String, trim: true}, // slides id or video.id
-      page: {type: String, trim: true}, // page id or video.time HH:mm:ss
-      type: {type: String, trim: true, enum: Agl.questionsTypes}, // type:
-      multi: {type: Boolean, default: false}, // text/choice multi
-      bloom: {type: [Number]}, // [Evaluate, Analyze, Apply, Understand, Remember, Create]
-      dimension: {type: Number}, // [Factual, Conceptual, Procedural, Megacognitave]
-      verb: [{type: String}], // command verb
-      tags: [{type: String}], // knowledge tags
-      tips: {type: String, trim: true},
-      data: {type: String, trim: true}, // url or video question desc
-      center: {
-        subject: {type: String}, // 中央学科
-        grade: {type: String}, // 中央年级
-      },
-      cpa: {
-        status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认
-        curriculum: {type: String}, // 大纲代码
-        curriculumName: {type: String, trim: true},
-        subject: {type: String}, // 学科id
-        subjectName: {type: String, trim: true},
-        grade: {type: String, trim: true},
-        outcome: {type: String, trim: true},
-        feedback: {type: [String], trim: true}, // learning outcome 反馈标签
-      },
-      abstract: {
-        cover: {type: String, trim: true}, // PPT 封面, 用来插入google slide, 课堂上课
-        reason: {type: String, trim: true}, // AI推荐理由
-        data: {type: String, trim: true}, // 题目文本内容
-        status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
-        feedback: {type: [String], trim: true}, // 反馈标签
-      },
-      pictorial: {
-        cover: {type: String, trim: true}, // 封面
-        reason: {type: String, trim: true}, // AI推荐理由
-        script: {type: String, trim: true}, // 出题脚本
-        data: {type: String, trim: true}, // html代码上传r2存储的sha1
-        status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
-        feedback: {type: [String], trim: true}, // 反馈标签
-      },
-      concrete: {
-        cover: {type: String, trim: true}, // 封面
-        reason: {type: String, trim: true}, // AI推荐理由
-        script: {type: String, trim: true}, // 出题脚本
-        data: {type: String, trim: true}, // html代码上传r2存储的sha1
-        status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
-        feedback: {type: [String], trim: true}, // 反馈标签
-      },
-      score: {
-        // score config
-        outline: {
-          val: {type: Number}, // total score
-          enable: {type: Boolean, default: false}, // score enable
-          rubric: {type: Boolean, default: false}, // rubric enable
-          criteria: {type: Schema.Types.Mixed}, // criteria data
-        },
-        assess: {
-          val: {type: Number},
-          enable: {type: Boolean, default: false},
-          rubric: {type: Boolean, default: false},
-          criteria: {type: Schema.Types.Mixed},
-        },
-        pd: {
-          val: {type: Number},
-          enable: {type: Boolean, default: false},
-          rubric: {type: Boolean, default: false},
-          criteria: {type: Schema.Types.Mixed},
-        },
-        goal: {
-          val: {type: Number},
-          enable: {type: Boolean, default: false},
-          rubric: {type: Boolean, default: false},
-          criteria: {type: Schema.Types.Mixed},
-        },
-        skills: {
-          val: {type: Number},
-          enable: {type: Boolean, default: false},
-          rubric: {type: Boolean, default: false},
-          criteria: {type: Schema.Types.Mixed},
-        },
-      },
-      outlines: {
-        outline: {type: Schema.Types.Mixed}, // ppt outlines
-        assess: {type: Schema.Types.Mixed}, // ppt assess
-        pd: {type: Schema.Types.Mixed}, // pd
-        goal: {type: Schema.Types.Mixed}, // ppt assess
-        skills: {type: Schema.Types.Mixed}, // skills
-      },
-      options: [
-        {
-          // options
-          val: {type: String, trim: true},
-          on: {type: Boolean, default: false}, // choice answer
-        },
-      ],
-      list: [
-        {
-          // multi questions for new text
-          bloom: {type: Number},
-          dimension: {type: Number},
-          verb: [{type: String}], // command verb
-          tags: [{type: String}], // knowledge tags
-        },
-      ],
+uid: {type: String}, // user id
+id: {type: String, trim: true}, // slides id or video.id
+page: {type: String, trim: true}, // page id or video.time HH:mm:ss
+type: {type: String, trim: true, enum: Agl.questionsTypes}, // type:
+multi: {type: Boolean, default: false}, // text/choice multi
+bloom: {type: [Number]}, // [Evaluate, Analyze, Apply, Understand, Remember, Create]
+dimension: {type: Number}, // [Factual, Conceptual, Procedural, Megacognitave]
+verb: [{type: String}], // command verb
+tags: [{type: String}], // knowledge tags
+tips: {type: String, trim: true},
+data: {type: String, trim: true}, // url or video question desc
+center: {
+  subject: {type: String}, // 中央学科
+  grade: {type: String}, // 中央年级
+},
+cpa: {
+  status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认
+  curriculum: {type: String}, // 大纲代码
+  curriculumName: {type: String, trim: true},
+  subject: {type: String}, // 学科id
+  subjectName: {type: String, trim: true},
+  grade: {type: String, trim: true},
+  topic: {type: String}, // outlines.outline....child._id 最后一层 child._id
+  standard: {type: String}, // outlines.assess....child._id 最后一层 child._id
+  outcome: {type: String, trim: true},
+  reason: {type: String, trim: true}, //  learning outcome AI推荐理由
+  feedback: {type: [String], trim: true}, // learning outcome 反馈标签
+},
+abstract: {
+  cover: {type: String, trim: true}, // PPT 封面, 用来插入google slide, 课堂上课
+  reason: {type: String, trim: true}, // AI推荐理由
+  data: {type: String, trim: true}, // 题目文本内容
+  status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
+  feedback: {type: [String], trim: true}, // 反馈标签
+},
+pictorial: {
+  cover: {type: String, trim: true}, // 封面
+  reason: {type: String, trim: true}, // AI推荐理由
+  script: {type: String, trim: true}, // 出题脚本
+  data: {type: String, trim: true}, // html代码上传r2存储的sha1
+  status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
+  feedback: {type: [String], trim: true}, // 反馈标签
+},
+concrete: {
+  cover: {type: String, trim: true}, // 封面
+  reason: {type: String, trim: true}, // AI推荐理由
+  script: {type: String, trim: true}, // 出题脚本
+  data: {type: String, trim: true}, // html代码上传r2存储的sha1
+  status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
+  feedback: {type: [String], trim: true}, // 反馈标签
+},
+score: {
+  // score config
+  outline: {
+    val: {type: Number}, // total score
+    enable: {type: Boolean, default: false}, // score enable
+    rubric: {type: Boolean, default: false}, // rubric enable
+    criteria: {type: Schema.Types.Mixed}, // criteria data
+  },
+  assess: {
+    val: {type: Number},
+    enable: {type: Boolean, default: false},
+    rubric: {type: Boolean, default: false},
+    criteria: {type: Schema.Types.Mixed},
+  },
+  pd: {
+    val: {type: Number},
+    enable: {type: Boolean, default: false},
+    rubric: {type: Boolean, default: false},
+    criteria: {type: Schema.Types.Mixed},
+  },
+  goal: {
+    val: {type: Number},
+    enable: {type: Boolean, default: false},
+    rubric: {type: Boolean, default: false},
+    criteria: {type: Schema.Types.Mixed},
+  },
+  skills: {
+    val: {type: Number},
+    enable: {type: Boolean, default: false},
+    rubric: {type: Boolean, default: false},
+    criteria: {type: Schema.Types.Mixed},
+  },
+},
+outlines: {
+  outline: {type: Schema.Types.Mixed}, // ppt outlines
+  assess: {type: Schema.Types.Mixed}, // ppt assess
+  pd: {type: Schema.Types.Mixed}, // pd
+  goal: {type: Schema.Types.Mixed}, // ppt assess
+  skills: {type: Schema.Types.Mixed}, // skills
+},
+options: [
+  {
+    // options
+    val: {type: String, trim: true},
+    on: {type: Boolean, default: false}, // choice answer
+  },
+],
+list: [
+  {
+    // multi questions for new text
+    bloom: {type: Number},
+    dimension: {type: Number},
+    verb: [{type: String}], // command verb
+    tags: [{type: String}], // knowledge tags
+  },
+],
 ```
 
 ## 生成 learnOutcome 接口
@@ -282,4 +285,26 @@ concrete: {
   status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
   feedback: {type: [String], trim: true}, // 反馈标签
 },
+```
+
+## cpa题库匹配搜索接口
+- 通过图片搜题: 需要道长提供
+
+- 通过过滤条件搜题
+```js
+await App.service('questions').find({
+  query: {
+    uid: '1',
+    'cpa.status': 2,
+    'abstract.status': 2,
+    'pictorial.status': 2,
+    'concrete.status': 2,
+    'cpa.curriculum': '',
+    'cpa.subject': '',
+    'cpa.grade': '',
+    'cpa.topic': '',
+    'cpa.standard': '',
+    bloom: '',
+  }
+})
 ```
