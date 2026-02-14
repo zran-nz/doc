@@ -288,28 +288,8 @@ const rs = await fetch('/fio/questionCreate', {
 ```
 
 
-### 后台过滤接口
-- 通过过滤条件搜题
-```js
-await App.service('questions').find({
-  query: {
-    uid: '1',
-    'cpa.status': 2,
-    'abstract.status': 2,
-    'pictorial.status': 2,
-    'concrete.status': 2,
-    'cpa.curriculum': '',
-    'cpa.subject': '',
-    'cpa.grade': '',
-    'cpa.topic': '',
-    'cpa.standard': '',
-    bloom: '',
-  }
-})
-```
-
 ```json
-// outline 知识点数据demo
+// outlines.outline 知识点数据demo
 "outline": {
     "code": "au:695dfd4d0a1fc83c747b4e80",
     "name": "Mathematics F-6",
@@ -362,7 +342,7 @@ await App.service('questions').find({
 },
 
 
-// 考核点数据demo
+// outlines.assess 考核点数据demo
 "assess": {
     "code": "au:695dfd4d0a1fc83c747b4e80",
     "name": "Mathematics F-6",
@@ -401,4 +381,27 @@ await App.service('questions').find({
         }
     ]
 }
+```
+
+
+
+
+### 后台过滤接口
+- 通过过滤条件搜题
+```js
+await App.service('questions').find({
+  query: {
+    uid: '1',
+    'cpa.status': 2,
+    'abstract.status': 2,
+    'pictorial.status': 2,
+    'concrete.status': 2,
+    'cpa.curriculum': '',
+    'cpa.subject': '',
+    'cpa.grade': '',
+    'cpa.topic': '',
+    'cpa.standard': '',
+    bloom: '',
+  }
+})
 ```
