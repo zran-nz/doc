@@ -110,22 +110,6 @@ list: [
 ],
 ```
 
-```js
-{
-    "curriculum": "au",
-    "subject": "695dfd4d0a1fc83c747b4e80",
-    "grade": "Year 2",
-    "curriculumName": "AU curriculum",
-    "subjectName": "Mathematics F-6",
-    "type": "choice",
-    "multi": true,
-    "bloom": [
-      1, 3
-    ],
-    "outlines": {
-    },
-}
-```
 
 > 返回格式
 ```js
@@ -211,7 +195,7 @@ const rs = await fetch('/fio/fileAnalyze', {
 
 ### AI搜题接口:
 - 请求提供 中央学科与年级用于过滤数据, prompt 或者 知识点+考核项 来匹配题库
-- 返回所有匹配中的quetions中的数据
+- 返回所有匹配中的quetions 题库中的数据
 
 ```js
 const rs = await fetch('/fio/questionsMatch', {
@@ -222,7 +206,7 @@ const rs = await fetch('/fio/questionsMatch', {
       subject: 'math',
       grade: 'Grade 1'
     },
-    prompt: '',
+    prompt: 'xxxx',
     outlines: {
       outline: {...}, // 知识点
       assess: {...}, // 考核项
@@ -241,13 +225,13 @@ const rs = await fetch('/fio/outcomesCreate', {
   headers: {"Content-Type": "application/json"},
   body: JSON.stringify({
     cpa: {
-      curriculum: '',
-      curriculumName: '',
-      subject: '', // 学科id
-      subjectName: '',
-      grade: '',
-      topic: '', // outlines.outline....child._id 最后一层 child._id
-      standard: '', // outlines.assess....child._id 最后一层 child._id
+      curriculum: "au",
+      curriculumName: "AU curriculum",
+      subject: "695dfd4d0a1fc83c747b4e80",
+      subjectName: "Mathematics F-6",
+      grade: "Year 2",
+      topic: '695dfde20a1fc83c747b51e1', // outlines.outline....child._id 最后一层 child._id
+      standard: '695dfd8d0a1fc83c747b4f5e', // outlines.assess....child._id 最后一层 child._id
     },
     outlines: {
       outline: {...}, // 知识点
@@ -266,18 +250,18 @@ const rs = await fetch('/fio/questionCreate', {
   method: 'POST',
   headers: {"Content-Type": "application/json"},
   body: JSON.stringify({
-    type: 'text', // QuestionTypes
-    multi: true/false,
+    type: 'choice', // QuestionTypes
+    multi: true,
     bloom: [1,2],
     cpa: {
-      curriculum: '',
-      curriculumName: '',
-      subject: '', // 学科id
-      subjectName: '',
-      grade: '',
-      topic: '', // outlines.outline....child._id 最后一层 child._id
-      standard: '', // outlines.assess....child._id 最后一层 child._id
-      outcome: '',
+      curriculum: "au",
+      curriculumName: "AU curriculum",
+      subject: "695dfd4d0a1fc83c747b4e80",
+      subjectName: "Mathematics F-6",
+      grade: "Year 2",
+      topic: '695dfde20a1fc83c747b51e1', // outlines.outline....child._id 最后一层 child._id
+      standard: '695dfd8d0a1fc83c747b4f5e', // outlines.assess....child._id 最后一层 child._id
+      outcome: 'xxxxx',
     },
     outlines: {
       outline: {...}, // 知识点
