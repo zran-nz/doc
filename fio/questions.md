@@ -244,6 +244,7 @@ const rs = await fetch('/fio/outcomesCreate', {
 ### AI生成题目接口:
 - 请求提供 大纲, 学科, 年级, 知识点, 考核项, outcome
 - 返回实时生成的cpa quetions 数据本身
+- 写入quesion数据的时候还需要将 学科和年级 转为中央大纲 保存起来
 
 ```js
 const rs = await fetch('/fio/questionCreate', {
