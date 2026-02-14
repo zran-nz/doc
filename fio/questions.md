@@ -110,9 +110,6 @@ list: [
 ],
 ```
 
-## 生成 learnOutcome 接口
-
-> 请求的参数
 ```js
 {
     "curriculum": "au",
@@ -123,99 +120,9 @@ list: [
     "type": "choice",
     "multi": true,
     "bloom": [
-        "Understand",
-        "Analyze",
-        "Evaluate"
+      1, 3
     ],
     "outlines": {
-        "outline": {
-            "code": "au:695dfd4d0a1fc83c747b4e80",
-            "name": "Mathematics F-6",
-            "curr": "AU curriculum",
-            "child": [
-                {
-                    "name": "Number",
-                    "grade": [
-                        "Foundation",
-                        "Year 1",
-                        "Year 2",
-                        "Year 3",
-                        "Year 4",
-                        "Year 5",
-                        "Year 6"
-                    ],
-                    "tags": [],
-                    "code": "",
-                    "mark": "Foundation, Level 1, Level 2, Level 3, Level 4, Level 5, Level 6",
-                    "child": [
-                        {
-                            "name": "recognise, represent and order numbers to at least 1000 using physical and virtual materials, numerals and number lines\nVC2M2N01",
-                            "grade": [
-                                "Year 2"
-                            ],
-                            "tags": [],
-                            "code": "",
-                            "mark": "Level 2",
-                            "child": [
-                                {
-                                    "name": "reading and writing numerals, and saying and ordering two-, three- and four-digit numbers using patterns in the number system, including numbers with zeros in different places and numbers that look and sound similar (such as 808, 880, 818 and 881)",
-                                    "grade": [
-                                        "Year 2"
-                                    ],
-                                    "tags": [],
-                                    "code": "",
-                                    "mark": "Level 2",
-                                    "child": [],
-                                    "_id": "695dfde20a1fc83c747b51e1",
-                                    "bloom": null,
-                                    "deminsion": null
-                                }
-                            ],
-                            "_id": "695dfde20a1fc83c747b51de"
-                        }
-                    ],
-                    "_id": "695dfde20a1fc83c747b51a5"
-                }
-            ]
-        },
-        "assess": {
-            "code": "au:695dfd4d0a1fc83c747b4e80",
-            "name": "Mathematics F-6",
-            "curr": "AU curriculum",
-            "child": [
-                {
-                    "name": "Number",
-                    "grade": [
-                        "Foundation",
-                        "Year 1",
-                        "Year 2",
-                        "Year 3",
-                        "Year 4",
-                        "Year 5",
-                        "Year 6"
-                    ],
-                    "tags": [],
-                    "code": "",
-                    "mark": "Foundation, Level 1, Level 2, Level 3, Level 4, Level 5, Level 6",
-                    "child": [
-                        {
-                            "name": "They use mathematical modelling to solve practical additive and multiplicative problems, including money transactions, representing the situation and choosing calculation strategies.",
-                            "grade": [
-                                "Year 2"
-                            ],
-                            "tags": [],
-                            "code": "",
-                            "mark": "Level 2",
-                            "child": [],
-                            "_id": "695dfd8d0a1fc83c747b4f5e",
-                            "bloom": null,
-                            "deminsion": null
-                        }
-                    ],
-                    "_id": "695dfd8d0a1fc83c747b4f53"
-                }
-            ]
-        }
     },
 }
 ```
@@ -288,8 +195,100 @@ concrete: {
 ```
 
 ## cpa题库匹配搜索接口
-- 通过图片搜题: 需要道长提供
+### AI图文解析接口:
+- file 可以是 image, word, pdf 文件
+- 接口返回分析后的 prompt 内容
 
+```js
+const formData = new FormData()
+formData.append('file', file)
+const rs = await fetch('/fio/fileAnalyze', {
+  method: 'POST',
+  body: formData,
+}).then((r) => r.json())
+```
+
+
+### AI搜题接口:
+- 请求提供 中央学科与年级用于过滤数据, prompt 或者 知识点+考核项 来匹配题库
+- 返回所有匹配中的quetions中的数据
+
+```js
+const rs = await fetch('/fio/questionsMatch', {
+  method: 'POST',
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({
+    center: {
+      subject: 'math',
+      grade: 'Grade 1'
+    },
+    prompt: '',
+    outlines: {
+      outline: {...}, // 知识点
+      assess: {...}, // 考核项
+    }
+  }),
+}).then((r) => r.json())
+```
+
+### AI生成outcomes接口:
+- 请求提供 大纲, 学科, 年级, 知识点, 考核项
+- 返回多套 outcomes + bloom 给老师选择
+
+```js
+const rs = await fetch('/fio/outcomesCreate', {
+  method: 'POST',
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({
+    cpa: {
+      curriculum: '',
+      curriculumName: '',
+      subject: '', // 学科id
+      subjectName: '',
+      grade: '',
+      topic: '', // outlines.outline....child._id 最后一层 child._id
+      standard: '', // outlines.assess....child._id 最后一层 child._id
+    },
+    outlines: {
+      outline: {...}, // 知识点
+      assess: {...}, // 考核项
+    }
+  }),
+}).then((r) => r.json())
+```
+
+### AI生成题目接口:
+- 请求提供 大纲, 学科, 年级, 知识点, 考核项, outcome
+- 返回实时生成的cpa quetions 数据本身
+
+```js
+const rs = await fetch('/fio/questionCreate', {
+  method: 'POST',
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({
+    type: 'text', // QuestionTypes
+    multi: true/false,
+    bloom: [1,2],
+    cpa: {
+      curriculum: '',
+      curriculumName: '',
+      subject: '', // 学科id
+      subjectName: '',
+      grade: '',
+      topic: '', // outlines.outline....child._id 最后一层 child._id
+      standard: '', // outlines.assess....child._id 最后一层 child._id
+      outcome: '',
+    },
+    outlines: {
+      outline: {...}, // 知识点
+      assess: {...}, // 考核项
+    }
+  }),
+}).then((r) => r.json())
+```
+
+
+### 后台过滤接口
 - 通过过滤条件搜题
 ```js
 await App.service('questions').find({
@@ -307,4 +306,99 @@ await App.service('questions').find({
     bloom: '',
   }
 })
+```
+
+```json
+// outline 知识点数据demo
+"outline": {
+    "code": "au:695dfd4d0a1fc83c747b4e80",
+    "name": "Mathematics F-6",
+    "curr": "AU curriculum",
+    "child": [
+        {
+            "name": "Number",
+            "grade": [
+                "Foundation",
+                "Year 1",
+                "Year 2",
+                "Year 3",
+                "Year 4",
+                "Year 5",
+                "Year 6"
+            ],
+            "tags": [],
+            "code": "",
+            "mark": "Foundation, Level 1, Level 2, Level 3, Level 4, Level 5, Level 6",
+            "child": [
+                {
+                    "name": "recognise, represent and order numbers to at least 1000 using physical and virtual materials, numerals and number lines\nVC2M2N01",
+                    "grade": [
+                        "Year 2"
+                    ],
+                    "tags": [],
+                    "code": "",
+                    "mark": "Level 2",
+                    "child": [
+                        {
+                            "name": "reading and writing numerals, and saying and ordering two-, three- and four-digit numbers using patterns in the number system, including numbers with zeros in different places and numbers that look and sound similar (such as 808, 880, 818 and 881)",
+                            "grade": [
+                                "Year 2"
+                            ],
+                            "tags": [],
+                            "code": "",
+                            "mark": "Level 2",
+                            "child": [],
+                            "_id": "695dfde20a1fc83c747b51e1",
+                            "bloom": null,
+                            "deminsion": null
+                        }
+                    ],
+                    "_id": "695dfde20a1fc83c747b51de"
+                }
+            ],
+            "_id": "695dfde20a1fc83c747b51a5"
+        }
+    ]
+},
+
+
+// 考核点数据demo
+"assess": {
+    "code": "au:695dfd4d0a1fc83c747b4e80",
+    "name": "Mathematics F-6",
+    "curr": "AU curriculum",
+    "child": [
+        {
+            "name": "Number",
+            "grade": [
+                "Foundation",
+                "Year 1",
+                "Year 2",
+                "Year 3",
+                "Year 4",
+                "Year 5",
+                "Year 6"
+            ],
+            "tags": [],
+            "code": "",
+            "mark": "Foundation, Level 1, Level 2, Level 3, Level 4, Level 5, Level 6",
+            "child": [
+                {
+                    "name": "They use mathematical modelling to solve practical additive and multiplicative problems, including money transactions, representing the situation and choosing calculation strategies.",
+                    "grade": [
+                        "Year 2"
+                    ],
+                    "tags": [],
+                    "code": "",
+                    "mark": "Level 2",
+                    "child": [],
+                    "_id": "695dfd8d0a1fc83c747b4f5e",
+                    "bloom": null,
+                    "deminsion": null
+                }
+            ],
+            "_id": "695dfd8d0a1fc83c747b4f53"
+        }
+    ]
+}
 ```
