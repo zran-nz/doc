@@ -13,7 +13,7 @@ tags: [{type: String}], // knowledge tags
 tips: {type: String, trim: true},
 data: {type: String, trim: true}, // url or video question desc
 center: {
-  subject: {type: String}, // 中央学科
+  subject: {type: String}, // 中央学科 code
   grade: {type: String}, // 中央年级
 },
 cpa: {
@@ -203,7 +203,7 @@ const rs = await fetch('/fio/questionsMatch', {
   headers: {"Content-Type": "application/json"},
   body: JSON.stringify({
     center: {
-      subject: 'math',
+      subject: 'math', // 中央学科的代码
       grade: 'Grade 1'
     },
     prompt: 'xxxx',
