@@ -30,14 +30,14 @@ cpa: {
   feedback: {type: [String], trim: true}, // learning outcome 反馈标签
 },
 abstract: {
-  cover: {type: String, trim: true}, // PPT 封面, 用来插入google slide, 课堂上课
+  cover: {type: String, trim: true}, // PPT 封面, 用来插入google slide, 课堂上课, 1280*720
   reason: {type: String, trim: true}, // AI推荐理由
   data: {type: String, trim: true}, // 题目文本内容
   status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
   feedback: {type: [String], trim: true}, // 反馈标签
 },
 pictorial: {
-  cover: {type: String, trim: true}, // 封面
+  cover: {type: String, trim: true}, // 封面, 320*180, 比例：16:9
   reason: {type: String, trim: true}, // AI推荐理由
   script: {type: String, trim: true}, // 出题脚本
   data: {type: String, trim: true}, // html代码上传r2存储的sha1
