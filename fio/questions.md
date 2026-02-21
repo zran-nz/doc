@@ -14,7 +14,7 @@ tips: {type: String, trim: true},
 data: {type: String, trim: true}, // url or video question desc
 center: {
   subject: {type: String}, // 中央学科 code
-  grade: {type: String}, // 中央年级
+  grade: {type: [String]}, // 中央年级
 },
 cpa: {
   status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认
