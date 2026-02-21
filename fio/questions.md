@@ -190,6 +190,8 @@ const rs = await fetch('/fio/fileAnalyze', {
   method: 'POST',
   body: formData,
 }).then((r) => r.json())
+// 返回
+rs = {prompt: 'xxxxx'}
 ```
 
 
@@ -213,6 +215,8 @@ const rs = await fetch('/fio/questionsMatch', {
     }
   }),
 }).then((r) => r.json())
+// 返回
+rs = {total: 14, limit: 10, skip: 0, data: [...quetions model]}
 ```
 
 ### AI生成outcomes接口:
@@ -239,6 +243,8 @@ const rs = await fetch('/fio/outcomesCreate', {
     }
   }),
 }).then((r) => r.json())
+// 返回
+rs = [{outcome: 'xxx', bloom: [2,4]}, ...]
 ```
 
 ### AI生成题目接口:
@@ -270,6 +276,7 @@ const rs = await fetch('/fio/questionCreate', {
     }
   }),
 }).then((r) => r.json())
+rs = {...questions model}
 ```
 
 
