@@ -184,6 +184,16 @@ concrete: {
 - 接口返回分析后的 prompt 内容
 
 ```js
+// 通过图片url分析
+const formData = new FormData()
+formData.append('file', file)
+const rs = await fetch('/fio/urlAnalyze', {
+  method: 'POST',
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({url: 'https://xxxxxx'}),
+}).then((r) => r.json())
+
+// 通过文件上传分析
 const formData = new FormData()
 formData.append('file', file)
 const rs = await fetch('/fio/fileAnalyze', {
