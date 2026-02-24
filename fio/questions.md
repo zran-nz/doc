@@ -86,11 +86,11 @@ score: {
   },
 },
 outlines: {
-  outline: {type: Schema.Types.Mixed}, // ppt outlines
-  assess: {type: Schema.Types.Mixed}, // ppt assess
-  pd: {type: Schema.Types.Mixed}, // pd
-  goal: {type: Schema.Types.Mixed}, // ppt assess
-  skills: {type: Schema.Types.Mixed}, // skills
+  outline: [outlineSchema], // ppt outlines
+  assess: [outlineSchema], // ppt assess
+  pd: [outlineSchema], // pd
+  goal: [outlineSchema], // ppt assess
+  skills: [outlineSchema], // skills
 },
 options: [
   {
@@ -108,6 +108,18 @@ list: [
     tags: [{type: String}], // knowledge tags
   },
 ],
+```
+
+- outlineSchema model
+```js
+outlineSchema = {
+  name: {type: String, trim: true},
+  grade: {type: [String]},
+  tags: {type: [String], trim: true},
+  code: {type: String, trim: true},
+  mark: {type: String, trim: true},
+  child: [outlineSchema], // 递归引用自身
+}
 ```
 
 
@@ -292,7 +304,7 @@ rs = {...questions model}
 
 ```json
 // outlines.outline 知识点数据demo
-"outline": {
+"outline": [{
     "code": "au:695dfd4d0a1fc83c747b4e80",
     "name": "Mathematics F-6",
     "curr": "AU curriculum",
@@ -341,11 +353,11 @@ rs = {...questions model}
             "_id": "695dfde20a1fc83c747b51a5"
         }
     ]
-},
+}]
 
 
 // outlines.assess 考核点数据demo
-"assess": {
+"assess": [{
     "code": "au:695dfd4d0a1fc83c747b4e80",
     "name": "Mathematics F-6",
     "curr": "AU curriculum",
@@ -382,7 +394,7 @@ rs = {...questions model}
             "_id": "695dfd8d0a1fc83c747b4f53"
         }
     ]
-}
+}]
 ```
 
 
