@@ -110,6 +110,8 @@ list: [
 ],
 ```
 
+https://github.com/zran-nz/web/blob/magic/src/boot/const.js
+
 - outlineSchema model
 ```js
 outlineSchema = {
