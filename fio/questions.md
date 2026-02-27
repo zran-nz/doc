@@ -401,6 +401,36 @@ rs = {...questions model}
 
 
 
+### questions 创建接口
+```js
+const rs = await fetch('/fio/questions', {
+  method: 'POST',
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({
+    type: 'choice', // QuestionTypes
+    multi: true,
+    bloom: [1,2],
+    uid: '1',
+    cpa: {
+      curriculum: "au",
+      curriculumName: "AU curriculum",
+      subject: "695dfd4d0a1fc83c747b4e80",
+      subjectName: "Mathematics F-6",
+      grade: "Year 2",
+      topic: '695dfde20a1fc83c747b51e1', // outlines.outline....child._id 最后一层 child._id
+      standard: '695dfd8d0a1fc83c747b4f5e', // outlines.assess....child._id 最后一层 child._id
+      outcome: 'xxxxx',
+    },
+    outlines: {
+      outline: {...}, // 知识点
+      assess: {...}, // 考核项
+    },
+    abstract: {...},
+    pictorial: {...},
+    concrete: {...},
+  }),
+}).then((r) => r.json())
+```
 
 ### 后台过滤接口
 - 通过过滤条件搜题
