@@ -86,8 +86,8 @@ score: {
   },
 },
 outlines: {
-  outline: [outlineSchema], // subjects.topic
-  assess: [outlineSchema], // subjects.standard
+  outline: [outlineSchema], // subjects.snapshot.topic
+  assess: [outlineSchema], // subjects.snapshot.standard
   pd: [outlineSchema], // pd
   goal: [outlineSchema], // ppt assess
   skills: [outlineSchema], // skills
