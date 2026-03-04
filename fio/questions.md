@@ -4,7 +4,7 @@
 uid: {type: String}, // user id
 id: {type: String, trim: true}, // slides id or video.id
 page: {type: String, trim: true}, // page id or video.time HH:mm:ss
-type: {type: String, trim: true, enum: Agl.questionsTypes}, // type:
+type: {type: String, trim: true, enum: Agl.questionsTypes}, // 'text', 'choice', 'comment', 'draw', 'media', 'website', 'matching', 'filling', 'graph', 'video'
 multi: {type: Boolean, default: false}, // text/choice multi
 bloom: {type: [Number]}, // [Evaluate, Analyze, Apply, Understand, Remember, Create]
 dimension: {type: Number}, // [Factual, Conceptual, Procedural, Megacognitave]
@@ -32,7 +32,7 @@ cpa: {
 abstract: {
   cover: {type: String, trim: true}, // PPT 封面, 用来插入google slide, 课堂上课, 1280*720
   reason: {type: String, trim: true}, // AI推荐理由
-  data: {type: String, trim: true}, // 题目文本内容
+  data: {type: String, trim: true}, // 题目文本内容 格式参考 https://mathlive.io/mathfield/
   status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
   feedback: {type: [String], trim: true}, // 反馈标签 zran-nz/web:/src/boot/const.js CPAFeedbackAbstract
 },
