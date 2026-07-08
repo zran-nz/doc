@@ -451,3 +451,28 @@ await App.service('questions').find({
   }
 })
 ```
+
+### 按学科年级获取 topic+standard 组合接口
+- 传入 `subject`（学科 id）+ `grade`（年级）过滤 questions 中的 `cpa.subject` + `cpa.grade`
+- 返回该学科年级下所有出现过的 `{topic, standard}` 不重复组合
+- 排序按 `topic` 在 `subjects.snapshot.topic` 树中"最后一层叶子节点 `_id`"的先后顺序输出；未在快照中命中的 topic 排到末尾
+
+```js
+// feathers 服务调用
+const rs = await App.service('questions').get('cpaTopics', {
+  query: {
+    subject: '695dfd4d0a1fc83c747b4e80', // subjects._id (即 cpa.subject)
+    grade: 'Year 2',                     // cpa.grade
+  },
+})
+
+// HTTP 调用
+// GET /questions/cpaTopics?subject=<subjectId>&grade=<grade>
+
+// 返回
+rs = [
+  {topic: '695dfde20a1fc83c747b51e1', standard: '695dfd8d0a1fc83c747b4f5e'},
+  {topic: '695dfde20a1fc83c747b51e2', standard: '695dfd8d0a1fc83c747b4f60'},
+  // ...
+]
+```
