@@ -476,3 +476,121 @@ rs = [
   // ...
 ]
 ```
+
+### 按 topic+standard 搜索相似题目接口
+- 传入 `topic`（知识点 id）+ `standard`（考核项 id）
+- 内部流程：
+  1. 根据 `topic` 通过 `knowledge-tag-mapping` 查询关联的知识标签，再扩散得到相关的 `topicIds`（当 `useTags=false` 时跳过此步）
+  2. 根据 `topic + standard` 从 `questions`（`uid: '1'`）中收集所有已存在的 `cpa.outcome`
+  3. 依次以每个 `outcome` 作为 prompt 调用 `question-vector.getDataByPrompt` 进行向量匹配，按 `score` 保留每个题目的最高得分并记录 `matchedOutcome`
+  4. 按 `score` 从高到低排序后，回查 `questions` 获取完整题目数据
+- 结果会以 `topic+standard+score+limit+useTags` 作为 key 缓存到 redis（TTL 3600s）
+
+```js
+// feathers 服务调用
+const rs = await App.service('questions').get('searchCpaByTopic', {
+  query: {
+    topic: '695dfde20a1fc83c747b51e1',    // 知识点 id (cpa.topic)
+    standard: '695dfd8d0a1fc83c747b4f5e', // 考核项 id (cpa.standard)
+    score: 0.8,                            // 可选，向量匹配最低分，默认 0.8
+    limit: 200,                            // 可选，向量匹配返回条数上限，默认 200
+    useTags: true,                         // 可选，是否使用 knowledge-tag-mapping 扩散 topicIds，默认 true
+  },
+})
+
+// HTTP 调用
+// GET /questions/searchCpaByTopic?topic=<topicId>&standard=<standardId>&score=0.8&limit=200&useTags=true
+
+// 返回（数组，按 score 降序）
+rs = [
+  {
+    _id: '...',
+    score: 0.92,
+    matchedOutcome: 'xxxx',
+    cpa: {...},
+    abstract: {cover, data},
+    pictorial: {cover, data},
+    concrete: {cover, data},
+    createdAt: '...',
+    // ...其他 selectCpa 中的字段
+  },
+  // ...
+]
+```
+
+### 查询老师是否使用过某些题目接口
+- 需要 JWT 认证，`params.user._id` 即当前老师 id
+- 传入题目 id 列表（支持 `_ids` 或 `ids`，字符串数组或单个字符串均可）
+- 可选传入 `school`，存在时会额外过滤 `session.school = school`
+- 内部会在 `session`（`uid = 当前用户 id`）中匹配 `questions._id`，取每个题目最近一次的 `session.createdAt`
+- 只返回被当前老师使用过的题目
+
+```js
+// feathers 服务调用（需登录）
+const rs = await App.service('questions').get('usedByTeacher', {
+  query: {
+    ids: ['695dfde20a1fc83c747b51e1', '695dfde20a1fc83c747b51e2'],
+    school: '695dfd4d0a1fc83c747b4e80', // 可选，存在时按学校过滤
+  },
+})
+
+// HTTP 调用
+// GET /questions/usedByTeacher?ids[]=<id1>&ids[]=<id2>&school=<schoolId>
+// Header: Authorization: Bearer <jwt>
+
+// 返回（只包含被使用过的题目，按传入顺序）
+rs = [
+  {_id: '695dfde20a1fc83c747b51e1', createdAt: '2026-01-30T06:39:15.862Z'},
+  // ...
+]
+```
+
+### 查询学生是否使用过某些题目接口
+- 需要 JWT 认证，`params.user._id` 即当前学生 id
+- 传入题目 id 列表（支持 `_ids` 或 `ids`，字符串数组或单个字符串均可）
+- 内部会在 `session`（`students` 数组包含当前用户 id）中匹配 `questions._id`，取每个题目最近一次的 `session.createdAt`
+- 只返回被当前学生使用过的题目
+
+```js
+// feathers 服务调用（需登录）
+const rs = await App.service('questions').get('usedByStudent', {
+  query: {
+    ids: ['695dfde20a1fc83c747b51e1', '695dfde20a1fc83c747b51e2'],
+  },
+})
+
+// HTTP 调用
+// GET /questions/usedByStudent?ids[]=<id1>&ids[]=<id2>
+// Header: Authorization: Bearer <jwt>
+
+// 返回（只包含被使用过的题目，按传入顺序）
+rs = [
+  {_id: '695dfde20a1fc83c747b51e1', createdAt: '2026-01-30T06:39:15.862Z'},
+  // ...
+]
+```
+
+### 查询全平台近 7 天是否使用过某些题目接口
+- **无需认证**，不区分用户
+- 传入题目 id 列表（支持 `_ids` 或 `ids`，字符串数组或单个字符串均可）
+- 内部会在 `session` 中匹配 `questions._id`，且 `session.createdAt >= 当前时间 - 7 天`
+- 取每个题目最近一次的 `session.createdAt`
+- 只返回近 7 天在全平台被使用过的题目
+
+```js
+// feathers 服务调用
+const rs = await App.service('questions').get('usedByPlatform', {
+  query: {
+    ids: ['695dfde20a1fc83c747b51e1', '695dfde20a1fc83c747b51e2'],
+  },
+})
+
+// HTTP 调用
+// GET /questions/usedByPlatform?ids[]=<id1>&ids[]=<id2>
+
+// 返回（只包含近 7 天在全平台被使用过的题目，按传入顺序）
+rs = [
+  {_id: '695dfde20a1fc83c747b51e1', createdAt: '2026-01-30T06:39:15.862Z'},
+  // ...
+]
+```
