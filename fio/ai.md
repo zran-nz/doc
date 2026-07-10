@@ -63,4 +63,28 @@ const {
 })
 ```
 
+### checkAnswer
+
+对比用户答案与正确答案，判断是否正确。对于简单答案（无空格）直接进行字符串比对，复杂答案调用 AI 进行语义比对。
+
+```js
+const {
+  id: 'requestId',
+  action: 'checkAnswer',
+  data: {
+    result: 1  // 1 表示正确，0 表示错误
+  }
+} = await App.service('ai').create({
+  action: 'checkAnswer',
+  problem_a?: '题目内容', // 可选，题目描述
+  answer: '正确答案',     // 必填，正确答案
+  user_answer: '用户答案', // 必填，用户提交的答案
+})
+```
+
+**返回值说明**：
+- `result`: `1` 表示用户答案与正确答案语义一致，`0` 表示不一致
+- 若 `answer` 不包含空格，将直接进行大小写不敏感的字符串比对，不调用 AI
+- 若 `answer` 包含空格，将调用 AI 进行语义比对
+
 
