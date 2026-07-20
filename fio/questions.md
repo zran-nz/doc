@@ -477,6 +477,33 @@ rs = [
 ]
 ```
 
+### 按 topics 数组获取 topic+standard 组合及名称接口
+- 传入 `topics`（知识点 id 数组，即 `cpa.topic`）过滤 questions
+- 返回该 topics 下所有出现过的 `{topic, standard}` 不重复组合
+- 同时通过 `subjects.snapshot.topic` / `subjects.snapshot.standard` 树查找并附带对应的 `topicName` / `standardName`
+- 附带每个组合下的题目数量 `count`
+
+```js
+// feathers 服务调用
+await App.service('questions').get('cpaByTopics', {
+  query: {
+    topics: ['65a0e5243a7176431c2c8596', '65a0e5243a7176431c2c8597'], // cpa.topic id 列表
+  },
+})
+
+// 返回
+rs = [
+  {
+    topic: '695dfde20a1fc83c747b51e1',
+    topicName: 'reading and writing numerals...',
+    standard: '695dfd8d0a1fc83c747b4f5e',
+    standardName: 'They use mathematical modelling...',
+    count: 12,
+  },
+  // ...
+]
+```
+
 ### 按 topic+standard 搜索相似题目接口
 - 传入 `topic`（知识点 id）+ `standard`（考核项 id）
 - 内部流程：
