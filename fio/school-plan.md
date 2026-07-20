@@ -5,6 +5,7 @@
 ```js
 {
   name: {type: String, trim: true},
+  instituteType: {type: String, trim: true, enum: ['school', 'organization'], default: 'school'}, // Institute Type: school / organization
   logo: {type: String, trim: true},
   country: {type: String, trim: true},
   city: {type: String, trim: true},
