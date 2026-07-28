@@ -63,6 +63,51 @@ const {
 })
 ```
 
+### parseStudentInfo
+
+从任意自由文本（可能是粘贴的通讯录、名单、OCR 识别结果等）中抽取学生与家长信息，返回结构化字段，用于自动填充「Add student」表单。
+
+```js
+const {
+  id: 'requestId',
+  action: 'parseStudentInfo',
+  data: {
+    firstName: '',
+    lastName: '',
+    nickname: '',
+    email: '',
+    dob: '',        // YYYY/MM/DD
+    gender: '',     // 'male' | 'female' | 'other' | ''
+    parentFirstName: '',
+    parentLastName: '',
+    parentEmail: '',
+    parentPhone: '',
+  }
+} = await App.service('ai').create({
+  action: 'parseStudentInfo',
+  text: '张小明，zhangxm@example.com，2015/03/12，家长 138********', // 必填，待识别的原始文本
+  model?: 'gemini-3.5-flash-lite', // 可选，默认 'gemini-3.5-flash-lite'
+  thinking?: false, // 可选，是否启用思考模式，默认 false
+})
+
+
+// 示例：
+Student: John Smith (Johnny)
+DOB: March 12, 2015
+Gender: Male
+Email: john.smith@school.edu
+Parent: Sarah Smith
+Phone: +1 (415) 555-0132
+Email: sarah.smith@gmail.com
+```
+
+**字段说明**：
+- 保持原语言，不翻译。
+- 无法可靠识别的字段返回空字符串。
+- `dob` 强制归一化为 `YYYY/MM/DD`。
+- `gender` 只输出 `male` / `female` / `other` 或空字符串。
+- 如整名无法拆分，姓名整体放入 `firstName`，`lastName` 为空。
+
 ### checkAnswer
 
 对比用户答案与正确答案，判断是否正确。对于简单答案（无空格）直接进行字符串比对，复杂答案调用 AI 进行语义比对。
