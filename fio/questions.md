@@ -28,29 +28,44 @@ cpa: {
   outcome: {type: String, trim: true},
   reason: {type: String, trim: true}, //  learning outcome AI推荐理由
   feedback: {type: [String], trim: true}, // learning outcome 反馈标签 zran-nz/web:/src/boot/const.js CPAFeedbackOutcome
+  additionalFeedback: {type: String, trim: true}, // additional feedback
+  approvedAt: {type: Date}, // 审核通过时间（status=2 时由服务端自动写入，其他状态不清空）
 },
 abstract: {
   cover: {type: String, trim: true}, // PPT 封面, 用来插入google slide, 课堂上课, 1280*720
   reason: {type: String, trim: true}, // AI推荐理由
+  answer: {type: String, trim: true}, // AI答案
   data: {type: String, trim: true}, // 题目文本内容 格式参考 https://mathlive.io/mathfield/
   status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
   feedback: {type: [String], trim: true}, // 反馈标签 zran-nz/web:/src/boot/const.js CPAFeedbackAbstract
+  additionalFeedback: {type: String, trim: true}, // additional feedback
+  approvedAt: {type: Date}, // 审核通过时间（status=2 时由服务端自动写入，其他状态不清空）
 },
 pictorial: {
   cover: {type: String, trim: true}, // 封面, 320*180, 比例：16:9
   reason: {type: String, trim: true}, // AI推荐理由
+  function: {type: String, trim: true}, // 功能描述
   script: {type: String, trim: true}, // 出题脚本
   data: {type: String, trim: true}, // html代码上传r2存储的sha1
   status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
   feedback: {type: [String], trim: true}, // 反馈标签 zran-nz/web:/src/boot/const.js CPAFeedbackOptions
+  additionalFeedback: {type: String, trim: true}, // additional feedback
+  teacherFeedback: {type: Boolean}, // when feedback given by teacher this will be true
+  approvedAt: {type: Date}, // 审核通过时间（status=2 时由服务端自动写入，其他状态不清空）
+  dataAt: {type: Date}, // data(html sha1) 上传时间（data 更新时由服务端自动写入）
 },
 concrete: {
   cover: {type: String, trim: true}, // 封面
   reason: {type: String, trim: true}, // AI推荐理由
+  function: {type: String, trim: true}, // 功能描述
   script: {type: String, trim: true}, // 出题脚本
   data: {type: String, trim: true}, // html代码上传r2存储的sha1
   status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
   feedback: {type: [String], trim: true}, // 反馈标签 zran-nz/web:/src/boot/const.js CPAFeedbackOptions
+  additionalFeedback: {type: String, trim: true}, // additional feedback
+  teacherFeedback: {type: Boolean}, // when feedback given by teacher this will be true
+  approvedAt: {type: Date}, // 审核通过时间（status=2 时由服务端自动写入，其他状态不清空）
+  dataAt: {type: Date}, // data(html sha1) 上传时间（data 更新时由服务端自动写入）
 },
 score: {
   // score config
@@ -190,6 +205,28 @@ concrete: {
   status: {type: Number, default: 0}, // 0: 生成中，1：生成成功待确认，2: 已经确认，3: 有反馈
   feedback: {type: [String], trim: true}, // 反馈标签
 },
+```
+> 注：`approvedAt` / `dataAt` 为服务端自动维护字段，离线生成时无需也不应手动传入。
+
+## questions 审核/上传时间字段（服务端自动维护）
+通过 `PATCH /fio/questions/:id`（需 JWT）更新时，服务端会自动维护以下时间字段，调用方只需更新 `status` / `data` 即可，无需手动传时间：
+
+- `cpa.approvedAt` / `abstract.approvedAt` / `pictorial.approvedAt` / `concrete.approvedAt`：对应节点 `status` 被更新为 `2`（审核通过/已确认）时自动写入当前时间；`status` 为其他值（0/1/3，含重新生成重置）时**不会清空**该时间。
+- `pictorial.dataAt` / `concrete.dataAt`：对应节点的 `data`（html 上传 r2 后的 sha1）被更新时自动写入当前时间。
+- 兼容嵌套对象（`{pictorial: {status: 2}}`）与点路径（`{'pictorial.status': 2}`）两种写法。
+
+```js
+// 示例：审核通过 pictorial（点路径）
+await App.service('questions').patch(id, {
+  'pictorial.status': 2,
+  // 服务端自动补充 'pictorial.approvedAt': new Date()
+})
+
+// 示例：上传 pictorial html 后更新 data
+await App.service('questions').patch(id, {
+  'pictorial.data': '8b3861a7c59d33f651ee90629bf5d2a045e3638b',
+  // 服务端自动补充 'pictorial.dataAt': new Date()
+})
 ```
 
 ## cpa题库匹配搜索接口
