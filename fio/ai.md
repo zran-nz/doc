@@ -132,12 +132,15 @@ const {
 - 若 `answer` 不包含空格，将直接进行大小写不敏感的字符串比对，不调用 AI
 - 若 `answer` 包含空格，将调用 AI 进行语义比对
 
-### processZip
+### upfileZip
 
 上传 ZIP 文件，服务端将文件保存到 R2 `zip/{datetime}` 路径，并在 `zippres` 集合创建一条记录（记录文件路径、purpose，`status` 默认为 0）。
 
 ```
-POST /processZip
+for dev:
+POST https://dev.classcipe.com/fio/tool/upfileZip
+for prod:
+POST https://classcipe.com/fio/tool/upfileZip
 Content-Type: multipart/form-data
 ```
 
@@ -181,7 +184,7 @@ const form = new FormData()
 form.append('purpose', 'curriculum')
 form.append('zip', zipFile) // File / Blob
 
-const {code} = await fetch('/processZip', {
+const {code} = await fetch('/fio/tool/upfileZip', {
   method: 'POST',
   body: form,
 }).then((r) => r.json())
