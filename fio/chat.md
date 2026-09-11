@@ -8,10 +8,10 @@
 - **客服 → 客户**：`chat.create` / `aiReply` 中已有 `wabaOut`：客户离线（`online(uid)=false`）时把回复发回 WhatsApp。
   - 24h 窗口内：走自由文本，逐条发实际内容。
   - 24h 窗口外：走 Utility 事务模板，**只发提醒通知（如「客服给您发了新消息，点击查看」），不携带实际消息内容**，客户需点链接打开页面才能查看。
-  - 频率/次数限制：避免被 WhatsApp 判定为骚扰拉黑。建议每客户每会话每天最多 N 次（如 3 次），两次提醒间隔 ≥ X 小时（如 2h）；超限仅记日志，不再发送。
-- **客户 → 客服**：客户消息经 `wabaIn` / `chat.create` 落库后，仅靠网页红点+未读提醒；客服离线时**无任何主动通知**，可能漏看新消息。
+  - 频率/次数限制：避免被 WhatsApp 判定为骚扰拉黑。每客户全局每天最多 3 次，两次提醒间隔 ≥ 2h；超限仅记日志，不再发送。
+- **客户 → 客服**：客户消息经 `wabaIn` / `chat.create` 落库后，仅靠网页红点+未读提醒；客服离线时**无任何主动通知**，可能漏看新消息。规划：客服离线时（不按服务时段过滤），经 WhatsApp 给客服发 **Utility 事务模板提醒**（只提醒、不携带聊天内容，附网页链接），同样受频率上限约束防骚扰（每客服全局每天最多 3 次、间隔 ≥ 2h）。
 
-> 离线判定复用 `chat-list.online(uid)`；服务时间复用 `inServiceHours`；定时调度挂在每分钟 `cron1`。
+> 离线判定复用 `chat-list.online(uid)`；定时调度挂在每分钟 `cron1`。离线通知逻辑与非服务时段无关，不复用 `inServiceHours`。
 
 
 ### 离线通知流程图 — 客户侧（WhatsApp）
@@ -21,7 +21,7 @@ flowchart TD
     Start[客服/AI 发消息给客户] --> C1[检测 online uid]
     C1 -- 在线 --> C2[跳过, 网页已收到]
     C1 -- 离线 --> C3{在 24h 窗口内?}
-    C3 -- 否 --> Freq{未达频率上限? 每会话每天≤3次 间隔≥2h}
+    C3 -- 否 --> Freq{未达频率上限? 每客户全局每天≤3次 间隔≥2h}
     Freq -- 否 --> Skip[跳过, 防骚扰拉黑 仅记日志]
     Freq -- 是 --> C4[Utility 事务模板发提醒 不带实际内容 附网页链接]
     C3 -- 是 --> C5[wabaOut 逐条发自由文本 实际内容]
@@ -30,33 +30,28 @@ flowchart TD
     Skip --> End
 ```
 
-### 离线通知流程图 — 客服侧（邮件）
+### 离线通知流程图 — 客服侧（WhatsApp）
+
+> 客服侧**只发 Utility 事务模板提醒**（如「有客户给您发了新消息，点击查看」），不携带任何聊天内容，客服需点链接打开网页查看；不做内容聚合/摘要。离线通知逻辑与非服务时段无关——不按 `inServiceHours` 过滤，只要客服离线即按频率上限判定。
 
 ```mermaid
 flowchart TD
     Start[客户发消息给客服] --> S1[检测 online staff]
     S1 -- 在线 --> S2[跳过, 网页已收到]
-    S1 -- 离线 --> S3{在服务时间内?}
-    S3 -- 是 --> S4{该会话今日已通知?}
-    S4 -- 否 --> S5[首条: 立即发邮件]
-    S4 -- 是 --> S6{距上次摘要 ≥15min 且 未达日上限20封?}
-    S6 -- 是 --> S7[聚合摘要发邮件]
-    S6 -- 否 --> S8[攒着, 等下一轮]
-    S3 -- 否 --> S9[缓存, 等下个服务时段发早报]
-    S5 --> End[结束]
+    S1 -- 离线 --> S5{未达频率上限? 每客服全局每天≤3次 间隔≥2h}
+    S5 -- 否 --> S6[跳过, 仅记日志]
+    S5 -- 是 --> S7[Utility 事务模板发提醒 不带实际内容 附网页链接]
+    S6 --> End[结束]
     S7 --> End
-    S8 --> End
-    S9 --> End
 ```
 
 ### 4. 待确认点
 
-1. `email` 服务是否已注册？是否已有邮件模板？
-2. 客服邮箱取自 `users.email` 还是 `StaffSetting.notifyEmail`？
-3. 聚合窗口（15min？）与每日上限（20 封？）的具体数值。
-4. 非服务时间「早报」机制是否需要。
-5. Utility 事务模板用哪个 `contentSid`？是否已在 `WHATSAPP_TEMPLATES` 注册？（现有 `user_account_routing_utility` 是已注册的 Utility 模板）
-6. 窗口外 Utility 提醒的频率上限具体数值（每天 3 次、间隔 2h 是否合适）？
+1. ✅ 客服侧 WhatsApp 推送取法与客户侧一致：发送通道走 Twilio WhatsApp（`waba.sendTemplateMessage` / `sendTextMessage`），发件号码为 `twilioConfig.phone`（统一 WABA 号码，不区分客户/客服）；客服手机号取自 `users.mobile`（经 `users.uidToInfo(staffUid)` 获取，与 `wabaOut` 取客户号同法）；需先 opt-in（客服主动给该 WABA 号发过消息进站后才可下发提醒，等同客户侧 `wabaIn` → `wabaAt` 起窗逻辑）。
+2. ✅ Utility 模板现状（[waba.ts#L28-36](file:///Users/acan/Documents/git/work/learn-api/src/middleware/waba.ts#L28-L36)）：`WHATSAPP_TEMPLATES` 已注册 7 个模板，其中 `user_account_routing_utility: 'HX0187f86200294f47b2d3f0c9ca96dd65'` 是已注册的 Utility 模板，但**目前用于"已注册客户入站路由到客服"场景**（[waba.ts#L621](file:///Users/acan/Documents/git/work/learn-api/src/middleware/waba.ts#L621)），语义是"路由按钮"而非"新消息提醒"。**没有**现成的"新消息提醒"Utility 模板。建议：新建一个专用 Utility 模板（如 `chat_new_message_reminder`，正文「You have a new message, tap to view」+ 按钮 URL 指向聊天页），在 WhatsApp 后台审批注册后将其 `contentSid` 加入 `WHATSAPP_TEMPLATES`；客户端与客服端**可共用同一模板**，仅通过 `contentVariables` 区分收件人称谓/跳转链接，避免维护两套模板。
+3. ✅ 客服侧提醒频率上限：**3 次/天 + 两次间隔 ≥ 2h**，粒度按**「每客服全局」**（同一客服当日跨所有会话合计计次，超限仅记日志不再发送）。计数建议存 Redis（如 `wa_staff_notify:${staffUid}` 当日计数 + `wa_staff_notify_last:${staffUid}` 上次发送时间戳，每日 0 点 TTL 过期）。
+4. ✅ **离线通知逻辑与非服务时段无关**：不按 `inServiceHours` 过滤，只要客服离线（`online(staff)=false`）且未达频率上限即发；非服务时段同样发，不做早报/补发。> 注：此结论与上文客服侧流程图中的 `S3{在服务时间内?}` 分支不符，实现时应**移除该分支**，流程退化为 `离线 → 未达频率上限? → 发提醒`。
+5. ✅ 客户端窗口外 Utility 提醒频率上限：**与客服侧一致**——3 次/天 + 间隔 ≥ 2h，粒度按「每客户全局」（同一客户当日跨所有会话合计计次）。复用同一套 Redis 计数键结构（`wa_user_notify:${uid}`）。
 
 
 
