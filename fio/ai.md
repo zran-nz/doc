@@ -132,4 +132,60 @@ const {
 - 若 `answer` 不包含空格，将直接进行大小写不敏感的字符串比对，不调用 AI
 - 若 `answer` 包含空格，将调用 AI 进行语义比对
 
+### processZip
+
+上传 ZIP 文件，服务端将文件保存到 R2 `zip/{datetime}` 路径，并在 `zippres` 集合创建一条记录（记录文件路径、purpose，`status` 默认为 0）。
+
+```
+POST /processZip
+Content-Type: multipart/form-data
+```
+
+**请求参数**：
+
+| 参数 | 类型 | 必填 | 可选值 | 说明 |
+| --- | --- | --- | --- | --- |
+| purpose | string | 是 | curriculum、feedback、compare | 指定处理目的 |
+| zip | file | 是 | ZIP 文件 | ZIP 压缩文件 |
+
+**成功响应**：`200 OK`
+
+```json
+{
+  "code": 0
+}
+```
+
+- `code = 0`：表示请求处理成功。
+
+**错误响应**：返回对应的 HTTP Status Code，并在响应 JSON 中返回业务错误码。统一格式：
+
+```json
+{
+  "code": 10001,
+  "message": "Invalid purpose"
+}
+```
+
+| code | message | 说明 |
+| --- | --- | --- |
+| 10001 | Invalid purpose | purpose 缺失或不在可选值内 |
+| 10002 | Missing zip file | 缺少 zip 文件 |
+| 10003 | Invalid content type | 非 multipart/form-data 请求 |
+| 10004 | Internal server error | 文件上传或数据写入失败 |
+
+**调用示例**：
+
+```js
+const form = new FormData()
+form.append('purpose', 'curriculum')
+form.append('zip', zipFile) // File / Blob
+
+const {code} = await fetch('/processZip', {
+  method: 'POST',
+  body: form,
+}).then((r) => r.json())
+// code === 0 表示成功
+```
+
 
