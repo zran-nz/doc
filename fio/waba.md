@@ -157,3 +157,18 @@ You can toggle dev mode directly from WhatsApp by sending command messages to th
   * Dev codes are prefixed with **`wac_dev_`** (e.g. `wac_dev_l8x9z...`).
   * Prod codes are prefixed with **`wac_`** (e.g. `wac_l8x9z...`).
 * When a user opens `https://classcipe.com/wac/wac_dev_xxx`, the Prod server detects the `wac_dev_` prefix and immediately redirects (`302`) the browser to `https://dev.classcipe.com/wac/wac_dev_xxx`.
+
+---
+
+# 微信接入
+
+微信（认证服务号）通道的接入方案、四通道能力对比、开发/生产处理与迁移计划，已拆分至独立文档：[wechat.md](wechat.md)。
+
+> **架构调整（2026-10）**：微信接入相关的接口已从 `learn-api` 拆分到**独立项目 `wechat`**：
+> - 新项目位置 `../wechat`，本地开发 `localhost:3000`，产线 `https://classcipe.cn/wxapi/`；
+> - 新项目**不直连数据库**，通过 **Feathers 客户端**透传数据到 `learn-api`（产线 `https://classcipe.com/fio/`，开发 `https://dev.classcipe.com/fio/`）；
+> - 新项目**不区分 dev/产线部署**（单一实例）；开发/产线由其调用的 `learn-api` 决定——微信内 `/dev on` 后走 `https://dev.classcipe.com/fio/`，否则走 `https://classcipe.com/fio/`；
+> - 反向出站（`learn-api` → `wechat`）时 dev/prod 都指向同一 `wechat` 实例，由 `wechat` **按请求来源域名**判定 dev/prod；
+> - `learn-api` 的**出站消息**改为请求 `https://classcipe.cn/wxapi/` 发送。
+>
+> 职责划分、接口契约与迁移步骤见 [wechat.md](wechat.md) 第 0、1、6、11 节。
