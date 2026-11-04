@@ -195,10 +195,11 @@ wechat: {
 
 ### 5.4 出站消息（替代 `wabaOut`，对应 24h/48h 窗口）
 - **48h 窗口内**：调用 `客服消息接口`（`POST /cgi-bin/message/custom/send`）发自由文本，对应 WABA 的 24h 自由文本。
+  - **客服发图片**：微信客服消息不支持直接发图片 URL，需先把图片上传为临时素材（`POST /cgi-bin/media/upload?type=image`）换 `media_id`，再发 `msgtype=image` 的客服消息。`learn-api` 的 `chat-list.wabaOut` 把附件直链交给 `wechat` 项目的 `POST /wxapi/message/image`，由它完成「下载直链 → 临时素材 → image 客服消息」；非图片附件（PDF 等）微信没有对应消息类型，仍发链接文本。详见 6.2。
 - **48h 窗口外**：调用 `模板消息 / 订阅通知`，**只发提醒+网页链接，不携带聊天内容**，对应 WABA 的 Utility 模板。
   - 需在公众平台「模板消息」中申请模板（如 `chat_new_message_reminder`），保存 `template_id`；`url` 指向 H5 聊天页。
   - 频率上限直接复用 [chat.md](chat.md) 的规则：每用户全局 3 次/天、间隔 ≥ 2h，Redis 计数键为 `wx_user_notify:${uid}`（**计数逻辑仍留在 `learn-api`**）。
-- **调用链（关键变化）**：`learn-api` 的 `chat-list.wabaOut` / `staffNotify` 不再直连微信，改为 **HTTP 请求 `wechat` 项目**（`POST https://classcipe.cn/wxapi/message/...`），由 `wechat` 项目发客服消息 / 模板消息。`learn-api` 内保留 `app.service('wechat')` 作为薄封装：**对外方法签名不变**（`sendTextMessage` / `sendTemplateMessage` / `sendChatReminder`），内部改成 HTTP 客户端，从而无需改动 `chat-list`。
+- **调用链（关键变化）**：`learn-api` 的 `chat-list.wabaOut` / `staffNotify` 不再直连微信，改为 **HTTP 请求 `wechat` 项目**（`POST https://classcipe.cn/wxapi/message/...`），由 `wechat` 项目发客服消息 / 模板消息。`learn-api` 内保留 `app.service('wechat')` 作为薄封装：**对外方法签名不变**（`sendTextMessage` / `sendTemplateMessage` / `sendChatReminder`），内部改成 HTTP 客户端，从而无需改动 `chat-list`。图片出站新增 `sendImageMessage(openid, url, {filename, mime})`（见 6.2），`chat-list.wabaOut` 据此把图片附件作为图片消息发出。
 
 ### 5.5 账号路由 / 登录（替代 `/wac/:code`；由 `wechat` 项目承载 OAuth）
 1. 用户在微信内点开链接或菜单进入 H5，服务端构造网页授权 URL：
@@ -240,6 +241,7 @@ wechat: {
 | 方法 | 路径 | Body | 说明 | 对应现有实现 |
 | :--- | :--- | :--- | :--- | :--- |
 | `POST` | `/wxapi/message/text` | `{openid, text}` | 48h 内客服消息（自由文本） | `wechat.sendTextMessage` |
+| `POST` | `/wxapi/message/image` | `{openid, url, filename?, mime?}` | 48h 内图片客服消息：`url` 为公网图片直链（客服附件的 CDN 地址），wechat 下载后上传临时素材换 `media_id` 再发 `msgtype=image` | `wechat.sendImageMessage` |
 | `POST` | `/wxapi/message/template` | `{openid, templateId, data, url?}` | 窗口外模板消息 | `wechat.sendTemplateMessage` |
 | `POST` | `/wxapi/message/chat-reminder` | `{openid, unread, url, text?}` | 会话提醒（内部套模板） | `wechat.sendChatReminder` |
 | `GET` | `/wxapi/wechat/menu` | – | 查询菜单 | `wechat.getMenu` |
@@ -250,6 +252,12 @@ wechat: {
 - **来源区分**：dev 与 prod 的 `learn-api` 都打到同一个 `wechat` 实例；请求需携带来源域名（`Origin` / `Referer`，取值 `https://dev.classcipe.com`（dev）/ `https://classcipe.com`（prod）），`wechat` 据此判定该请求属于 dev 还是 prod。
 - 响应统一 `{ok, data}` / `{ok:false, error}`；`learn-api` 侧失败只记日志、不阻塞会话落库（与现状一致）。
 - `checkNotifyFreq` **不在本契约内**，仍在 `learn-api` 本地判定（业务规则）。
+- **图片出站（`/wxapi/message/image`）补充约束**：
+  - 微信临时素材图片上限 **10MB**、仅支持 **PNG/JPEG/JPG/GIF**，`media_id` 保存 3 天（出站即发即用，无需缓存）；下载超时 / 大小上限由 wechat 的 `wechat.image.timeoutMs` / `wechat.image.maxBytes` 控制。
+  - `url` 必须能被 wechat 实例公网访问（dev 是 `r2dev.classcipe.com`、prod 是 `r2.classcipe.com`），仅允许 `http/https`。
+  - 失败（非 2xx / 非图片 / 超限 / 微信报错）返回 `502 {ok:false, error}`；`learn-api` 的 `wabaOut` 此时**回退成图片链接文本**，保证内容可达。
+  - **同版本发布**：旧版 wechat 没有该路由时会返回 404，`learn-api` 同样走上述回退，因此先发 wechat、后发 learn-api 都不会出现图片丢失；图文同发时文字与图片分两条客服消息。
+  - 实现与自测：`wechat/src/wechat/outboundImage.js`、`wechat/src/routes/outbound.js`、`wechat/scripts/test-outbound-image.js`（容器内 `node scripts/test-outbound-image.js`）；`learn-api` 侧单测 `test/services/chat-list-wabaout.unit.test.ts`。
 
 ### 6.3 接口契约 B：wechat → learn-api（Feathers 客户端）
 
