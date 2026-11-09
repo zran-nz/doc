@@ -134,7 +134,7 @@ const {
 
 ### upfileZip
 
-上传 ZIP 文件，服务端将文件保存到 R2 `zip/{datetime}` 路径，并在 `zippres` 集合创建一条记录（记录文件路径、purpose，`status` 默认为 0）。
+上传 ZIP 文件，服务端将文件保存到 R2 `zip/{datetime}` 路径，并在 `zippres` 集合创建一条记录（记录文件路径、purpose、文件大小 `size`，`status` 默认为 0）。
 
 ```
 for dev:
