@@ -1,0 +1,652 @@
+# WhatsApp Utility templates (Partner subscriptions)
+
+Replaces WhatsApp on the catch-all `PartnerSubsParentUpdate` (moved to **Marketing** by Meta in Nov 2026) and the pending `PartnerSubsPodUpdate`. Those two rows stay for the **web inbox only**; WhatsApp now uses one template per kind of event. Code: `WA` in `subscription-checkout.notifications.ts`.
+
+## Create each template (Twilio Content Template Builder)
+
+- Type: **Call to action**, one **Visit website** button. Button URL = the same redirect base as the existing `PartnerSubsParentUpdate` button, followed by the last variable (the auto-login code). Language: English.
+- Submit for WhatsApp approval as **Utility** with **Allow category change: off** (`allow_category_change: false`), so Meta rejects it instead of approving it as Marketing.
+- Paste the body exactly; use the samples below. Variables are single-line text.
+- Don't add promotional wording (offers, "join another pod", "explore").
+
+## Turn one on (notice-tpl row)
+
+Rows are seeded by `/addNoticeTpls` (`middleware/newNoticeForScript.ts`) switched off: inbox off, email off, `enableWaba: false`. After Meta approves a template, set its row's `wabaContentSid` to the Content SID and `enableWaba: true` (admin notice-tpl screen; saving clears the template cache). Until then that event is inbox only. Keep `wabaVars` exactly as listed (it maps names to {{1}}, {{2}}, …).
+
+| # | notice-tpl code | Twilio name | Used for | Button |
+| --- | --- | --- | --- | --- |
+| 1 | `PartnerSubsParentPodConfirmed` | `classcipe_parent_pod_confirmed` | P1 (pod confirmed after purchase) | View details |
+| 2 | `PartnerSubsParentRefund` | `classcipe_parent_refund` | P2 pod did not start, P5 payment returned, P6 teacher refund | View details |
+| 3 | `PartnerSubsParentEnrolmentCancelled` | `classcipe_parent_enrolment_cancelled` | P5 (nothing charged), next-cycle seat released | View details |
+| 4 | `PartnerSubsParentRenewalBill` | `classcipe_parent_renewal_bill` | R1 renewal bill fixed (no price change) | View details |
+| 5 | `PartnerSubsParentNewPrice` | `classcipe_parent_new_price` | R2 price change (accept by the charge), R3 reminder | View details |
+| 6 | `PartnerSubsParentPaymentDue` | `classcipe_parent_payment_due` | R5 payment due / failed, R5r reminder | Pay now |
+| 7 | `PartnerSubsParentPaymentMethod` | `classcipe_parent_payment_method` | R8 PayTo / direct debit cancelled or paused | Update payment |
+| 8 | `PartnerSubsParentRenewalStopped` | `classcipe_parent_renewal_stopped` | R4 won't renew, R7 renewal not paid, P2r pod won't continue | View details |
+| 9 | `PartnerSubsParentPaymentReceived` | `classcipe_parent_payment_received` | R9 renewal payment received, cycle not confirmed yet | View details |
+| 10 | `PartnerSubsParentSessionCancelled` | `classcipe_parent_session_cancelled` | C1 class cancelled by the teacher, F3 Homework cancelled | View details |
+| 11 | `PartnerSubsPodConfirmed` | `classcipe_partner_pod_confirmed` | T1 pod confirmed | View pod |
+| 12 | `PartnerSubsPodCancelled` | `classcipe_partner_pod_cancelled` | T3 forming pod cancelled at the lock, T9 pod emptied | View pod |
+| 13 | `PartnerSubsPodEnding` | `classcipe_partner_pod_ending` | T3r pod ends after this cycle | View pod |
+| 14 | `PartnerSubsPodDecision` | `classcipe_partner_pod_decision` | T7 run or cancel, T7r run the next cycle | Decide now |
+| 15 | `PartnerSubsPodPriceUpdate` | `classcipe_partner_price_update` | T6 renewal price below the fees | View pod |
+| 16 | `PartnerSubsPodStudentRemoved` | `classcipe_partner_student_removed` | T9 student's bank payment failed | View pod |
+
+## 1. `classcipe_parent_pod_confirmed`
+
+notice-tpl code `PartnerSubsParentPodConfirmed` · P1 (pod confirmed after purchase)
+
+Body:
+
+```
+Dear Parent,
+
+{{1}}'s pod for the {{2}} subscription is confirmed. Classes start on {{3}}.
+
+Tap the button below to see details.
+
+Team Classcipe
+```
+
+Button: **View details** → redirect base + `{{4}}`
+
+`wabaVars`: `["studentName", "planName", "startDate", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `studentName` | Aarav |
+| {{2}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{3}} | `startDate` | 24 Nov 2026 |
+| {{4}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> Aarav's pod for the Online Math Classes (Premium) by LearnSphere subscription is confirmed. Classes start on 24 Nov 2026.
+> 
+> Tap the button below to see details.
+> 
+> Team Classcipe
+
+## 2. `classcipe_parent_refund`
+
+notice-tpl code `PartnerSubsParentRefund` · P2 pod did not start, P5 payment returned, P6 teacher refund
+
+Body:
+
+```
+Dear Parent,
+
+A refund of {{1}} has been issued for {{2}}'s {{3}} subscription. {{4}}. It usually reaches your account in 5–10 business days.
+
+Tap the button below to see details.
+
+Team Classcipe
+```
+
+Button: **View details** → redirect base + `{{5}}`
+
+`wabaVars`: `["amount", "studentName", "planName", "reason", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `amount` | ₹4,500.00 INR |
+| {{2}} | `studentName` | Aarav |
+| {{3}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{4}} | `reason` | The pod did not start |
+| {{5}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> A refund of ₹4,500.00 INR has been issued for Aarav's Online Math Classes (Premium) by LearnSphere subscription. The pod did not start. It usually reaches your account in 5–10 business days.
+> 
+> Tap the button below to see details.
+> 
+> Team Classcipe
+
+## 3. `classcipe_parent_enrolment_cancelled`
+
+notice-tpl code `PartnerSubsParentEnrolmentCancelled` · P5 (nothing charged), next-cycle seat released
+
+Body:
+
+```
+Dear Parent,
+
+{{1}}'s enrolment in the {{2}} subscription has been cancelled because {{3}}. Nothing was charged.
+
+Tap the button below to see details.
+
+Team Classcipe
+```
+
+Button: **View details** → redirect base + `{{4}}`
+
+`wabaVars`: `["studentName", "planName", "reason", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `studentName` | Aarav |
+| {{2}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{3}} | `reason` | your bank payment did not go through |
+| {{4}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> Aarav's enrolment in the Online Math Classes (Premium) by LearnSphere subscription has been cancelled because your bank payment did not go through. Nothing was charged.
+> 
+> Tap the button below to see details.
+> 
+> Team Classcipe
+
+## 4. `classcipe_parent_renewal_bill`
+
+notice-tpl code `PartnerSubsParentRenewalBill` · R1 renewal bill fixed (no price change)
+
+Body:
+
+```
+Dear Parent,
+
+The next bill for {{1}}'s {{2}} subscription, for classes from {{3}}, is {{4}}. {{5}}.
+
+Tap the button below to see details.
+
+Team Classcipe
+```
+
+Button: **View details** → redirect base + `{{6}}`
+
+`wabaVars`: `["studentName", "planName", "startDate", "amount", "paymentNote", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `studentName` | Aarav |
+| {{2}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{3}} | `startDate` | 22 Dec |
+| {{4}} | `amount` | ₹4,500.00 INR |
+| {{5}} | `paymentNote` | It will be charged automatically on 13 Dec |
+| {{6}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> The next bill for Aarav's Online Math Classes (Premium) by LearnSphere subscription, for classes from 22 Dec, is ₹4,500.00 INR. It will be charged automatically on 13 Dec.
+> 
+> Tap the button below to see details.
+> 
+> Team Classcipe
+
+## 5. `classcipe_parent_new_price`
+
+notice-tpl code `PartnerSubsParentNewPrice` · R2 price change (accept by the charge), R3 reminder
+
+Body:
+
+```
+Dear Parent,
+
+The price of {{1}}'s {{2}} subscription is changing to {{3}} (previously {{4}}) for classes from {{5}}. Please accept the new price by {{6}} to continue.
+
+Tap the button below to see details.
+
+Team Classcipe
+```
+
+Button: **View details** → redirect base + `{{7}}`
+
+`wabaVars`: `["studentName", "planName", "amount", "previousAmount", "startDate", "deadline", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `studentName` | Aarav |
+| {{2}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{3}} | `amount` | ₹4,800.00 INR |
+| {{4}} | `previousAmount` | ₹4,500.00 INR |
+| {{5}} | `startDate` | 22 Dec |
+| {{6}} | `deadline` | 13 Dec, 10:00 AM |
+| {{7}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> The price of Aarav's Online Math Classes (Premium) by LearnSphere subscription is changing to ₹4,800.00 INR (previously ₹4,500.00 INR) for classes from 22 Dec. Please accept the new price by 13 Dec, 10:00 AM to continue.
+> 
+> Tap the button below to see details.
+> 
+> Team Classcipe
+
+## 6. `classcipe_parent_payment_due`
+
+notice-tpl code `PartnerSubsParentPaymentDue` · R5 payment due / failed, R5r reminder
+
+Body:
+
+```
+Dear Parent,
+
+The payment of {{1}} for {{2}}'s {{3}} subscription {{4}}. Please pay by {{5}} to keep the place.
+
+Tap the button below to pay.
+
+Team Classcipe
+```
+
+Button: **Pay now** → redirect base + `{{6}}`
+
+`wabaVars`: `["amount", "studentName", "planName", "status", "deadline", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `amount` | ₹4,500.00 INR |
+| {{2}} | `studentName` | Aarav |
+| {{3}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{4}} | `status` | could not be collected because your card was declined by your bank |
+| {{5}} | `deadline` | 18 Dec, 10:00 AM |
+| {{6}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> The payment of ₹4,500.00 INR for Aarav's Online Math Classes (Premium) by LearnSphere subscription could not be collected because your card was declined by your bank. Please pay by 18 Dec, 10:00 AM to keep the place.
+> 
+> Tap the button below to pay.
+> 
+> Team Classcipe
+
+## 7. `classcipe_parent_payment_method`
+
+notice-tpl code `PartnerSubsParentPaymentMethod` · R8 PayTo / direct debit cancelled or paused
+
+Body:
+
+```
+Dear Parent,
+
+Your {{1}} for {{2}}'s {{3}} subscription was cancelled or paused at your bank. Please choose another payment method before the next bill.
+
+Tap the button below to see details.
+
+Team Classcipe
+```
+
+Button: **Update payment** → redirect base + `{{4}}`
+
+`wabaVars`: `["agreement", "studentName", "planName", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `agreement` | PayTo agreement |
+| {{2}} | `studentName` | Aarav |
+| {{3}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{4}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> Your PayTo agreement for Aarav's Online Math Classes (Premium) by LearnSphere subscription was cancelled or paused at your bank. Please choose another payment method before the next bill.
+> 
+> Tap the button below to see details.
+> 
+> Team Classcipe
+
+## 8. `classcipe_parent_renewal_stopped`
+
+notice-tpl code `PartnerSubsParentRenewalStopped` · R4 won't renew, R7 renewal not paid, P2r pod won't continue
+
+Body:
+
+```
+Dear Parent,
+
+{{1}}'s {{2}} subscription will not renew because {{3}}. Classes continue until {{4}}.
+
+Tap the button below to see details.
+
+Team Classcipe
+```
+
+Button: **View details** → redirect base + `{{5}}`
+
+`wabaVars`: `["studentName", "planName", "reason", "lastDay", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `studentName` | Aarav |
+| {{2}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{3}} | `reason` | the new price wasn't accepted |
+| {{4}} | `lastDay` | 22 Dec 2026 |
+| {{5}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> Aarav's Online Math Classes (Premium) by LearnSphere subscription will not renew because the new price wasn't accepted. Classes continue until 22 Dec 2026.
+> 
+> Tap the button below to see details.
+> 
+> Team Classcipe
+
+## 9. `classcipe_parent_payment_received`
+
+notice-tpl code `PartnerSubsParentPaymentReceived` · R9 renewal payment received, cycle not confirmed yet
+
+Body:
+
+```
+Dear Parent,
+
+We received {{1}} for {{2}}'s {{3}} subscription, for classes from {{4}}. We'll confirm once the pod is set, or refund you in full if it doesn't run.
+
+Tap the button below to see details.
+
+Team Classcipe
+```
+
+Button: **View details** → redirect base + `{{5}}`
+
+`wabaVars`: `["amount", "studentName", "planName", "startDate", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `amount` | ₹4,500.00 INR |
+| {{2}} | `studentName` | Aarav |
+| {{3}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{4}} | `startDate` | 22 Dec 2026 |
+| {{5}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> We received ₹4,500.00 INR for Aarav's Online Math Classes (Premium) by LearnSphere subscription, for classes from 22 Dec 2026. We'll confirm once the pod is set, or refund you in full if it doesn't run.
+> 
+> Tap the button below to see details.
+> 
+> Team Classcipe
+
+## 10. `classcipe_parent_session_cancelled`
+
+notice-tpl code `PartnerSubsParentSessionCancelled` · C1 class cancelled by the teacher, F3 Homework cancelled
+
+Body:
+
+```
+Dear Parent,
+
+{{1}}'s {{2}} on {{3}} has been cancelled. {{4}}.
+
+This message is about the {{5}} subscription. Tap the button below to see details.
+
+Team Classcipe
+```
+
+Button: **View details** → redirect base + `{{6}}`
+
+`wabaVars`: `["studentName", "sessionName", "sessionDate", "outcome", "planName", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `studentName` | Aarav |
+| {{2}} | `sessionName` | class |
+| {{3}} | `sessionDate` | 24 Nov |
+| {{4}} | `outcome` | A credit of ₹500.00 INR was added and comes off your next bill |
+| {{5}} | `planName` | Online Math Classes (Premium) by LearnSphere |
+| {{6}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Parent,
+> 
+> Aarav's class on 24 Nov has been cancelled. A credit of ₹500.00 INR was added and comes off your next bill.
+> 
+> This message is about the Online Math Classes (Premium) by LearnSphere subscription. Tap the button below to see details.
+> 
+> Team Classcipe
+
+## 11. `classcipe_partner_pod_confirmed`
+
+notice-tpl code `PartnerSubsPodConfirmed` · T1 pod confirmed
+
+Body:
+
+```
+Dear {{1}},
+
+Your {{2}} pod ({{3}}) is confirmed with {{4}}. Classes start on {{5}}.
+
+Tap the button below to see the pod.
+
+Team Classcipe
+```
+
+Button: **View pod** → redirect base + `{{6}}`
+
+`wabaVars`: `["partnerLabel", "podName", "schedule", "students", "startDate", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `partnerLabel` | Teacher |
+| {{2}} | `podName` | Grade 5 Online Math |
+| {{3}} | `schedule` | Tue, 05:00 PM IST |
+| {{4}} | `students` | 3 students: Aarav, Mia and Leo |
+| {{5}} | `startDate` | 24 Nov 2026 |
+| {{6}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Teacher,
+> 
+> Your Grade 5 Online Math pod (Tue, 05:00 PM IST) is confirmed with 3 students: Aarav, Mia and Leo. Classes start on 24 Nov 2026.
+> 
+> Tap the button below to see the pod.
+> 
+> Team Classcipe
+
+## 12. `classcipe_partner_pod_cancelled`
+
+notice-tpl code `PartnerSubsPodCancelled` · T3 forming pod cancelled at the lock, T9 pod emptied
+
+Body:
+
+```
+Dear {{1}},
+
+Your {{2}} pod ({{3}}) has been cancelled. {{4}}.
+
+Tap the button below to see the pod.
+
+Team Classcipe
+```
+
+Button: **View pod** → redirect base + `{{5}}`
+
+`wabaVars`: `["partnerLabel", "podName", "schedule", "reason", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `partnerLabel` | Teacher |
+| {{2}} | `podName` | Grade 5 Online Math |
+| {{3}} | `schedule` | Tue, 05:00 PM IST |
+| {{4}} | `reason` | It did not reach its minimum (2 of 3 students joined) and no choice was made, so all payments are refunded |
+| {{5}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Teacher,
+> 
+> Your Grade 5 Online Math pod (Tue, 05:00 PM IST) has been cancelled. It did not reach its minimum (2 of 3 students joined) and no choice was made, so all payments are refunded.
+> 
+> Tap the button below to see the pod.
+> 
+> Team Classcipe
+
+## 13. `classcipe_partner_pod_ending`
+
+notice-tpl code `PartnerSubsPodEnding` · T3r pod ends after this cycle
+
+Body:
+
+```
+Dear {{1}},
+
+Your {{2}} pod ({{3}}) ends after this cycle. {{4}}. Renewal payments are refunded, and classes continue until {{5}}.
+
+Tap the button below to see the pod.
+
+Team Classcipe
+```
+
+Button: **View pod** → redirect base + `{{6}}`
+
+`wabaVars`: `["partnerLabel", "podName", "schedule", "reason", "lastDay", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `partnerLabel` | Teacher |
+| {{2}} | `podName` | Grade 5 Online Math |
+| {{3}} | `schedule` | Tue, 05:00 PM IST |
+| {{4}} | `reason` | Nobody renewed for the next cycle |
+| {{5}} | `lastDay` | 22 Dec 2026 |
+| {{6}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Teacher,
+> 
+> Your Grade 5 Online Math pod (Tue, 05:00 PM IST) ends after this cycle. Nobody renewed for the next cycle. Renewal payments are refunded, and classes continue until 22 Dec 2026.
+> 
+> Tap the button below to see the pod.
+> 
+> Team Classcipe
+
+## 14. `classcipe_partner_pod_decision`
+
+notice-tpl code `PartnerSubsPodDecision` · T7 run or cancel, T7r run the next cycle
+
+Body:
+
+```
+Dear {{1}},
+
+Your {{2}} pod ({{3}}) needs your decision: {{4}}. Please choose by {{5}}. If you don't choose, {{6}}.
+
+Tap the button below to decide.
+
+Team Classcipe
+```
+
+Button: **Decide now** → redirect base + `{{7}}`
+
+`wabaVars`: `["partnerLabel", "podName", "schedule", "status", "deadline", "fallback", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `partnerLabel` | Teacher |
+| {{2}} | `podName` | Grade 5 Online Math |
+| {{3}} | `schedule` | Tue, 05:00 PM IST |
+| {{4}} | `status` | 2/3 joined, so choose to run or cancel it |
+| {{5}} | `deadline` | 23 Nov 2026, 10:00 AM IST |
+| {{6}} | `fallback` | it will be cancelled |
+| {{7}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Teacher,
+> 
+> Your Grade 5 Online Math pod (Tue, 05:00 PM IST) needs your decision: 2/3 joined, so choose to run or cancel it. Please choose by 23 Nov 2026, 10:00 AM IST. If you don't choose, it will be cancelled.
+> 
+> Tap the button below to decide.
+> 
+> Team Classcipe
+
+## 15. `classcipe_partner_price_update`
+
+notice-tpl code `PartnerSubsPodPriceUpdate` · T6 renewal price below the fees
+
+Body:
+
+```
+Dear {{1}},
+
+Your current price for the {{2}} pod ({{3}}) does not cover the fees for the {{4}} starting {{5}}. Please publish a higher price before {{6}}, otherwise {{7}} students will not renew.
+
+Tap the button below to see the pod.
+
+Team Classcipe
+```
+
+Button: **View pod** → redirect base + `{{8}}`
+
+`wabaVars`: `["partnerLabel", "podName", "schedule", "renewalLabel", "startDate", "deadline", "count", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `partnerLabel` | Teacher |
+| {{2}} | `podName` | Grade 5 Online Math |
+| {{3}} | `schedule` | Tue, 05:00 PM IST |
+| {{4}} | `renewalLabel` | next cycle |
+| {{5}} | `startDate` | 22 Dec 2026 |
+| {{6}} | `deadline` | 13 Dec 2026, 10:00 AM IST |
+| {{7}} | `count` | 3 |
+| {{8}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Teacher,
+> 
+> Your current price for the Grade 5 Online Math pod (Tue, 05:00 PM IST) does not cover the fees for the next cycle starting 22 Dec 2026. Please publish a higher price before 13 Dec 2026, 10:00 AM IST, otherwise 3 students will not renew.
+> 
+> Tap the button below to see the pod.
+> 
+> Team Classcipe
+
+## 16. `classcipe_partner_student_removed`
+
+notice-tpl code `PartnerSubsPodStudentRemoved` · T9 student's bank payment failed
+
+Body:
+
+```
+Dear {{1}},
+
+A bank payment failed, so {{2}} was removed from {{3}} of your {{4}} pod ({{5}}).
+
+Tap the button below to see the pod.
+
+Team Classcipe
+```
+
+Button: **View pod** → redirect base + `{{6}}`
+
+`wabaVars`: `["partnerLabel", "studentName", "removedFrom", "podName", "schedule", "url"]`
+
+| Var | Key | Sample |
+| --- | --- | --- |
+| {{1}} | `partnerLabel` | Teacher |
+| {{2}} | `studentName` | Aarav |
+| {{3}} | `removedFrom` | all upcoming classes |
+| {{4}} | `podName` | Grade 5 Online Math |
+| {{5}} | `schedule` | Tue, 05:00 PM IST |
+| {{6}} | `url` | wac_8f3k2d |
+
+Preview:
+
+> Dear Teacher,
+> 
+> A bank payment failed, so Aarav was removed from all upcoming classes of your Grade 5 Online Math pod (Tue, 05:00 PM IST).
+> 
+> Tap the button below to see the pod.
+> 
+> Team Classcipe
+
