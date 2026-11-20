@@ -148,7 +148,7 @@ Content-Type: multipart/form-data
 
 | 参数 | 类型 | 必填 | 可选值 | 说明 |
 | --- | --- | --- | --- | --- |
-| purpose | string | 是 | curriculum、feedback、compare | 指定处理目的 |
+| purpose | string | 是 | curriculum、feedback、compare、html | 指定处理目的（html 仅记录标记，不触发 LO/A 更新） |
 | zip | file | 是 | ZIP 文件 | ZIP 压缩文件 |
 
 **成功响应**：`200 OK`
