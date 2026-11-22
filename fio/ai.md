@@ -193,7 +193,7 @@ const {code} = await fetch('/fio/tool/upfileZip', {
 
 ### getFeedbackList
 
-查询存在反馈的题目：`LO(cpa)`、`A(abstract)`、`P(pictorial)`、`C(concrete)` 任意一个 `status === 3` 即返回。
+查询存在反馈的题目：`LO(cpa)`、`A(abstract)`、`P(pictorial)`、`C(concrete)` 任意一个 `status === 3` 即返回。可通过 `scope` 参数单独获取 `LO/A` 或 `P/C` 两种情况下的数据。
 
 返回结构参考反馈导入 JSON（可直接配合 `upfileZip` 的 `purpose=feedback` 使用），并额外附带 `LO/A/P/C` 各自的反馈标签和补充反馈原因，便于 AI 修正题目。
 
@@ -201,6 +201,10 @@ const {code} = await fetch('/fio/tool/upfileZip', {
 // feathers 服务调用
 const rs = await App.service('questions').get('feedbackList', {
   query: {
+    // 可选：单独获取 LO/A 或 P/C；不传或 scope=all 时返回全部
+    scope: 'loa', // 'loa' | 'pc' | 'all'，默认 all
+    // scope: 'pc',
+
     // 可选：透传任意 questions 过滤条件，如 curriculum/subject/grade/topic/standard 等
     'cpa.curriculum': 'au',
     'cpa.subject': '695dfd4d0a1fc83c747b4e80',
@@ -215,8 +219,19 @@ const rs = await App.service('questions').get('feedbackList', {
 })
 
 // HTTP 调用
-// GET /questions/feedbackList?cpa.curriculum=au&cpa.subject=<subjectId>&$limit=100
+// 仅 LO/A：GET /questions/feedbackList?scope=loa
+// 仅 P/C： GET /questions/feedbackList?scope=pc
+// 全部：   GET /questions/feedbackList
+// GET /questions/feedbackList?scope=loa&cpa.curriculum=au&cpa.subject=<subjectId>&$limit=100
 ```
+
+**scope 参数**：
+
+| scope | 说明 |
+| --- | --- |
+| `loa` | 仅返回 `cpa.status === 3` 或 `abstract.status === 3` 的题目 |
+| `pc` | 仅返回 `pictorial.status === 3` 或 `concrete.status === 3` 的题目 |
+| `all` / 不传 | 上述任意一个状态为 3 即返回 |
 
 **返回示例**（数组）：
 
