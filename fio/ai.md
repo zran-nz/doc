@@ -193,16 +193,16 @@ const {code} = await fetch('/fio/tool/upfileZip', {
 
 ### getFeedbackList
 
-查询存在反馈的题目：`LO(cpa)`、`A(abstract)`、`P(pictorial)`、`C(concrete)` 任意一个 `status === 3` 即返回。可通过 `scope` 参数单独获取 `LO/A` 或 `P/C` 两种情况下的数据。
+查询存在反馈的题目：`LO(cpa)`、`A(abstract)`、`P(pictorial)`、`C(concrete)` 任意一个 `status === 3` 即返回。可通过 `scope` 参数单独获取 `LO/A` 或 `P/C` 两种情况下的数据，不传时默认 `loa`。
 
-返回结构参考反馈导入 JSON（可直接配合 `upfileZip` 的 `purpose=feedback` 使用），并额外附带 `LO/A/P/C` 各自的反馈标签和补充反馈原因，便于 AI 修正题目。
+返回结构参考反馈导入 JSON（可直接配合 `upfileZip` 的 `purpose=feedback` 使用），并根据 `scope` 只返回对应内容块的反馈标签、补充反馈原因和状态，便于 AI 修正题目。
 
 ```js
 // feathers 服务调用
 const rs = await App.service('questions').get('feedbackList', {
   query: {
-    // 可选：单独获取 LO/A 或 P/C；不传或 scope=all 时返回全部
-    scope: 'loa', // 'loa' | 'pc' | 'all'，默认 all
+    // 可选：默认 loa，仅返回 LO/A 反馈；scope=pc 仅返回 P/C 反馈；scope=all 返回全部
+    scope: 'loa', // 'loa' | 'pc' | 'all'，默认 loa
     // scope: 'pc',
 
     // 可选：透传任意 questions 过滤条件，如 curriculum/subject/grade/topic/standard 等
@@ -219,19 +219,20 @@ const rs = await App.service('questions').get('feedbackList', {
 })
 
 // HTTP 调用
-// 仅 LO/A：GET /questions/feedbackList?scope=loa
-// 仅 P/C： GET /questions/feedbackList?scope=pc
-// 全部：   GET /questions/feedbackList
+// 默认 LO/A：GET /questions/feedbackList
+// 仅 LO/A：  GET /questions/feedbackList?scope=loa
+// 仅 P/C：   GET /questions/feedbackList?scope=pc
+// 全部：     GET /questions/feedbackList?scope=all
 // GET /questions/feedbackList?scope=loa&cpa.curriculum=au&cpa.subject=<subjectId>&$limit=100
 ```
 
 **scope 参数**：
 
-| scope | 说明 |
-| --- | --- |
-| `loa` | 仅返回 `cpa.status === 3` 或 `abstract.status === 3` 的题目 |
-| `pc` | 仅返回 `pictorial.status === 3` 或 `concrete.status === 3` 的题目 |
-| `all` / 不传 | 上述任意一个状态为 3 即返回 |
+| scope | 说明 | 返回的 feedback 分组 |
+| --- | --- | --- |
+| `loa` / 不传 | 仅返回 `cpa.status === 3` 或 `abstract.status === 3` 的题目 | `LO` / `A` |
+| `pc` | 仅返回 `pictorial.status === 3` 或 `concrete.status === 3` 的题目 | `P` / `C` |
+| `all` | 上述任意一个状态为 3 即返回 | `LO` / `A` / `P` / `C` |
 
 **返回示例**（数组）：
 
@@ -260,10 +261,8 @@ const rs = await App.service('questions').get('feedbackList', {
       }
     ],
     "feedback": {
-      "LO": {"feedback": ["Off-Bloom"], "additionalFeedback": "Learning outcome 与 Bloom 层级不一致"},
-      "A": {"feedback": ["ContentIncomplete"], "additionalFeedback": ""},
-      "P": {"feedback": [], "additionalFeedback": ""},
-      "C": {"feedback": ["Broken"], "additionalFeedback": "交互页面无法正常加载"}
+      "LO": {"status": 3, "feedback": ["Off-Bloom"], "additionalFeedback": "Learning outcome 与 Bloom 层级不一致"},
+      "A": {"status": 2, "feedback": [], "additionalFeedback": ""}
     },
     "_id": {"$oid": "6a55b7be990628f268dd9cfa"}
   }
@@ -281,7 +280,8 @@ const rs = await App.service('questions').get('feedbackList', {
 | `topic` / `content` / `elaboration` | 按 `cpa.topic` 在 `subjects.snapshot.topic` 树中的路径解析 |
 | `standard` | 按 `cpa.standard` 在 `subjects.snapshot.standard` 树中解析出的名称 |
 | `bloom` | 题目当前的 Bloom 数据，字段名与反馈导入 JSON 一致 |
-| `feedback` | 额外字段，按 `LO` / `A` / `P` / `C` 分组返回各自内容块的反馈 |
+| `feedback` | 按 `scope` 返回对应内容块的反馈：`loa` 返回 `LO/A`，`pc` 返回 `P/C`，`all` 返回全部 |
+| `feedback.<LO/A/P/C>.status` | 对应内容块的状态，对应 `cpa/abstract/pictorial/concrete.status` |
 | `feedback.<LO/A/P/C>.feedback` | 反馈标签数组，对应 `cpa/abstract/pictorial/concrete.feedback` |
 | `feedback.<LO/A/P/C>.additionalFeedback` | 补充反馈原因，对应 `cpa/abstract/pictorial/concrete.additionalFeedback` |
 | `_id` | 以 `{"$oid": "<id>"}` 形式返回，可直接作为反馈导入 JSON 的题目 ID |
