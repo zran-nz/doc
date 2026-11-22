@@ -191,4 +191,84 @@ const {code} = await fetch('/fio/tool/upfileZip', {
 // code === 0 表示成功
 ```
 
+### getFeedbackList
+
+查询存在反馈的题目：`LO(cpa)`、`A(abstract)`、`P(pictorial)`、`C(concrete)` 任意一个 `status === 3` 即返回。
+
+返回结构参考反馈导入 JSON（可直接配合 `upfileZip` 的 `purpose=feedback` 使用），并额外附带 `LO/A/P/C` 各自的反馈标签和补充反馈原因，便于 AI 修正题目。
+
+```js
+// feathers 服务调用
+const rs = await App.service('questions').get('feedbackList', {
+  query: {
+    // 可选：透传任意 questions 过滤条件，如 curriculum/subject/grade/topic/standard 等
+    'cpa.curriculum': 'au',
+    'cpa.subject': '695dfd4d0a1fc83c747b4e80',
+    'cpa.grade': 'Year 2',
+
+    // 可选：分页、排序、字段选择
+    $limit: 100,
+    $skip: 0,
+    $sort: {updatedAt: -1},
+    $select: ['_id', 'id', 'cpa', 'bloom', 'abstract', 'pictorial', 'concrete'],
+  },
+})
+
+// HTTP 调用
+// GET /questions/feedbackList?cpa.curriculum=au&cpa.subject=<subjectId>&$limit=100
+```
+
+**返回示例**（数组）：
+
+```json
+[
+  {
+    "id": "43",
+    "year_group": "Year 3",
+    "curriculum": "Victorian",
+    "subject": "Math",
+    "topic": "Number",
+    "content": "add and subtract two- and three-digit numbers...\nVC2M3N04",
+    "elaboration": "choosing between standard and non-standard place value partitions...",
+    "standard": "Students extend and use single-digit addition and related subtraction facts...",
+    "bloom": [
+      {
+        "learning_outcome": "Students will be able to identify three-digit parts using blocks.",
+        "learning_outcome_generate_reason": "At Year 3, recalling and identifying basic place value components...",
+        "bloom_dimension": "Remembering",
+        "problem_A": "State the hundreds, tens, and ones parts of 485.",
+        "answer": "4 hundreds, 8 tens, and 5 ones (or 400, 80, 5).",
+        "problem_P_function": "A visual part-whole cherry model displaying the number 485...",
+        "problem_P_playscript": "Look at the model. Name the missing numbers for 485.",
+        "problem_C_function": "An interactive industrial bakery simulator...",
+        "problem_C_playscript": "Look at the bakery inventory. State the number of pallets, boxes, and bags for 485kg."
+      }
+    ],
+    "feedback": {
+      "LO": {"feedback": ["Off-Bloom"], "additionalFeedback": "Learning outcome 与 Bloom 层级不一致"},
+      "A": {"feedback": ["ContentIncomplete"], "additionalFeedback": ""},
+      "P": {"feedback": [], "additionalFeedback": ""},
+      "C": {"feedback": ["Broken"], "additionalFeedback": "交互页面无法正常加载"}
+    },
+    "_id": {"$oid": "6a55b7be990628f268dd9cfa"}
+  }
+]
+```
+
+**字段说明**：
+
+| 字段 | 说明 |
+| --- | --- |
+| `id` | `questions.id` |
+| `year_group` | `cpa.grade` |
+| `curriculum` | `cpa.curriculumName`，缺失时回退 `cpa.curriculum` |
+| `subject` | `cpa.subjectName`，缺失时回退 `cpa.subject` |
+| `topic` / `content` / `elaboration` | 按 `cpa.topic` 在 `subjects.snapshot.topic` 树中的路径解析 |
+| `standard` | 按 `cpa.standard` 在 `subjects.snapshot.standard` 树中解析出的名称 |
+| `bloom` | 题目当前的 Bloom 数据，字段名与反馈导入 JSON 一致 |
+| `feedback` | 额外字段，按 `LO` / `A` / `P` / `C` 分组返回各自内容块的反馈 |
+| `feedback.<LO/A/P/C>.feedback` | 反馈标签数组，对应 `cpa/abstract/pictorial/concrete.feedback` |
+| `feedback.<LO/A/P/C>.additionalFeedback` | 补充反馈原因，对应 `cpa/abstract/pictorial/concrete.additionalFeedback` |
+| `_id` | 以 `{"$oid": "<id>"}` 形式返回，可直接作为反馈导入 JSON 的题目 ID |
+
 
