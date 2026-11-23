@@ -218,11 +218,11 @@ const rs = await App.service('questions').get('feedbackForAi', {
   },
 })
 
-// HTTP 调用
-// 默认 LO/A：GET /questions/feedbackForAi
-// 仅 LO/A：  GET /questions/feedbackForAi?scope=loa
-// 仅 P/C：   GET /questions/feedbackForAi?scope=pc
-// GET /questions/feedbackForAi?scope=loa&cpa.curriculum=au&cpa.subject=<subjectId>&$limit=100
+// HTTP 调用（前缀 https://test.classcipe.com/fio）
+// 默认 LO/A：GET https://test.classcipe.com/fio/questions/feedbackForAi
+// 仅 LO/A：  GET https://test.classcipe.com/fio/questions/feedbackForAi?scope=loa
+// 仅 P/C：   GET https://test.classcipe.com/fio/questions/feedbackForAi?scope=pc
+// GET https://test.classcipe.com/fio/questions/feedbackForAi?scope=loa&cpa.curriculum=au&cpa.subject=<subjectId>&$limit=100
 ```
 
 **scope 参数**：
@@ -300,8 +300,8 @@ const rs = await App.service('questions').get('feedbackForAi', {
 // feathers 服务调用（无需登录）
 const rs = await App.service('subjects').get('pubList')
 
-// HTTP 调用
-// GET /subjects/pubList
+// HTTP 调用（前缀 https://test.classcipe.com/fio）
+// GET https://test.classcipe.com/fio/subjects/pubList
 ```
 
 **返回示例**（数组）：
@@ -346,8 +346,8 @@ const rs = await App.service('topic-standard').get('officialMapping', {
   },
 })
 
-// HTTP 调用
-// GET /topic-standard/officialMapping?subjectId=65a0e4a13a7176431c2c84e2
+// HTTP 调用（前缀 https://test.classcipe.com/fio）
+// GET https://test.classcipe.com/fio/topic-standard/officialMapping?subjectId=65a0e4a13a7176431c2c84e2
 ```
 
 **请求参数**：
@@ -374,18 +374,18 @@ const rs = await App.service('topic-standard').get('officialMapping', {
 ]
 ```
 
-当 topic 树为 **4 层**时，额外返回 `sub_strand`（第 3 层节点名称）：
+当 topic 树为 **4 层**时，额外返回 `strand`（第 2 层节点名称），`content` 取第 3 层：
 
 ```json
 {
-  "year_group": "Year 3",
-  "curriculum": "AU curriculum",
-  "subject": "Victorian F-6 V2",
-  "topic": "Number",
-  "content": "add and subtract two- and three-digit numbers ...\nVC2M3N04",
-  "sub_strand": "Number and place value",
-  "elaboration": "choosing between standard and non-standard place value partitions ...",
-  "standard": ["Students extend and use single-digit addition and related subtraction facts ..."]
+  "year_group": "Grade 9",
+  "curriculum": "IGCSE",
+  "subject": "Business Studies 0450",
+  "topic": "1 Understanding business activity",
+  "strand": "1.1 Business activity",
+  "content": "1.1.1 The purpose and nature of business activity:",
+  "elaboration": "Concepts of needs, wants, scarcity and opportunity cost",
+  "standard": ["..."]
 }
 ```
 
@@ -396,10 +396,18 @@ const rs = await App.service('topic-standard').get('officialMapping', {
 | `year_group` | topic 叶子节点的 `grade`，数组时以 `, ` 拼接 |
 | `curriculum` | 大纲名称，按 `subjects.curriculum` 代码在 `curriculum` 集合解析 `code → name`（与 questions 的 `cpa.curriculumName` 同源，如 `au` → `AU curriculum`、`nz` → `NZ National`）；查不到时回退代码本身 |
 | `subject` | `subjects.subtitle`（如 `Victorian F-6 V2`），为空时回退 `subjects.name` |
-| `topic` | topic 路径第 1 层（根）节点名称 |
-| `content` | topic 路径倒数第 2 层节点名称；节点带 `code` 时追加 `\n` + code |
-| `sub_strand` | 仅 topic 为 4 层时返回，取第 3 层（索引 2）节点名称（带 code 时同样追加） |
-| `elaboration` | topic 叶子（最后一层）节点名称，缺失时回退匹配记录的 `topicName` |
+| `topic` | 第 1 层（索引 0，根节点）名称 |
+| `strand` | 仅 topic 为 4 层时返回，取第 2 层（索引 1）节点名称（带 `code` 时追加 `\n` + code） |
+| `content` | 叶子的上一层节点名称（3 层取 L2、4 层取 L3），带 `code` 时追加 `\n` + code；topic 仅 2 层时无该层级，返回空字符串 |
+| `elaboration` | 叶子（最后一层）节点名称，缺失时回退匹配记录的 `topicName` |
 | `standard` | 该 topic 匹配的官方 standard 名称**数组**，顺序与 mapping 表一致；名称缺失时用 `subjects.snapshot.standard` 树解析，再缺失回退 standard id |
+
+各深度的层级对应关系：
+
+| topic 深度 | `topic` | `strand` | `content` | `elaboration` |
+| --- | --- | --- | --- | --- |
+| 2 层 | L1 | — | 空 | L2 |
+| 3 层 | L1 | — | L2 | L3 |
+| 4 层 | L1 | L2 | L3 | L4 |
 
 
