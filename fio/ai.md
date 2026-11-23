@@ -191,7 +191,7 @@ const {code} = await fetch('/fio/tool/upfileZip', {
 // code === 0 表示成功
 ```
 
-### getFeedbackList
+### getFeedbackForAi
 
 查询存在反馈的题目：`LO(cpa)`、`A(abstract)`、`P(pictorial)`、`C(concrete)` 任意一个 `status === 3` 即返回。可通过 `scope` 参数单独获取 `LO/A` 或 `P/C` 两种情况下的数据，不传时默认 `loa`。
 
@@ -199,7 +199,7 @@ const {code} = await fetch('/fio/tool/upfileZip', {
 
 ```js
 // feathers 服务调用
-const rs = await App.service('questions').get('feedbackList', {
+const rs = await App.service('questions').get('feedbackForAi', {
   query: {
     // 可选：默认 loa，仅返回 LO/A 反馈；scope=pc 仅返回 P/C 反馈；scope=all 返回全部
     scope: 'loa', // 'loa' | 'pc' | 'all'，默认 loa
@@ -214,16 +214,16 @@ const rs = await App.service('questions').get('feedbackList', {
     $limit: 100,
     $skip: 0,
     $sort: {updatedAt: -1},
-    $select: ['_id', 'id', 'cpa', 'bloom', 'abstract', 'pictorial', 'concrete'],
+    $select: ['_id', 'cpa', 'bloom', 'abstract', 'pictorial', 'concrete'],
   },
 })
 
 // HTTP 调用
-// 默认 LO/A：GET /questions/feedbackList
-// 仅 LO/A：  GET /questions/feedbackList?scope=loa
-// 仅 P/C：   GET /questions/feedbackList?scope=pc
-// 全部：     GET /questions/feedbackList?scope=all
-// GET /questions/feedbackList?scope=loa&cpa.curriculum=au&cpa.subject=<subjectId>&$limit=100
+// 默认 LO/A：GET /questions/feedbackForAi
+// 仅 LO/A：  GET /questions/feedbackForAi?scope=loa
+// 仅 P/C：   GET /questions/feedbackForAi?scope=pc
+// 全部：     GET /questions/feedbackForAi?scope=all
+// GET /questions/feedbackForAi?scope=loa&cpa.curriculum=au&cpa.subject=<subjectId>&$limit=100
 ```
 
 **scope 参数**：
@@ -239,7 +239,6 @@ const rs = await App.service('questions').get('feedbackList', {
 ```json
 [
   {
-    "id": "43",
     "year_group": "Year 3",
     "curriculum": "Victorian",
     "subject": "Math",
@@ -273,7 +272,6 @@ const rs = await App.service('questions').get('feedbackList', {
 
 | 字段 | 说明 |
 | --- | --- |
-| `id` | `questions.id` |
 | `year_group` | `cpa.grade` |
 | `curriculum` | `cpa.curriculumName`，缺失时回退 `cpa.curriculum` |
 | `subject` | `cpa.subjectName`，缺失时回退 `cpa.subject` |
