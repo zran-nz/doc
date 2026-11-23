@@ -282,4 +282,54 @@ const rs = await App.service('questions').get('feedbackForAi', {
 | `feedback.<LO/A/P/C>.additionalFeedback` | 补充反馈原因，对应 `cpa/abstract/pictorial/concrete.additionalFeedback` |
 | `_id` | 以 `{"$oid": "<id>"}` 形式返回，可直接作为反馈导入 JSON 的题目 ID |
 
+### getPubList（subjects）
+
+获取系统已发布的公共学科列表（目前仅返回 `Math`、`Science`），供 AI 选择 `cpa.subject` 时使用。**无需 JWT 认证**，无请求参数。
+
+接口固定过滤条件：
+
+- `uid = '1'`：系统公共数据
+- `del = false`：未删除
+- `publish` 数组非空：已发布
+- `subtitle` 存在且非空
+- `name` 属于 `['Math', 'Science']`
+
+结果按 `curriculum` → `name` → `subtitle` 升序排列，仅返回 `_id`、`name`、`subtitle`、`curriculum` 四个字段。
+
+```js
+// feathers 服务调用（无需登录）
+const rs = await App.service('subjects').get('pubList')
+
+// HTTP 调用
+// GET /subjects/pubList
+```
+
+**返回示例**（数组）：
+
+```json
+[
+  {
+    "_id": "695dfd4d0a1fc83c747b4e80",
+    "name": "Math",
+    "subtitle": "Mathematics F-6",
+    "curriculum": ["au"]
+  },
+  {
+    "_id": "695dfd4d0a1fc83c747b4e81",
+    "name": "Science",
+    "subtitle": "Science F-6",
+    "curriculum": ["au"]
+  }
+]
+```
+
+**字段说明**：
+
+| 字段 | 说明 |
+| --- | --- |
+| `_id` | 学科 id，即 questions 中的 `cpa.subject` |
+| `name` | 学科名称，仅 `Math` / `Science` |
+| `subtitle` | 学科副标题（具体版本/学段说明） |
+| `curriculum` | 所属课程体系代码数组，对应 questions 的 `cpa.curriculum` |
+
 
