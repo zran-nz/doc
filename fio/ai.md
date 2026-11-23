@@ -193,7 +193,7 @@ const {code} = await fetch('/fio/tool/upfileZip', {
 
 ### getFeedbackForAi
 
-查询存在反馈的题目：`LO(cpa)`、`A(abstract)`、`P(pictorial)`、`C(concrete)` 任意一个 `status === 3` 即返回。可通过 `scope` 参数单独获取 `LO/A` 或 `P/C` 两种情况下的数据，不传时默认 `loa`。
+查询存在反馈的题目：通过 `scope` 参数获取 `LO/A` 或 `P/C` 两种情况下的数据（对应内容块 `status === 3`），不传时默认 `loa`。
 
 返回结构参考反馈导入 JSON（可直接配合 `upfileZip` 的 `purpose=feedback` 使用），并根据 `scope` 只返回对应内容块的反馈标签、补充反馈原因和状态，便于 AI 修正题目。
 
@@ -201,8 +201,8 @@ const {code} = await fetch('/fio/tool/upfileZip', {
 // feathers 服务调用
 const rs = await App.service('questions').get('feedbackForAi', {
   query: {
-    // 可选：默认 loa，仅返回 LO/A 反馈；scope=pc 仅返回 P/C 反馈；scope=all 返回全部
-    scope: 'loa', // 'loa' | 'pc' | 'all'，默认 loa
+    // 可选：默认 loa，仅返回 LO/A 反馈；scope=pc 仅返回 P/C 反馈
+    scope: 'loa', // 'loa' | 'pc'，默认 loa
     // scope: 'pc',
 
     // 可选：透传任意 questions 过滤条件，如 curriculum/subject/grade/topic/standard 等
@@ -222,7 +222,6 @@ const rs = await App.service('questions').get('feedbackForAi', {
 // 默认 LO/A：GET /questions/feedbackForAi
 // 仅 LO/A：  GET /questions/feedbackForAi?scope=loa
 // 仅 P/C：   GET /questions/feedbackForAi?scope=pc
-// 全部：     GET /questions/feedbackForAi?scope=all
 // GET /questions/feedbackForAi?scope=loa&cpa.curriculum=au&cpa.subject=<subjectId>&$limit=100
 ```
 
@@ -232,7 +231,6 @@ const rs = await App.service('questions').get('feedbackForAi', {
 | --- | --- | --- |
 | `loa` / 不传 | 仅返回 `cpa.status === 3` 或 `abstract.status === 3` 的题目 | `LO` / `A` |
 | `pc` | 仅返回 `pictorial.status === 3` 或 `concrete.status === 3` 的题目 | `P` / `C` |
-| `all` | 上述任意一个状态为 3 即返回 | `LO` / `A` / `P` / `C` |
 
 **返回示例**（数组）：
 
@@ -278,7 +276,7 @@ const rs = await App.service('questions').get('feedbackForAi', {
 | `topic` / `content` / `elaboration` | 按 `cpa.topic` 在 `subjects.snapshot.topic` 树中的路径解析 |
 | `standard` | 按 `cpa.standard` 在 `subjects.snapshot.standard` 树中解析出的名称 |
 | `bloom` | 题目当前的 Bloom 数据，字段名与反馈导入 JSON 一致 |
-| `feedback` | 按 `scope` 返回对应内容块的反馈：`loa` 返回 `LO/A`，`pc` 返回 `P/C`，`all` 返回全部 |
+| `feedback` | 按 `scope` 返回对应内容块的反馈：`loa` 返回 `LO/A`，`pc` 返回 `P/C` |
 | `feedback.<LO/A/P/C>.status` | 对应内容块的状态，对应 `cpa/abstract/pictorial/concrete.status` |
 | `feedback.<LO/A/P/C>.feedback` | 反馈标签数组，对应 `cpa/abstract/pictorial/concrete.feedback` |
 | `feedback.<LO/A/P/C>.additionalFeedback` | 补充反馈原因，对应 `cpa/abstract/pictorial/concrete.additionalFeedback` |
