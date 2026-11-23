@@ -363,7 +363,7 @@ const rs = await App.service('topic-standard').get('officialMapping', {
   {
     "year_group": "Year 2",
     "curriculum": "AU curriculum",
-    "subject": "Math",
+    "subject": "Victorian F-6 V2",
     "topic": "Number",
     "content": "recognise, represent and order numbers to at least 1000 using physical and virtual materials, numerals and number lines\nVC2M2N01",
     "elaboration": "recognising missing numbers on different number lines, for example, a number line with 1800 on one end and 2200 on the other, with every decade numbered",
@@ -380,7 +380,7 @@ const rs = await App.service('topic-standard').get('officialMapping', {
 {
   "year_group": "Year 3",
   "curriculum": "AU curriculum",
-  "subject": "Math",
+  "subject": "Victorian F-6 V2",
   "topic": "Number",
   "content": "add and subtract two- and three-digit numbers ...\nVC2M3N04",
   "sub_strand": "Number and place value",
@@ -395,7 +395,7 @@ const rs = await App.service('topic-standard').get('officialMapping', {
 | --- | --- |
 | `year_group` | topic 叶子节点的 `grade`，数组时以 `, ` 拼接 |
 | `curriculum` | 大纲名称，按 `subjects.curriculum` 代码在 `curriculum` 集合解析 `code → name`（与 questions 的 `cpa.curriculumName` 同源，如 `au` → `AU curriculum`、`nz` → `NZ National`）；查不到时回退代码本身 |
-| `subject` | `subjects.name`（如 `Math`） |
+| `subject` | `subjects.subtitle`（如 `Victorian F-6 V2`），为空时回退 `subjects.name` |
 | `topic` | topic 路径第 1 层（根）节点名称 |
 | `content` | topic 路径倒数第 2 层节点名称；节点带 `code` 时追加 `\n` + code |
 | `sub_strand` | 仅 topic 为 4 层时返回，取第 3 层（索引 2）节点名称（带 code 时同样追加） |
