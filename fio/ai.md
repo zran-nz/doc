@@ -332,4 +332,80 @@ const rs = await App.service('subjects').get('pubList')
 | `subtitle` | 学科副标题（具体版本/学段说明） |
 | `curriculum` | 所属课程体系代码数组，对应 questions 的 `cpa.curriculum` |
 
+### getOfficialMapping（topic-standard）
+
+按 `subjectId` 返回该学科的**官方 topic ↔ standard 匹配数据**，供 AI 在出题或修正题目时确定 topic 对应的官方 standard 组合。**无需 JWT 认证**。
+
+数据来源于 `topicStandard` 集合（官方匹配；增广数据在 `topicStandardExt`，用户上传数据在 `topicStandardUploaded`，均不在本接口范围）。结果按 `createdAt` 升序返回，每条为一条 topic 叶子节点的完整匹配文档，并附加从 `subjects.snapshot.topic` 树解析出的 `topic` 层级路径与末级 `grade`。
+
+```js
+// feathers 服务调用（无需登录）
+const rs = await App.service('topic-standard').get('officialMapping', {
+  query: {
+    subjectId: '695dfd4d0a1fc83c747b4e80', // 必填，subjects._id
+  },
+})
+
+// HTTP 调用
+// GET /topic-standard/officialMapping?subjectId=695dfd4d0a1fc83c747b4e80
+```
+
+**请求参数**：
+
+| 参数 | 必填 | 说明 |
+| --- | --- | --- |
+| `subjectId` | 是 | `subjects._id`，缺失时抛 `BadRequest: subjectId is required` |
+
+**返回示例**（数组）：
+
+```json
+[
+  {
+    "_id": "660f1c2a9d3a1b0012a45678",
+    "subjectId": "695dfd4d0a1fc83c747b4e80",
+    "topicId": "695dfd4d0a1fc83c747b4f01",
+    "topicName": "Counting to and from 100",
+    "standards": [
+      {"_id": "695dfd4d0a1fc83c747b501", "name": "Develop confidence with number sequences..."},
+      {"_id": "695dfd4d0a1fc83c747b502", "name": "Investigate number sequences..."}
+    ],
+    "augmentedPair": [],
+    "status": 2,
+    "topic": [
+      {
+        "_id": "695dfd4d0a1fc83c747b600",
+        "name": "Number and Algebra",
+        "child": [
+          {
+            "_id": "695dfd4d0a1fc83c747b700",
+            "name": "Number and place value",
+            "child": [
+              {"_id": "695dfd4d0a1fc83c747b4f01", "name": "Counting to and from 100"}
+            ]
+          }
+        ]
+      }
+    ],
+    "grade": ["Year 2"],
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "updatedAt": "2026-01-01T00:00:00.000Z"
+  }
+]
+```
+
+**字段说明**：
+
+| 字段 | 说明 |
+| --- | --- |
+| `_id` | 匹配记录 id |
+| `subjectId` | 所属学科 id，即 `subjects._id` / questions 的 `cpa.subject` |
+| `topicId` | topic 末级（叶子）节点 `_id`，对应 questions 的 `cpa.topic` |
+| `topicName` | topic 末级节点名称 |
+| `standards` | 该 topic 匹配的官方 standard 叶子数组，`_id` 对应 questions 的 `cpa.standard`，顺序与 mapping 表一致 |
+| `augmentedPair` | 增广匹配对（数据增广审核用） |
+| `status` | 审核状态：`0` 生成中、`1` 待确认、`2` 已确认、`3` 有反馈 |
+| `topic` | 从 `subjects.snapshot.topic` 解析的完整层级路径，以 `child` 嵌套到叶子 |
+| `grade` | topic 末级节点的年级数组 |
+| `knowledge_tag` | 关联的知识标签 id 数组（存在时返回） |
+
 
