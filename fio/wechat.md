@@ -450,7 +450,7 @@ work/wechat/                     # 新项目（Node + TypeScript，监听 3000�
 - ✅ 新增 `src/services/wx-bridge/`（桥接服务，见 6.3），并把原 `users` 侧的 `findWechatBoundUser` 唯一性校验迁到 `wx-bridge.bindWechat`，避免 `wechat` 回写时同一微信号被覆盖到多个账号。
 - ✅ `users` 模型与 `selectInfo` 保持不变。
 - ⛔ **移除** `users.patchBindWechat`（`PATCH /users/bindWechat`）及 `users.hooks` 的 `wxBind` 分支、`wx_bind:<token>` 的 Redis 读写：该一次性 token 现由 `wechat` 项目自持（`GET/POST /wxapi/wechat/bind`），`learn-api` 侧已无写入方，属死代码。
-- ✅ 微信注册收尾（`web/src/pages/lite/SignUp.vue`）：账号创建后调 `POST /wxapi/wechat/bind {token: wxBind, uid}` 完成绑定，该接口顺带签发登录态（`wx-bridge.login`），页面写入 `feathers-jwt` 后**直接进 `/v2/lite`**；绑定或登录态签发失败时提示错误，不再回退 `snsapi_base` 网页授权。注册页打开时会 `GET /wxapi/wechat/bind` 自动回填微信昵称头像，支持可选头像上传（免鉴权 `/fio/tool/upfileTmp`），提交前把微信头像经 `/fio/tool/upfileUrl` 转存到本站存储；微信分支已去掉密码框。⚠️ 仍待做：「绑定微信」按钮 / 落地页（已注册用户自助绑定入口）。
+- ✅ 微信注册收尾（`web/src/pages/lite/SignUp.vue`）：账号创建后调 `POST /wxapi/wechat/bind {token: wxBind, uid}` 完成绑定，该接口顺带签发登录态（`wx-bridge.login`），页面写入 `feathers-jwt` 后**直接进 `/v2/lite`**；绑定或登录态签发失败时提示错误，不再回退 `snsapi_base` 网页授权。注册页打开时会 `GET /wxapi/wechat/bind` 自动回填微信昵称头像，支持可选头像上传（免鉴权 `/fio/tool/upfileTmp`），提交前把微信头像经 `/fio/tool/upfileUrl` 转存到本站存储；提交前还会再次 GET 校验令牌，过期/已使用时不建号并提示用户回微信重新获取链接；微信分支已去掉密码框。⚠️ 仍待做：「绑定微信」按钮 / 落地页（已注册用户自助绑定入口）。
 
 ### 11.3 迁移步骤（建议顺序）
 
