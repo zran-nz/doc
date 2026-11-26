@@ -114,6 +114,7 @@ sequenceDiagram
 ```
 
 该流程直接使用一次性 `wxBind` 码完成绑定并获取登录态，不经过微信 OAuth 静默授权。
+注册页打开时会调 `GET /wxapi/wechat/bind` 回填昵称头像（有则用），缺昵称的快捷注册短链会在进入页面前先经 `snsapi_userinfo` 授权补充资料。
 
 ---
 
@@ -449,7 +450,7 @@ work/wechat/                     # 新项目（Node + TypeScript，监听 3000�
 - ✅ 新增 `src/services/wx-bridge/`（桥接服务，见 6.3），并把原 `users` 侧的 `findWechatBoundUser` 唯一性校验迁到 `wx-bridge.bindWechat`，避免 `wechat` 回写时同一微信号被覆盖到多个账号。
 - ✅ `users` 模型与 `selectInfo` 保持不变。
 - ⛔ **移除** `users.patchBindWechat`（`PATCH /users/bindWechat`）及 `users.hooks` 的 `wxBind` 分支、`wx_bind:<token>` 的 Redis 读写：该一次性 token 现由 `wechat` 项目自持（`GET/POST /wxapi/wechat/bind`），`learn-api` 侧已无写入方，属死代码。
-- ✅ 微信注册收尾（`web/src/pages/lite/SignUp.vue`）：账号创建后调 `POST /wxapi/wechat/bind {token: wxBind, uid}` 完成绑定，该接口顺带签发登录态（`wx-bridge.login`），页面写入 `feathers-jwt` 后**直接进 `/v2/lite`**；绑定或登录态签发失败时提示错误，不再回退 `snsapi_base` 网页授权。⚠️ 仍待做：「绑定微信」按钮 / 落地页（已注册用户自助绑定入口）。
+- ✅ 微信注册收尾（`web/src/pages/lite/SignUp.vue`）：账号创建后调 `POST /wxapi/wechat/bind {token: wxBind, uid}` 完成绑定，该接口顺带签发登录态（`wx-bridge.login`），页面写入 `feathers-jwt` 后**直接进 `/v2/lite`**；绑定或登录态签发失败时提示错误，不再回退 `snsapi_base` 网页授权。注册页打开时会 `GET /wxapi/wechat/bind` 自动回填微信昵称头像，支持可选头像上传（免鉴权 `/fio/tool/upfileTmp`），提交前把微信头像经 `/fio/tool/upfileUrl` 转存到本站存储；微信分支已去掉密码框。⚠️ 仍待做：「绑定微信」按钮 / 落地页（已注册用户自助绑定入口）。
 
 ### 11.3 迁移步骤（建议顺序）
 
@@ -520,7 +521,7 @@ curl -X POST 'https://classcipe.cn/wxapi/message/text' -H 'content-type: applica
 - **模板消息**：`wechat.templates.chat_new_message_reminder` 需在公众平台申请模板后填入真实 `template_id`。
 - **域名与备案**：`classcipe.cn` 的网页授权域名 / 业务域名需配置（且 ICP 备案），否则 OAuth 与菜单 `view` 跳转会失败。
 - **`classcipe.cn` 上 H5 可用性**：确认 `/v2/lite`、`/v2/lite/chat` 在 `classcipe.cn` 可正常打开（web 已按域名组放行）。
-- **微信注册 / 绑定入口**（`web/src/pages/lite/SignUp.vue`）：`/lite/signup?wxBind=…` 已支持微信注册——角色选择（家长 / 老师 / 合作方，默认家长）+ 密码，不带手机号（后续在账号页补）；注册成功后调 `POST /wxapi/wechat/bind {token, uid}` 完成绑定并获取 `accessToken`，写入登录态后直接进入主页，**不经过微信 OAuth 静默授权**；`learn-api` 侧的 `PATCH /users/bindWechat`（`users.patchBindWechat`）与 `wxBind` 注册分支已随协议层迁出而移除，前端「绑定微信」按钮 / 落地页尚未做。
+- **微信注册 / 绑定入口**（`web/src/pages/lite/SignUp.vue`）：`/lite/signup?wxBind=…` 已支持微信注册——角色选择（家长 / 老师 / 合作方，默认家长）+ 自动回填的微信昵称 + 可选头像上传，不含密码，不带手机号（后续在账号页补）；缺少昵称的快捷注册短链会先经 `snsapi_userinfo` 授权补全资料。注册成功后调 `POST /wxapi/wechat/bind {token, uid}` 完成绑定并获取 `accessToken`，写入登录态后直接进入主页；`learn-api` 侧的 `PATCH /users/bindWechat`（`users.patchBindWechat`）与 `wxBind` 注册分支已随协议层迁出而移除，前端「绑定微信」按钮 / 落地页尚未做。
 - **已补齐（原先的断链 / 漏洞，迁移时必须保持）**：
   - `users.wechat` 模型字段已实现（`users.model.ts`），`wechat` 已加入 `users.selectInfo` 供出站选通道，并在直写后清 `_id:info` 缓存（`saveWechat`），否则 `chat-list.wabaOut/staffNotify` 通过 `uidToInfo` 取不到 `openid`、会一直退回 WhatsApp。
   - 网页授权不再接受 URL 直传 uid（旧 `bind` 参数可越权登录他人账号），改为透传短链码 `bindCode` 由服务端反查。
