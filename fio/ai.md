@@ -282,6 +282,89 @@ const rs = await App.service('questions').get('feedbackForAi', {
 | `feedback.<LO/A/P/C>.additionalFeedback` | 补充反馈原因，对应 `cpa/abstract/pictorial/concrete.additionalFeedback` |
 | `_id` | 以 `{"$oid": "<id>"}` 形式返回，可直接作为反馈导入 JSON 的题目 ID |
 
+### dataForAI
+
+按单个 `cpa.subject` 导出该学科下的全部题目，供 AI 使用。**无需 JWT 认证**。
+
+接口固定过滤条件：
+
+- `uid = '1'`：仅导出中央题库数据
+- `cpa.subject = <subjectId>`：必填，且只允许传单个值
+
+返回结构与 `getFeedbackForAi` 一致，但**不包含 `feedback` 字段**。支持 `$sort` / `$skip` / `$limit` 分页排序，默认按 `_id` 升序；其它非 `$` 开头的过滤条件（如 `cpa.grade`、`cpa.topic`）可透传。
+
+```js
+// feathers 服务调用（无需登录）
+const rs = await App.service('questions').get('dataForAI', {
+  query: {
+    'cpa.subject': '695dfd4d0a1fc83c747b4e80', // 必填，单个学科 id
+    // 可选：透传其它 questions 过滤条件
+    // 'cpa.grade': 'Year 2',
+    // 'cpa.topic': '...',
+
+    // 可选：分页、排序
+    $limit: 100,
+    $skip: 0,
+    $sort: {_id: 1},
+  },
+})
+
+// HTTP 调用（前缀 https://test.classcipe.com/fio）
+// GET https://test.classcipe.com/fio/questions/dataForAI?cpa.subject=<subjectId>
+// GET https://test.classcipe.com/fio/questions/dataForAI?cpa.subject=<subjectId>&$limit=100&$skip=0
+```
+
+**参数说明**：
+
+| 参数 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `cpa.subject` | string | 是 | 学科 id，只允许单个值；缺失或传数组/对象返回 `BadRequest` |
+| `$sort` | object / string | 否 | 排序规则，默认 `{_id: 1}` |
+| `$skip` | number | 否 | 跳过条数 |
+| `$limit` | number | 否 | 返回条数上限 |
+
+**返回示例**（数组）：
+
+```json
+[
+  {
+    "year_group": "Year 3",
+    "curriculum": "Victorian",
+    "subject": "Math",
+    "topic": "Number",
+    "content": "add and subtract two- and three-digit numbers...\nVC2M3N04",
+    "elaboration": "choosing between standard and non-standard place value partitions...",
+    "standard": "Students extend and use single-digit addition and related subtraction facts...",
+    "bloom": [
+      {
+        "learning_outcome": "Students will be able to identify three-digit parts using blocks.",
+        "learning_outcome_generate_reason": "At Year 3, recalling and identifying basic place value components...",
+        "bloom_dimension": "Remembering",
+        "problem_A": "State the hundreds, tens, and ones parts of 485.",
+        "answer": "4 hundreds, 8 tens, and 5 ones (or 400, 80, 5).",
+        "problem_P_function": "A visual part-whole cherry model displaying the number 485...",
+        "problem_P_playscript": "Look at the model. Name the missing numbers for 485.",
+        "problem_C_function": "An interactive industrial bakery simulator...",
+        "problem_C_playscript": "Look at the bakery inventory. State the number of pallets, boxes, and bags for 485kg."
+      }
+    ],
+    "_id": {"$oid": "6a55b7be990628f268dd9cfa"}
+  }
+]
+```
+
+**字段说明**：
+
+| 字段 | 说明 |
+| --- | --- |
+| `year_group` | `cpa.grade` |
+| `curriculum` | `cpa.curriculumName`，缺失时回退 `cpa.curriculum` |
+| `subject` | `cpa.subjectName`，缺失时回退 `cpa.subject` |
+| `topic` / `content` / `elaboration` | 按 `cpa.topic` 在 `subjects.snapshot.topic` 树中的路径解析 |
+| `standard` | 按 `cpa.standard` 在 `subjects.snapshot.standard` 树中解析出的名称 |
+| `bloom` | 题目当前的 Bloom 数据，字段名与反馈导入 JSON 一致 |
+| `_id` | 以 `{"$oid": "<id>"}` 形式返回 |
+
 ### getPubList（subjects）
 
 获取系统已发布的公共学科列表（目前仅返回 `Math`、`Science`），供 AI 选择 `cpa.subject` 时使用。**无需 JWT 认证**，无请求参数。
